@@ -10,7 +10,7 @@
 #   KERNEL_CACHE=~/.cache/bayu-kernel
 set -Eeuo pipefail
 ROOT=$(realpath "$(dirname "$0")/../..")
-KERNEL=${KERNEL:-6.12.0-211.68.1.el10_2}
+KERNEL=${KERNEL:-6.12.0-211.69.1.el10_2}
 BUILD=${BUILD:-2}
 # The AlmaLinux minor release the kernel is of: el10_2 is 10.2.
 MINOR=$(sed -n 's/.*\.el10_\([0-9]*\).*/10.\1/p' <<<"$KERNEL")
