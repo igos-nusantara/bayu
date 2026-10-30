@@ -19,6 +19,28 @@ namespace bayu::files {
 
 using namespace internal;
 
+// renameat2 with RENAME_NOREPLACE. File systems that do not have it, as FUSE
+// ones without rename2 (ntfs-3g, issue #107), fail it with EINVAL: there the
+// target is looked for first, then renamed over.
+// ponytail: not atomic there; another process creating the target in between
+// is replaced.
+static int renameNoReplace(int fromParent, const char* from, int toParent, const char* to)
+{
+    if (::syscall(SYS_renameat2, fromParent, from, toParent, to, RENAME_NOREPLACE) == 0)
+        return 0;
+    if (errno != EINVAL && errno != ENOSYS)
+        return -1;
+
+    struct stat st;
+    if (::fstatat(toParent, to, &st, AT_SYMLINK_NOFOLLOW) == 0) {
+        errno = EEXIST;
+        return -1;
+    }
+    if (errno != ENOENT)
+        return -1;
+    return ::renameat(fromParent, from, toParent, to);
+}
+
 // A mount is a different filesystem, or a bind of one; erasing through it would empty it.
 static bool isMountRoot(int parent, const std::string& name, const struct stat& st)
 {
@@ -398,7 +420,7 @@ static std::string publish(int parent, const std::string& temporary, const std::
     int suffix = 1;
 
     for (;;) {
-        if (::syscall(SYS_renameat2, parent, temporary.c_str(), parent, name.c_str(), RENAME_NOREPLACE) == 0)
+        if (renameNoReplace(parent, temporary.c_str(), parent, name.c_str()) == 0)
             return absolutePathOf(destination) + '/' + name;
 
         if (errno != EEXIST)
@@ -526,14 +548,10 @@ std::string LocalFileSystem::move(const std::string& source, const std::string& 
 
         // Renaming an item to itself does nothing, so it goes by way of another name.
         const std::string temporary = temporaryName(".bayu-rename-");
-        if (::syscall(SYS_renameat2, input.fd.value, input.name.c_str(), input.fd.value, temporary.c_str(),
-                      RENAME_NOREPLACE)
-            != 0)
+        if (renameNoReplace(input.fd.value, input.name.c_str(), input.fd.value, temporary.c_str()) != 0)
             throw Failure(errno, source);
 
-        if (::syscall(SYS_renameat2, input.fd.value, temporary.c_str(), output.fd.value, output.name.c_str(),
-                      RENAME_NOREPLACE)
-            != 0) {
+        if (renameNoReplace(input.fd.value, temporary.c_str(), output.fd.value, output.name.c_str()) != 0) {
             const int code = errno;
             ::renameat(input.fd.value, temporary.c_str(), input.fd.value, input.name.c_str());
             throw Failure(code, destination);
@@ -546,9 +564,7 @@ std::string LocalFileSystem::move(const std::string& source, const std::string& 
     ctx.checkpoint(source);
     Parent input(source), output(destination);
 
-    if (::syscall(SYS_renameat2, input.fd.value, input.name.c_str(), output.fd.value, output.name.c_str(),
-                  RENAME_NOREPLACE)
-        == 0)
+    if (renameNoReplace(input.fd.value, input.name.c_str(), output.fd.value, output.name.c_str()) == 0)
         return destination;
 
     const int code = errno;
@@ -566,9 +582,7 @@ std::string LocalFileSystem::move(const std::string& source, const std::string& 
     if (code == EEXIST && policy == ConflictPolicy::KeepBoth) {
         for (int suffix = 1;; ++suffix) {
             const std::string name = keptName(destination, suffix);
-            if (::syscall(SYS_renameat2, input.fd.value, input.name.c_str(), output.fd.value, name.c_str(),
-                          RENAME_NOREPLACE)
-                == 0)
+            if (renameNoReplace(input.fd.value, input.name.c_str(), output.fd.value, name.c_str()) == 0)
                 return absolutePathOf(destination) + '/' + name;
             if (errno != EEXIST)
                 break;
