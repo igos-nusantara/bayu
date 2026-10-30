@@ -13,7 +13,9 @@ struct Config {
     std::vector<std::string> greeterCommand = {"/usr/bin/bayu-compositor", "--login"};
     std::string greeterService = "bayu-dm-greeter";
     std::string sessionService = "bayu-dm";
-    std::vector<std::string> sessionDirectories = {"/usr/local/share/wayland-sessions", "/usr/share/wayland-sessions"};
+    // Wayland's first: an X11 session of the same id is hidden behind it.
+    std::vector<std::string> sessionDirectories = {"/usr/local/share/wayland-sessions", "/usr/share/wayland-sessions",
+                                                   "/usr/local/share/xsessions", "/usr/share/xsessions"};
     std::string defaultSession = "bayu-wayland";
     // Logged in without a password once per boot, to `autologinSession` or the
     // default; nobody when empty.

@@ -194,17 +194,30 @@ std::vector<std::string> splitCommand(std::string_view command)
     return arguments;
 }
 
-std::vector<LoginSession> findLoginSessions(const std::vector<std::string> &directories)
+bool canRunXSessions()
+{
+    return executableExists("Xorg") && executableExists("xinit");
+}
+
+std::vector<LoginSession> findLoginSessions(const std::vector<std::string> &directories, bool canRunX)
 {
     std::vector<LoginSession> sessions;
     std::set<std::string> seen;
     for (const std::string &directory : directories) {
+        const bool x11 = directory.ends_with("/xsessions");
+        if (x11 && !canRunX)
+            continue;
         for (const std::string &file : desktopFiles(directory)) {
             if (!seen.insert(completeBaseName(file)).second)
                 continue;
             LoginSession session;
-            if (readEntry(file, &session))
-                sessions.push_back(session);
+            if (!readEntry(file, &session))
+                continue;
+            if (x11) {
+                session.name += " (X11)";
+                session.environment.front() = "XDG_SESSION_TYPE=x11";
+            }
+            sessions.push_back(session);
         }
     }
     return sessions;
@@ -224,7 +237,8 @@ std::vector<std::string> loginSessionDirectories()
 {
     if (!testSessionDirectories().empty())
         return testSessionDirectories();
-    return {"/usr/local/share/wayland-sessions", "/usr/share/wayland-sessions"};
+    return {"/usr/local/share/wayland-sessions", "/usr/share/wayland-sessions", "/usr/local/share/xsessions",
+            "/usr/share/xsessions"};
 }
 
 void setLoginSessionDirectoriesForTesting(std::vector<std::string> directories)

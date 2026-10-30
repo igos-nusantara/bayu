@@ -14,6 +14,7 @@ add_executable(dm-test
 target_compile_definitions(dm-test PRIVATE
     DM_HELPER_PATH="/nonexistent/bayu-dm-helper"
     DM_SESSION_WRAPPER="/nonexistent/bayu-dm-session"
+    DM_XSESSION_WRAPPER="/nonexistent/bayu-dm-xsession"
 )
 target_include_directories(dm-test PRIVATE ${PROJECT_SOURCE_DIR})
 target_link_libraries(dm-test PRIVATE bayu-dm-common GTest::gtest)

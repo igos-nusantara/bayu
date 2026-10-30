@@ -236,6 +236,22 @@ TEST_F(DisplayManagerTest, EarlierDirectoriesWinAndIdsNameFilesOnly)
     EXPECT_FALSE(dm::findSession(directories, ""));
 }
 
+// xsessions entries are X11 sessions, offered only where Xorg and xinit are.
+TEST_F(DisplayManagerTest, XSessionsNeedAnXServer)
+{
+    const std::string xsessions = directory.path() + "/xsessions";
+    ASSERT_EQ(mkdir(xsessions.c_str(), 0755), 0);
+    writeFile(xsessions + "/icewm-session.desktop", "[Desktop Entry]\nName=IceWM Session\nExec=/usr/bin/icewm-session\n");
+
+    EXPECT_TRUE(dm::findSessions({xsessions}, false).empty());
+    const auto sessions = dm::findSessions({xsessions}, true);
+    ASSERT_EQ(sessions.size(), 1u);
+    EXPECT_TRUE(sessions.front().x11);
+    EXPECT_EQ(sessions.front().name, "IceWM Session (X11)");
+    const auto environment = dm::sessionEnvironment(sessions.front(), 2);
+    EXPECT_NE(std::find(environment.begin(), environment.end(), "XDG_SESSION_TYPE=x11"), environment.end());
+}
+
 TEST(SessionTest, EnvironmentsCarryWhatPamSystemdReads)
 {
     const auto contains = [](const std::vector<std::string> &list, const std::string &value) {
