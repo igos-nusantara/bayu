@@ -21,6 +21,8 @@ endif()
 
 set(DM_HELPER_PATH ${CMAKE_INSTALL_FULL_LIBEXECDIR}/bayu-dm-helper)
 set(DM_SESSION_WRAPPER ${CMAKE_INSTALL_FULL_LIBEXECDIR}/bayu-dm-session)
+set(DM_XSESSION_WRAPPER ${CMAKE_INSTALL_FULL_LIBEXECDIR}/bayu-dm-xsession)
+configure_file(data/bayu-dm-xsession.in bayu-dm-xsession @ONLY)
 
 add_library(bayu-dm-common STATIC common/wire.cpp)
 target_link_libraries(bayu-dm-common PUBLIC Bayu::ToolkitBase)
@@ -39,6 +41,7 @@ add_executable(bayu-dm
 target_compile_definitions(bayu-dm PRIVATE
     DM_HELPER_PATH="${DM_HELPER_PATH}"
     DM_SESSION_WRAPPER="${DM_SESSION_WRAPPER}"
+    DM_XSESSION_WRAPPER="${DM_XSESSION_WRAPPER}"
 )
 target_link_libraries(bayu-dm PRIVATE bayu-dm-common)
 
@@ -48,7 +51,8 @@ target_link_libraries(bayu-dm-helper PRIVATE bayu-dm-common ${PAM_LIBRARY})
 
 install(TARGETS bayu-dm DESTINATION ${CMAKE_INSTALL_BINDIR})
 install(TARGETS bayu-dm-helper DESTINATION ${CMAKE_INSTALL_LIBEXECDIR})
-install(PROGRAMS data/bayu-dm-session DESTINATION ${CMAKE_INSTALL_LIBEXECDIR})
+install(PROGRAMS data/bayu-dm-session ${CMAKE_CURRENT_BINARY_DIR}/bayu-dm-xsession
+        DESTINATION ${CMAKE_INSTALL_LIBEXECDIR})
 install(FILES data/bayu-dm.service DESTINATION /usr/lib/systemd/system)
 install(FILES data/bayu-dm.pam DESTINATION ${CMAKE_INSTALL_FULL_SYSCONFDIR}/pam.d
         RENAME bayu-dm)

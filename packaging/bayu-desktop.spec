@@ -49,6 +49,10 @@ Requires:       mesa-dri-drivers mesa-libEGL mesa-libgbm glibc-langpack-en
 # dbus-update-activation-environment: the session hands its environment
 # (WAYLAND_DISPLAY, XDG_CURRENT_DESKTOP) to D-Bus and systemd services.
 Requires:       dbus-tools
+# X11 sessions at the login screen (issue #102): window managers and desktops
+# that only have an xsessions entry, such as IceWM, run on Xorg, which
+# bayu-dm-xsession starts with xinit and an xauth cookie.
+Requires:       xorg-x11-server-Xorg xorg-x11-drv-libinput xorg-x11-xinit xorg-x11-xauth
 # xdg-open opens links, from the terminal's Ctrl+click and from command-line
 # programs; wl-copy is how those programs copy to the clipboard (Claude Code's
 # own selection does). Without them both fail silently.

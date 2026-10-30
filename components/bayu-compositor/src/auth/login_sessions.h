@@ -11,9 +11,9 @@
 
 namespace bayu::auth {
 
-// A Wayland session the login screen offers: a wayland-sessions entry, read as
-// bayu-dm reads it (bayu-dm/daemon/sessions.cpp), so both agree on
-// what exists.
+// A session the login screen offers: a wayland-sessions entry, or an xsessions
+// one, named "... (X11)", read as bayu-dm reads it (bayu-dm/daemon/sessions.cpp),
+// so both agree on what exists.
 struct LoginSession {
     std::string id;
     std::string name;
@@ -23,9 +23,13 @@ struct LoginSession {
     std::vector<std::string> environment;
 };
 
-std::vector<LoginSession> findLoginSessions(const std::vector<std::string> &directories);
+// Whether bayu-dm can start an X server: Xorg and xinit are installed.
+bool canRunXSessions();
+std::vector<LoginSession> findLoginSessions(const std::vector<std::string> &directories,
+                                            bool canRunX = canRunXSessions());
 
-// /usr/local/share and /usr/share, as bayu-dm looks.
+// wayland-sessions, then xsessions, of /usr/local/share and /usr/share, as
+// bayu-dm looks.
 std::vector<std::string> loginSessionDirectories();
 // Replaces those directories; empty restores them.
 void setLoginSessionDirectoriesForTesting(std::vector<std::string> directories);

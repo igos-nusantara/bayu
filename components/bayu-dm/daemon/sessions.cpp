@@ -139,12 +139,20 @@ static std::vector<std::string> desktopFiles(const std::string &directory)
     return names;
 }
 
-std::vector<SessionEntry> findSessions(const std::vector<std::string> &directories)
+bool canRunXSessions()
+{
+    return executableExists("Xorg") && executableExists("xinit");
+}
+
+std::vector<SessionEntry> findSessions(const std::vector<std::string> &directories, bool canRunX)
 {
     std::vector<SessionEntry> sessions;
     std::set<std::string> seen;
 
     for (const std::string &directory : directories) {
+        const bool x11 = base::strings::endsWith(directory, "/xsessions");
+        if (x11 && !canRunX)
+            continue;
         for (const std::string &name : desktopFiles(directory)) {
             const std::string id = name.substr(0, name.size() - std::string_view(".desktop").size());
             if (seen.count(id))
@@ -152,8 +160,13 @@ std::vector<SessionEntry> findSessions(const std::vector<std::string> &directori
 
             // A hidden entry masks the same id further down, as with autostart.
             seen.insert(id);
-            if (auto entry = readSessionFile(directory + "/" + name))
+            if (auto entry = readSessionFile(directory + "/" + name)) {
+                if (x11) {
+                    entry->x11 = true;
+                    entry->name += " (X11)";
+                }
                 sessions.push_back(*entry);
+            }
         }
     }
 
@@ -177,7 +190,7 @@ std::optional<SessionEntry> findSession(const std::vector<std::string> &director
 std::vector<std::string> sessionEnvironment(const SessionEntry &session, int vt)
 {
     std::vector<std::string> environment {
-            "XDG_SESSION_TYPE=wayland",
+            session.x11 ? "XDG_SESSION_TYPE=x11" : "XDG_SESSION_TYPE=wayland",
             "XDG_SESSION_CLASS=user",
             "XDG_SEAT=seat0",
             "XDG_VTNR=" + std::to_string(vt),

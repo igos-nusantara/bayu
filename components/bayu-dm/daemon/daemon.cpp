@@ -159,7 +159,7 @@ bool Daemon::autologin()
     }
 
     PendingStart start;
-    start.command = {DM_SESSION_WRAPPER};
+    start.command = {entry->x11 ? DM_XSESSION_WRAPPER : DM_SESSION_WRAPPER};
     start.command.insert(start.command.end(), entry->exec.begin(), entry->exec.end());
     start.environment = sessionEnvironment(*entry, m_config.sessionVt);
 
@@ -423,7 +423,7 @@ void Daemon::startSession(const std::vector<std::string> &command, const std::ve
             return;
         }
 
-        start.command = {DM_SESSION_WRAPPER};
+        start.command = {entry->x11 ? DM_XSESSION_WRAPPER : DM_SESSION_WRAPPER};
         start.command.insert(start.command.end(), entry->exec.begin(), entry->exec.end());
         const auto variables = sessionEnvironment(*entry, m_config.sessionVt);
         start.environment.insert(start.environment.end(), variables.begin(), variables.end());
