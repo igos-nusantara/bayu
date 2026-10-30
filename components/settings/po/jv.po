@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bayu-settings\n"
 "Report-Msgid-Bugs-To: https://github.com/bayuos\n"
-"POT-Creation-Date: 2026-10-28 07:51+0000\n"
+"POT-Creation-Date: 2026-10-30 22:50+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -114,6 +114,19 @@ msgstr "Pangguna"
 #: src/pages/accounts/accountspage.cpp
 msgid "Add user"
 msgstr "Tambah pangguna"
+
+#: src/pages/accounts/accountspage.cpp
+msgid "Log in automatically"
+msgstr "Mlebu otomatis"
+
+#: src/pages/accounts/accountspage.cpp
+msgid "This account starts without a password when the computer turns on. Anyone at the computer can use it, and the login keyring may ask for the password."
+msgstr "Akun iki dibukak tanpa tembung sandhi nalika komputer diuripake. Sapa wae ing ngarep komputer bisa nganggo, lan keyring login bisa njaluk tembung sandhi."
+
+#: src/pages/accounts/accountspage.cpp
+#, python-brace-format
+msgid "“{name}” logs in automatically now; turning this on logs this account in instead."
+msgstr "“{name}” saiki mlebu otomatis; nguripake iki ndadekake akun iki sing mlebu otomatis."
 
 #: src/pages/accounts/accountspage.cpp src/pages/wallpaper/wallpaperpage.cpp
 #, python-brace-format
@@ -896,7 +909,7 @@ msgstr "Ngisor"
 msgid "Right"
 msgstr "Tengen"
 
-#: src/pages/dock/dockpage.cpp
+#: src/pages/dock/dockpage.cpp src/pages/memory/memorypage.cpp
 msgid "Size"
 msgstr "Ukuran"
 
@@ -970,6 +983,91 @@ msgstr "Kebak"
 #: src/pages/fonts/fontspage.cpp
 msgid "Anti-Aliasing"
 msgstr "Anti-Aliasing"
+
+#: src/pages/hardware/hardware.cpp
+msgid "Intel Wi-Fi"
+msgstr "Wi-Fi Intel"
+
+#: src/pages/hardware/hardware.cpp
+msgid "Realtek Wi-Fi"
+msgstr "Wi-Fi Realtek"
+
+#: src/pages/hardware/hardware.cpp
+msgid "Qualcomm Atheros Wi-Fi"
+msgstr "Wi-Fi Qualcomm Atheros"
+
+#: src/pages/hardware/hardware.cpp
+msgid "MediaTek Wi-Fi"
+msgstr "Wi-Fi MediaTek"
+
+#: src/pages/hardware/hardware.cpp
+msgid "Broadcom Wi-Fi"
+msgstr "Wi-Fi Broadcom"
+
+#: src/pages/hardware/hardware.cpp
+msgid "AMD graphics"
+msgstr "Grafis AMD"
+
+#: src/pages/hardware/hardware.cpp
+msgid "Intel graphics"
+msgstr "Grafis Intel"
+
+#: src/pages/hardware/hardware.cpp
+msgid "NVIDIA graphics"
+msgstr "Grafis NVIDIA"
+
+#: src/pages/hardware/hardware.cpp
+msgid "Intel sound"
+msgstr "Swara Intel"
+
+#: src/pages/hardware/hardware.cpp
+msgid "Realtek USB Wi-Fi or Bluetooth"
+msgstr "Wi-Fi utawa Bluetooth USB Realtek"
+
+#: src/pages/hardware/hardware.cpp
+msgid "Qualcomm Atheros USB Wi-Fi or Bluetooth"
+msgstr "Wi-Fi utawa Bluetooth USB Qualcomm Atheros"
+
+#: src/pages/hardware/hardware.cpp
+msgid "MediaTek USB Wi-Fi or Bluetooth"
+msgstr "Wi-Fi utawa Bluetooth USB MediaTek"
+
+#: src/pages/hardware/hardwarepage.cpp src/window/pagelist.cpp
+msgid "Drivers & Hardware"
+msgstr "Driver & Piranti Atos"
+
+#: src/pages/hardware/hardwarepage.cpp
+msgid "Recommended"
+msgstr "Disaranake"
+
+#: src/pages/hardware/hardwarepage.cpp
+msgid "Firmware for the devices of this computer that is not installed yet. Without it, they may not work, or work only in part."
+msgstr "Firmware kanggo piranti komputer iki sing durung dipasang. Tanpa iku, piranti bisa ora mlaku, utawa mung sebagéyan."
+
+#: src/pages/hardware/hardwarepage.cpp src/window/pagelist.cpp
+msgid "Devices"
+msgstr "Piranti"
+
+#: src/pages/hardware/hardwarepage.cpp
+msgid "Copy Hardware Information"
+msgstr "Salin Info Piranti Atos"
+
+#: src/pages/hardware/hardwarepage.cpp
+msgid "Paste it into a bug report, so that others can see this hardware."
+msgstr "Tempelna ing laporan bug, supaya wong liya bisa ndeleng piranti atos iki."
+
+#: src/pages/hardware/hardwarepage.cpp
+msgid "No driver"
+msgstr "Tanpa driver"
+
+#: src/pages/hardware/hardwarepage.cpp
+#, python-brace-format
+msgid "Driver: {driver}"
+msgstr "Driver: {driver}"
+
+#: src/pages/hardware/hardwarepage.cpp
+msgid "Install"
+msgstr "Pasang"
 
 #: src/pages/hotcorners/hotcorners.cpp src/pages/shortcuts/shortcutsmodel.cpp
 msgctxt "key"
@@ -1154,6 +1252,54 @@ msgstr "Basa sistem"
 #: src/pages/language/preferredlanguagelist.cpp
 msgid "Remove language"
 msgstr "Busak basa"
+
+#: src/pages/memory/memorypage.cpp src/window/pagelist.cpp
+msgid "Memory"
+msgstr "Memori"
+
+#: src/pages/memory/memorypage.cpp
+msgid "Memory compression"
+msgstr "Kompresi memori"
+
+#: src/pages/memory/memorypage.cpp
+msgid "Compress memory"
+msgstr "Kompres memori"
+
+#: src/pages/memory/memorypage.cpp src/pages/network/vpn/vpneditor.cpp
+msgid "Automatic"
+msgstr "Otomatis"
+
+#: src/pages/memory/memorypage.cpp
+msgid "25% of memory"
+msgstr "25% saka memori"
+
+#: src/pages/memory/memorypage.cpp
+msgid "50% of memory"
+msgstr "50% saka memori"
+
+#: src/pages/memory/memorypage.cpp
+msgid "Usage"
+msgstr "Panganggone"
+
+#: src/pages/memory/memorypage.cpp
+msgid "Compressed swap"
+msgstr "Swap kakompres"
+
+#: src/pages/memory/memorypage.cpp
+msgid "Swapped out"
+msgstr "Dipindhah menyang swap"
+
+#: src/pages/memory/memorypage.cpp
+msgid "Memory it takes"
+msgstr "Memori sing dienggo"
+
+#: src/pages/memory/memorypage.cpp
+msgid "Compression ratio"
+msgstr "Rasio kompresi"
+
+#: src/pages/memory/memorypage.cpp
+msgid "Memory that is not in use is kept compressed in memory, so more applications and Android apps fit before the computer slows down, as on phones. Changes apply at once."
+msgstr "Memori sing ora lagi dienggo disimpen kakompres ing memori, saéngga luwih akèh aplikasi lan aplikasi Android muat sadurungé komputer alon, kaya ing hapé. Owahan langsung ditrapake."
 
 #: src/pages/mouse/mousepage.cpp
 msgid "Left hand"
@@ -1477,10 +1623,6 @@ msgstr "Saka jeneng"
 #: src/pages/network/vpn/vpneditor.cpp
 msgid "Listen port"
 msgstr "Port ngrungokake"
-
-#: src/pages/network/vpn/vpneditor.cpp
-msgid "Automatic"
-msgstr "Otomatis"
 
 #: src/pages/network/vpn/vpneditor.cpp
 msgid "Firewall mark"
@@ -2550,6 +2692,10 @@ msgstr "Tambah Folder Wallpaper"
 msgid "Search"
 msgstr "Golek"
 
+#: src/window/admin.cpp
+msgid "Only an administrator can change this."
+msgstr "Mung administrator sing bisa ngowahi iki."
+
 #: src/window/page.cpp
 msgid "This page is not ported yet."
 msgstr "Kaca iki durung dipindhahake."
@@ -2587,10 +2733,6 @@ msgid "do not disturb, banners, alerts"
 msgstr "aja diganggu, banner, pangeling"
 
 #: src/window/pagelist.cpp
-msgid "Devices"
-msgstr "Piranti"
-
-#: src/window/pagelist.cpp
 msgid "monitor, screen, resolution, refresh rate, scaling, brightness, rotation"
 msgstr "monitor, layar, resolusi, kecepatan refresh, skala, padhange, rotasi"
 
@@ -2619,8 +2761,12 @@ msgid "printer, print, printing, scanner, CUPS, USB, network, default printer, t
 msgstr "printer, cithak, nyithak, pemindai, scanner, CUPS, USB, jaringan, printer gawan, kaca uji"
 
 #: src/window/pagelist.cpp
-msgid "accounts, password, login, administrator, avatar"
-msgstr "akun, tembung sandhi, mlebu, administrator, avatar"
+msgid "driver, firmware, hardware, device, PCI, USB, lspci, lsusb, Wi-Fi, graphics"
+msgstr "driver, firmware, piranti atos, piranti, PCI, USB, lspci, lsusb, Wi-Fi, grafis"
+
+#: src/window/pagelist.cpp
+msgid "accounts, password, login, administrator, avatar, automatic login, autologin"
+msgstr "akun, tembung sandhi, login, administrator, avatar, mlebu otomatis, autologin"
 
 #: src/window/pagelist.cpp
 msgid "region, locale, system language"
@@ -2645,6 +2791,10 @@ msgstr "isi daya, wates pangisian, kesehatan baterei, kapasitas, riwayat, persen
 #: src/window/pagelist.cpp
 msgid "energy, performance, power saving, sleep, turn off display"
 msgstr "energi, kinerja, hemat daya, turu, pateni layar"
+
+#: src/window/pagelist.cpp
+msgid "RAM, zram, swap, memory compression, Android"
+msgstr "RAM, zram, swap, kompresi memori, Android"
 
 #: src/window/pagelist.cpp
 msgid "update, upgrade, dnf, packages, security, download, restart"

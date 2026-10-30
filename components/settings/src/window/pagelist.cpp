@@ -65,9 +65,12 @@ static std::vector<PageInfo> makePages()
     add({.id = "printers", .name = "printers", .title = trNoop("Printers"), .icon = "printer.svg",
          .iconColor = Color::rgb(0x5E6AD2), .category = trNoop("Devices"),
          .keywords = trNoop("printer, print, printing, scanner, CUPS, USB, network, default printer, test page")});
+    add({.id = "hardware", .name = "hardware", .title = trNoop("Drivers & Hardware"), .icon = "hardware.svg",
+         .iconColor = Color::rgb(0x6C7A89), .category = trNoop("Devices"),
+         .keywords = trNoop("driver, firmware, hardware, device, PCI, USB, lspci, lsusb, Wi-Fi, graphics")});
     add({.id = "accounts", .name = "accounts", .title = trNoop("Users"), .icon = "accounts.svg",
          .iconColor = Color::rgb(0xDA7C43), .category = trNoop("System"),
-         .keywords = trNoop("accounts, password, login, administrator, avatar")});
+         .keywords = trNoop("accounts, password, login, administrator, avatar, automatic login, autologin")});
     add({.id = "language", .name = "language", .title = trNoop("Language"), .icon = "language.svg",
          .iconColor = Color::rgb(0x20A7FF), .category = trNoop("System"),
          .keywords = trNoop("region, locale, system language")});
@@ -86,6 +89,9 @@ static std::vector<PageInfo> makePages()
     add({.id = "power", .name = "power", .title = trNoop("Power"), .icon = "power.svg",
          .iconColor = Color::rgb(0xFE8433), .category = trNoop("System"),
          .keywords = trNoop("energy, performance, power saving, sleep, turn off display")});
+    add({.id = "memory", .name = "memory", .title = trNoop("Memory"), .icon = "memory.svg",
+         .iconColor = Color::rgb(0x8E6CEF), .category = trNoop("System"),
+         .keywords = trNoop("RAM, zram, swap, memory compression, Android")});
     add({.id = "updates", .name = "updates", .title = trNoop("System Update"), .icon = "updates.svg",
          .iconColor = Color::rgb(0x2EC347), .category = trNoop("System"),
          .keywords = trNoop("update, upgrade, dnf, packages, security, download, restart")});
