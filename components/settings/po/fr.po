@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bayu-settings\n"
 "Report-Msgid-Bugs-To: https://github.com/bayuos\n"
-"POT-Creation-Date: 2026-10-28 07:51+0000\n"
+"POT-Creation-Date: 2026-10-30 22:50+0000\n"
 "PO-Revision-Date: 2026-10-25 12:00+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -114,6 +114,19 @@ msgstr "Utilisateurs"
 #: src/pages/accounts/accountspage.cpp
 msgid "Add user"
 msgstr "Ajouter un utilisateur"
+
+#: src/pages/accounts/accountspage.cpp
+msgid "Log in automatically"
+msgstr "Ouvrir la session automatiquement"
+
+#: src/pages/accounts/accountspage.cpp
+msgid "This account starts without a password when the computer turns on. Anyone at the computer can use it, and the login keyring may ask for the password."
+msgstr "Ce compte s’ouvre sans mot de passe au démarrage de l’ordinateur. Toute personne devant l’ordinateur peut l’utiliser, et le trousseau de connexion peut demander le mot de passe."
+
+#: src/pages/accounts/accountspage.cpp
+#, python-brace-format
+msgid "“{name}” logs in automatically now; turning this on logs this account in instead."
+msgstr "« {name} » ouvre actuellement sa session automatiquement ; activer cette option ouvre plutôt ce compte."
 
 #: src/pages/accounts/accountspage.cpp src/pages/wallpaper/wallpaperpage.cpp
 #, python-brace-format
@@ -901,7 +914,7 @@ msgstr "Bas"
 msgid "Right"
 msgstr "Droite"
 
-#: src/pages/dock/dockpage.cpp
+#: src/pages/dock/dockpage.cpp src/pages/memory/memorypage.cpp
 msgid "Size"
 msgstr "Taille"
 
@@ -975,6 +988,91 @@ msgstr "Complet"
 #: src/pages/fonts/fontspage.cpp
 msgid "Anti-Aliasing"
 msgstr "Anticrénelage"
+
+#: src/pages/hardware/hardware.cpp
+msgid "Intel Wi-Fi"
+msgstr "Wi-Fi Intel"
+
+#: src/pages/hardware/hardware.cpp
+msgid "Realtek Wi-Fi"
+msgstr "Wi-Fi Realtek"
+
+#: src/pages/hardware/hardware.cpp
+msgid "Qualcomm Atheros Wi-Fi"
+msgstr "Wi-Fi Qualcomm Atheros"
+
+#: src/pages/hardware/hardware.cpp
+msgid "MediaTek Wi-Fi"
+msgstr "Wi-Fi MediaTek"
+
+#: src/pages/hardware/hardware.cpp
+msgid "Broadcom Wi-Fi"
+msgstr "Wi-Fi Broadcom"
+
+#: src/pages/hardware/hardware.cpp
+msgid "AMD graphics"
+msgstr "Graphiques AMD"
+
+#: src/pages/hardware/hardware.cpp
+msgid "Intel graphics"
+msgstr "Graphiques Intel"
+
+#: src/pages/hardware/hardware.cpp
+msgid "NVIDIA graphics"
+msgstr "Graphiques NVIDIA"
+
+#: src/pages/hardware/hardware.cpp
+msgid "Intel sound"
+msgstr "Son Intel"
+
+#: src/pages/hardware/hardware.cpp
+msgid "Realtek USB Wi-Fi or Bluetooth"
+msgstr "Wi-Fi ou Bluetooth USB Realtek"
+
+#: src/pages/hardware/hardware.cpp
+msgid "Qualcomm Atheros USB Wi-Fi or Bluetooth"
+msgstr "Wi-Fi ou Bluetooth USB Qualcomm Atheros"
+
+#: src/pages/hardware/hardware.cpp
+msgid "MediaTek USB Wi-Fi or Bluetooth"
+msgstr "Wi-Fi ou Bluetooth USB MediaTek"
+
+#: src/pages/hardware/hardwarepage.cpp src/window/pagelist.cpp
+msgid "Drivers & Hardware"
+msgstr "Pilotes et matériel"
+
+#: src/pages/hardware/hardwarepage.cpp
+msgid "Recommended"
+msgstr "Recommandé"
+
+#: src/pages/hardware/hardwarepage.cpp
+msgid "Firmware for the devices of this computer that is not installed yet. Without it, they may not work, or work only in part."
+msgstr "Micrologiciel des périphériques de cet ordinateur qui n’est pas encore installé. Sans lui, ils peuvent ne pas fonctionner, ou seulement en partie."
+
+#: src/pages/hardware/hardwarepage.cpp src/window/pagelist.cpp
+msgid "Devices"
+msgstr "Appareils"
+
+#: src/pages/hardware/hardwarepage.cpp
+msgid "Copy Hardware Information"
+msgstr "Copier les informations matérielles"
+
+#: src/pages/hardware/hardwarepage.cpp
+msgid "Paste it into a bug report, so that others can see this hardware."
+msgstr "Collez-les dans un rapport de bogue, afin que d’autres puissent voir ce matériel."
+
+#: src/pages/hardware/hardwarepage.cpp
+msgid "No driver"
+msgstr "Aucun pilote"
+
+#: src/pages/hardware/hardwarepage.cpp
+#, python-brace-format
+msgid "Driver: {driver}"
+msgstr "Pilote : {driver}"
+
+#: src/pages/hardware/hardwarepage.cpp
+msgid "Install"
+msgstr "Installer"
 
 #: src/pages/hotcorners/hotcorners.cpp src/pages/shortcuts/shortcutsmodel.cpp
 msgctxt "key"
@@ -1159,6 +1257,54 @@ msgstr "Langue du système"
 #: src/pages/language/preferredlanguagelist.cpp
 msgid "Remove language"
 msgstr "Retirer la langue"
+
+#: src/pages/memory/memorypage.cpp src/window/pagelist.cpp
+msgid "Memory"
+msgstr "Mémoire"
+
+#: src/pages/memory/memorypage.cpp
+msgid "Memory compression"
+msgstr "Compression de la mémoire"
+
+#: src/pages/memory/memorypage.cpp
+msgid "Compress memory"
+msgstr "Compresser la mémoire"
+
+#: src/pages/memory/memorypage.cpp src/pages/network/vpn/vpneditor.cpp
+msgid "Automatic"
+msgstr "Automatique"
+
+#: src/pages/memory/memorypage.cpp
+msgid "25% of memory"
+msgstr "25 % de la mémoire"
+
+#: src/pages/memory/memorypage.cpp
+msgid "50% of memory"
+msgstr "50 % de la mémoire"
+
+#: src/pages/memory/memorypage.cpp
+msgid "Usage"
+msgstr "Utilisation"
+
+#: src/pages/memory/memorypage.cpp
+msgid "Compressed swap"
+msgstr "Swap compressé"
+
+#: src/pages/memory/memorypage.cpp
+msgid "Swapped out"
+msgstr "Envoyé dans le swap"
+
+#: src/pages/memory/memorypage.cpp
+msgid "Memory it takes"
+msgstr "Mémoire occupée"
+
+#: src/pages/memory/memorypage.cpp
+msgid "Compression ratio"
+msgstr "Taux de compression"
+
+#: src/pages/memory/memorypage.cpp
+msgid "Memory that is not in use is kept compressed in memory, so more applications and Android apps fit before the computer slows down, as on phones. Changes apply at once."
+msgstr "La mémoire inutilisée est conservée compressée en mémoire, afin que davantage d’applications et d’applications Android tiennent avant que l’ordinateur ne ralentisse, comme sur les téléphones. Les modifications s’appliquent immédiatement."
 
 #: src/pages/mouse/mousepage.cpp
 msgid "Left hand"
@@ -1482,10 +1628,6 @@ msgstr "D’après le nom"
 #: src/pages/network/vpn/vpneditor.cpp
 msgid "Listen port"
 msgstr "Port d’écoute"
-
-#: src/pages/network/vpn/vpneditor.cpp
-msgid "Automatic"
-msgstr "Automatique"
 
 #: src/pages/network/vpn/vpneditor.cpp
 msgid "Firewall mark"
@@ -2561,6 +2703,10 @@ msgstr "Ajouter un dossier de fonds d’écran"
 msgid "Search"
 msgstr "Rechercher"
 
+#: src/window/admin.cpp
+msgid "Only an administrator can change this."
+msgstr "Seul un administrateur peut modifier ceci."
+
 #: src/window/page.cpp
 msgid "This page is not ported yet."
 msgstr "Cette page n’est pas encore portée."
@@ -2598,10 +2744,6 @@ msgid "do not disturb, banners, alerts"
 msgstr "ne pas déranger, bannières, alertes"
 
 #: src/window/pagelist.cpp
-msgid "Devices"
-msgstr "Appareils"
-
-#: src/window/pagelist.cpp
 msgid "monitor, screen, resolution, refresh rate, scaling, brightness, rotation"
 msgstr "moniteur, écran, résolution, fréquence de rafraîchissement, mise à l’échelle, luminosité, rotation"
 
@@ -2630,8 +2772,12 @@ msgid "printer, print, printing, scanner, CUPS, USB, network, default printer, t
 msgstr "imprimante, imprimer, impression, scanner, CUPS, USB, réseau, imprimante par défaut, page de test"
 
 #: src/window/pagelist.cpp
-msgid "accounts, password, login, administrator, avatar"
-msgstr "comptes, mot de passe, connexion, administrateur, avatar"
+msgid "driver, firmware, hardware, device, PCI, USB, lspci, lsusb, Wi-Fi, graphics"
+msgstr "pilote, micrologiciel, matériel, périphérique, PCI, USB, lspci, lsusb, Wi-Fi, graphiques"
+
+#: src/window/pagelist.cpp
+msgid "accounts, password, login, administrator, avatar, automatic login, autologin"
+msgstr "comptes, mot de passe, connexion, administrateur, avatar, connexion automatique, autologin"
 
 #: src/window/pagelist.cpp
 msgid "region, locale, system language"
@@ -2656,6 +2802,10 @@ msgstr "charge, limite de charge, santé de la batterie, capacité, historique, 
 #: src/window/pagelist.cpp
 msgid "energy, performance, power saving, sleep, turn off display"
 msgstr "énergie, performances, économie d’énergie, veille, éteindre l’écran"
+
+#: src/window/pagelist.cpp
+msgid "RAM, zram, swap, memory compression, Android"
+msgstr "RAM, zram, swap, compression de la mémoire, Android"
 
 #: src/window/pagelist.cpp
 msgid "update, upgrade, dnf, packages, security, download, restart"

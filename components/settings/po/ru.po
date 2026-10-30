@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bayu-settings\n"
 "Report-Msgid-Bugs-To: https://github.com/bayuos\n"
-"POT-Creation-Date: 2026-10-28 07:51+0000\n"
+"POT-Creation-Date: 2026-10-30 22:50+0000\n"
 "PO-Revision-Date: 2026-10-25 00:00+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -114,6 +114,19 @@ msgstr "Пользователи"
 #: src/pages/accounts/accountspage.cpp
 msgid "Add user"
 msgstr "Добавить пользователя"
+
+#: src/pages/accounts/accountspage.cpp
+msgid "Log in automatically"
+msgstr "Входить автоматически"
+
+#: src/pages/accounts/accountspage.cpp
+msgid "This account starts without a password when the computer turns on. Anyone at the computer can use it, and the login keyring may ask for the password."
+msgstr "Эта учётная запись открывается без пароля при включении компьютера. Её может использовать любой, кто находится за компьютером, а связка ключей входа может запросить пароль."
+
+#: src/pages/accounts/accountspage.cpp
+#, python-brace-format
+msgid "“{name}” logs in automatically now; turning this on logs this account in instead."
+msgstr "Сейчас автоматически входит «{name}»; если включить этот параметр, вместо неё будет входить эта учётная запись."
 
 #: src/pages/accounts/accountspage.cpp src/pages/wallpaper/wallpaperpage.cpp
 #, python-brace-format
@@ -906,7 +919,7 @@ msgstr "Снизу"
 msgid "Right"
 msgstr "Справа"
 
-#: src/pages/dock/dockpage.cpp
+#: src/pages/dock/dockpage.cpp src/pages/memory/memorypage.cpp
 msgid "Size"
 msgstr "Размер"
 
@@ -980,6 +993,91 @@ msgstr "Полный"
 #: src/pages/fonts/fontspage.cpp
 msgid "Anti-Aliasing"
 msgstr "Сглаживание"
+
+#: src/pages/hardware/hardware.cpp
+msgid "Intel Wi-Fi"
+msgstr "Wi-Fi Intel"
+
+#: src/pages/hardware/hardware.cpp
+msgid "Realtek Wi-Fi"
+msgstr "Wi-Fi Realtek"
+
+#: src/pages/hardware/hardware.cpp
+msgid "Qualcomm Atheros Wi-Fi"
+msgstr "Wi-Fi Qualcomm Atheros"
+
+#: src/pages/hardware/hardware.cpp
+msgid "MediaTek Wi-Fi"
+msgstr "Wi-Fi MediaTek"
+
+#: src/pages/hardware/hardware.cpp
+msgid "Broadcom Wi-Fi"
+msgstr "Wi-Fi Broadcom"
+
+#: src/pages/hardware/hardware.cpp
+msgid "AMD graphics"
+msgstr "Графика AMD"
+
+#: src/pages/hardware/hardware.cpp
+msgid "Intel graphics"
+msgstr "Графика Intel"
+
+#: src/pages/hardware/hardware.cpp
+msgid "NVIDIA graphics"
+msgstr "Графика NVIDIA"
+
+#: src/pages/hardware/hardware.cpp
+msgid "Intel sound"
+msgstr "Звук Intel"
+
+#: src/pages/hardware/hardware.cpp
+msgid "Realtek USB Wi-Fi or Bluetooth"
+msgstr "USB Wi-Fi или Bluetooth Realtek"
+
+#: src/pages/hardware/hardware.cpp
+msgid "Qualcomm Atheros USB Wi-Fi or Bluetooth"
+msgstr "USB Wi-Fi или Bluetooth Qualcomm Atheros"
+
+#: src/pages/hardware/hardware.cpp
+msgid "MediaTek USB Wi-Fi or Bluetooth"
+msgstr "USB Wi-Fi или Bluetooth MediaTek"
+
+#: src/pages/hardware/hardwarepage.cpp src/window/pagelist.cpp
+msgid "Drivers & Hardware"
+msgstr "Драйверы и оборудование"
+
+#: src/pages/hardware/hardwarepage.cpp
+msgid "Recommended"
+msgstr "Рекомендуется"
+
+#: src/pages/hardware/hardwarepage.cpp
+msgid "Firmware for the devices of this computer that is not installed yet. Without it, they may not work, or work only in part."
+msgstr "Микропрограммы для устройств этого компьютера, которые ещё не установлены. Без них устройства могут не работать или работать лишь частично."
+
+#: src/pages/hardware/hardwarepage.cpp src/window/pagelist.cpp
+msgid "Devices"
+msgstr "Устройства"
+
+#: src/pages/hardware/hardwarepage.cpp
+msgid "Copy Hardware Information"
+msgstr "Скопировать сведения об оборудовании"
+
+#: src/pages/hardware/hardwarepage.cpp
+msgid "Paste it into a bug report, so that others can see this hardware."
+msgstr "Вставьте их в отчёт об ошибке, чтобы другие могли увидеть это оборудование."
+
+#: src/pages/hardware/hardwarepage.cpp
+msgid "No driver"
+msgstr "Нет драйвера"
+
+#: src/pages/hardware/hardwarepage.cpp
+#, python-brace-format
+msgid "Driver: {driver}"
+msgstr "Драйвер: {driver}"
+
+#: src/pages/hardware/hardwarepage.cpp
+msgid "Install"
+msgstr "Установить"
 
 #: src/pages/hotcorners/hotcorners.cpp src/pages/shortcuts/shortcutsmodel.cpp
 msgctxt "key"
@@ -1164,6 +1262,54 @@ msgstr "Язык системы"
 #: src/pages/language/preferredlanguagelist.cpp
 msgid "Remove language"
 msgstr "Удалить язык"
+
+#: src/pages/memory/memorypage.cpp src/window/pagelist.cpp
+msgid "Memory"
+msgstr "Память"
+
+#: src/pages/memory/memorypage.cpp
+msgid "Memory compression"
+msgstr "Сжатие памяти"
+
+#: src/pages/memory/memorypage.cpp
+msgid "Compress memory"
+msgstr "Сжимать память"
+
+#: src/pages/memory/memorypage.cpp src/pages/network/vpn/vpneditor.cpp
+msgid "Automatic"
+msgstr "Автоматически"
+
+#: src/pages/memory/memorypage.cpp
+msgid "25% of memory"
+msgstr "25% памяти"
+
+#: src/pages/memory/memorypage.cpp
+msgid "50% of memory"
+msgstr "50% памяти"
+
+#: src/pages/memory/memorypage.cpp
+msgid "Usage"
+msgstr "Использование"
+
+#: src/pages/memory/memorypage.cpp
+msgid "Compressed swap"
+msgstr "Сжатый своп"
+
+#: src/pages/memory/memorypage.cpp
+msgid "Swapped out"
+msgstr "Выгружено в своп"
+
+#: src/pages/memory/memorypage.cpp
+msgid "Memory it takes"
+msgstr "Занимаемая память"
+
+#: src/pages/memory/memorypage.cpp
+msgid "Compression ratio"
+msgstr "Степень сжатия"
+
+#: src/pages/memory/memorypage.cpp
+msgid "Memory that is not in use is kept compressed in memory, so more applications and Android apps fit before the computer slows down, as on phones. Changes apply at once."
+msgstr "Неиспользуемая память хранится в памяти в сжатом виде, поэтому, как на телефонах, до замедления компьютера помещается больше приложений и приложений Android. Изменения применяются сразу."
 
 #: src/pages/mouse/mousepage.cpp
 msgid "Left hand"
@@ -1487,10 +1633,6 @@ msgstr "Из имени"
 #: src/pages/network/vpn/vpneditor.cpp
 msgid "Listen port"
 msgstr "Порт прослушивания"
-
-#: src/pages/network/vpn/vpneditor.cpp
-msgid "Automatic"
-msgstr "Автоматически"
 
 #: src/pages/network/vpn/vpneditor.cpp
 msgid "Firewall mark"
@@ -2572,6 +2714,10 @@ msgstr "Добавление папки с обоями"
 msgid "Search"
 msgstr "Поиск"
 
+#: src/window/admin.cpp
+msgid "Only an administrator can change this."
+msgstr "Изменить это может только администратор."
+
 #: src/window/page.cpp
 msgid "This page is not ported yet."
 msgstr "Эта страница ещё не портирована."
@@ -2609,10 +2755,6 @@ msgid "do not disturb, banners, alerts"
 msgstr "не беспокоить, баннеры, оповещения, do not disturb, banners, alerts"
 
 #: src/window/pagelist.cpp
-msgid "Devices"
-msgstr "Устройства"
-
-#: src/window/pagelist.cpp
 msgid "monitor, screen, resolution, refresh rate, scaling, brightness, rotation"
 msgstr "монитор, экран, разрешение, частота обновления, масштаб, яркость, поворот, monitor, screen, resolution, refresh rate, scaling, brightness, rotation"
 
@@ -2641,8 +2783,12 @@ msgid "printer, print, printing, scanner, CUPS, USB, network, default printer, t
 msgstr "принтер, печать, печатать, сканер, CUPS, USB, сеть, принтер по умолчанию, пробная страница"
 
 #: src/window/pagelist.cpp
-msgid "accounts, password, login, administrator, avatar"
-msgstr "учётные записи, пароль, вход, администратор, аватар, accounts, password, login, administrator, avatar"
+msgid "driver, firmware, hardware, device, PCI, USB, lspci, lsusb, Wi-Fi, graphics"
+msgstr "драйвер, микропрограмма, оборудование, устройство, PCI, USB, lspci, lsusb, Wi-Fi, графика"
+
+#: src/window/pagelist.cpp
+msgid "accounts, password, login, administrator, avatar, automatic login, autologin"
+msgstr "учётные записи, пароль, вход, администратор, аватар, автоматический вход, autologin"
 
 #: src/window/pagelist.cpp
 msgid "region, locale, system language"
@@ -2667,6 +2813,10 @@ msgstr "заряд, зарядка, предел заряда, состояни�
 #: src/window/pagelist.cpp
 msgid "energy, performance, power saving, sleep, turn off display"
 msgstr "энергия, производительность, энергосбережение, сон, отключение дисплея, energy, performance, power saving, sleep, turn off display"
+
+#: src/window/pagelist.cpp
+msgid "RAM, zram, swap, memory compression, Android"
+msgstr "RAM, zram, своп, сжатие памяти, Android"
 
 #: src/window/pagelist.cpp
 msgid "update, upgrade, dnf, packages, security, download, restart"

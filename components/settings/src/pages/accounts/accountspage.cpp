@@ -3,12 +3,14 @@
 
 #include <algorithm>
 #include <memory>
+#include <pwd.h>
 #include <unistd.h>
 
 #include "bayu/accounts/accounts_manager.h"
 #include "base/event_loop.h"
 #include "base/i18n.h"
 #include "base/paths.h"
+#include "pages/accounts/autologin.h"
 #include "pages/accounts/password.h"
 #include "pages/accounts/passwordchanger.h"
 #include "pages/accounts/userdetailsdialog.h"
@@ -18,8 +20,11 @@
 #include "ui/file_chooser.h"
 #include "ui/cell_layout.h"
 #include "widgets/card.h"
+#include "widgets/listrow.h"
 #include "widgets/metrics.h"
+#include "widgets/sections.h"
 #include "widgets/standardbutton.h"
+#include "window/admin.h"
 #include "window/page.h"
 #include "window/pagelist.h"
 #include "window/settingswindow.h"
@@ -48,11 +53,55 @@ public:
             m_addUser->show();
         };
 
+        // Logging in without a password at boot (bayu-dm's [Autologin]), for
+        // the account using Settings.
+        Card* login = content()->addChild<Card>(Card::Style::List);
+        login->setLayoutHints({.fillWidth = true});
+        m_autologin = login->addChild<SwitchRow>(tr("Log in automatically"));
+        m_autologin->setName("accounts:autologin");
+        m_autologin->onToggled = [this](bool checked) { setAutologin(checked); };
+        m_autologinNote = content()->addChild<Footnote>();
+        m_autologinNote->setName("accounts:autologinnote");
+        updateAutologin();
+
         m_accountsChanged = m_manager.accountsChanged.connect([this] { updateUsers(); });
         updateUsers();
     }
 
+    ~AccountsPage() override { *m_alive = false; }
+
 private:
+    static std::string userName()
+    {
+        const passwd* entry = getpwuid(getuid());
+        return entry ? entry->pw_name : std::string();
+    }
+
+    void updateAutologin(const std::string& error = {})
+    {
+        const std::string user = autologinUser();
+        m_autologin->setChecked(!user.empty() && user == userName());
+        std::string note = tr("This account starts without a password when the computer turns on. Anyone "
+                              "at the computer can use it, and the login keyring may ask for the password.");
+        if (!user.empty() && user != userName())
+            note = format(tr("“{name}” logs in automatically now; turning this on logs this account in "
+                             "instead."),
+                          {{"name", user}});
+        m_autologinNote->setText(error.empty() ? note : error);
+    }
+
+    void setAutologin(bool on)
+    {
+        m_autologin->setEnabled(false);
+        std::vector<std::string> arguments{"autologin"};
+        if (on)
+            arguments.push_back(userName());
+        admin::run(arguments, m_alive, [this](const std::optional<std::string>& error) {
+            m_autologin->setEnabled(true);
+            updateAutologin(error.value_or(std::string()));
+        });
+    }
+
     // Lets a dialog finish the event that closed it before it goes.
     template<typename T>
     static void dispose(std::unique_ptr<T>& dialog)
@@ -154,9 +203,12 @@ private:
         m_confirm->show();
     }
 
+    std::shared_ptr<bool> m_alive = std::make_shared<bool>(true);
     accounts::AccountsManager m_manager;
     base::Subscription m_accountsChanged;
     Card* m_users;
+    SwitchRow* m_autologin;
+    Footnote* m_autologinNote;
     std::unique_ptr<UserDetailsDialog> m_details;
     std::unique_ptr<AddUserDialog> m_addUser;
     std::unique_ptr<ChangePasswordDialog> m_changePassword;

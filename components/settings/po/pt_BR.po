@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bayu-settings\n"
 "Report-Msgid-Bugs-To: https://github.com/bayuos\n"
-"POT-Creation-Date: 2026-10-28 07:51+0000\n"
+"POT-Creation-Date: 2026-10-30 22:50+0000\n"
 "PO-Revision-Date: 2026-10-25 12:00+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -114,6 +114,19 @@ msgstr "Usuários"
 #: src/pages/accounts/accountspage.cpp
 msgid "Add user"
 msgstr "Adicionar usuário"
+
+#: src/pages/accounts/accountspage.cpp
+msgid "Log in automatically"
+msgstr "Entrar automaticamente"
+
+#: src/pages/accounts/accountspage.cpp
+msgid "This account starts without a password when the computer turns on. Anyone at the computer can use it, and the login keyring may ask for the password."
+msgstr "Esta conta é aberta sem senha quando o computador é ligado. Qualquer pessoa no computador pode usá-la, e o chaveiro de login pode pedir a senha."
+
+#: src/pages/accounts/accountspage.cpp
+#, python-brace-format
+msgid "“{name}” logs in automatically now; turning this on logs this account in instead."
+msgstr "“{name}” entra automaticamente agora; ativar esta opção faz esta conta entrar em seu lugar."
 
 #: src/pages/accounts/accountspage.cpp src/pages/wallpaper/wallpaperpage.cpp
 #, python-brace-format
@@ -901,7 +914,7 @@ msgstr "Parte inferior"
 msgid "Right"
 msgstr "Direita"
 
-#: src/pages/dock/dockpage.cpp
+#: src/pages/dock/dockpage.cpp src/pages/memory/memorypage.cpp
 msgid "Size"
 msgstr "Tamanho"
 
@@ -975,6 +988,91 @@ msgstr "Total"
 #: src/pages/fonts/fontspage.cpp
 msgid "Anti-Aliasing"
 msgstr "Suavização"
+
+#: src/pages/hardware/hardware.cpp
+msgid "Intel Wi-Fi"
+msgstr "Wi-Fi Intel"
+
+#: src/pages/hardware/hardware.cpp
+msgid "Realtek Wi-Fi"
+msgstr "Wi-Fi Realtek"
+
+#: src/pages/hardware/hardware.cpp
+msgid "Qualcomm Atheros Wi-Fi"
+msgstr "Wi-Fi Qualcomm Atheros"
+
+#: src/pages/hardware/hardware.cpp
+msgid "MediaTek Wi-Fi"
+msgstr "Wi-Fi MediaTek"
+
+#: src/pages/hardware/hardware.cpp
+msgid "Broadcom Wi-Fi"
+msgstr "Wi-Fi Broadcom"
+
+#: src/pages/hardware/hardware.cpp
+msgid "AMD graphics"
+msgstr "Gráficos AMD"
+
+#: src/pages/hardware/hardware.cpp
+msgid "Intel graphics"
+msgstr "Gráficos Intel"
+
+#: src/pages/hardware/hardware.cpp
+msgid "NVIDIA graphics"
+msgstr "Gráficos NVIDIA"
+
+#: src/pages/hardware/hardware.cpp
+msgid "Intel sound"
+msgstr "Som Intel"
+
+#: src/pages/hardware/hardware.cpp
+msgid "Realtek USB Wi-Fi or Bluetooth"
+msgstr "Wi-Fi ou Bluetooth USB Realtek"
+
+#: src/pages/hardware/hardware.cpp
+msgid "Qualcomm Atheros USB Wi-Fi or Bluetooth"
+msgstr "Wi-Fi ou Bluetooth USB Qualcomm Atheros"
+
+#: src/pages/hardware/hardware.cpp
+msgid "MediaTek USB Wi-Fi or Bluetooth"
+msgstr "Wi-Fi ou Bluetooth USB MediaTek"
+
+#: src/pages/hardware/hardwarepage.cpp src/window/pagelist.cpp
+msgid "Drivers & Hardware"
+msgstr "Drivers e hardware"
+
+#: src/pages/hardware/hardwarepage.cpp
+msgid "Recommended"
+msgstr "Recomendado"
+
+#: src/pages/hardware/hardwarepage.cpp
+msgid "Firmware for the devices of this computer that is not installed yet. Without it, they may not work, or work only in part."
+msgstr "Firmware para os dispositivos deste computador que ainda não está instalado. Sem ele, eles podem não funcionar ou funcionar apenas em parte."
+
+#: src/pages/hardware/hardwarepage.cpp src/window/pagelist.cpp
+msgid "Devices"
+msgstr "Dispositivos"
+
+#: src/pages/hardware/hardwarepage.cpp
+msgid "Copy Hardware Information"
+msgstr "Copiar informações do hardware"
+
+#: src/pages/hardware/hardwarepage.cpp
+msgid "Paste it into a bug report, so that others can see this hardware."
+msgstr "Cole em um relatório de erro, para que outras pessoas possam ver este hardware."
+
+#: src/pages/hardware/hardwarepage.cpp
+msgid "No driver"
+msgstr "Sem driver"
+
+#: src/pages/hardware/hardwarepage.cpp
+#, python-brace-format
+msgid "Driver: {driver}"
+msgstr "Driver: {driver}"
+
+#: src/pages/hardware/hardwarepage.cpp
+msgid "Install"
+msgstr "Instalar"
 
 #: src/pages/hotcorners/hotcorners.cpp src/pages/shortcuts/shortcutsmodel.cpp
 msgctxt "key"
@@ -1159,6 +1257,54 @@ msgstr "Idioma do sistema"
 #: src/pages/language/preferredlanguagelist.cpp
 msgid "Remove language"
 msgstr "Remover idioma"
+
+#: src/pages/memory/memorypage.cpp src/window/pagelist.cpp
+msgid "Memory"
+msgstr "Memória"
+
+#: src/pages/memory/memorypage.cpp
+msgid "Memory compression"
+msgstr "Compressão de memória"
+
+#: src/pages/memory/memorypage.cpp
+msgid "Compress memory"
+msgstr "Comprimir memória"
+
+#: src/pages/memory/memorypage.cpp src/pages/network/vpn/vpneditor.cpp
+msgid "Automatic"
+msgstr "Automático"
+
+#: src/pages/memory/memorypage.cpp
+msgid "25% of memory"
+msgstr "25% da memória"
+
+#: src/pages/memory/memorypage.cpp
+msgid "50% of memory"
+msgstr "50% da memória"
+
+#: src/pages/memory/memorypage.cpp
+msgid "Usage"
+msgstr "Uso"
+
+#: src/pages/memory/memorypage.cpp
+msgid "Compressed swap"
+msgstr "Swap comprimido"
+
+#: src/pages/memory/memorypage.cpp
+msgid "Swapped out"
+msgstr "Enviado para o swap"
+
+#: src/pages/memory/memorypage.cpp
+msgid "Memory it takes"
+msgstr "Memória ocupada"
+
+#: src/pages/memory/memorypage.cpp
+msgid "Compression ratio"
+msgstr "Taxa de compressão"
+
+#: src/pages/memory/memorypage.cpp
+msgid "Memory that is not in use is kept compressed in memory, so more applications and Android apps fit before the computer slows down, as on phones. Changes apply at once."
+msgstr "A memória que não está em uso é mantida comprimida na memória, para que caibam mais aplicativos e aplicativos Android antes que o computador fique lento, como nos celulares. As alterações valem imediatamente."
 
 #: src/pages/mouse/mousepage.cpp
 msgid "Left hand"
@@ -1482,10 +1628,6 @@ msgstr "A partir do nome"
 #: src/pages/network/vpn/vpneditor.cpp
 msgid "Listen port"
 msgstr "Porta de escuta"
-
-#: src/pages/network/vpn/vpneditor.cpp
-msgid "Automatic"
-msgstr "Automático"
 
 #: src/pages/network/vpn/vpneditor.cpp
 msgid "Firewall mark"
@@ -2561,6 +2703,10 @@ msgstr "Adicionar pasta de papéis de parede"
 msgid "Search"
 msgstr "Pesquisar"
 
+#: src/window/admin.cpp
+msgid "Only an administrator can change this."
+msgstr "Somente um administrador pode alterar isto."
+
 #: src/window/page.cpp
 msgid "This page is not ported yet."
 msgstr "Esta página ainda não foi portada."
@@ -2598,10 +2744,6 @@ msgid "do not disturb, banners, alerts"
 msgstr "não perturbe, banners, alertas"
 
 #: src/window/pagelist.cpp
-msgid "Devices"
-msgstr "Dispositivos"
-
-#: src/window/pagelist.cpp
 msgid "monitor, screen, resolution, refresh rate, scaling, brightness, rotation"
 msgstr "monitor, tela, resolução, taxa de atualização, escala, brilho, rotação"
 
@@ -2630,8 +2772,12 @@ msgid "printer, print, printing, scanner, CUPS, USB, network, default printer, t
 msgstr "impressora, imprimir, impressão, scanner, CUPS, USB, rede, impressora padrão, página de teste"
 
 #: src/window/pagelist.cpp
-msgid "accounts, password, login, administrator, avatar"
-msgstr "contas, senha, login, administrador, avatar"
+msgid "driver, firmware, hardware, device, PCI, USB, lspci, lsusb, Wi-Fi, graphics"
+msgstr "driver, firmware, hardware, dispositivo, PCI, USB, lspci, lsusb, Wi-Fi, gráficos"
+
+#: src/window/pagelist.cpp
+msgid "accounts, password, login, administrator, avatar, automatic login, autologin"
+msgstr "contas, senha, login, administrador, avatar, login automático, autologin"
 
 #: src/window/pagelist.cpp
 msgid "region, locale, system language"
@@ -2656,6 +2802,10 @@ msgstr "carga, limite de carga, saúde da bateria, capacidade, histórico, porce
 #: src/window/pagelist.cpp
 msgid "energy, performance, power saving, sleep, turn off display"
 msgstr "energia, desempenho, economia de energia, suspensão, desligar a tela"
+
+#: src/window/pagelist.cpp
+msgid "RAM, zram, swap, memory compression, Android"
+msgstr "RAM, zram, swap, compressão de memória, Android"
 
 #: src/window/pagelist.cpp
 msgid "update, upgrade, dnf, packages, security, download, restart"

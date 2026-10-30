@@ -1,0 +1,76 @@
+#!/bin/sh
+# The system changes Settings makes as root, run through pkexec
+# (org.bayu.settings.admin). Each takes only what it checks.
+#   bayu-settings-admin autologin [USER]     log USER in at boot; none: nobody
+#   bayu-settings-admin zram auto|25|50|off  memory compression (zram-generator)
+#   bayu-settings-admin install PACKAGE...   firmware and drivers Settings offers
+set -eu
+PATH=/usr/sbin:/usr/bin
+
+fail() {
+    echo "$*" >&2
+    exit 2
+}
+
+case ${1:-} in
+autologin)
+    user=${2:-}
+    if [ -n "$user" ]; then
+        # An account a person logs in with, as the login screen lists them.
+        case $user in
+        -* | *[!a-zA-Z0-9._-]*) fail "Not a user name: $user" ;;
+        esac
+        entry=$(getent passwd "$user") || fail "No user $user"
+        uid=$(echo "$entry" | cut -d: -f3)
+        min=$(awk '$1 == "UID_MIN" {print $2}' /etc/login.defs 2>/dev/null)
+        [ "$uid" -ge "${min:-1000}" ] || fail "Not a user account: $user"
+    fi
+    conf=/etc/bayu-dm.conf
+    new=$(mktemp)
+    trap 'rm -f "$new"' EXIT
+    # Every other section stays.
+    [ -f "$conf" ] && awk '/^\[/ {skip = ($0 == "[Autologin]")} !skip' "$conf" >"$new"
+    [ -n "$user" ] && printf '[Autologin]\nUser=%s\n' "$user" >>"$new"
+    install -m 644 "$new" "$conf"
+    ;;
+zram)
+    case ${2:-} in
+    auto) size='min(ram / 2, 8192)' ;;
+    25) size='ram / 4' ;;
+    50) size='ram / 2' ;;
+    off) size= ;;
+    *) fail "zram: auto, 25, 50 or off" ;;
+    esac
+    # Over the default of the same name (/usr/lib/systemd/zram-generator.conf.d);
+    # empty, there is no zram0.
+    mkdir -p /etc/systemd/zram-generator.conf.d
+    conf=/etc/systemd/zram-generator.conf.d/bayu.conf
+    if [ -n "$size" ]; then
+        printf '# Settings > Memory\n[zram0]\nzram-size = %s\ncompression-algorithm = zstd\n' "$size" >"$conf"
+    else
+        printf '# Settings > Memory: off\n' >"$conf"
+    fi
+    # Off before the units go with the old configuration: the swap first, as
+    # swapping off moves what is in it back to memory, then the device. The
+    # generator's dev-zram0.swap sets the device up again before it swaps on.
+    if systemctl -q is-active dev-zram0.swap systemd-zram-setup@zram0.service; then
+        systemctl stop dev-zram0.swap systemd-zram-setup@zram0.service
+    fi
+    systemctl daemon-reload
+    [ -z "$size" ] || systemctl start dev-zram0.swap
+    ;;
+install)
+    shift
+    [ $# -gt 0 ] || fail "install: no package"
+    for package; do
+        case $package in
+        *-firmware | broadcom-wl) ;;
+        *) fail "Not a firmware or driver package: $package" ;;
+        esac
+    done
+    dnf -y -q install "$@"
+    ;;
+*)
+    fail "Usage: bayu-settings-admin autologin [USER] | zram auto|25|50|off | install PACKAGE..."
+    ;;
+esac

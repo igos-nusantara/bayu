@@ -53,6 +53,9 @@ Requires:       dbus-tools
 # that only have an xsessions entry, such as IceWM, run on Xorg, which
 # bayu-dm-xsession starts with xinit and an xauth cookie.
 Requires:       xorg-x11-server-Xorg xorg-x11-drv-libinput xorg-x11-xinit xorg-x11-xauth
+# Memory compression (Settings > Memory, issue #72): a zram swap, by default
+# half the memory up to 8 GiB (components/settings/admin/zram-generator.conf).
+Requires:       zram-generator
 # xdg-open opens links, from the terminal's Ctrl+click and from command-line
 # programs; wl-copy is how those programs copy to the clipboard (Claude Code's
 # own selection does). Without them both fail silently.

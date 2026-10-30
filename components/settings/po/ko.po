@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bayu-settings\n"
 "Report-Msgid-Bugs-To: https://github.com/bayuos\n"
-"POT-Creation-Date: 2026-10-28 07:51+0000\n"
+"POT-Creation-Date: 2026-10-30 22:50+0000\n"
 "PO-Revision-Date: 2026-10-25 12:00+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -114,6 +114,19 @@ msgstr "사용자"
 #: src/pages/accounts/accountspage.cpp
 msgid "Add user"
 msgstr "사용자 추가"
+
+#: src/pages/accounts/accountspage.cpp
+msgid "Log in automatically"
+msgstr "자동 로그인"
+
+#: src/pages/accounts/accountspage.cpp
+msgid "This account starts without a password when the computer turns on. Anyone at the computer can use it, and the login keyring may ask for the password."
+msgstr "컴퓨터를 켤 때 암호 없이 이 계정이 열립니다. 컴퓨터 앞에 있는 누구나 사용할 수 있으며, 로그인 키링이 암호를 요구할 수 있습니다."
+
+#: src/pages/accounts/accountspage.cpp
+#, python-brace-format
+msgid "“{name}” logs in automatically now; turning this on logs this account in instead."
+msgstr "현재 “{name}” 계정이 자동 로그인합니다. 이 옵션을 켜면 대신 이 계정이 자동 로그인합니다."
 
 #: src/pages/accounts/accountspage.cpp src/pages/wallpaper/wallpaperpage.cpp
 #, python-brace-format
@@ -896,7 +909,7 @@ msgstr "아래쪽"
 msgid "Right"
 msgstr "오른쪽"
 
-#: src/pages/dock/dockpage.cpp
+#: src/pages/dock/dockpage.cpp src/pages/memory/memorypage.cpp
 msgid "Size"
 msgstr "크기"
 
@@ -970,6 +983,91 @@ msgstr "강하게"
 #: src/pages/fonts/fontspage.cpp
 msgid "Anti-Aliasing"
 msgstr "안티앨리어싱"
+
+#: src/pages/hardware/hardware.cpp
+msgid "Intel Wi-Fi"
+msgstr "Intel Wi-Fi"
+
+#: src/pages/hardware/hardware.cpp
+msgid "Realtek Wi-Fi"
+msgstr "Realtek Wi-Fi"
+
+#: src/pages/hardware/hardware.cpp
+msgid "Qualcomm Atheros Wi-Fi"
+msgstr "Qualcomm Atheros Wi-Fi"
+
+#: src/pages/hardware/hardware.cpp
+msgid "MediaTek Wi-Fi"
+msgstr "MediaTek Wi-Fi"
+
+#: src/pages/hardware/hardware.cpp
+msgid "Broadcom Wi-Fi"
+msgstr "Broadcom Wi-Fi"
+
+#: src/pages/hardware/hardware.cpp
+msgid "AMD graphics"
+msgstr "AMD 그래픽"
+
+#: src/pages/hardware/hardware.cpp
+msgid "Intel graphics"
+msgstr "Intel 그래픽"
+
+#: src/pages/hardware/hardware.cpp
+msgid "NVIDIA graphics"
+msgstr "NVIDIA 그래픽"
+
+#: src/pages/hardware/hardware.cpp
+msgid "Intel sound"
+msgstr "Intel 사운드"
+
+#: src/pages/hardware/hardware.cpp
+msgid "Realtek USB Wi-Fi or Bluetooth"
+msgstr "Realtek USB Wi-Fi 또는 블루투스"
+
+#: src/pages/hardware/hardware.cpp
+msgid "Qualcomm Atheros USB Wi-Fi or Bluetooth"
+msgstr "Qualcomm Atheros USB Wi-Fi 또는 블루투스"
+
+#: src/pages/hardware/hardware.cpp
+msgid "MediaTek USB Wi-Fi or Bluetooth"
+msgstr "MediaTek USB Wi-Fi 또는 블루투스"
+
+#: src/pages/hardware/hardwarepage.cpp src/window/pagelist.cpp
+msgid "Drivers & Hardware"
+msgstr "드라이버 및 하드웨어"
+
+#: src/pages/hardware/hardwarepage.cpp
+msgid "Recommended"
+msgstr "권장"
+
+#: src/pages/hardware/hardwarepage.cpp
+msgid "Firmware for the devices of this computer that is not installed yet. Without it, they may not work, or work only in part."
+msgstr "이 컴퓨터의 장치에 필요하지만 아직 설치되지 않은 펌웨어입니다. 없으면 장치가 작동하지 않거나 일부만 작동할 수 있습니다."
+
+#: src/pages/hardware/hardwarepage.cpp src/window/pagelist.cpp
+msgid "Devices"
+msgstr "기기"
+
+#: src/pages/hardware/hardwarepage.cpp
+msgid "Copy Hardware Information"
+msgstr "하드웨어 정보 복사"
+
+#: src/pages/hardware/hardwarepage.cpp
+msgid "Paste it into a bug report, so that others can see this hardware."
+msgstr "다른 사람이 이 하드웨어를 확인할 수 있도록 버그 보고서에 붙여 넣으십시오."
+
+#: src/pages/hardware/hardwarepage.cpp
+msgid "No driver"
+msgstr "드라이버 없음"
+
+#: src/pages/hardware/hardwarepage.cpp
+#, python-brace-format
+msgid "Driver: {driver}"
+msgstr "드라이버: {driver}"
+
+#: src/pages/hardware/hardwarepage.cpp
+msgid "Install"
+msgstr "설치"
 
 #: src/pages/hotcorners/hotcorners.cpp src/pages/shortcuts/shortcutsmodel.cpp
 msgctxt "key"
@@ -1154,6 +1252,54 @@ msgstr "시스템 언어"
 #: src/pages/language/preferredlanguagelist.cpp
 msgid "Remove language"
 msgstr "언어 제거"
+
+#: src/pages/memory/memorypage.cpp src/window/pagelist.cpp
+msgid "Memory"
+msgstr "메모리"
+
+#: src/pages/memory/memorypage.cpp
+msgid "Memory compression"
+msgstr "메모리 압축"
+
+#: src/pages/memory/memorypage.cpp
+msgid "Compress memory"
+msgstr "메모리 압축 사용"
+
+#: src/pages/memory/memorypage.cpp src/pages/network/vpn/vpneditor.cpp
+msgid "Automatic"
+msgstr "자동"
+
+#: src/pages/memory/memorypage.cpp
+msgid "25% of memory"
+msgstr "메모리의 25%"
+
+#: src/pages/memory/memorypage.cpp
+msgid "50% of memory"
+msgstr "메모리의 50%"
+
+#: src/pages/memory/memorypage.cpp
+msgid "Usage"
+msgstr "사용량"
+
+#: src/pages/memory/memorypage.cpp
+msgid "Compressed swap"
+msgstr "압축 스왑"
+
+#: src/pages/memory/memorypage.cpp
+msgid "Swapped out"
+msgstr "스왑된 양"
+
+#: src/pages/memory/memorypage.cpp
+msgid "Memory it takes"
+msgstr "차지하는 메모리"
+
+#: src/pages/memory/memorypage.cpp
+msgid "Compression ratio"
+msgstr "압축률"
+
+#: src/pages/memory/memorypage.cpp
+msgid "Memory that is not in use is kept compressed in memory, so more applications and Android apps fit before the computer slows down, as on phones. Changes apply at once."
+msgstr "사용하지 않는 메모리를 압축하여 메모리에 보관하므로, 휴대전화처럼 컴퓨터가 느려지기 전에 더 많은 앱과 Android 앱을 열 수 있습니다. 변경 사항은 즉시 적용됩니다."
 
 #: src/pages/mouse/mousepage.cpp
 msgid "Left hand"
@@ -1477,10 +1623,6 @@ msgstr "이름에서"
 #: src/pages/network/vpn/vpneditor.cpp
 msgid "Listen port"
 msgstr "수신 포트"
-
-#: src/pages/network/vpn/vpneditor.cpp
-msgid "Automatic"
-msgstr "자동"
 
 #: src/pages/network/vpn/vpneditor.cpp
 msgid "Firewall mark"
@@ -2550,6 +2692,10 @@ msgstr "배경화면 폴더 추가"
 msgid "Search"
 msgstr "검색"
 
+#: src/window/admin.cpp
+msgid "Only an administrator can change this."
+msgstr "관리자만 이 항목을 변경할 수 있습니다."
+
 #: src/window/page.cpp
 msgid "This page is not ported yet."
 msgstr "이 페이지는 아직 이식되지 않았습니다."
@@ -2587,10 +2733,6 @@ msgid "do not disturb, banners, alerts"
 msgstr "방해 금지, 배너, 알림"
 
 #: src/window/pagelist.cpp
-msgid "Devices"
-msgstr "기기"
-
-#: src/window/pagelist.cpp
 msgid "monitor, screen, resolution, refresh rate, scaling, brightness, rotation"
 msgstr "모니터, 화면, 해상도, 주사율, 배율, 밝기, 회전"
 
@@ -2619,8 +2761,12 @@ msgid "printer, print, printing, scanner, CUPS, USB, network, default printer, t
 msgstr "프린터, 인쇄, 스캐너, CUPS, USB, 네트워크, 기본 프린터, 테스트 페이지"
 
 #: src/window/pagelist.cpp
-msgid "accounts, password, login, administrator, avatar"
-msgstr "계정, 비밀번호, 로그인, 관리자, 아바타"
+msgid "driver, firmware, hardware, device, PCI, USB, lspci, lsusb, Wi-Fi, graphics"
+msgstr "드라이버, 펌웨어, 하드웨어, 장치, PCI, USB, lspci, lsusb, Wi-Fi, 그래픽"
+
+#: src/window/pagelist.cpp
+msgid "accounts, password, login, administrator, avatar, automatic login, autologin"
+msgstr "계정, 암호, 로그인, 관리자, 아바타, 자동 로그인, autologin"
 
 #: src/window/pagelist.cpp
 msgid "region, locale, system language"
@@ -2645,6 +2791,10 @@ msgstr "충전, 충전 제한, 배터리 상태, 용량, 기록, 백분율"
 #: src/window/pagelist.cpp
 msgid "energy, performance, power saving, sleep, turn off display"
 msgstr "에너지, 성능, 절전, 절전 모드, 디스플레이 끄기"
+
+#: src/window/pagelist.cpp
+msgid "RAM, zram, swap, memory compression, Android"
+msgstr "RAM, zram, 스왑, 메모리 압축, Android"
 
 #: src/window/pagelist.cpp
 msgid "update, upgrade, dnf, packages, security, download, restart"

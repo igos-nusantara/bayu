@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bayu-settings\n"
 "Report-Msgid-Bugs-To: https://github.com/bayuos\n"
-"POT-Creation-Date: 2026-10-28 07:51+0000\n"
+"POT-Creation-Date: 2026-10-30 22:50+0000\n"
 "PO-Revision-Date: 2026-10-25 12:00+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -114,6 +114,19 @@ msgstr "用户"
 #: src/pages/accounts/accountspage.cpp
 msgid "Add user"
 msgstr "添加用户"
+
+#: src/pages/accounts/accountspage.cpp
+msgid "Log in automatically"
+msgstr "自动登录"
+
+#: src/pages/accounts/accountspage.cpp
+msgid "This account starts without a password when the computer turns on. Anyone at the computer can use it, and the login keyring may ask for the password."
+msgstr "开机时无需密码即可进入此账户。任何使用这台电脑的人都能使用它，登录密钥环可能会要求输入密码。"
+
+#: src/pages/accounts/accountspage.cpp
+#, python-brace-format
+msgid "“{name}” logs in automatically now; turning this on logs this account in instead."
+msgstr "“{name}” 当前会自动登录；打开此项将改为自动登录此账户。"
 
 #: src/pages/accounts/accountspage.cpp src/pages/wallpaper/wallpaperpage.cpp
 #, python-brace-format
@@ -896,7 +909,7 @@ msgstr "底部"
 msgid "Right"
 msgstr "右侧"
 
-#: src/pages/dock/dockpage.cpp
+#: src/pages/dock/dockpage.cpp src/pages/memory/memorypage.cpp
 msgid "Size"
 msgstr "大小"
 
@@ -970,6 +983,91 @@ msgstr "完全"
 #: src/pages/fonts/fontspage.cpp
 msgid "Anti-Aliasing"
 msgstr "抗锯齿"
+
+#: src/pages/hardware/hardware.cpp
+msgid "Intel Wi-Fi"
+msgstr "Intel Wi-Fi"
+
+#: src/pages/hardware/hardware.cpp
+msgid "Realtek Wi-Fi"
+msgstr "Realtek Wi-Fi"
+
+#: src/pages/hardware/hardware.cpp
+msgid "Qualcomm Atheros Wi-Fi"
+msgstr "Qualcomm Atheros Wi-Fi"
+
+#: src/pages/hardware/hardware.cpp
+msgid "MediaTek Wi-Fi"
+msgstr "MediaTek Wi-Fi"
+
+#: src/pages/hardware/hardware.cpp
+msgid "Broadcom Wi-Fi"
+msgstr "Broadcom Wi-Fi"
+
+#: src/pages/hardware/hardware.cpp
+msgid "AMD graphics"
+msgstr "AMD 显卡"
+
+#: src/pages/hardware/hardware.cpp
+msgid "Intel graphics"
+msgstr "Intel 显卡"
+
+#: src/pages/hardware/hardware.cpp
+msgid "NVIDIA graphics"
+msgstr "NVIDIA 显卡"
+
+#: src/pages/hardware/hardware.cpp
+msgid "Intel sound"
+msgstr "Intel 声卡"
+
+#: src/pages/hardware/hardware.cpp
+msgid "Realtek USB Wi-Fi or Bluetooth"
+msgstr "Realtek USB Wi-Fi 或蓝牙"
+
+#: src/pages/hardware/hardware.cpp
+msgid "Qualcomm Atheros USB Wi-Fi or Bluetooth"
+msgstr "Qualcomm Atheros USB Wi-Fi 或蓝牙"
+
+#: src/pages/hardware/hardware.cpp
+msgid "MediaTek USB Wi-Fi or Bluetooth"
+msgstr "MediaTek USB Wi-Fi 或蓝牙"
+
+#: src/pages/hardware/hardwarepage.cpp src/window/pagelist.cpp
+msgid "Drivers & Hardware"
+msgstr "驱动与硬件"
+
+#: src/pages/hardware/hardwarepage.cpp
+msgid "Recommended"
+msgstr "推荐"
+
+#: src/pages/hardware/hardwarepage.cpp
+msgid "Firmware for the devices of this computer that is not installed yet. Without it, they may not work, or work only in part."
+msgstr "这台电脑的设备尚未安装的固件。缺少它们，设备可能无法工作或只能部分工作。"
+
+#: src/pages/hardware/hardwarepage.cpp src/window/pagelist.cpp
+msgid "Devices"
+msgstr "设备"
+
+#: src/pages/hardware/hardwarepage.cpp
+msgid "Copy Hardware Information"
+msgstr "复制硬件信息"
+
+#: src/pages/hardware/hardwarepage.cpp
+msgid "Paste it into a bug report, so that others can see this hardware."
+msgstr "将其粘贴到错误报告中，以便他人了解此硬件。"
+
+#: src/pages/hardware/hardwarepage.cpp
+msgid "No driver"
+msgstr "无驱动"
+
+#: src/pages/hardware/hardwarepage.cpp
+#, python-brace-format
+msgid "Driver: {driver}"
+msgstr "驱动：{driver}"
+
+#: src/pages/hardware/hardwarepage.cpp
+msgid "Install"
+msgstr "安装"
 
 #: src/pages/hotcorners/hotcorners.cpp src/pages/shortcuts/shortcutsmodel.cpp
 msgctxt "key"
@@ -1154,6 +1252,54 @@ msgstr "系统语言"
 #: src/pages/language/preferredlanguagelist.cpp
 msgid "Remove language"
 msgstr "移除语言"
+
+#: src/pages/memory/memorypage.cpp src/window/pagelist.cpp
+msgid "Memory"
+msgstr "内存"
+
+#: src/pages/memory/memorypage.cpp
+msgid "Memory compression"
+msgstr "内存压缩"
+
+#: src/pages/memory/memorypage.cpp
+msgid "Compress memory"
+msgstr "压缩内存"
+
+#: src/pages/memory/memorypage.cpp src/pages/network/vpn/vpneditor.cpp
+msgid "Automatic"
+msgstr "自动"
+
+#: src/pages/memory/memorypage.cpp
+msgid "25% of memory"
+msgstr "内存的 25%"
+
+#: src/pages/memory/memorypage.cpp
+msgid "50% of memory"
+msgstr "内存的 50%"
+
+#: src/pages/memory/memorypage.cpp
+msgid "Usage"
+msgstr "使用情况"
+
+#: src/pages/memory/memorypage.cpp
+msgid "Compressed swap"
+msgstr "压缩交换空间"
+
+#: src/pages/memory/memorypage.cpp
+msgid "Swapped out"
+msgstr "已换出"
+
+#: src/pages/memory/memorypage.cpp
+msgid "Memory it takes"
+msgstr "占用的内存"
+
+#: src/pages/memory/memorypage.cpp
+msgid "Compression ratio"
+msgstr "压缩比"
+
+#: src/pages/memory/memorypage.cpp
+msgid "Memory that is not in use is kept compressed in memory, so more applications and Android apps fit before the computer slows down, as on phones. Changes apply at once."
+msgstr "未使用的内存会以压缩形式保存在内存中，使电脑在变慢之前能容纳更多应用和 Android 应用，就像手机一样。更改会立即生效。"
 
 #: src/pages/mouse/mousepage.cpp
 msgid "Left hand"
@@ -1477,10 +1623,6 @@ msgstr "来自名称"
 #: src/pages/network/vpn/vpneditor.cpp
 msgid "Listen port"
 msgstr "监听端口"
-
-#: src/pages/network/vpn/vpneditor.cpp
-msgid "Automatic"
-msgstr "自动"
 
 #: src/pages/network/vpn/vpneditor.cpp
 msgid "Firewall mark"
@@ -2550,6 +2692,10 @@ msgstr "添加壁纸文件夹"
 msgid "Search"
 msgstr "搜索"
 
+#: src/window/admin.cpp
+msgid "Only an administrator can change this."
+msgstr "只有管理员可以更改此项。"
+
 #: src/window/page.cpp
 msgid "This page is not ported yet."
 msgstr "此页面尚未移植。"
@@ -2587,10 +2733,6 @@ msgid "do not disturb, banners, alerts"
 msgstr "do not disturb, banners, alerts, 勿扰, 横幅, 提醒"
 
 #: src/window/pagelist.cpp
-msgid "Devices"
-msgstr "设备"
-
-#: src/window/pagelist.cpp
 msgid "monitor, screen, resolution, refresh rate, scaling, brightness, rotation"
 msgstr "monitor, screen, resolution, refresh rate, scaling, brightness, rotation, 显示器, 屏幕, 分辨率, 刷新率, 缩放, 亮度, 旋转"
 
@@ -2619,8 +2761,12 @@ msgid "printer, print, printing, scanner, CUPS, USB, network, default printer, t
 msgstr "打印机, 打印, 扫描仪, CUPS, USB, 网络, 默认打印机, 测试页"
 
 #: src/window/pagelist.cpp
-msgid "accounts, password, login, administrator, avatar"
-msgstr "accounts, password, login, administrator, avatar, 账户, 密码, 登录, 管理员, 头像"
+msgid "driver, firmware, hardware, device, PCI, USB, lspci, lsusb, Wi-Fi, graphics"
+msgstr "驱动, 固件, 硬件, 设备, PCI, USB, lspci, lsusb, Wi-Fi, 显卡"
+
+#: src/window/pagelist.cpp
+msgid "accounts, password, login, administrator, avatar, automatic login, autologin"
+msgstr "账户, 密码, 登录, 管理员, 头像, 自动登录, autologin"
 
 #: src/window/pagelist.cpp
 msgid "region, locale, system language"
@@ -2645,6 +2791,10 @@ msgstr "charge, charging limit, battery health, capacity, history, percentage, �
 #: src/window/pagelist.cpp
 msgid "energy, performance, power saving, sleep, turn off display"
 msgstr "energy, performance, power saving, sleep, turn off display, 能耗, 性能, 省电, 睡眠, 关闭显示器"
+
+#: src/window/pagelist.cpp
+msgid "RAM, zram, swap, memory compression, Android"
+msgstr "RAM, zram, 交换, 内存压缩, Android"
 
 #: src/window/pagelist.cpp
 msgid "update, upgrade, dnf, packages, security, download, restart"
