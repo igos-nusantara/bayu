@@ -3,7 +3,7 @@
 # (org.bayu.settings.admin). Each takes only what it checks.
 #   bayu-settings-admin autologin [USER]     log USER in at boot; none: nobody
 #   bayu-settings-admin zram auto|25|50|off  memory compression (zram-generator)
-#   bayu-settings-admin install PACKAGE...   firmware and drivers Settings offers
+#   bayu-settings-admin install PACKAGE...   drivers and firmware of drivers.db
 set -eu
 PATH=/usr/sbin:/usr/bin
 
@@ -62,11 +62,17 @@ zram)
 install)
     shift
     [ $# -gt 0 ] || fail "install: no package"
+    # Only what Settings > Drivers & Hardware offers: the packages of the
+    # driver database (packaging/kernel/driver-db.sh).
     for package; do
         case $package in
-        *-firmware | broadcom-wl) ;;
-        *) fail "Not a firmware or driver package: $package" ;;
+        -* | *[!a-zA-Z0-9._+-]*) fail "Not a package name: $package" ;;
         esac
+        awk -F '\t' -v p="$package" '
+            ($1 == "firmware" && $4 == p) || ($1 == "module" && $3 == p) { found = 1 }
+            $1 == "proprietary" { n = split($4, names, " "); for (i = 1; i <= n; i++) if (names[i] == p) found = 1 }
+            END { exit !found }' /usr/share/bayu/drivers.db ||
+            fail "Not a driver or firmware package: $package"
     done
     dnf -y -q install "$@"
     ;;

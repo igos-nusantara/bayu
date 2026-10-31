@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bayu-settings\n"
 "Report-Msgid-Bugs-To: https://github.com/bayuos\n"
-"POT-Creation-Date: 2026-10-30 22:50+0000\n"
+"POT-Creation-Date: 2026-10-31 00:20+0000\n"
 "PO-Revision-Date: 2026-10-25 12:00+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -985,52 +985,19 @@ msgid "Anti-Aliasing"
 msgstr "抗锯齿"
 
 #: src/pages/hardware/hardware.cpp
-msgid "Intel Wi-Fi"
-msgstr "Intel Wi-Fi"
+#, python-brace-format
+msgid "{driver} driver for {device}"
+msgstr "{device} 的 {driver} 驱动"
 
 #: src/pages/hardware/hardware.cpp
-msgid "Realtek Wi-Fi"
-msgstr "Realtek Wi-Fi"
+#, python-brace-format
+msgid "Driver for {device}"
+msgstr "{device} 的驱动"
 
 #: src/pages/hardware/hardware.cpp
-msgid "Qualcomm Atheros Wi-Fi"
-msgstr "Qualcomm Atheros Wi-Fi"
-
-#: src/pages/hardware/hardware.cpp
-msgid "MediaTek Wi-Fi"
-msgstr "MediaTek Wi-Fi"
-
-#: src/pages/hardware/hardware.cpp
-msgid "Broadcom Wi-Fi"
-msgstr "Broadcom Wi-Fi"
-
-#: src/pages/hardware/hardware.cpp
-msgid "AMD graphics"
-msgstr "AMD 显卡"
-
-#: src/pages/hardware/hardware.cpp
-msgid "Intel graphics"
-msgstr "Intel 显卡"
-
-#: src/pages/hardware/hardware.cpp
-msgid "NVIDIA graphics"
-msgstr "NVIDIA 显卡"
-
-#: src/pages/hardware/hardware.cpp
-msgid "Intel sound"
-msgstr "Intel 声卡"
-
-#: src/pages/hardware/hardware.cpp
-msgid "Realtek USB Wi-Fi or Bluetooth"
-msgstr "Realtek USB Wi-Fi 或蓝牙"
-
-#: src/pages/hardware/hardware.cpp
-msgid "Qualcomm Atheros USB Wi-Fi or Bluetooth"
-msgstr "Qualcomm Atheros USB Wi-Fi 或蓝牙"
-
-#: src/pages/hardware/hardware.cpp
-msgid "MediaTek USB Wi-Fi or Bluetooth"
-msgstr "MediaTek USB Wi-Fi 或蓝牙"
+#, python-brace-format
+msgid "Firmware for {device}"
+msgstr "{device} 的固件"
 
 #: src/pages/hardware/hardwarepage.cpp src/window/pagelist.cpp
 msgid "Drivers & Hardware"
@@ -1039,10 +1006,6 @@ msgstr "驱动与硬件"
 #: src/pages/hardware/hardwarepage.cpp
 msgid "Recommended"
 msgstr "推荐"
-
-#: src/pages/hardware/hardwarepage.cpp
-msgid "Firmware for the devices of this computer that is not installed yet. Without it, they may not work, or work only in part."
-msgstr "这台电脑的设备尚未安装的固件。缺少它们，设备可能无法工作或只能部分工作。"
 
 #: src/pages/hardware/hardwarepage.cpp src/window/pagelist.cpp
 msgid "Devices"
@@ -1066,8 +1029,24 @@ msgid "Driver: {driver}"
 msgstr "驱动：{driver}"
 
 #: src/pages/hardware/hardwarepage.cpp
+msgid "Proprietary"
+msgstr "专有"
+
+#: src/pages/hardware/hardwarepage.cpp
 msgid "Install"
 msgstr "安装"
+
+#: src/pages/hardware/hardwarepage.cpp
+msgid "The driver is installed. Restart the computer to use it."
+msgstr "驱动已安装。重新启动电脑即可使用。"
+
+#: src/pages/hardware/hardwarepage.cpp
+msgid "Drivers and firmware for the devices of this computer that are not installed yet. Without them, the devices may not work, or work only in part."
+msgstr "这台电脑的设备尚未安装的驱动和固件。缺少它们，设备可能无法工作或只能部分工作。"
+
+#: src/pages/hardware/hardwarepage.cpp
+msgid "Secure Boot is on: it keeps proprietary drivers built on this computer from loading. Turn it off in the computer's firmware settings to use them."
+msgstr "安全启动已开启：它会阻止在这台电脑上构建的专有驱动加载。请在电脑的固件设置中关闭安全启动以使用它们。"
 
 #: src/pages/hotcorners/hotcorners.cpp src/pages/shortcuts/shortcutsmodel.cpp
 msgctxt "key"
@@ -2851,3 +2830,39 @@ msgstr "设置"
 #: src/window/sidebar.cpp
 msgid "No results"
 msgstr "无结果"
+
+#~ msgid "Intel Wi-Fi"
+#~ msgstr "Intel Wi-Fi"
+
+#~ msgid "Realtek Wi-Fi"
+#~ msgstr "Realtek Wi-Fi"
+
+#~ msgid "Qualcomm Atheros Wi-Fi"
+#~ msgstr "Qualcomm Atheros Wi-Fi"
+
+#~ msgid "MediaTek Wi-Fi"
+#~ msgstr "MediaTek Wi-Fi"
+
+#~ msgid "Broadcom Wi-Fi"
+#~ msgstr "Broadcom Wi-Fi"
+
+#~ msgid "AMD graphics"
+#~ msgstr "AMD 显卡"
+
+#~ msgid "Intel graphics"
+#~ msgstr "Intel 显卡"
+
+#~ msgid "NVIDIA graphics"
+#~ msgstr "NVIDIA 显卡"
+
+#~ msgid "Intel sound"
+#~ msgstr "Intel 声卡"
+
+#~ msgid "Realtek USB Wi-Fi or Bluetooth"
+#~ msgstr "Realtek USB Wi-Fi 或蓝牙"
+
+#~ msgid "Qualcomm Atheros USB Wi-Fi or Bluetooth"
+#~ msgstr "Qualcomm Atheros USB Wi-Fi 或蓝牙"
+
+#~ msgid "MediaTek USB Wi-Fi or Bluetooth"
+#~ msgstr "MediaTek USB Wi-Fi 或蓝牙"

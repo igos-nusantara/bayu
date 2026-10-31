@@ -49,23 +49,82 @@ TEST(HardwarePage, ReadsLspciWithoutTheChipset)
     EXPECT_EQ(devices[1].driver, "");
 }
 
-TEST(HardwarePage, RecommendsTheFirmwareOfTheDevices)
-{
-    std::vector<Device> devices = parseLspci(kLspci);
-    Device usbWifi;
-    usbWifi.bus = Device::Bus::Usb;
-    usbWifi.vendorId = "0e8d";
-    usbWifi.classId = "e0 ff";
-    devices.push_back(usbWifi);
-    Device cardReader;
-    cardReader.bus = Device::Bus::Usb;
-    cardReader.vendorId = "0bda";
-    cardReader.classId = "08";
-    devices.push_back(cardReader);
+namespace {
 
-    std::vector<std::string> names;
-    for (const Package& package : packagesFor(devices))
-        names.push_back(package.name);
-    EXPECT_EQ(names, (std::vector<std::string>{"intel-gpu-firmware", "realtek-firmware", "mt7xxx-firmware"}));
-    EXPECT_NE(report(devices).find("(no driver)"), std::string::npos);
+const char kDatabase[] = "# test\n"
+                         "firmware\tamdgpu\tamdgpu/navi10_pfp.bin\tamd-gpu-firmware\n"
+                         "firmware\tiwlwifi\tiwlwifi-ty-a0-gf-a0-89.ucode\tiwlwifi-mvm-firmware\n"
+                         "firmware\tiwlwifi\tiwlwifi-7260-17.ucode\tiwlwifi-dvm-firmware\n"
+                         "module\tbtusb_extra\tkernel-modules-extra\n"
+                         "alias\tusb:v0BDAp8771d*\tbtusb_extra\n"
+                         "proprietary\tpci:v000010DEd*sv*sd*bc03sc*i*\tNVIDIA\takmod-nvidia-580xx xorg-x11-drv-nvidia-580xx\n";
+
+Device pciDevice(const char* vendor, const char* name, const char* modalias, const char* module)
+{
+    Device device;
+    device.vendor = vendor;
+    device.name = name;
+    device.modaliases = {modalias};
+    device.module = module;
+    device.driver = module;
+    return device;
+}
+
+std::vector<std::vector<std::string>> namesOf(const std::vector<Package>& packages)
+{
+    std::vector<std::vector<std::string>> names;
+    for (const Package& package : packages)
+        names.push_back(package.names);
+    return names;
+}
+
+} // namespace
+
+TEST(HardwarePage, ReadsTheDriverDatabase)
+{
+    const DriverDatabase database = DriverDatabase::parse(kDatabase);
+    EXPECT_EQ(database.firmware.count("iwlwifi"), 2u);
+    EXPECT_EQ(database.modules.at("btusb_extra"), "kernel-modules-extra");
+    ASSERT_EQ(database.proprietary.size(), 1u);
+    EXPECT_EQ(database.proprietary[0].packages,
+              (std::vector<std::string>{"akmod-nvidia-580xx", "xorg-x11-drv-nvidia-580xx"}));
+    EXPECT_EQ(parseModulesAlias("alias pci:v00008086d*sv*sd*bc02sc80i* iwlwifi\n# x\n")[0].module, "iwlwifi");
+}
+
+TEST(HardwarePage, OffersWhatTheDevicesNeed)
+{
+    const DriverDatabase database = DriverDatabase::parse(kDatabase);
+    System system;
+    // Only the dvm firmware is there.
+    system.hasFirmware = [](const std::string& file) { return file == "iwlwifi-7260-17.ucode"; };
+
+    // NVIDIA, with nouveau: its proprietary driver.
+    Device nvidia = pciDevice("NVIDIA", "GA106", "pci:v000010DEd00002504sv00001462sd0000397Dbc03sc00i00", "nouveau");
+    // AMD graphics, firmware missing.
+    Device amd = pciDevice("AMD", "Navi 10", "pci:v00001002d0000731Fsv*sd*bc03sc00i00", "amdgpu");
+    // Intel Wi-Fi: one of its firmware files is there.
+    Device intel = pciDevice("Intel", "Wi-Fi 6E", "pci:v00008086d00002725sv*sd*bc02sc80i00", "iwlwifi");
+    // A USB device without a driver, whose module is in kernel-modules-extra.
+    Device usb;
+    usb.bus = Device::Bus::Usb;
+    usb.name = "Bluetooth";
+    usb.modaliases = {"usb:v0BDAp8771d0200dcE0dsc01dp01icE0isc01ip01in00"};
+
+    const std::vector<Package> packages = packagesFor({nvidia, amd, intel, usb}, database, system);
+    EXPECT_EQ(namesOf(packages), (std::vector<std::vector<std::string>>{
+                                         {"akmod-nvidia-580xx", "xorg-x11-drv-nvidia-580xx"},
+                                         {"amd-gpu-firmware"},
+                                         {"kernel-modules-extra"}}));
+    EXPECT_TRUE(packages[0].proprietary);
+    EXPECT_FALSE(packages[1].proprietary);
+
+    // A device without a driver whose installed module needs firmware.
+    System installed = system;
+    installed.installedAliases = {{"pci:v00001002d*sv*sd*bc03sc*i*", "amdgpu"}};
+    Device unbound = amd;
+    unbound.driver.clear();
+    unbound.module.clear();
+    EXPECT_EQ(namesOf(packagesFor({unbound}, database, installed)),
+              (std::vector<std::vector<std::string>>{{"amd-gpu-firmware"}}));
+    EXPECT_NE(report({unbound}).find("(no driver)"), std::string::npos);
 }

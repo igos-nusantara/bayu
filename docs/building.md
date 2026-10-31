@@ -99,8 +99,12 @@ environment; the scripts read the same names.
 - Add a check for it to `packaging/kernel/test-kernel.sh`, then
   `make kernel kernel-test`.
 - `make kernel` writes the build's whole config to
-  `packaging/kernel/config-x86_64`; commit it with the change, so the
-  difference to the last kernel shows in the diff.
+  `packaging/kernel/config-x86_64`, and its driver database to
+  `packaging/kernel/drivers.db` (`driver-db.sh`: the firmware each module
+  loads and its package, the modules outside `kernel-modules`, and the
+  proprietary drivers of `proprietary-drivers`, as NVIDIA's), which Settings >
+  Drivers & Hardware reads; commit both with the change, so the difference to
+  the last kernel shows in the diff.
 
 A workflow opens a pull request when AlmaLinux publishes a newer kernel,
 after building and testing it.

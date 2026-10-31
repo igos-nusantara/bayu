@@ -9,6 +9,7 @@
 #include <vector>
 
 #include "base/event_loop.h"
+#include "base/file.h"
 #include "base/i18n.h"
 #include "base/strings.h"
 #include "pages/about/aboutinfo.h"
@@ -93,10 +94,21 @@ std::string iconFor(const Device& device)
     return "computer";
 }
 
-bool installed(const std::string& package)
+bool installed(const std::vector<std::string>& packages)
 {
-    const std::string command = "rpm -q --quiet '" + package + "' 2>/dev/null";
-    return std::system(command.c_str()) == 0;
+    std::string command = "rpm -q --quiet";
+    for (const std::string& package : packages)
+        command += " '" + package + "'";
+    return std::system((command + " 2>/dev/null").c_str()) == 0;
+}
+
+// The firmware's Secure Boot, which loads no module the kernel's key has not
+// signed, as those akmods builds.
+bool secureBoot()
+{
+    const auto value = base::file::read(
+            "/sys/firmware/efi/efivars/SecureBoot-8be4df61-93ca-11d2-aa0d-00e098032b8c");
+    return value && value->size() >= 5 && (*value)[4] == 1;
 }
 
 struct Scan
@@ -114,9 +126,7 @@ public:
         m_recommended = content()->addChild<Section>(tr("Recommended"));
         m_recommended->setName("hardware:recommended");
         m_packages = m_recommended->addChild<Card>(Card::Style::List);
-        m_packagesNote = m_recommended->addChild<Footnote>(
-                tr("Firmware for the devices of this computer that is not installed yet. Without it, they may "
-                   "not work, or work only in part."));
+        m_packagesNote = m_recommended->addChild<Footnote>();
         m_recommended->setVisible(false);
 
         Section* devices = content()->addChild<Section>(tr("Devices"));
@@ -143,8 +153,9 @@ private:
             result->devices = hardware::pciDevices();
             const std::vector<Device> usb = hardware::usbDevices();
             result->devices.insert(result->devices.end(), usb.begin(), usb.end());
-            for (const Package& package : hardware::packagesFor(result->devices)) {
-                if (!installed(package.name))
+            const auto database = hardware::DriverDatabase::load();
+            for (const Package& package : hardware::packagesFor(result->devices, database, hardware::currentSystem())) {
+                if (!installed(package.names))
                     result->missing.push_back(package);
             }
             loop.post([alive, this, result] {
@@ -170,21 +181,39 @@ private:
 
         while (!m_packages->children().empty())
             m_packages->takeChild(m_packages->children().front().get());
+        bool proprietary = false;
         for (const Package& package : scan.missing) {
-            auto* row = m_packages->addChild<DetailRow>("system-software-install", package.reason, package.name);
-            row->setName("hardware:package:" + package.name);
+            std::string details = base::strings::join(package.names, " ");
+            if (package.proprietary)
+                details += std::string(" · ") + tr("Proprietary");
+            proprietary = proprietary || package.proprietary;
+            auto* row = m_packages->addChild<DetailRow>("system-software-install", package.reason, details);
+            row->setName("hardware:package:" + package.names.front());
             Button* install = row->addContent<Button>(tr("Install"));
-            install->onClicked = [this, install, name = package.name] {
+            install->onClicked = [this, install, package] {
                 install->setEnabled(false);
                 m_busy->setVisible(true);
-                admin::run({"install", name}, m_alive, [this](const std::optional<std::string>& error) {
+                m_note.clear();
+                std::vector<std::string> arguments{"install"};
+                arguments.insert(arguments.end(), package.names.begin(), package.names.end());
+                admin::run(arguments, m_alive, [this, package](const std::optional<std::string>& error) {
                     if (error && !error->empty())
-                        m_packagesNote->setText(*error);
+                        m_note = *error;
+                    else if (!error && package.proprietary)
+                        m_note = tr("The driver is installed. Restart the computer to use it.");
                     this->scan();
                 });
             };
         }
-        m_recommended->setVisible(!scan.missing.empty());
+        std::string note = tr("Drivers and firmware for the devices of this computer that are not installed "
+                              "yet. Without them, the devices may not work, or work only in part.");
+        if (proprietary && secureBoot())
+            note += std::string(" ") + tr("Secure Boot is on: it keeps proprietary drivers built on this computer from "
+                             "loading. Turn it off in the computer's firmware settings to use them.");
+        if (!m_note.empty())
+            note = m_note;
+        m_packagesNote->setText(note);
+        m_recommended->setVisible(!scan.missing.empty() || !m_note.empty());
 
         m_report = about::prettyProductName() + "\n";
         if (const std::string model = about::computerModel(); !model.empty())
@@ -200,6 +229,8 @@ private:
     Card* m_devices;
     BusyIndicator* m_busy;
     std::string m_report;
+    // What the last install said, until the next one.
+    std::string m_note;
 };
 
 } // namespace
