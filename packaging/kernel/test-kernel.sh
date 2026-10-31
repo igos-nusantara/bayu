@@ -3,7 +3,8 @@
 #   1. its config: binder and binderfs built in, PSI on by default (lapis);
 #   2. every wireless driver of wireless-modules.txt is there (Realtek's
 #      rtw88/rtw89/rtl8xxxu, brcmfmac, iwlwifi, ath, mt76...);
-#   3. wl, the Broadcom driver of older MacBooks, builds for it from akmod-wl;
+#   3. wl, the Broadcom driver of older MacBooks, builds for it from akmod-wl,
+#      and NVIDIA's from RPM Fusion's akmod (Settings offers it);
 #   4. it boots in QEMU, where binderfs mounts, /proc/pressure is there, the
 #      Wi-Fi stack makes radios (mac80211_hwsim), and wl and the other
 #      drivers load.
@@ -65,6 +66,20 @@ podman run --rm --network host -v "$KERNEL_DIR":/kernel:ro,Z -v "$WL_DIR":/wl:ro
   wl=$(ls $mods/extra/wl/wl.ko* | head -1)
   modinfo -F vermagic "$wl" | grep -q "^$kver " || fail "wl vermagic: $(modinfo -F vermagic "$wl")"
   echo "ok: wl builds ($(basename "$wl"))"
+
+  # NVIDIA, which Settings > Drivers & Hardware offers: RPM Fusion akmod
+  # from the IGN mirror builds for it too.
+  printf "[igos-rpmfusion]\nname=rpmfusion\nbaseurl=https://r2.igos-nusantara.or.id/26/rpmfusion/\ngpgcheck=0\n" \
+    > /etc/yum.repos.d/igos-rpmfusion.repo
+  dnf -y -q install pciutils >/dev/null 2>&1 || fail "pciutils"
+  dnf -y -q download --destdir /tmp/nvidia akmod-nvidia-580xx xorg-x11-drv-nvidia-580xx-kmodsrc >/tmp/dnf.log 2>&1 ||
+    { tail /tmp/dnf.log; fail "NVIDIA akmod download"; }
+  rpm -i --nodeps /tmp/nvidia/*.rpm
+  mkdir -p /tmp/nvidia-out && chown builder /tmp/nvidia-out
+  srpm=$(ls /usr/src/akmods/nvidia-*-kmod-*.src.rpm | head -1)
+  su builder -c "/usr/sbin/akmodsbuild --kernels $kver --outputdir /tmp/nvidia-out $srpm" >/tmp/nvidia.log 2>&1 ||
+    { tail -30 /tmp/nvidia.log; fail "NVIDIA does not build"; }
+  echo "ok: NVIDIA builds ($(basename "$srpm" .src.rpm))"
   depmod "$kver"
 
   # The boot check: run by dracut before udev, its verdict on the console.

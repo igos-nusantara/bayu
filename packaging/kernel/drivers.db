@@ -1,0 +1,2083 @@
+# Bayu driver database, from kernel-core-6.12.0-211.69.1.3.bayu.el10_2.x86_64
+# Written by packaging/kernel/driver-db.sh; see there.
+alias	arpt_AUDIT	xt_AUDIT
+alias	arpt_CLASSIFY	xt_CLASSIFY
+alias	arpt_MARK	xt_mark
+alias	arpt_NFQUEUE	xt_NFQUEUE
+alias	char-major-10-203	cuse
+alias	devname:cuse	cuse
+alias	ebt_AUDIT	xt_AUDIT
+alias	ebt_string	xt_string
+alias	fs-afs	kafs
+alias	ip6t_AUDIT	xt_AUDIT
+alias	ip6t_CHECKSUM	xt_CHECKSUM
+alias	ip6t_CLASSIFY	xt_CLASSIFY
+alias	ip6t_CONNMARK	xt_connmark
+alias	ip6t_CONNSECMARK	xt_CONNSECMARK
+alias	ip6t_CT	xt_CT
+alias	ip6t_DNAT	xt_nat
+alias	ip6t_DNPT	ip6t_NPT
+alias	ip6t_DSCP	xt_DSCP
+alias	ip6t_HL	xt_HL
+alias	ip6t_HMARK	xt_HMARK
+alias	ip6t_IDLETIMER	xt_IDLETIMER
+alias	ip6t_LOG	xt_LOG
+alias	ip6t_MARK	xt_mark
+alias	ip6t_MASQUERADE	xt_MASQUERADE
+alias	ip6t_NETMAP	xt_NETMAP
+alias	ip6t_NFLOG	xt_NFLOG
+alias	ip6t_NFQUEUE	xt_NFQUEUE
+alias	ip6t_NOTRACK	xt_CT
+alias	ip6t_RATEEST	xt_RATEEST
+alias	ip6t_REDIRECT	xt_REDIRECT
+alias	ip6t_SECMARK	xt_SECMARK
+alias	ip6t_SET	xt_set
+alias	ip6t_SNAT	xt_nat
+alias	ip6t_SNPT	ip6t_NPT
+alias	ip6t_TCPMSS	xt_TCPMSS
+alias	ip6t_TCPOPTSTRIP	xt_TCPOPTSTRIP
+alias	ip6t_TEE	xt_TEE
+alias	ip6t_TOS	xt_DSCP
+alias	ip6t_TPROXY	xt_TPROXY
+alias	ip6t_TRACE	xt_TRACE
+alias	ip6t_addrtype	xt_addrtype
+alias	ip6t_bpf	xt_bpf
+alias	ip6t_cgroup	xt_cgroup
+alias	ip6t_cluster	xt_cluster
+alias	ip6t_comment	xt_comment
+alias	ip6t_connbytes	xt_connbytes
+alias	ip6t_connlabel	xt_connlabel
+alias	ip6t_connlimit	xt_connlimit
+alias	ip6t_connmark	xt_connmark
+alias	ip6t_conntrack	xt_conntrack
+alias	ip6t_cpu	xt_cpu
+alias	ip6t_dccp	xt_dccp
+alias	ip6t_devgroup	xt_devgroup
+alias	ip6t_dscp	xt_dscp
+alias	ip6t_dst	ip6t_hbh
+alias	ip6t_ecn	xt_ecn
+alias	ip6t_esp	xt_esp
+alias	ip6t_hashlimit	xt_hashlimit
+alias	ip6t_helper	xt_helper
+alias	ip6t_hl	xt_hl
+alias	ip6t_iprange	xt_iprange
+alias	ip6t_ipvs	xt_ipvs
+alias	ip6t_length	xt_length
+alias	ip6t_limit	xt_limit
+alias	ip6t_mac	xt_mac
+alias	ip6t_mark	xt_mark
+alias	ip6t_multiport	xt_multiport
+alias	ip6t_osf	xt_osf
+alias	ip6t_owner	xt_owner
+alias	ip6t_physdev	xt_physdev
+alias	ip6t_pkttype	xt_pkttype
+alias	ip6t_policy	xt_policy
+alias	ip6t_quota	xt_quota
+alias	ip6t_rateest	xt_rateest
+alias	ip6t_recent	xt_recent
+alias	ip6t_sctp	xt_sctp
+alias	ip6t_set	xt_set
+alias	ip6t_socket	xt_socket
+alias	ip6t_state	xt_state
+alias	ip6t_statistic	xt_statistic
+alias	ip6t_string	xt_string
+alias	ip6t_tcpmss	xt_tcpmss
+alias	ip6t_tos	xt_dscp
+alias	ip_set_bitmap:ip	ip_set_bitmap_ip
+alias	ip_set_bitmap:ip,mac	ip_set_bitmap_ipmac
+alias	ip_set_bitmap:port	ip_set_bitmap_port
+alias	ip_set_hash:ip	ip_set_hash_ip
+alias	ip_set_hash:ip,mac	ip_set_hash_ipmac
+alias	ip_set_hash:ip,mark	ip_set_hash_ipmark
+alias	ip_set_hash:ip,port	ip_set_hash_ipport
+alias	ip_set_hash:ip,port,ip	ip_set_hash_ipportip
+alias	ip_set_hash:ip,port,net	ip_set_hash_ipportnet
+alias	ip_set_hash:mac	ip_set_hash_mac
+alias	ip_set_hash:net	ip_set_hash_net
+alias	ip_set_hash:net,iface	ip_set_hash_netiface
+alias	ip_set_hash:net,net	ip_set_hash_netnet
+alias	ip_set_hash:net,port	ip_set_hash_netport
+alias	ip_set_hash:net,port,net	ip_set_hash_netportnet
+alias	ip_set_list:set	ip_set_list_set
+alias	ipt_AUDIT	xt_AUDIT
+alias	ipt_CHECKSUM	xt_CHECKSUM
+alias	ipt_CLASSIFY	xt_CLASSIFY
+alias	ipt_CONNMARK	xt_connmark
+alias	ipt_CONNSECMARK	xt_CONNSECMARK
+alias	ipt_CT	xt_CT
+alias	ipt_DNAT	xt_nat
+alias	ipt_DSCP	xt_DSCP
+alias	ipt_HMARK	xt_HMARK
+alias	ipt_IDLETIMER	xt_IDLETIMER
+alias	ipt_LOG	xt_LOG
+alias	ipt_MARK	xt_mark
+alias	ipt_MASQUERADE	xt_MASQUERADE
+alias	ipt_NETMAP	xt_NETMAP
+alias	ipt_NFLOG	xt_NFLOG
+alias	ipt_NFQUEUE	xt_NFQUEUE
+alias	ipt_NOTRACK	xt_CT
+alias	ipt_RATEEST	xt_RATEEST
+alias	ipt_REDIRECT	xt_REDIRECT
+alias	ipt_SECMARK	xt_SECMARK
+alias	ipt_SET	xt_set
+alias	ipt_SNAT	xt_nat
+alias	ipt_TCPMSS	xt_TCPMSS
+alias	ipt_TCPOPTSTRIP	xt_TCPOPTSTRIP
+alias	ipt_TEE	xt_TEE
+alias	ipt_TOS	xt_DSCP
+alias	ipt_TPROXY	xt_TPROXY
+alias	ipt_TRACE	xt_TRACE
+alias	ipt_TTL	xt_HL
+alias	ipt_addrtype	xt_addrtype
+alias	ipt_bpf	xt_bpf
+alias	ipt_cgroup	xt_cgroup
+alias	ipt_cluster	xt_cluster
+alias	ipt_comment	xt_comment
+alias	ipt_connbytes	xt_connbytes
+alias	ipt_connlabel	xt_connlabel
+alias	ipt_connlimit	xt_connlimit
+alias	ipt_connmark	xt_connmark
+alias	ipt_conntrack	xt_conntrack
+alias	ipt_cpu	xt_cpu
+alias	ipt_dccp	xt_dccp
+alias	ipt_devgroup	xt_devgroup
+alias	ipt_dscp	xt_dscp
+alias	ipt_ecn	xt_ecn
+alias	ipt_esp	xt_esp
+alias	ipt_hashlimit	xt_hashlimit
+alias	ipt_helper	xt_helper
+alias	ipt_iprange	xt_iprange
+alias	ipt_ipvs	xt_ipvs
+alias	ipt_length	xt_length
+alias	ipt_limit	xt_limit
+alias	ipt_mac	xt_mac
+alias	ipt_mark	xt_mark
+alias	ipt_multiport	xt_multiport
+alias	ipt_osf	xt_osf
+alias	ipt_owner	xt_owner
+alias	ipt_physdev	xt_physdev
+alias	ipt_pkttype	xt_pkttype
+alias	ipt_policy	xt_policy
+alias	ipt_quota	xt_quota
+alias	ipt_rateest	xt_rateest
+alias	ipt_realm	xt_realm
+alias	ipt_recent	xt_recent
+alias	ipt_sctp	xt_sctp
+alias	ipt_set	xt_set
+alias	ipt_socket	xt_socket
+alias	ipt_state	xt_state
+alias	ipt_statistic	xt_statistic
+alias	ipt_string	xt_string
+alias	ipt_tcpmss	xt_tcpmss
+alias	ipt_tos	xt_dscp
+alias	ipt_ttl	xt_hl
+alias	net-l2tp-type-5	l2tp_eth
+alias	net-l2tp-type-7	l2tp_ppp
+alias	net-pf-10-proto-115	l2tp_ip6
+alias	net-pf-10-proto-115-type-2	l2tp_ip6
+alias	net-pf-10-proto-132	sctp
+alias	net-pf-16-proto-16-family-l2tp	l2tp_netlink
+alias	net-pf-16-proto-4-type-2-132	sctp_diag
+alias	net-pf-16-proto-4-type-30	tipc_diag
+alias	net-pf-2-proto-115	l2tp_ip
+alias	net-pf-2-proto-115-type-2	l2tp_ip
+alias	net-pf-2-proto-132	sctp
+alias	net-pf-24-proto-1	l2tp_ppp
+alias	net-pf-33	rxrpc
+alias	nfnetlink-subsys-11	nft_compat
+alias	nfnetlink-subsys-6	ip_set
+alias	nft-expr-match	nft_compat
+alias	nft-expr-target	nft_compat
+alias	rtnl-link-vcan	vcan
+alias	tty-ldisc-1	slip
+alias	tty-ldisc-17	slcan
+alias	usb:v12D6p0444d*dc*dsc*dp*ic*isc*ip*in*	ems_usb
+alias	xt_SET	xt_set
+firmware	air_en8811h	airoha/EthMD32.DSP.bin	linux-firmware
+firmware	air_en8811h	airoha/EthMD32.dm.bin	linux-firmware
+firmware	amdgpu	amdgpu/aldebaran_ip_discovery.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/aldebaran_mec.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/aldebaran_mec2.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/aldebaran_rlc.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/aldebaran_sdma.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/aldebaran_sjt_mec.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/aldebaran_sjt_mec2.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/aldebaran_smc.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/aldebaran_sos.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/aldebaran_ta.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/aldebaran_vcn.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/arcturus_asd.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/arcturus_gpu_info.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/arcturus_ip_discovery.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/arcturus_mec.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/arcturus_rlc.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/arcturus_sdma.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/arcturus_smc.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/arcturus_sos.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/arcturus_ta.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/arcturus_vcn.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/beige_goby_ce.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/beige_goby_dmcub.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/beige_goby_me.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/beige_goby_mec.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/beige_goby_mec2.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/beige_goby_pfp.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/beige_goby_rlc.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/beige_goby_sdma.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/beige_goby_smc.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/beige_goby_sos.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/beige_goby_ta.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/beige_goby_vcn.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/bonaire_k_smc.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/bonaire_mc.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/bonaire_smc.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/carrizo_ce.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/carrizo_me.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/carrizo_mec.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/carrizo_mec2.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/carrizo_pfp.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/carrizo_rlc.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/carrizo_sdma.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/carrizo_sdma1.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/carrizo_uvd.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/carrizo_vce.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/cyan_skillfish2_ce.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/cyan_skillfish2_me.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/cyan_skillfish2_mec.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/cyan_skillfish2_mec2.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/cyan_skillfish2_pfp.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/cyan_skillfish2_rlc.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/cyan_skillfish2_sdma.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/cyan_skillfish2_sdma1.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/dcn_3_1_4_dmcub.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/dcn_3_1_5_dmcub.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/dcn_3_1_6_dmcub.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/dcn_3_2_0_dmcub.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/dcn_3_2_1_dmcub.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/dcn_3_5_1_dmcub.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/dcn_3_5_dmcub.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/dcn_3_6_dmcub.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/dcn_4_0_1_dmcub.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/dimgrey_cavefish_ce.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/dimgrey_cavefish_dmcub.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/dimgrey_cavefish_me.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/dimgrey_cavefish_mec.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/dimgrey_cavefish_mec2.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/dimgrey_cavefish_pfp.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/dimgrey_cavefish_rlc.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/dimgrey_cavefish_sdma.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/dimgrey_cavefish_smc.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/dimgrey_cavefish_sos.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/dimgrey_cavefish_ta.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/dimgrey_cavefish_vcn.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/fiji_ce.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/fiji_me.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/fiji_mec.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/fiji_mec2.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/fiji_pfp.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/fiji_rlc.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/fiji_sdma.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/fiji_sdma1.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/fiji_smc.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/fiji_uvd.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/fiji_vce.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/gc_10_3_6_ce.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/gc_10_3_6_me.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/gc_10_3_6_mec.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/gc_10_3_6_mec2.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/gc_10_3_6_pfp.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/gc_10_3_6_rlc.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/gc_10_3_7_ce.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/gc_10_3_7_me.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/gc_10_3_7_mec.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/gc_10_3_7_mec2.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/gc_10_3_7_pfp.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/gc_10_3_7_rlc.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/gc_11_0_0_imu.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/gc_11_0_0_imu_kicker.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/gc_11_0_0_me.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/gc_11_0_0_mec.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/gc_11_0_0_mes.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/gc_11_0_0_mes1.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/gc_11_0_0_mes_2.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/gc_11_0_0_pfp.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/gc_11_0_0_rlc.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/gc_11_0_0_rlc_1.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/gc_11_0_0_rlc_kicker.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/gc_11_0_1_imu.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/gc_11_0_1_me.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/gc_11_0_1_mec.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/gc_11_0_1_mes.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/gc_11_0_1_mes1.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/gc_11_0_1_mes_2.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/gc_11_0_1_pfp.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/gc_11_0_1_rlc.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/gc_11_0_2_imu.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/gc_11_0_2_me.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/gc_11_0_2_mec.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/gc_11_0_2_mes.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/gc_11_0_2_mes1.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/gc_11_0_2_mes_2.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/gc_11_0_2_pfp.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/gc_11_0_2_rlc.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/gc_11_0_3_imu.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/gc_11_0_3_me.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/gc_11_0_3_mec.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/gc_11_0_3_mes1.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/gc_11_0_3_mes_2.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/gc_11_0_3_pfp.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/gc_11_0_3_rlc.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/gc_11_0_4_imu.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/gc_11_0_4_me.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/gc_11_0_4_mec.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/gc_11_0_4_mes.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/gc_11_0_4_mes1.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/gc_11_0_4_mes_2.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/gc_11_0_4_pfp.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/gc_11_0_4_rlc.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/gc_11_5_0_imu.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/gc_11_5_0_me.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/gc_11_5_0_mec.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/gc_11_5_0_mes1.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/gc_11_5_0_mes_2.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/gc_11_5_0_pfp.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/gc_11_5_0_rlc.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/gc_11_5_1_imu.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/gc_11_5_1_me.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/gc_11_5_1_mec.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/gc_11_5_1_mes1.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/gc_11_5_1_mes_2.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/gc_11_5_1_pfp.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/gc_11_5_1_rlc.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/gc_11_5_2_imu.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/gc_11_5_2_me.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/gc_11_5_2_mec.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/gc_11_5_2_mes1.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/gc_11_5_2_mes_2.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/gc_11_5_2_pfp.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/gc_11_5_2_rlc.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/gc_11_5_3_imu.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/gc_11_5_3_me.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/gc_11_5_3_mec.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/gc_11_5_3_mes1.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/gc_11_5_3_mes_2.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/gc_11_5_3_pfp.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/gc_11_5_3_rlc.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/gc_12_0_0_imu.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/gc_12_0_0_me.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/gc_12_0_0_mec.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/gc_12_0_0_mes.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/gc_12_0_0_mes1.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/gc_12_0_0_pfp.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/gc_12_0_0_rlc.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/gc_12_0_0_toc.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/gc_12_0_0_uni_mes.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/gc_12_0_1_imu.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/gc_12_0_1_imu_kicker.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/gc_12_0_1_me.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/gc_12_0_1_mec.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/gc_12_0_1_mes.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/gc_12_0_1_mes1.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/gc_12_0_1_pfp.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/gc_12_0_1_rlc.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/gc_12_0_1_rlc_kicker.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/gc_12_0_1_toc.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/gc_12_0_1_uni_mes.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/gc_9_4_3_mec.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/gc_9_4_3_rlc.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/gc_9_4_3_sjt_mec.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/gc_9_4_4_mec.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/gc_9_4_4_rlc.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/gc_9_4_4_sjt_mec.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/gc_9_5_0_mec.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/gc_9_5_0_rlc.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/green_sardine_asd.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/green_sardine_ce.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/green_sardine_dmcub.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/green_sardine_me.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/green_sardine_mec.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/green_sardine_mec2.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/green_sardine_pfp.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/green_sardine_rlc.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/green_sardine_sdma.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/green_sardine_ta.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/green_sardine_vcn.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/hawaii_k_smc.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/hawaii_mc.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/hawaii_smc.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/isp_4_1_1.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/navi10_asd.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/navi10_ce.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/navi10_me.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/navi10_mec.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/navi10_mec2.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/navi10_pfp.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/navi10_rlc.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/navi10_sdma.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/navi10_sdma1.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/navi10_smc.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/navi10_sos.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/navi10_ta.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/navi10_vcn.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/navi12_asd.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/navi12_ce.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/navi12_dmcu.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/navi12_gpu_info.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/navi12_me.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/navi12_mec.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/navi12_mec2.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/navi12_pfp.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/navi12_rlc.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/navi12_sdma.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/navi12_sdma1.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/navi12_smc.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/navi12_sos.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/navi12_ta.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/navi12_vcn.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/navi14_asd.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/navi14_ce.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/navi14_ce_wks.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/navi14_me.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/navi14_me_wks.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/navi14_mec.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/navi14_mec2.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/navi14_mec2_wks.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/navi14_mec_wks.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/navi14_pfp.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/navi14_pfp_wks.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/navi14_rlc.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/navi14_sdma.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/navi14_sdma1.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/navi14_smc.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/navi14_sos.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/navi14_ta.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/navi14_vcn.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/navy_flounder_ce.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/navy_flounder_dmcub.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/navy_flounder_me.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/navy_flounder_mec.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/navy_flounder_mec2.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/navy_flounder_pfp.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/navy_flounder_rlc.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/navy_flounder_sdma.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/navy_flounder_smc.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/navy_flounder_sos.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/navy_flounder_ta.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/navy_flounder_vcn.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/picasso_asd.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/picasso_ce.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/picasso_gpu_info.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/picasso_ip_discovery.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/picasso_me.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/picasso_mec.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/picasso_mec2.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/picasso_pfp.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/picasso_rlc.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/picasso_rlc_am4.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/picasso_sdma.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/picasso_ta.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/picasso_vcn.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/polaris10_ce.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/polaris10_ce_2.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/polaris10_k2_smc.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/polaris10_k_mc.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/polaris10_k_smc.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/polaris10_mc.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/polaris10_me.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/polaris10_me_2.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/polaris10_mec.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/polaris10_mec2.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/polaris10_mec2_2.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/polaris10_mec_2.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/polaris10_pfp.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/polaris10_pfp_2.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/polaris10_rlc.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/polaris10_sdma.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/polaris10_sdma1.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/polaris10_smc.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/polaris10_smc_sk.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/polaris10_uvd.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/polaris10_vce.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/polaris11_ce.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/polaris11_ce_2.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/polaris11_k2_smc.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/polaris11_k_mc.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/polaris11_k_smc.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/polaris11_mc.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/polaris11_me.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/polaris11_me_2.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/polaris11_mec.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/polaris11_mec2.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/polaris11_mec2_2.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/polaris11_mec_2.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/polaris11_pfp.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/polaris11_pfp_2.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/polaris11_rlc.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/polaris11_sdma.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/polaris11_sdma1.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/polaris11_smc.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/polaris11_smc_sk.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/polaris11_uvd.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/polaris11_vce.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/polaris12_32_mc.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/polaris12_ce.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/polaris12_ce_2.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/polaris12_k_mc.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/polaris12_k_smc.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/polaris12_mc.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/polaris12_me.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/polaris12_me_2.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/polaris12_mec.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/polaris12_mec2.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/polaris12_mec2_2.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/polaris12_mec_2.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/polaris12_pfp.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/polaris12_pfp_2.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/polaris12_rlc.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/polaris12_sdma.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/polaris12_sdma1.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/polaris12_smc.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/polaris12_uvd.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/polaris12_vce.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/psp_13_0_0_sos.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/psp_13_0_0_sos_kicker.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/psp_13_0_0_ta.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/psp_13_0_0_ta_kicker.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/psp_13_0_10_sos.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/psp_13_0_10_ta.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/psp_13_0_11_ta.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/psp_13_0_11_toc.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/psp_13_0_12_sos.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/psp_13_0_12_ta.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/psp_13_0_14_sos.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/psp_13_0_14_ta.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/psp_13_0_4_ta.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/psp_13_0_4_toc.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/psp_13_0_5_ta.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/psp_13_0_5_toc.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/psp_13_0_6_sos.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/psp_13_0_6_ta.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/psp_13_0_7_sos.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/psp_13_0_7_ta.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/psp_13_0_8_ta.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/psp_13_0_8_toc.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/psp_14_0_0_ta.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/psp_14_0_0_toc.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/psp_14_0_1_ta.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/psp_14_0_1_toc.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/psp_14_0_2_sos.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/psp_14_0_2_ta.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/psp_14_0_3_sos.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/psp_14_0_3_sos_kicker.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/psp_14_0_3_ta.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/psp_14_0_3_ta_kicker.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/psp_14_0_4_ta.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/psp_14_0_4_toc.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/psp_14_0_5_ta.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/psp_14_0_5_toc.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/raven2_asd.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/raven2_ce.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/raven2_gpu_info.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/raven2_ip_discovery.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/raven2_me.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/raven2_mec.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/raven2_mec2.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/raven2_pfp.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/raven2_rlc.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/raven2_sdma.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/raven2_ta.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/raven2_vcn.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/raven_asd.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/raven_ce.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/raven_dmcu.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/raven_gpu_info.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/raven_ip_discovery.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/raven_kicker_rlc.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/raven_me.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/raven_mec.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/raven_mec2.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/raven_pfp.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/raven_rlc.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/raven_sdma.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/raven_ta.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/raven_vcn.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/renoir_asd.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/renoir_ce.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/renoir_dmcub.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/renoir_me.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/renoir_mec.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/renoir_pfp.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/renoir_rlc.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/renoir_sdma.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/renoir_ta.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/renoir_vcn.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/sdma_4_4_2.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/sdma_4_4_4.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/sdma_4_4_5.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/sdma_5_2_6.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/sdma_5_2_7.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/sdma_6_0_0.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/sdma_6_0_1.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/sdma_6_0_2.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/sdma_6_0_3.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/sdma_6_1_0.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/sdma_6_1_1.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/sdma_6_1_2.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/sdma_6_1_3.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/sdma_7_0_0.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/sdma_7_0_1.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/sienna_cichlid_ce.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/sienna_cichlid_dmcub.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/sienna_cichlid_me.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/sienna_cichlid_mec.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/sienna_cichlid_mec2.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/sienna_cichlid_pfp.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/sienna_cichlid_rlc.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/sienna_cichlid_sdma.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/sienna_cichlid_smc.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/sienna_cichlid_sos.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/sienna_cichlid_ta.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/sienna_cichlid_vcn.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/smu_13_0_0.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/smu_13_0_0_kicker.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/smu_13_0_10.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/smu_13_0_14.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/smu_13_0_6.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/smu_13_0_7.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/smu_14_0_2.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/smu_14_0_3.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/smu_14_0_3_kicker.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/stoney_ce.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/stoney_me.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/stoney_mec.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/stoney_pfp.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/stoney_rlc.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/stoney_sdma.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/stoney_uvd.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/stoney_vce.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/tonga_ce.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/tonga_k_smc.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/tonga_mc.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/tonga_me.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/tonga_mec.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/tonga_mec2.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/tonga_pfp.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/tonga_rlc.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/tonga_sdma.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/tonga_sdma1.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/tonga_smc.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/tonga_uvd.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/tonga_vce.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/topaz_ce.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/topaz_k_smc.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/topaz_mc.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/topaz_me.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/topaz_mec.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/topaz_pfp.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/topaz_rlc.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/topaz_sdma.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/topaz_sdma1.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/topaz_smc.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/umsch_mm_4_0_0.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/vangogh_asd.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/vangogh_ce.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/vangogh_dmcub.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/vangogh_me.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/vangogh_mec.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/vangogh_mec2.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/vangogh_pfp.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/vangogh_rlc.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/vangogh_sdma.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/vangogh_toc.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/vangogh_vcn.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/vcn_3_1_2.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/vcn_4_0_0.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/vcn_4_0_2.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/vcn_4_0_3.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/vcn_4_0_4.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/vcn_4_0_5.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/vcn_4_0_6.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/vcn_4_0_6_1.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/vcn_5_0_0.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/vcn_5_0_1.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/vega10_acg_smc.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/vega10_asd.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/vega10_ce.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/vega10_gpu_info.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/vega10_ip_discovery.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/vega10_me.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/vega10_mec.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/vega10_mec2.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/vega10_pfp.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/vega10_rlc.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/vega10_sdma.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/vega10_sdma1.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/vega10_smc.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/vega10_sos.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/vega10_uvd.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/vega10_vce.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/vega12_asd.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/vega12_ce.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/vega12_gpu_info.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/vega12_ip_discovery.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/vega12_me.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/vega12_mec.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/vega12_mec2.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/vega12_pfp.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/vega12_rlc.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/vega12_sdma.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/vega12_sdma1.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/vega12_smc.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/vega12_sos.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/vega12_uvd.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/vega12_vce.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/vega20_asd.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/vega20_ce.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/vega20_ip_discovery.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/vega20_me.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/vega20_mec.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/vega20_mec2.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/vega20_pfp.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/vega20_rlc.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/vega20_sdma.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/vega20_sdma1.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/vega20_smc.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/vega20_sos.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/vega20_ta.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/vega20_uvd.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/vega20_vce.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/vegam_ce.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/vegam_me.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/vegam_mec.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/vegam_mec2.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/vegam_pfp.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/vegam_rlc.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/vegam_sdma.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/vegam_sdma1.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/vegam_smc.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/vegam_uvd.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/vegam_vce.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/vpe_6_1_0.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/vpe_6_1_1.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/vpe_6_1_3.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/yellow_carp_ce.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/yellow_carp_dmcub.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/yellow_carp_me.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/yellow_carp_mec.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/yellow_carp_mec2.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/yellow_carp_pfp.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/yellow_carp_rlc.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/yellow_carp_sdma.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/yellow_carp_ta.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/yellow_carp_toc.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/yellow_carp_vcn.bin	amd-gpu-firmware
+firmware	ath10k_pci	ath10k/QCA6174/hw2.1/board-2.bin	atheros-firmware
+firmware	ath10k_pci	ath10k/QCA6174/hw2.1/board.bin	atheros-firmware
+firmware	ath10k_pci	ath10k/QCA6174/hw2.1/firmware-5.bin	atheros-firmware
+firmware	ath10k_pci	ath10k/QCA6174/hw3.0/board-2.bin	atheros-firmware
+firmware	ath10k_pci	ath10k/QCA6174/hw3.0/board.bin	atheros-firmware
+firmware	ath10k_pci	ath10k/QCA6174/hw3.0/firmware-4.bin	atheros-firmware
+firmware	ath10k_pci	ath10k/QCA6174/hw3.0/firmware-6.bin	atheros-firmware
+firmware	ath10k_pci	ath10k/QCA9377/hw1.0/board.bin	atheros-firmware
+firmware	ath10k_pci	ath10k/QCA9377/hw1.0/firmware-5.bin	atheros-firmware
+firmware	ath10k_pci	ath10k/QCA9377/hw1.0/firmware-6.bin	atheros-firmware
+firmware	ath10k_pci	ath10k/QCA9887/hw1.0/board.bin	atheros-firmware
+firmware	ath10k_pci	ath10k/QCA9887/hw1.0/firmware-5.bin	atheros-firmware
+firmware	ath10k_pci	ath10k/QCA988X/hw2.0/board.bin	atheros-firmware
+firmware	ath10k_pci	ath10k/QCA988X/hw2.0/firmware-4.bin	atheros-firmware
+firmware	ath10k_pci	ath10k/QCA988X/hw2.0/firmware-5.bin	atheros-firmware
+firmware	ath3k	ath3k-1.fw	linux-firmware
+firmware	ath9k_htc	ath9k_htc/htc_7010-1.4.0.fw	atheros-firmware
+firmware	ath9k_htc	ath9k_htc/htc_9271-1.4.0.fw	atheros-firmware
+firmware	bnx2	bnx2/bnx2-mips-06-6.2.3.fw	linux-firmware
+firmware	bnx2	bnx2/bnx2-mips-09-6.2.1b.fw	linux-firmware
+firmware	bnx2	bnx2/bnx2-rv2p-06-6.0.15.fw	linux-firmware
+firmware	bnx2	bnx2/bnx2-rv2p-09-6.0.17.fw	linux-firmware
+firmware	bnx2	bnx2/bnx2-rv2p-09ax-6.0.17.fw	linux-firmware
+firmware	bnx2x	bnx2x/bnx2x-e1-7.13.15.0.fw	linux-firmware
+firmware	bnx2x	bnx2x/bnx2x-e1-7.13.21.0.fw	linux-firmware
+firmware	bnx2x	bnx2x/bnx2x-e1h-7.13.15.0.fw	linux-firmware
+firmware	bnx2x	bnx2x/bnx2x-e1h-7.13.21.0.fw	linux-firmware
+firmware	bnx2x	bnx2x/bnx2x-e2-7.13.15.0.fw	linux-firmware
+firmware	bnx2x	bnx2x/bnx2x-e2-7.13.21.0.fw	linux-firmware
+firmware	brcmfmac	brcm/brcmfmac43012-sdio.bin	brcmfmac-firmware
+firmware	brcmfmac	brcm/brcmfmac43012-sdio.clm_blob	brcmfmac-firmware
+firmware	brcmfmac	brcm/brcmfmac43143-sdio.bin	brcmfmac-firmware
+firmware	brcmfmac	brcm/brcmfmac43143.bin	brcmfmac-firmware
+firmware	brcmfmac	brcm/brcmfmac43236b.bin	brcmfmac-firmware
+firmware	brcmfmac	brcm/brcmfmac43241b0-sdio.bin	brcmfmac-firmware
+firmware	brcmfmac	brcm/brcmfmac43241b4-sdio.bin	brcmfmac-firmware
+firmware	brcmfmac	brcm/brcmfmac43241b5-sdio.bin	brcmfmac-firmware
+firmware	brcmfmac	brcm/brcmfmac43242a.bin	brcmfmac-firmware
+firmware	brcmfmac	brcm/brcmfmac4329-sdio.bin	brcmfmac-firmware
+firmware	brcmfmac	brcm/brcmfmac4330-sdio.bin	brcmfmac-firmware
+firmware	brcmfmac	brcm/brcmfmac4334-sdio.bin	brcmfmac-firmware
+firmware	brcmfmac	brcm/brcmfmac43340-sdio.bin	brcmfmac-firmware
+firmware	brcmfmac	brcm/brcmfmac4335-sdio.bin	brcmfmac-firmware
+firmware	brcmfmac	brcm/brcmfmac43362-sdio.bin	brcmfmac-firmware
+firmware	brcmfmac	brcm/brcmfmac4339-sdio.bin	brcmfmac-firmware
+firmware	brcmfmac	brcm/brcmfmac43430-sdio.bin	brcmfmac-firmware
+firmware	brcmfmac	brcm/brcmfmac43430-sdio.clm_blob	brcmfmac-firmware
+firmware	brcmfmac	brcm/brcmfmac43430a0-sdio.bin	brcmfmac-firmware
+firmware	brcmfmac	brcm/brcmfmac43455-sdio.bin	brcmfmac-firmware
+firmware	brcmfmac	brcm/brcmfmac43455-sdio.clm_blob	brcmfmac-firmware
+firmware	brcmfmac	brcm/brcmfmac4350-pcie.bin	brcmfmac-firmware
+firmware	brcmfmac	brcm/brcmfmac4350c2-pcie.bin	brcmfmac-firmware
+firmware	brcmfmac	brcm/brcmfmac4354-sdio.bin	brcmfmac-firmware
+firmware	brcmfmac	brcm/brcmfmac4354-sdio.clm_blob	brcmfmac-firmware
+firmware	brcmfmac	brcm/brcmfmac4356-pcie.bin	brcmfmac-firmware
+firmware	brcmfmac	brcm/brcmfmac4356-pcie.clm_blob	brcmfmac-firmware
+firmware	brcmfmac	brcm/brcmfmac4356-sdio.bin	brcmfmac-firmware
+firmware	brcmfmac	brcm/brcmfmac4356-sdio.clm_blob	brcmfmac-firmware
+firmware	brcmfmac	brcm/brcmfmac43569.bin	brcmfmac-firmware
+firmware	brcmfmac	brcm/brcmfmac43570-pcie.bin	brcmfmac-firmware
+firmware	brcmfmac	brcm/brcmfmac43570-pcie.clm_blob	brcmfmac-firmware
+firmware	brcmfmac	brcm/brcmfmac4358-pcie.bin	brcmfmac-firmware
+firmware	brcmfmac	brcm/brcmfmac43602-pcie.bin	brcmfmac-firmware
+firmware	brcmfmac	brcm/brcmfmac4366b-pcie.bin	brcmfmac-firmware
+firmware	brcmfmac	brcm/brcmfmac4366c-pcie.bin	brcmfmac-firmware
+firmware	brcmfmac	brcm/brcmfmac4371-pcie.bin	brcmfmac-firmware
+firmware	brcmfmac	brcm/brcmfmac4373-sdio.bin	brcmfmac-firmware
+firmware	brcmfmac	brcm/brcmfmac4373-sdio.clm_blob	brcmfmac-firmware
+firmware	brcmfmac	brcm/brcmfmac4373.bin	brcmfmac-firmware
+firmware	brcmfmac	brcm/brcmfmac54591-pcie.bin	brcmfmac-firmware
+firmware	brcmfmac	brcm/brcmfmac54591-pcie.clm_blob	brcmfmac-firmware
+firmware	brcmsmac	brcm/bcm43xx-0.fw	brcmfmac-firmware
+firmware	brcmsmac	brcm/bcm43xx_hdr-0.fw	brcmfmac-firmware
+firmware	btintel	intel/ibt-11-5.ddc	linux-firmware
+firmware	btintel	intel/ibt-11-5.sfi	linux-firmware
+firmware	btintel	intel/ibt-12-16.ddc	linux-firmware
+firmware	btintel	intel/ibt-12-16.sfi	linux-firmware
+firmware	btmrvl_sdio	mrvl/sd8688.bin	linux-firmware
+firmware	btmrvl_sdio	mrvl/sd8688_helper.bin	linux-firmware
+firmware	btmrvl_sdio	mrvl/sd8787_uapsta.bin	libertas-firmware
+firmware	btmrvl_sdio	mrvl/sd8797_uapsta.bin	linux-firmware
+firmware	btmrvl_sdio	mrvl/sd8887_uapsta.bin	linux-firmware
+firmware	btmrvl_sdio	mrvl/sd8897_uapsta.bin	linux-firmware
+firmware	btmrvl_sdio	mrvl/sdsd8977_combo_v2.bin	linux-firmware
+firmware	btmrvl_sdio	mrvl/sdsd8997_combo_v4.bin	linux-firmware
+firmware	btmtk	mediatek/BT_RAM_CODE_MT7922_1_1_hdr.bin	mt7xxx-firmware
+firmware	btmtk	mediatek/BT_RAM_CODE_MT7961_1_2_hdr.bin	mt7xxx-firmware
+firmware	btmtk	mediatek/mt7622pr2h.bin	mt7xxx-firmware
+firmware	btmtk	mediatek/mt7663pr2h.bin	mt7xxx-firmware
+firmware	btmtk	mediatek/mt7668pr2h.bin	mt7xxx-firmware
+firmware	btmtk	mediatek/mt7925/BT_RAM_CODE_MT7925_1_1_hdr.bin	mt7xxx-firmware
+firmware	btrtl	rtl_bt/rtl8723a_fw.bin	realtek-firmware
+firmware	btrtl	rtl_bt/rtl8723b_config.bin	realtek-firmware
+firmware	btrtl	rtl_bt/rtl8723b_fw.bin	realtek-firmware
+firmware	btrtl	rtl_bt/rtl8723bs_config.bin	realtek-firmware
+firmware	btrtl	rtl_bt/rtl8723bs_fw.bin	realtek-firmware
+firmware	btrtl	rtl_bt/rtl8723cs_xx_config.bin	realtek-firmware
+firmware	btrtl	rtl_bt/rtl8723cs_xx_fw.bin	realtek-firmware
+firmware	btrtl	rtl_bt/rtl8723d_config.bin	realtek-firmware
+firmware	btrtl	rtl_bt/rtl8723d_fw.bin	realtek-firmware
+firmware	btrtl	rtl_bt/rtl8761a_config.bin	realtek-firmware
+firmware	btrtl	rtl_bt/rtl8761a_fw.bin	realtek-firmware
+firmware	btrtl	rtl_bt/rtl8761b_config.bin	realtek-firmware
+firmware	btrtl	rtl_bt/rtl8761b_fw.bin	realtek-firmware
+firmware	btrtl	rtl_bt/rtl8761bu_config.bin	realtek-firmware
+firmware	btrtl	rtl_bt/rtl8761bu_fw.bin	realtek-firmware
+firmware	btrtl	rtl_bt/rtl8821a_config.bin	realtek-firmware
+firmware	btrtl	rtl_bt/rtl8821a_fw.bin	realtek-firmware
+firmware	btrtl	rtl_bt/rtl8821c_config.bin	realtek-firmware
+firmware	btrtl	rtl_bt/rtl8821c_fw.bin	realtek-firmware
+firmware	btrtl	rtl_bt/rtl8821cs_config.bin	realtek-firmware
+firmware	btrtl	rtl_bt/rtl8821cs_fw.bin	realtek-firmware
+firmware	btrtl	rtl_bt/rtl8822b_config.bin	realtek-firmware
+firmware	btrtl	rtl_bt/rtl8822b_fw.bin	realtek-firmware
+firmware	btrtl	rtl_bt/rtl8822cs_config.bin	realtek-firmware
+firmware	btrtl	rtl_bt/rtl8822cs_fw.bin	realtek-firmware
+firmware	btrtl	rtl_bt/rtl8822cu_config.bin	realtek-firmware
+firmware	btrtl	rtl_bt/rtl8822cu_fw.bin	realtek-firmware
+firmware	btrtl	rtl_bt/rtl8851bu_config.bin	realtek-firmware
+firmware	btrtl	rtl_bt/rtl8851bu_fw.bin	realtek-firmware
+firmware	btrtl	rtl_bt/rtl8852au_config.bin	realtek-firmware
+firmware	btrtl	rtl_bt/rtl8852au_fw.bin	realtek-firmware
+firmware	btrtl	rtl_bt/rtl8852btu_config.bin	realtek-firmware
+firmware	btrtl	rtl_bt/rtl8852btu_fw.bin	realtek-firmware
+firmware	btrtl	rtl_bt/rtl8852bu_config.bin	realtek-firmware
+firmware	btrtl	rtl_bt/rtl8852bu_fw.bin	realtek-firmware
+firmware	btrtl	rtl_bt/rtl8852cu_config.bin	realtek-firmware
+firmware	btrtl	rtl_bt/rtl8852cu_fw.bin	realtek-firmware
+firmware	btrtl	rtl_bt/rtl8852cu_fw_v2.bin	realtek-firmware
+firmware	btrtl	rtl_bt/rtl8922au_config.bin	realtek-firmware
+firmware	btrtl	rtl_bt/rtl8922au_fw.bin	realtek-firmware
+firmware	carl9170	carl9170-1.fw	linux-firmware
+firmware	ccp	amd/amd_sev_fam17h_model0xh.sbin	amd-ucode-firmware
+firmware	ccp	amd/amd_sev_fam17h_model3xh.sbin	amd-ucode-firmware
+firmware	ccp	amd/amd_sev_fam19h_model0xh.sbin	amd-ucode-firmware
+firmware	ccp	amd/amd_sev_fam19h_model1xh.sbin	amd-ucode-firmware
+firmware	cs42l43	cs42l43.bin	linux-firmware
+firmware	csiostor	cxgb4/t5fw.bin	linux-firmware
+firmware	csiostor	cxgb4/t6fw.bin	linux-firmware
+firmware	cx25840	v4l-cx231xx-avcore-01.fw	dvb-firmware
+firmware	cx25840	v4l-cx23885-avcore-01.fw	dvb-firmware
+firmware	cx25840	v4l-cx25840.fw	dvb-firmware
+firmware	cxgb4	cxgb4/t4fw.bin	linux-firmware
+firmware	cxgb4	cxgb4/t5fw.bin	linux-firmware
+firmware	cxgb4	cxgb4/t6fw.bin	linux-firmware
+firmware	emi26	emi26/bitstream.fw	linux-firmware
+firmware	emi26	emi26/firmware.fw	linux-firmware
+firmware	emi26	emi26/loader.fw	linux-firmware
+firmware	emi62	emi62/bitstream.fw	linux-firmware
+firmware	emi62	emi62/loader.fw	linux-firmware
+firmware	emi62	emi62/spdif.fw	linux-firmware
+firmware	gspca_vicam	vicam/firmware.fw	linux-firmware
+firmware	hfi1	hfi1_dc8051.fw	linux-firmware
+firmware	hfi1	hfi1_fabric.fw	linux-firmware
+firmware	hfi1	hfi1_pcie.fw	linux-firmware
+firmware	hfi1	hfi1_sbus.fw	linux-firmware
+firmware	i915	i915/adlp_dmc.bin	intel-gpu-firmware
+firmware	i915	i915/adlp_dmc_ver2_16.bin	intel-gpu-firmware
+firmware	i915	i915/adlp_guc_69.0.3.bin	intel-gpu-firmware
+firmware	i915	i915/adlp_guc_70.1.1.bin	intel-gpu-firmware
+firmware	i915	i915/adlp_guc_70.bin	intel-gpu-firmware
+firmware	i915	i915/adls_dmc_ver2_01.bin	intel-gpu-firmware
+firmware	i915	i915/bmg_dmc.bin	intel-gpu-firmware
+firmware	i915	i915/bxt_dmc_ver1_07.bin	intel-gpu-firmware
+firmware	i915	i915/bxt_guc_70.1.1.bin	intel-gpu-firmware
+firmware	i915	i915/bxt_huc_2.0.0.bin	intel-gpu-firmware
+firmware	i915	i915/cml_guc_70.1.1.bin	intel-gpu-firmware
+firmware	i915	i915/cml_huc_4.0.0.bin	intel-gpu-firmware
+firmware	i915	i915/dg1_dmc_ver2_02.bin	intel-gpu-firmware
+firmware	i915	i915/dg1_guc_70.bin	intel-gpu-firmware
+firmware	i915	i915/dg1_huc.bin	intel-gpu-firmware
+firmware	i915	i915/dg2_dmc_ver2_08.bin	intel-gpu-firmware
+firmware	i915	i915/dg2_guc_70.bin	intel-gpu-firmware
+firmware	i915	i915/dg2_huc_gsc.bin	intel-gpu-firmware
+firmware	i915	i915/ehl_guc_70.1.1.bin	intel-gpu-firmware
+firmware	i915	i915/ehl_huc_9.0.0.bin	intel-gpu-firmware
+firmware	i915	i915/glk_dmc_ver1_04.bin	intel-gpu-firmware
+firmware	i915	i915/glk_guc_70.1.1.bin	intel-gpu-firmware
+firmware	i915	i915/glk_huc_4.0.0.bin	intel-gpu-firmware
+firmware	i915	i915/icl_dmc_ver1_09.bin	intel-gpu-firmware
+firmware	i915	i915/icl_guc_70.1.1.bin	intel-gpu-firmware
+firmware	i915	i915/icl_huc_9.0.0.bin	intel-gpu-firmware
+firmware	i915	i915/kbl_dmc_ver1_04.bin	intel-gpu-firmware
+firmware	i915	i915/kbl_guc_70.1.1.bin	intel-gpu-firmware
+firmware	i915	i915/kbl_huc_4.0.0.bin	intel-gpu-firmware
+firmware	i915	i915/mtl_dmc.bin	intel-gpu-firmware
+firmware	i915	i915/mtl_gsc_1.bin	intel-gpu-firmware
+firmware	i915	i915/mtl_guc_70.bin	intel-gpu-firmware
+firmware	i915	i915/mtl_huc_gsc.bin	intel-gpu-firmware
+firmware	i915	i915/rkl_dmc_ver2_03.bin	intel-gpu-firmware
+firmware	i915	i915/skl_dmc_ver1_27.bin	intel-gpu-firmware
+firmware	i915	i915/skl_guc_70.1.1.bin	intel-gpu-firmware
+firmware	i915	i915/skl_huc_2.0.0.bin	intel-gpu-firmware
+firmware	i915	i915/tgl_dmc_ver2_12.bin	intel-gpu-firmware
+firmware	i915	i915/tgl_guc_69.0.3.bin	intel-gpu-firmware
+firmware	i915	i915/tgl_guc_70.1.1.bin	intel-gpu-firmware
+firmware	i915	i915/tgl_guc_70.bin	intel-gpu-firmware
+firmware	i915	i915/tgl_huc.bin	intel-gpu-firmware
+firmware	i915	i915/tgl_huc_7.9.3.bin	intel-gpu-firmware
+firmware	i915	i915/xe2lpd_dmc.bin	intel-gpu-firmware
+firmware	i915	i915/xe3lpd_3002_dmc.bin	intel-gpu-firmware
+firmware	i915	i915/xe3lpd_dmc.bin	intel-gpu-firmware
+firmware	ice	intel/ice/ddp/ice.pkg	linux-firmware
+firmware	intel_ish_ipc	intel/ish/ish_lnlm.bin	linux-firmware
+firmware	intel_vpu	intel/vpu/vpu_37xx_v1.bin	linux-firmware
+firmware	intel_vpu	intel/vpu/vpu_40xx_v1.bin	linux-firmware
+firmware	intel_vpu	intel/vpu/vpu_50xx_v1.bin	linux-firmware
+firmware	io_edgeport	edgeport/boot.fw	linux-firmware
+firmware	io_edgeport	edgeport/boot2.fw	linux-firmware
+firmware	io_edgeport	edgeport/down.fw	linux-firmware
+firmware	io_edgeport	edgeport/down2.fw	linux-firmware
+firmware	io_ti	edgeport/down3.bin	linux-firmware
+firmware	iwlwifi	iwlwifi-100-5.ucode	iwlwifi-dvm-firmware
+firmware	iwlwifi	iwlwifi-1000-5.ucode	iwlwifi-dvm-firmware
+firmware	iwlwifi	iwlwifi-105-6.ucode	iwlwifi-dvm-firmware
+firmware	iwlwifi	iwlwifi-135-6.ucode	iwlwifi-dvm-firmware
+firmware	iwlwifi	iwlwifi-2000-6.ucode	iwlwifi-dvm-firmware
+firmware	iwlwifi	iwlwifi-2030-6.ucode	iwlwifi-dvm-firmware
+firmware	iwlwifi	iwlwifi-3160-17.ucode	iwlwifi-mvm-firmware
+firmware	iwlwifi	iwlwifi-3168-29.ucode	iwlwifi-mvm-firmware
+firmware	iwlwifi	iwlwifi-5000-5.ucode	iwlwifi-dvm-firmware
+firmware	iwlwifi	iwlwifi-5150-2.ucode	iwlwifi-dvm-firmware
+firmware	iwlwifi	iwlwifi-6000g2a-6.ucode	iwlwifi-dvm-firmware
+firmware	iwlwifi	iwlwifi-6000g2b-6.ucode	iwlwifi-dvm-firmware
+firmware	iwlwifi	iwlwifi-6050-5.ucode	iwlwifi-dvm-firmware
+firmware	iwlwifi	iwlwifi-7260-17.ucode	iwlwifi-mvm-firmware
+firmware	iwlwifi	iwlwifi-7265-17.ucode	iwlwifi-mvm-firmware
+firmware	iwlwifi	iwlwifi-7265D-29.ucode	iwlwifi-mvm-firmware
+firmware	iwlwifi	iwlwifi-8000C-36.ucode	iwlwifi-mvm-firmware
+firmware	iwlwifi	iwlwifi-8265-36.ucode	iwlwifi-mvm-firmware
+firmware	iwlwifi	iwlwifi-9000-pu-b0-jf-b0-46.ucode	iwlwifi-mvm-firmware
+firmware	iwlwifi	iwlwifi-9260-th-b0-jf-b0-46.ucode	iwlwifi-mvm-firmware
+firmware	iwlwifi	iwlwifi-Qu-b0-jf-b0-77.ucode	iwlwifi-mvm-firmware
+firmware	iwlwifi	iwlwifi-Qu-c0-jf-b0-77.ucode	iwlwifi-mvm-firmware
+firmware	iwlwifi	iwlwifi-QuZ-a0-jf-b0-77.ucode	iwlwifi-mvm-firmware
+firmware	iwlwifi	iwlwifi-cc-a0-77.ucode	iwlwifi-mvm-firmware
+firmware	iwlwifi	iwlwifi-ma-b0-gf-a0.pnvm	iwlwifi-mvm-firmware
+firmware	iwlwifi	iwlwifi-ma-b0-gf4-a0.pnvm	iwlwifi-mvm-firmware
+firmware	iwlwifi	iwlwifi-sc-a0-gf-a0-100.ucode	iwlwifi-mvm-firmware
+firmware	iwlwifi	iwlwifi-so-a0-gf-a0.pnvm	iwlwifi-mvm-firmware
+firmware	iwlwifi	iwlwifi-so-a0-jf-b0-77.ucode	iwlwifi-mvm-firmware
+firmware	iwlwifi	iwlwifi-ty-a0-gf-a0.pnvm	iwlwifi-mvm-firmware
+firmware	kaweth	kaweth/new_code.bin	linux-firmware
+firmware	kaweth	kaweth/new_code_fix.bin	linux-firmware
+firmware	kaweth	kaweth/trigger_code.bin	linux-firmware
+firmware	kaweth	kaweth/trigger_code_fix.bin	linux-firmware
+firmware	keyspan	keyspan/mpr.fw	linux-firmware
+firmware	keyspan	keyspan/usa18x.fw	linux-firmware
+firmware	keyspan	keyspan/usa19.fw	linux-firmware
+firmware	keyspan	keyspan/usa19qi.fw	linux-firmware
+firmware	keyspan	keyspan/usa19qw.fw	linux-firmware
+firmware	keyspan	keyspan/usa19w.fw	linux-firmware
+firmware	keyspan	keyspan/usa28.fw	linux-firmware
+firmware	keyspan	keyspan/usa28x.fw	linux-firmware
+firmware	keyspan	keyspan/usa28xa.fw	linux-firmware
+firmware	keyspan	keyspan/usa28xb.fw	linux-firmware
+firmware	keyspan	keyspan/usa49w.fw	linux-firmware
+firmware	keyspan	keyspan/usa49wlc.fw	linux-firmware
+firmware	keyspan_pda	keyspan_pda/keyspan_pda.fw	linux-firmware
+firmware	keyspan_pda	keyspan_pda/xircom_pgs.fw	linux-firmware
+firmware	mlxsw_spectrum	mellanox/lc_ini_bundle_2010_1006.bin	mlxsw_spectrum-firmware
+firmware	mlxsw_spectrum	mellanox/mlxsw_spectrum-13.2010.1006.mfa2	mlxsw_spectrum-firmware
+firmware	mlxsw_spectrum	mellanox/mlxsw_spectrum2-29.2010.1006.mfa2	mlxsw_spectrum-firmware
+firmware	mlxsw_spectrum	mellanox/mlxsw_spectrum3-30.2010.1006.mfa2	mlxsw_spectrum-firmware
+firmware	mscc	microchip/mscc_vsc8574_revb_int8051_29e8.bin	linux-firmware
+firmware	mscc	microchip/mscc_vsc8584_revb_int8051_fb48.bin	linux-firmware
+firmware	mt7601u	mt7601u.bin	mt7xxx-firmware
+firmware	mt7663u	mediatek/mt7663_n9_rebb.bin	mt7xxx-firmware
+firmware	mt7663u	mediatek/mt7663_n9_v3.bin	mt7xxx-firmware
+firmware	mt7663u	mediatek/mt7663pr2h.bin	mt7xxx-firmware
+firmware	mt7663u	mediatek/mt7663pr2h_rebb.bin	mt7xxx-firmware
+firmware	mt76x0e	mediatek/mt7610e.bin	mt7xxx-firmware
+firmware	mt76x0e	mediatek/mt7650e.bin	mt7xxx-firmware
+firmware	mt76x0u	mediatek/mt7610e.bin	mt7xxx-firmware
+firmware	mt76x0u	mediatek/mt7610u.bin	mt7xxx-firmware
+firmware	mt76x2e	mt7662.bin	mt7xxx-firmware
+firmware	mt76x2e	mt7662_rom_patch.bin	mt7xxx-firmware
+firmware	mt76x2u	mt7662.bin	mt7xxx-firmware
+firmware	mt76x2u	mt7662_rom_patch.bin	mt7xxx-firmware
+firmware	mt7921e	mediatek/WIFI_MT7922_patch_mcu_1_1_hdr.bin	mt7xxx-firmware
+firmware	mt7921e	mediatek/WIFI_MT7961_patch_mcu_1_2_hdr.bin	mt7xxx-firmware
+firmware	mt7921e	mediatek/WIFI_MT7961_patch_mcu_1a_2_hdr.bin	mt7xxx-firmware
+firmware	mt7921e	mediatek/WIFI_RAM_CODE_MT7922_1.bin	mt7xxx-firmware
+firmware	mt7921e	mediatek/WIFI_RAM_CODE_MT7961_1.bin	mt7xxx-firmware
+firmware	mt7921e	mediatek/WIFI_RAM_CODE_MT7961_1a.bin	mt7xxx-firmware
+firmware	mt7921u	mediatek/WIFI_MT7961_patch_mcu_1_2_hdr.bin	mt7xxx-firmware
+firmware	mt7921u	mediatek/WIFI_RAM_CODE_MT7961_1.bin	mt7xxx-firmware
+firmware	mt7925e	mediatek/mt7925/WIFI_MT7925_PATCH_MCU_1_1_hdr.bin	mt7xxx-firmware
+firmware	mt7925e	mediatek/mt7925/WIFI_RAM_CODE_MT7925_1_1.bin	mt7xxx-firmware
+firmware	mt7925u	mediatek/mt7925/WIFI_MT7925_PATCH_MCU_1_1_hdr.bin	mt7xxx-firmware
+firmware	mt7925u	mediatek/mt7925/WIFI_RAM_CODE_MT7925_1_1.bin	mt7xxx-firmware
+firmware	mwifiex_pcie	mrvl/pcie8897_uapsta.bin	linux-firmware
+firmware	mwifiex_pcie	mrvl/pcieuart8997_combo_v4.bin	linux-firmware
+firmware	mwifiex_pcie	mrvl/pcieusb8997_combo_v4.bin	linux-firmware
+firmware	mwifiex_sdio	mrvl/sd8787_uapsta.bin	libertas-firmware
+firmware	mwifiex_sdio	mrvl/sd8797_uapsta.bin	linux-firmware
+firmware	mwifiex_sdio	mrvl/sd8801_uapsta.bin	linux-firmware
+firmware	mwifiex_sdio	mrvl/sd8887_uapsta.bin	linux-firmware
+firmware	mwifiex_sdio	mrvl/sd8897_uapsta.bin	linux-firmware
+firmware	mwifiex_sdio	mrvl/sdiouartiw416_combo_v0.bin	linux-firmware
+firmware	mwifiex_sdio	mrvl/sdsd8977_combo_v2.bin	linux-firmware
+firmware	mwifiex_sdio	mrvl/sdsd8997_combo_v4.bin	linux-firmware
+firmware	mwifiex_usb	mrvl/usb8766_uapsta.bin	linux-firmware
+firmware	mwifiex_usb	mrvl/usb8797_uapsta.bin	linux-firmware
+firmware	mwifiex_usb	mrvl/usb8801_uapsta.bin	linux-firmware
+firmware	mwifiex_usb	mrvl/usbusb8997_combo_v4.bin	linux-firmware
+firmware	myri10ge	myri10ge_eth_z8e.dat	linux-firmware
+firmware	myri10ge	myri10ge_ethp_z8e.dat	linux-firmware
+firmware	myri10ge	myri10ge_rss_eth_z8e.dat	linux-firmware
+firmware	myri10ge	myri10ge_rss_ethp_z8e.dat	linux-firmware
+firmware	n5pf	cavium/cnn55xx_se.fw	linux-firmware
+firmware	netxen_nic	phanfw.bin	linux-firmware
+firmware	nouveau	nvidia/ad102/gsp/booter_load-535.113.01.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/ad102/gsp/booter_load-570.144.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/ad102/gsp/booter_unload-535.113.01.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/ad102/gsp/booter_unload-570.144.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/ad102/gsp/bootloader-535.113.01.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/ad102/gsp/bootloader-570.144.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/ad102/gsp/gsp-535.113.01.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/ad102/gsp/gsp-570.144.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/ga100/gsp/booter_load-535.113.01.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/ga100/gsp/booter_load-570.144.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/ga100/gsp/booter_unload-535.113.01.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/ga100/gsp/booter_unload-570.144.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/ga100/gsp/bootloader-535.113.01.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/ga100/gsp/bootloader-570.144.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/ga100/gsp/gsp-535.113.01.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/ga100/gsp/gsp-570.144.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/ga102/acr/ucode_ahesasc.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/ga102/acr/ucode_asb.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/ga102/acr/ucode_unload.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/ga102/gr/NET_img.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/ga102/gr/fecs_bl.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/ga102/gr/fecs_sig.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/ga102/gr/gpccs_bl.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/ga102/gr/gpccs_sig.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/ga102/gsp/booter_load-535.113.01.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/ga102/gsp/booter_load-570.144.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/ga102/gsp/booter_unload-535.113.01.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/ga102/gsp/booter_unload-570.144.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/ga102/gsp/bootloader-535.113.01.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/ga102/gsp/bootloader-570.144.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/ga102/gsp/gsp-535.113.01.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/ga102/gsp/gsp-570.144.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/ga102/nvdec/scrubber.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/ga102/sec2/desc.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/ga102/sec2/hs_bl_sig.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/ga102/sec2/image.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/ga102/sec2/sig.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/ga103/acr/ucode_ahesasc.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/ga103/acr/ucode_asb.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/ga103/acr/ucode_unload.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/ga103/gr/NET_img.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/ga103/gr/fecs_bl.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/ga103/gr/fecs_sig.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/ga103/gr/gpccs_bl.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/ga103/gr/gpccs_sig.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/ga103/nvdec/scrubber.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/ga103/sec2/desc.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/ga103/sec2/hs_bl_sig.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/ga103/sec2/image.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/ga103/sec2/sig.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/ga104/acr/ucode_ahesasc.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/ga104/acr/ucode_asb.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/ga104/acr/ucode_unload.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/ga104/gr/NET_img.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/ga104/gr/fecs_bl.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/ga104/gr/fecs_sig.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/ga104/gr/gpccs_bl.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/ga104/gr/gpccs_sig.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/ga104/nvdec/scrubber.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/ga104/sec2/desc.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/ga104/sec2/hs_bl_sig.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/ga104/sec2/image.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/ga104/sec2/sig.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/ga106/acr/ucode_ahesasc.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/ga106/acr/ucode_asb.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/ga106/acr/ucode_unload.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/ga106/gr/NET_img.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/ga106/gr/fecs_bl.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/ga106/gr/fecs_sig.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/ga106/gr/gpccs_bl.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/ga106/gr/gpccs_sig.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/ga106/nvdec/scrubber.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/ga106/sec2/desc.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/ga106/sec2/hs_bl_sig.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/ga106/sec2/image.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/ga106/sec2/sig.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/ga107/acr/ucode_ahesasc.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/ga107/acr/ucode_asb.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/ga107/acr/ucode_unload.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/ga107/gr/NET_img.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/ga107/gr/fecs_bl.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/ga107/gr/fecs_sig.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/ga107/gr/gpccs_bl.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/ga107/gr/gpccs_sig.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/ga107/nvdec/scrubber.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/ga107/sec2/desc.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/ga107/sec2/hs_bl_sig.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/ga107/sec2/image.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/ga107/sec2/sig.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gb100/gsp/bootloader-570.144.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gb100/gsp/fmc-570.144.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gb100/gsp/gsp-570.144.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gb202/gsp/bootloader-570.144.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gb202/gsp/fmc-570.144.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gb202/gsp/gsp-570.144.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gh100/gsp/bootloader-570.144.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gh100/gsp/fmc-570.144.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gh100/gsp/gsp-570.144.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gm200/acr/bl.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gm200/acr/ucode_load.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gm200/acr/ucode_unload.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gm200/gr/fecs_bl.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gm200/gr/fecs_data.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gm200/gr/fecs_inst.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gm200/gr/fecs_sig.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gm200/gr/gpccs_bl.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gm200/gr/gpccs_data.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gm200/gr/gpccs_inst.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gm200/gr/gpccs_sig.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gm200/gr/sw_bundle_init.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gm200/gr/sw_ctx.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gm200/gr/sw_method_init.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gm200/gr/sw_nonctx.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gm204/acr/bl.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gm204/acr/ucode_load.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gm204/acr/ucode_unload.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gm204/gr/fecs_bl.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gm204/gr/fecs_data.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gm204/gr/fecs_inst.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gm204/gr/fecs_sig.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gm204/gr/gpccs_bl.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gm204/gr/gpccs_data.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gm204/gr/gpccs_inst.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gm204/gr/gpccs_sig.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gm204/gr/sw_bundle_init.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gm204/gr/sw_ctx.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gm204/gr/sw_method_init.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gm204/gr/sw_nonctx.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gm206/acr/bl.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gm206/acr/ucode_load.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gm206/acr/ucode_unload.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gm206/gr/fecs_bl.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gm206/gr/fecs_data.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gm206/gr/fecs_inst.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gm206/gr/fecs_sig.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gm206/gr/gpccs_bl.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gm206/gr/gpccs_data.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gm206/gr/gpccs_inst.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gm206/gr/gpccs_sig.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gm206/gr/sw_bundle_init.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gm206/gr/sw_ctx.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gm206/gr/sw_method_init.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gm206/gr/sw_nonctx.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gp100/acr/bl.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gp100/acr/ucode_load.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gp100/acr/ucode_unload.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gp100/gr/fecs_bl.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gp100/gr/fecs_data.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gp100/gr/fecs_inst.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gp100/gr/fecs_sig.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gp100/gr/gpccs_bl.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gp100/gr/gpccs_data.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gp100/gr/gpccs_inst.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gp100/gr/gpccs_sig.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gp100/gr/sw_bundle_init.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gp100/gr/sw_ctx.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gp100/gr/sw_method_init.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gp100/gr/sw_nonctx.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gp102/acr/bl.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gp102/acr/ucode_load.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gp102/acr/ucode_unload.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gp102/acr/unload_bl.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gp102/gr/fecs_bl.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gp102/gr/fecs_data.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gp102/gr/fecs_inst.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gp102/gr/fecs_sig.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gp102/gr/gpccs_bl.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gp102/gr/gpccs_data.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gp102/gr/gpccs_inst.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gp102/gr/gpccs_sig.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gp102/gr/sw_bundle_init.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gp102/gr/sw_ctx.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gp102/gr/sw_method_init.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gp102/gr/sw_nonctx.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gp102/nvdec/scrubber.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gp102/sec2/desc-1.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gp102/sec2/desc.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gp102/sec2/image-1.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gp102/sec2/image.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gp102/sec2/sig-1.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gp102/sec2/sig.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gp104/acr/bl.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gp104/acr/ucode_load.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gp104/acr/ucode_unload.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gp104/acr/unload_bl.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gp104/gr/fecs_bl.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gp104/gr/fecs_data.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gp104/gr/fecs_inst.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gp104/gr/fecs_sig.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gp104/gr/gpccs_bl.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gp104/gr/gpccs_data.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gp104/gr/gpccs_inst.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gp104/gr/gpccs_sig.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gp104/gr/sw_bundle_init.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gp104/gr/sw_ctx.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gp104/gr/sw_method_init.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gp104/gr/sw_nonctx.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gp104/nvdec/scrubber.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gp104/sec2/desc-1.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gp104/sec2/desc.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gp104/sec2/image-1.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gp104/sec2/image.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gp104/sec2/sig-1.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gp104/sec2/sig.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gp106/acr/bl.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gp106/acr/ucode_load.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gp106/acr/ucode_unload.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gp106/acr/unload_bl.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gp106/gr/fecs_bl.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gp106/gr/fecs_data.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gp106/gr/fecs_inst.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gp106/gr/fecs_sig.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gp106/gr/gpccs_bl.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gp106/gr/gpccs_data.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gp106/gr/gpccs_inst.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gp106/gr/gpccs_sig.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gp106/gr/sw_bundle_init.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gp106/gr/sw_ctx.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gp106/gr/sw_method_init.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gp106/gr/sw_nonctx.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gp106/nvdec/scrubber.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gp106/sec2/desc-1.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gp106/sec2/desc.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gp106/sec2/image-1.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gp106/sec2/image.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gp106/sec2/sig-1.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gp106/sec2/sig.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gp107/acr/bl.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gp107/acr/ucode_load.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gp107/acr/ucode_unload.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gp107/acr/unload_bl.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gp107/gr/fecs_bl.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gp107/gr/fecs_data.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gp107/gr/fecs_inst.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gp107/gr/fecs_sig.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gp107/gr/gpccs_bl.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gp107/gr/gpccs_data.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gp107/gr/gpccs_inst.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gp107/gr/gpccs_sig.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gp107/gr/sw_bundle_init.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gp107/gr/sw_ctx.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gp107/gr/sw_method_init.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gp107/gr/sw_nonctx.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gp107/nvdec/scrubber.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gp107/sec2/desc-1.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gp107/sec2/desc.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gp107/sec2/image-1.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gp107/sec2/image.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gp107/sec2/sig-1.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gp107/sec2/sig.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gp108/acr/bl.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gp108/acr/ucode_load.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gp108/acr/ucode_unload.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gp108/acr/unload_bl.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gp108/gr/fecs_bl.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gp108/gr/fecs_data.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gp108/gr/fecs_inst.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gp108/gr/fecs_sig.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gp108/gr/gpccs_bl.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gp108/gr/gpccs_data.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gp108/gr/gpccs_inst.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gp108/gr/gpccs_sig.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gp108/gr/sw_bundle_init.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gp108/gr/sw_ctx.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gp108/gr/sw_method_init.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gp108/gr/sw_nonctx.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gp108/nvdec/scrubber.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gp108/sec2/desc.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gp108/sec2/image.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gp108/sec2/sig.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gv100/acr/bl.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gv100/acr/ucode_load.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gv100/acr/ucode_unload.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gv100/acr/unload_bl.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gv100/gr/fecs_bl.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gv100/gr/fecs_data.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gv100/gr/fecs_inst.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gv100/gr/fecs_sig.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gv100/gr/gpccs_bl.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gv100/gr/gpccs_data.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gv100/gr/gpccs_inst.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gv100/gr/gpccs_sig.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gv100/gr/sw_bundle_init.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gv100/gr/sw_ctx.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gv100/gr/sw_method_init.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gv100/gr/sw_nonctx.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gv100/nvdec/scrubber.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gv100/sec2/desc.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gv100/sec2/image.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/gv100/sec2/sig.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/tu102/acr/bl.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/tu102/acr/ucode_ahesasc.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/tu102/acr/ucode_asb.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/tu102/acr/ucode_unload.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/tu102/acr/unload_bl.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/tu102/gr/fecs_bl.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/tu102/gr/fecs_data.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/tu102/gr/fecs_inst.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/tu102/gr/fecs_sig.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/tu102/gr/gpccs_bl.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/tu102/gr/gpccs_data.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/tu102/gr/gpccs_inst.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/tu102/gr/gpccs_sig.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/tu102/gr/sw_bundle_init.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/tu102/gr/sw_ctx.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/tu102/gr/sw_method_init.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/tu102/gr/sw_nonctx.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/tu102/gr/sw_veid_bundle_init.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/tu102/gsp/booter_load-535.113.01.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/tu102/gsp/booter_load-570.144.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/tu102/gsp/booter_unload-535.113.01.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/tu102/gsp/booter_unload-570.144.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/tu102/gsp/bootloader-535.113.01.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/tu102/gsp/bootloader-570.144.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/tu102/gsp/gsp-535.113.01.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/tu102/gsp/gsp-570.144.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/tu102/nvdec/scrubber.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/tu102/sec2/desc.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/tu102/sec2/image.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/tu102/sec2/sig.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/tu104/acr/bl.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/tu104/acr/ucode_ahesasc.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/tu104/acr/ucode_asb.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/tu104/acr/ucode_unload.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/tu104/acr/unload_bl.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/tu104/gr/fecs_bl.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/tu104/gr/fecs_data.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/tu104/gr/fecs_inst.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/tu104/gr/fecs_sig.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/tu104/gr/gpccs_bl.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/tu104/gr/gpccs_data.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/tu104/gr/gpccs_inst.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/tu104/gr/gpccs_sig.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/tu104/gr/sw_bundle_init.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/tu104/gr/sw_ctx.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/tu104/gr/sw_method_init.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/tu104/gr/sw_nonctx.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/tu104/gr/sw_veid_bundle_init.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/tu104/nvdec/scrubber.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/tu104/sec2/desc.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/tu104/sec2/image.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/tu104/sec2/sig.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/tu106/acr/bl.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/tu106/acr/ucode_ahesasc.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/tu106/acr/ucode_asb.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/tu106/acr/ucode_unload.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/tu106/acr/unload_bl.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/tu106/gr/fecs_bl.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/tu106/gr/fecs_data.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/tu106/gr/fecs_inst.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/tu106/gr/fecs_sig.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/tu106/gr/gpccs_bl.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/tu106/gr/gpccs_data.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/tu106/gr/gpccs_inst.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/tu106/gr/gpccs_sig.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/tu106/gr/sw_bundle_init.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/tu106/gr/sw_ctx.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/tu106/gr/sw_method_init.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/tu106/gr/sw_nonctx.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/tu106/gr/sw_veid_bundle_init.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/tu106/nvdec/scrubber.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/tu106/sec2/desc.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/tu106/sec2/image.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/tu106/sec2/sig.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/tu116/acr/bl.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/tu116/acr/ucode_ahesasc.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/tu116/acr/ucode_asb.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/tu116/acr/ucode_unload.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/tu116/acr/unload_bl.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/tu116/gr/fecs_bl.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/tu116/gr/fecs_data.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/tu116/gr/fecs_inst.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/tu116/gr/fecs_sig.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/tu116/gr/gpccs_bl.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/tu116/gr/gpccs_data.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/tu116/gr/gpccs_inst.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/tu116/gr/gpccs_sig.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/tu116/gr/sw_bundle_init.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/tu116/gr/sw_ctx.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/tu116/gr/sw_method_init.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/tu116/gr/sw_nonctx.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/tu116/gr/sw_veid_bundle_init.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/tu116/gsp/booter_load-535.113.01.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/tu116/gsp/booter_load-570.144.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/tu116/gsp/booter_unload-535.113.01.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/tu116/gsp/booter_unload-570.144.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/tu116/gsp/bootloader-535.113.01.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/tu116/gsp/bootloader-570.144.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/tu116/gsp/gsp-535.113.01.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/tu116/gsp/gsp-570.144.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/tu116/nvdec/scrubber.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/tu116/sec2/desc.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/tu116/sec2/image.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/tu116/sec2/sig.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/tu117/acr/bl.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/tu117/acr/ucode_ahesasc.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/tu117/acr/ucode_asb.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/tu117/acr/ucode_unload.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/tu117/acr/unload_bl.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/tu117/gr/fecs_bl.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/tu117/gr/fecs_data.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/tu117/gr/fecs_inst.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/tu117/gr/fecs_sig.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/tu117/gr/gpccs_bl.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/tu117/gr/gpccs_data.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/tu117/gr/gpccs_inst.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/tu117/gr/gpccs_sig.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/tu117/gr/sw_bundle_init.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/tu117/gr/sw_ctx.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/tu117/gr/sw_method_init.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/tu117/gr/sw_nonctx.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/tu117/gr/sw_veid_bundle_init.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/tu117/nvdec/scrubber.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/tu117/sec2/desc.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/tu117/sec2/image.bin	nvidia-gpu-firmware
+firmware	nouveau	nvidia/tu117/sec2/sig.bin	nvidia-gpu-firmware
+firmware	qat_420xx	qat_420xx.bin	linux-firmware
+firmware	qat_420xx	qat_420xx_mmp.bin	linux-firmware
+firmware	qat_4xxx	qat_402xx.bin	linux-firmware
+firmware	qat_4xxx	qat_402xx_mmp.bin	linux-firmware
+firmware	qat_4xxx	qat_4xxx.bin	linux-firmware
+firmware	qat_4xxx	qat_4xxx_mmp.bin	linux-firmware
+firmware	qat_c3xxx	qat_c3xxx.bin	linux-firmware
+firmware	qat_c3xxx	qat_c3xxx_mmp.bin	linux-firmware
+firmware	qat_c62x	qat_c62x.bin	linux-firmware
+firmware	qat_c62x	qat_c62x_mmp.bin	linux-firmware
+firmware	qat_dh895xcc	qat_895xcc.bin	linux-firmware
+firmware	qat_dh895xcc	qat_895xcc_mmp.bin	linux-firmware
+firmware	qed	qed/qed_init_values_zipped-8.59.1.0.bin	linux-firmware
+firmware	qla2xxx	ql2100_fw.bin	linux-firmware
+firmware	qla2xxx	ql2200_fw.bin	linux-firmware
+firmware	qla2xxx	ql2300_fw.bin	linux-firmware
+firmware	qla2xxx	ql2322_fw.bin	linux-firmware
+firmware	qla2xxx	ql2400_fw.bin	linux-firmware
+firmware	qla2xxx	ql2500_fw.bin	linux-firmware
+firmware	r8152	rtl_nic/rtl8153a-2.fw	linux-firmware
+firmware	r8152	rtl_nic/rtl8153a-3.fw	linux-firmware
+firmware	r8152	rtl_nic/rtl8153a-4.fw	linux-firmware
+firmware	r8152	rtl_nic/rtl8153b-2.fw	linux-firmware
+firmware	r8152	rtl_nic/rtl8153c-1.fw	linux-firmware
+firmware	r8152	rtl_nic/rtl8156a-2.fw	linux-firmware
+firmware	r8152	rtl_nic/rtl8156b-2.fw	linux-firmware
+firmware	r8169	rtl_nic/rtl8105e-1.fw	linux-firmware
+firmware	r8169	rtl_nic/rtl8106e-1.fw	linux-firmware
+firmware	r8169	rtl_nic/rtl8106e-2.fw	linux-firmware
+firmware	r8169	rtl_nic/rtl8107e-2.fw	linux-firmware
+firmware	r8169	rtl_nic/rtl8125a-3.fw	linux-firmware
+firmware	r8169	rtl_nic/rtl8125b-2.fw	linux-firmware
+firmware	r8169	rtl_nic/rtl8125bp-2.fw	linux-firmware
+firmware	r8169	rtl_nic/rtl8125d-1.fw	linux-firmware
+firmware	r8169	rtl_nic/rtl8125d-2.fw	linux-firmware
+firmware	r8169	rtl_nic/rtl8125k-1.fw	linux-firmware
+firmware	r8169	rtl_nic/rtl8126a-2.fw	linux-firmware
+firmware	r8169	rtl_nic/rtl8126a-3.fw	linux-firmware
+firmware	r8169	rtl_nic/rtl8127a-1.fw	linux-firmware
+firmware	r8169	rtl_nic/rtl8168d-1.fw	linux-firmware
+firmware	r8169	rtl_nic/rtl8168d-2.fw	linux-firmware
+firmware	r8169	rtl_nic/rtl8168e-1.fw	linux-firmware
+firmware	r8169	rtl_nic/rtl8168e-2.fw	linux-firmware
+firmware	r8169	rtl_nic/rtl8168e-3.fw	linux-firmware
+firmware	r8169	rtl_nic/rtl8168f-1.fw	linux-firmware
+firmware	r8169	rtl_nic/rtl8168f-2.fw	linux-firmware
+firmware	r8169	rtl_nic/rtl8168fp-3.fw	linux-firmware
+firmware	r8169	rtl_nic/rtl8168g-2.fw	linux-firmware
+firmware	r8169	rtl_nic/rtl8168g-3.fw	linux-firmware
+firmware	r8169	rtl_nic/rtl8168h-2.fw	linux-firmware
+firmware	r8169	rtl_nic/rtl8402-1.fw	linux-firmware
+firmware	r8169	rtl_nic/rtl8411-1.fw	linux-firmware
+firmware	r8169	rtl_nic/rtl8411-2.fw	linux-firmware
+firmware	r8169	rtl_nic/rtl9151a-1.fw	linux-firmware
+firmware	radeon	radeon/ARUBA_me.bin	amd-gpu-firmware
+firmware	radeon	radeon/ARUBA_pfp.bin	amd-gpu-firmware
+firmware	radeon	radeon/ARUBA_rlc.bin	amd-gpu-firmware
+firmware	radeon	radeon/BARTS_mc.bin	amd-gpu-firmware
+firmware	radeon	radeon/BARTS_me.bin	amd-gpu-firmware
+firmware	radeon	radeon/BARTS_pfp.bin	amd-gpu-firmware
+firmware	radeon	radeon/BARTS_smc.bin	amd-gpu-firmware
+firmware	radeon	radeon/BONAIRE_ce.bin	amd-gpu-firmware
+firmware	radeon	radeon/BONAIRE_mc.bin	amd-gpu-firmware
+firmware	radeon	radeon/BONAIRE_mc2.bin	amd-gpu-firmware
+firmware	radeon	radeon/BONAIRE_me.bin	amd-gpu-firmware
+firmware	radeon	radeon/BONAIRE_mec.bin	amd-gpu-firmware
+firmware	radeon	radeon/BONAIRE_pfp.bin	amd-gpu-firmware
+firmware	radeon	radeon/BONAIRE_rlc.bin	amd-gpu-firmware
+firmware	radeon	radeon/BONAIRE_sdma.bin	amd-gpu-firmware
+firmware	radeon	radeon/BONAIRE_smc.bin	amd-gpu-firmware
+firmware	radeon	radeon/BONAIRE_uvd.bin	amd-gpu-firmware
+firmware	radeon	radeon/BONAIRE_vce.bin	amd-gpu-firmware
+firmware	radeon	radeon/BTC_rlc.bin	amd-gpu-firmware
+firmware	radeon	radeon/CAICOS_mc.bin	amd-gpu-firmware
+firmware	radeon	radeon/CAICOS_me.bin	amd-gpu-firmware
+firmware	radeon	radeon/CAICOS_pfp.bin	amd-gpu-firmware
+firmware	radeon	radeon/CAICOS_smc.bin	amd-gpu-firmware
+firmware	radeon	radeon/CAYMAN_mc.bin	amd-gpu-firmware
+firmware	radeon	radeon/CAYMAN_me.bin	amd-gpu-firmware
+firmware	radeon	radeon/CAYMAN_pfp.bin	amd-gpu-firmware
+firmware	radeon	radeon/CAYMAN_rlc.bin	amd-gpu-firmware
+firmware	radeon	radeon/CAYMAN_smc.bin	amd-gpu-firmware
+firmware	radeon	radeon/CEDAR_me.bin	amd-gpu-firmware
+firmware	radeon	radeon/CEDAR_pfp.bin	amd-gpu-firmware
+firmware	radeon	radeon/CEDAR_rlc.bin	amd-gpu-firmware
+firmware	radeon	radeon/CEDAR_smc.bin	amd-gpu-firmware
+firmware	radeon	radeon/CYPRESS_me.bin	amd-gpu-firmware
+firmware	radeon	radeon/CYPRESS_pfp.bin	amd-gpu-firmware
+firmware	radeon	radeon/CYPRESS_rlc.bin	amd-gpu-firmware
+firmware	radeon	radeon/CYPRESS_smc.bin	amd-gpu-firmware
+firmware	radeon	radeon/CYPRESS_uvd.bin	amd-gpu-firmware
+firmware	radeon	radeon/HAINAN_ce.bin	amd-gpu-firmware
+firmware	radeon	radeon/HAINAN_mc.bin	amd-gpu-firmware
+firmware	radeon	radeon/HAINAN_mc2.bin	amd-gpu-firmware
+firmware	radeon	radeon/HAINAN_me.bin	amd-gpu-firmware
+firmware	radeon	radeon/HAINAN_pfp.bin	amd-gpu-firmware
+firmware	radeon	radeon/HAINAN_rlc.bin	amd-gpu-firmware
+firmware	radeon	radeon/HAINAN_smc.bin	amd-gpu-firmware
+firmware	radeon	radeon/HAWAII_ce.bin	amd-gpu-firmware
+firmware	radeon	radeon/HAWAII_mc.bin	amd-gpu-firmware
+firmware	radeon	radeon/HAWAII_mc2.bin	amd-gpu-firmware
+firmware	radeon	radeon/HAWAII_me.bin	amd-gpu-firmware
+firmware	radeon	radeon/HAWAII_mec.bin	amd-gpu-firmware
+firmware	radeon	radeon/HAWAII_pfp.bin	amd-gpu-firmware
+firmware	radeon	radeon/HAWAII_rlc.bin	amd-gpu-firmware
+firmware	radeon	radeon/HAWAII_sdma.bin	amd-gpu-firmware
+firmware	radeon	radeon/HAWAII_smc.bin	amd-gpu-firmware
+firmware	radeon	radeon/JUNIPER_me.bin	amd-gpu-firmware
+firmware	radeon	radeon/JUNIPER_pfp.bin	amd-gpu-firmware
+firmware	radeon	radeon/JUNIPER_rlc.bin	amd-gpu-firmware
+firmware	radeon	radeon/JUNIPER_smc.bin	amd-gpu-firmware
+firmware	radeon	radeon/KABINI_ce.bin	amd-gpu-firmware
+firmware	radeon	radeon/KABINI_me.bin	amd-gpu-firmware
+firmware	radeon	radeon/KABINI_mec.bin	amd-gpu-firmware
+firmware	radeon	radeon/KABINI_pfp.bin	amd-gpu-firmware
+firmware	radeon	radeon/KABINI_rlc.bin	amd-gpu-firmware
+firmware	radeon	radeon/KABINI_sdma.bin	amd-gpu-firmware
+firmware	radeon	radeon/KAVERI_ce.bin	amd-gpu-firmware
+firmware	radeon	radeon/KAVERI_me.bin	amd-gpu-firmware
+firmware	radeon	radeon/KAVERI_mec.bin	amd-gpu-firmware
+firmware	radeon	radeon/KAVERI_pfp.bin	amd-gpu-firmware
+firmware	radeon	radeon/KAVERI_rlc.bin	amd-gpu-firmware
+firmware	radeon	radeon/KAVERI_sdma.bin	amd-gpu-firmware
+firmware	radeon	radeon/MULLINS_ce.bin	amd-gpu-firmware
+firmware	radeon	radeon/MULLINS_me.bin	amd-gpu-firmware
+firmware	radeon	radeon/MULLINS_mec.bin	amd-gpu-firmware
+firmware	radeon	radeon/MULLINS_pfp.bin	amd-gpu-firmware
+firmware	radeon	radeon/MULLINS_rlc.bin	amd-gpu-firmware
+firmware	radeon	radeon/MULLINS_sdma.bin	amd-gpu-firmware
+firmware	radeon	radeon/OLAND_ce.bin	amd-gpu-firmware
+firmware	radeon	radeon/OLAND_mc.bin	amd-gpu-firmware
+firmware	radeon	radeon/OLAND_mc2.bin	amd-gpu-firmware
+firmware	radeon	radeon/OLAND_me.bin	amd-gpu-firmware
+firmware	radeon	radeon/OLAND_pfp.bin	amd-gpu-firmware
+firmware	radeon	radeon/OLAND_rlc.bin	amd-gpu-firmware
+firmware	radeon	radeon/OLAND_smc.bin	amd-gpu-firmware
+firmware	radeon	radeon/PALM_me.bin	amd-gpu-firmware
+firmware	radeon	radeon/PALM_pfp.bin	amd-gpu-firmware
+firmware	radeon	radeon/PITCAIRN_ce.bin	amd-gpu-firmware
+firmware	radeon	radeon/PITCAIRN_mc.bin	amd-gpu-firmware
+firmware	radeon	radeon/PITCAIRN_mc2.bin	amd-gpu-firmware
+firmware	radeon	radeon/PITCAIRN_me.bin	amd-gpu-firmware
+firmware	radeon	radeon/PITCAIRN_pfp.bin	amd-gpu-firmware
+firmware	radeon	radeon/PITCAIRN_rlc.bin	amd-gpu-firmware
+firmware	radeon	radeon/PITCAIRN_smc.bin	amd-gpu-firmware
+firmware	radeon	radeon/R100_cp.bin	amd-gpu-firmware
+firmware	radeon	radeon/R200_cp.bin	amd-gpu-firmware
+firmware	radeon	radeon/R300_cp.bin	amd-gpu-firmware
+firmware	radeon	radeon/R420_cp.bin	amd-gpu-firmware
+firmware	radeon	radeon/R520_cp.bin	amd-gpu-firmware
+firmware	radeon	radeon/R600_me.bin	amd-gpu-firmware
+firmware	radeon	radeon/R600_pfp.bin	amd-gpu-firmware
+firmware	radeon	radeon/R600_rlc.bin	amd-gpu-firmware
+firmware	radeon	radeon/R600_uvd.bin	amd-gpu-firmware
+firmware	radeon	radeon/R700_rlc.bin	amd-gpu-firmware
+firmware	radeon	radeon/REDWOOD_me.bin	amd-gpu-firmware
+firmware	radeon	radeon/REDWOOD_pfp.bin	amd-gpu-firmware
+firmware	radeon	radeon/REDWOOD_rlc.bin	amd-gpu-firmware
+firmware	radeon	radeon/REDWOOD_smc.bin	amd-gpu-firmware
+firmware	radeon	radeon/RS600_cp.bin	amd-gpu-firmware
+firmware	radeon	radeon/RS690_cp.bin	amd-gpu-firmware
+firmware	radeon	radeon/RS780_me.bin	amd-gpu-firmware
+firmware	radeon	radeon/RS780_pfp.bin	amd-gpu-firmware
+firmware	radeon	radeon/RS780_uvd.bin	amd-gpu-firmware
+firmware	radeon	radeon/RV610_me.bin	amd-gpu-firmware
+firmware	radeon	radeon/RV610_pfp.bin	amd-gpu-firmware
+firmware	radeon	radeon/RV620_me.bin	amd-gpu-firmware
+firmware	radeon	radeon/RV620_pfp.bin	amd-gpu-firmware
+firmware	radeon	radeon/RV630_me.bin	amd-gpu-firmware
+firmware	radeon	radeon/RV630_pfp.bin	amd-gpu-firmware
+firmware	radeon	radeon/RV635_me.bin	amd-gpu-firmware
+firmware	radeon	radeon/RV635_pfp.bin	amd-gpu-firmware
+firmware	radeon	radeon/RV670_me.bin	amd-gpu-firmware
+firmware	radeon	radeon/RV670_pfp.bin	amd-gpu-firmware
+firmware	radeon	radeon/RV710_me.bin	amd-gpu-firmware
+firmware	radeon	radeon/RV710_pfp.bin	amd-gpu-firmware
+firmware	radeon	radeon/RV710_smc.bin	amd-gpu-firmware
+firmware	radeon	radeon/RV710_uvd.bin	amd-gpu-firmware
+firmware	radeon	radeon/RV730_me.bin	amd-gpu-firmware
+firmware	radeon	radeon/RV730_pfp.bin	amd-gpu-firmware
+firmware	radeon	radeon/RV730_smc.bin	amd-gpu-firmware
+firmware	radeon	radeon/RV740_smc.bin	amd-gpu-firmware
+firmware	radeon	radeon/RV770_me.bin	amd-gpu-firmware
+firmware	radeon	radeon/RV770_pfp.bin	amd-gpu-firmware
+firmware	radeon	radeon/RV770_smc.bin	amd-gpu-firmware
+firmware	radeon	radeon/RV770_uvd.bin	amd-gpu-firmware
+firmware	radeon	radeon/SUMO2_me.bin	amd-gpu-firmware
+firmware	radeon	radeon/SUMO2_pfp.bin	amd-gpu-firmware
+firmware	radeon	radeon/SUMO_me.bin	amd-gpu-firmware
+firmware	radeon	radeon/SUMO_pfp.bin	amd-gpu-firmware
+firmware	radeon	radeon/SUMO_rlc.bin	amd-gpu-firmware
+firmware	radeon	radeon/SUMO_uvd.bin	amd-gpu-firmware
+firmware	radeon	radeon/TAHITI_ce.bin	amd-gpu-firmware
+firmware	radeon	radeon/TAHITI_mc.bin	amd-gpu-firmware
+firmware	radeon	radeon/TAHITI_mc2.bin	amd-gpu-firmware
+firmware	radeon	radeon/TAHITI_me.bin	amd-gpu-firmware
+firmware	radeon	radeon/TAHITI_pfp.bin	amd-gpu-firmware
+firmware	radeon	radeon/TAHITI_rlc.bin	amd-gpu-firmware
+firmware	radeon	radeon/TAHITI_smc.bin	amd-gpu-firmware
+firmware	radeon	radeon/TAHITI_uvd.bin	amd-gpu-firmware
+firmware	radeon	radeon/TAHITI_vce.bin	amd-gpu-firmware
+firmware	radeon	radeon/TURKS_mc.bin	amd-gpu-firmware
+firmware	radeon	radeon/TURKS_me.bin	amd-gpu-firmware
+firmware	radeon	radeon/TURKS_pfp.bin	amd-gpu-firmware
+firmware	radeon	radeon/TURKS_smc.bin	amd-gpu-firmware
+firmware	radeon	radeon/VERDE_ce.bin	amd-gpu-firmware
+firmware	radeon	radeon/VERDE_mc.bin	amd-gpu-firmware
+firmware	radeon	radeon/VERDE_mc2.bin	amd-gpu-firmware
+firmware	radeon	radeon/VERDE_me.bin	amd-gpu-firmware
+firmware	radeon	radeon/VERDE_pfp.bin	amd-gpu-firmware
+firmware	radeon	radeon/VERDE_rlc.bin	amd-gpu-firmware
+firmware	radeon	radeon/VERDE_smc.bin	amd-gpu-firmware
+firmware	radeon	radeon/banks_k_2_smc.bin	amd-gpu-firmware
+firmware	radeon	radeon/bonaire_ce.bin	amd-gpu-firmware
+firmware	radeon	radeon/bonaire_k_smc.bin	amd-gpu-firmware
+firmware	radeon	radeon/bonaire_mc.bin	amd-gpu-firmware
+firmware	radeon	radeon/bonaire_me.bin	amd-gpu-firmware
+firmware	radeon	radeon/bonaire_mec.bin	amd-gpu-firmware
+firmware	radeon	radeon/bonaire_pfp.bin	amd-gpu-firmware
+firmware	radeon	radeon/bonaire_rlc.bin	amd-gpu-firmware
+firmware	radeon	radeon/bonaire_sdma.bin	amd-gpu-firmware
+firmware	radeon	radeon/bonaire_smc.bin	amd-gpu-firmware
+firmware	radeon	radeon/bonaire_uvd.bin	amd-gpu-firmware
+firmware	radeon	radeon/hainan_ce.bin	amd-gpu-firmware
+firmware	radeon	radeon/hainan_k_smc.bin	amd-gpu-firmware
+firmware	radeon	radeon/hainan_mc.bin	amd-gpu-firmware
+firmware	radeon	radeon/hainan_me.bin	amd-gpu-firmware
+firmware	radeon	radeon/hainan_pfp.bin	amd-gpu-firmware
+firmware	radeon	radeon/hainan_rlc.bin	amd-gpu-firmware
+firmware	radeon	radeon/hainan_smc.bin	amd-gpu-firmware
+firmware	radeon	radeon/hawaii_ce.bin	amd-gpu-firmware
+firmware	radeon	radeon/hawaii_k_smc.bin	amd-gpu-firmware
+firmware	radeon	radeon/hawaii_mc.bin	amd-gpu-firmware
+firmware	radeon	radeon/hawaii_me.bin	amd-gpu-firmware
+firmware	radeon	radeon/hawaii_mec.bin	amd-gpu-firmware
+firmware	radeon	radeon/hawaii_pfp.bin	amd-gpu-firmware
+firmware	radeon	radeon/hawaii_rlc.bin	amd-gpu-firmware
+firmware	radeon	radeon/hawaii_sdma.bin	amd-gpu-firmware
+firmware	radeon	radeon/hawaii_smc.bin	amd-gpu-firmware
+firmware	radeon	radeon/kabini_ce.bin	amd-gpu-firmware
+firmware	radeon	radeon/kabini_me.bin	amd-gpu-firmware
+firmware	radeon	radeon/kabini_mec.bin	amd-gpu-firmware
+firmware	radeon	radeon/kabini_pfp.bin	amd-gpu-firmware
+firmware	radeon	radeon/kabini_rlc.bin	amd-gpu-firmware
+firmware	radeon	radeon/kabini_sdma.bin	amd-gpu-firmware
+firmware	radeon	radeon/kaveri_ce.bin	amd-gpu-firmware
+firmware	radeon	radeon/kaveri_me.bin	amd-gpu-firmware
+firmware	radeon	radeon/kaveri_mec.bin	amd-gpu-firmware
+firmware	radeon	radeon/kaveri_mec2.bin	amd-gpu-firmware
+firmware	radeon	radeon/kaveri_pfp.bin	amd-gpu-firmware
+firmware	radeon	radeon/kaveri_rlc.bin	amd-gpu-firmware
+firmware	radeon	radeon/kaveri_sdma.bin	amd-gpu-firmware
+firmware	radeon	radeon/mullins_ce.bin	amd-gpu-firmware
+firmware	radeon	radeon/mullins_me.bin	amd-gpu-firmware
+firmware	radeon	radeon/mullins_mec.bin	amd-gpu-firmware
+firmware	radeon	radeon/mullins_pfp.bin	amd-gpu-firmware
+firmware	radeon	radeon/mullins_rlc.bin	amd-gpu-firmware
+firmware	radeon	radeon/mullins_sdma.bin	amd-gpu-firmware
+firmware	radeon	radeon/oland_ce.bin	amd-gpu-firmware
+firmware	radeon	radeon/oland_k_smc.bin	amd-gpu-firmware
+firmware	radeon	radeon/oland_mc.bin	amd-gpu-firmware
+firmware	radeon	radeon/oland_me.bin	amd-gpu-firmware
+firmware	radeon	radeon/oland_pfp.bin	amd-gpu-firmware
+firmware	radeon	radeon/oland_rlc.bin	amd-gpu-firmware
+firmware	radeon	radeon/oland_smc.bin	amd-gpu-firmware
+firmware	radeon	radeon/pitcairn_ce.bin	amd-gpu-firmware
+firmware	radeon	radeon/pitcairn_k_smc.bin	amd-gpu-firmware
+firmware	radeon	radeon/pitcairn_mc.bin	amd-gpu-firmware
+firmware	radeon	radeon/pitcairn_me.bin	amd-gpu-firmware
+firmware	radeon	radeon/pitcairn_pfp.bin	amd-gpu-firmware
+firmware	radeon	radeon/pitcairn_rlc.bin	amd-gpu-firmware
+firmware	radeon	radeon/pitcairn_smc.bin	amd-gpu-firmware
+firmware	radeon	radeon/si58_mc.bin	amd-gpu-firmware
+firmware	radeon	radeon/tahiti_ce.bin	amd-gpu-firmware
+firmware	radeon	radeon/tahiti_mc.bin	amd-gpu-firmware
+firmware	radeon	radeon/tahiti_me.bin	amd-gpu-firmware
+firmware	radeon	radeon/tahiti_pfp.bin	amd-gpu-firmware
+firmware	radeon	radeon/tahiti_rlc.bin	amd-gpu-firmware
+firmware	radeon	radeon/tahiti_smc.bin	amd-gpu-firmware
+firmware	radeon	radeon/verde_ce.bin	amd-gpu-firmware
+firmware	radeon	radeon/verde_k_smc.bin	amd-gpu-firmware
+firmware	radeon	radeon/verde_mc.bin	amd-gpu-firmware
+firmware	radeon	radeon/verde_me.bin	amd-gpu-firmware
+firmware	radeon	radeon/verde_pfp.bin	amd-gpu-firmware
+firmware	radeon	radeon/verde_rlc.bin	amd-gpu-firmware
+firmware	radeon	radeon/verde_smc.bin	amd-gpu-firmware
+firmware	rt2800pci	rt2860.bin	linux-firmware
+firmware	rt2800usb	rt2870.bin	linux-firmware
+firmware	rt73usb	rt73.bin	linux-firmware
+firmware	rtl8188ee	rtlwifi/rtl8188efw.bin	realtek-firmware
+firmware	rtl8192ce	rtlwifi/rtl8192cfw.bin	realtek-firmware
+firmware	rtl8192ce	rtlwifi/rtl8192cfwU.bin	realtek-firmware
+firmware	rtl8192ce	rtlwifi/rtl8192cfwU_B.bin	realtek-firmware
+firmware	rtl8192cu	rtlwifi/rtl8192cufw.bin	realtek-firmware
+firmware	rtl8192cu	rtlwifi/rtl8192cufw_A.bin	realtek-firmware
+firmware	rtl8192cu	rtlwifi/rtl8192cufw_B.bin	realtek-firmware
+firmware	rtl8192cu	rtlwifi/rtl8192cufw_TMSC.bin	realtek-firmware
+firmware	rtl8192de	rtlwifi/rtl8192defw.bin	realtek-firmware
+firmware	rtl8192du	rtlwifi/rtl8192dufw.bin	realtek-firmware
+firmware	rtl8192ee	rtlwifi/rtl8192eefw.bin	realtek-firmware
+firmware	rtl8192se	rtlwifi/rtl8192sefw.bin	realtek-firmware
+firmware	rtl8723ae	rtlwifi/rtl8723fw.bin	realtek-firmware
+firmware	rtl8723ae	rtlwifi/rtl8723fw_B.bin	realtek-firmware
+firmware	rtl8723be	rtlwifi/rtl8723befw.bin	realtek-firmware
+firmware	rtl8723be	rtlwifi/rtl8723befw_36.bin	realtek-firmware
+firmware	rtl8821ae	rtlwifi/rtl8812aefw.bin	realtek-firmware
+firmware	rtl8821ae	rtlwifi/rtl8812aefw_wowlan.bin	realtek-firmware
+firmware	rtl8821ae	rtlwifi/rtl8821aefw.bin	realtek-firmware
+firmware	rtl8821ae	rtlwifi/rtl8821aefw_29.bin	realtek-firmware
+firmware	rtl8821ae	rtlwifi/rtl8821aefw_wowlan.bin	realtek-firmware
+firmware	rtl8xxxu	rtlwifi/rtl8188eufw.bin	realtek-firmware
+firmware	rtl8xxxu	rtlwifi/rtl8188fufw.bin	realtek-firmware
+firmware	rtl8xxxu	rtlwifi/rtl8192cufw_A.bin	realtek-firmware
+firmware	rtl8xxxu	rtlwifi/rtl8192cufw_B.bin	realtek-firmware
+firmware	rtl8xxxu	rtlwifi/rtl8192cufw_TMSC.bin	realtek-firmware
+firmware	rtl8xxxu	rtlwifi/rtl8192eu_nic.bin	realtek-firmware
+firmware	rtl8xxxu	rtlwifi/rtl8192fufw.bin	realtek-firmware
+firmware	rtl8xxxu	rtlwifi/rtl8710bufw_SMIC.bin	realtek-firmware
+firmware	rtl8xxxu	rtlwifi/rtl8710bufw_UMC.bin	realtek-firmware
+firmware	rtl8xxxu	rtlwifi/rtl8723aufw_A.bin	realtek-firmware
+firmware	rtl8xxxu	rtlwifi/rtl8723aufw_B.bin	realtek-firmware
+firmware	rtl8xxxu	rtlwifi/rtl8723aufw_B_NoBT.bin	realtek-firmware
+firmware	rtl8xxxu	rtlwifi/rtl8723bu_nic.bin	realtek-firmware
+firmware	rtw88_8703b	rtw88/rtw8703b_fw.bin	realtek-firmware
+firmware	rtw88_8703b	rtw88/rtw8703b_wow_fw.bin	realtek-firmware
+firmware	rtw88_8723d	rtw88/rtw8723d_fw.bin	realtek-firmware
+firmware	rtw88_8812a	rtw88/rtw8812a_fw.bin	realtek-firmware
+firmware	rtw88_8814a	rtw88/rtw8814a_fw.bin	realtek-firmware
+firmware	rtw88_8821a	rtw88/rtw8821a_fw.bin	realtek-firmware
+firmware	rtw88_8821c	rtw88/rtw8821c_fw.bin	realtek-firmware
+firmware	rtw88_8822b	rtw88/rtw8822b_fw.bin	realtek-firmware
+firmware	rtw88_8822c	rtw88/rtw8822c_fw.bin	realtek-firmware
+firmware	rtw88_8822c	rtw88/rtw8822c_wow_fw.bin	realtek-firmware
+firmware	rtw89_8851b	rtw89/rtw8851b_fw.bin	realtek-firmware
+firmware	rtw89_8852a	rtw89/rtw8852a_fw.bin	realtek-firmware
+firmware	rtw89_8852b	rtw89/rtw8852b_fw-1.bin	realtek-firmware
+firmware	rtw89_8852bt	rtw89/rtw8852bt_fw.bin	realtek-firmware
+firmware	rtw89_8852c	rtw89/rtw8852c_fw-2.bin	realtek-firmware
+firmware	rtw89_8922a	rtw89/rtw8922a_fw-4.bin	realtek-firmware
+firmware	s2255drv	f2255usb.bin	linux-firmware
+firmware	snd_soc_avs	intel/avs/apl/dsp_basefw.bin	intel-audio-firmware
+firmware	snd_soc_avs	intel/avs/cnl/dsp_basefw.bin	intel-audio-firmware
+firmware	snd_soc_avs	intel/avs/lkf/dsp_basefw.bin	intel-audio-firmware
+firmware	snd_soc_avs	intel/avs/skl/dsp_basefw.bin	intel-audio-firmware
+firmware	tg3	tigon/tg3.bin	linux-firmware
+firmware	tg3	tigon/tg357766.bin	linux-firmware
+firmware	tg3	tigon/tg3_tso.bin	linux-firmware
+firmware	tg3	tigon/tg3_tso5.bin	linux-firmware
+firmware	ti_usb_3410_5052	moxa/moxa-1110.fw	linux-firmware
+firmware	ti_usb_3410_5052	moxa/moxa-1130.fw	linux-firmware
+firmware	ti_usb_3410_5052	moxa/moxa-1131.fw	linux-firmware
+firmware	ti_usb_3410_5052	moxa/moxa-1150.fw	linux-firmware
+firmware	ti_usb_3410_5052	moxa/moxa-1151.fw	linux-firmware
+firmware	ti_usb_3410_5052	mts_cdma.fw	linux-firmware
+firmware	ti_usb_3410_5052	mts_edge.fw	linux-firmware
+firmware	ti_usb_3410_5052	mts_gsm.fw	linux-firmware
+firmware	ti_usb_3410_5052	mts_mt9234mu.fw	linux-firmware
+firmware	ti_usb_3410_5052	mts_mt9234zba.fw	linux-firmware
+firmware	ti_usb_3410_5052	ti_3410.fw	linux-firmware
+firmware	ti_usb_3410_5052	ti_5052.fw	linux-firmware
+firmware	ums_eneub6250	ene-ub6250/ms_init.bin	linux-firmware
+firmware	ums_eneub6250	ene-ub6250/ms_rdwr.bin	linux-firmware
+firmware	ums_eneub6250	ene-ub6250/msp_rdwr.bin	linux-firmware
+firmware	ums_eneub6250	ene-ub6250/sd_init1.bin	linux-firmware
+firmware	ums_eneub6250	ene-ub6250/sd_init2.bin	linux-firmware
+firmware	ums_eneub6250	ene-ub6250/sd_rdwr.bin	linux-firmware
+firmware	whiteheat	whiteheat.fw	linux-firmware
+firmware	whiteheat	whiteheat_loader.fw	linux-firmware
+firmware	xe	i915/adlp_dmc.bin	intel-gpu-firmware
+firmware	xe	i915/adlp_dmc_ver2_16.bin	intel-gpu-firmware
+firmware	xe	i915/adlp_guc_70.bin	intel-gpu-firmware
+firmware	xe	i915/adls_dmc_ver2_01.bin	intel-gpu-firmware
+firmware	xe	i915/bmg_dmc.bin	intel-gpu-firmware
+firmware	xe	i915/bxt_dmc_ver1_07.bin	intel-gpu-firmware
+firmware	xe	i915/dg1_dmc_ver2_02.bin	intel-gpu-firmware
+firmware	xe	i915/dg1_guc_70.bin	intel-gpu-firmware
+firmware	xe	i915/dg1_huc.bin	intel-gpu-firmware
+firmware	xe	i915/dg2_dmc_ver2_08.bin	intel-gpu-firmware
+firmware	xe	i915/dg2_guc_70.bin	intel-gpu-firmware
+firmware	xe	i915/glk_dmc_ver1_04.bin	intel-gpu-firmware
+firmware	xe	i915/icl_dmc_ver1_09.bin	intel-gpu-firmware
+firmware	xe	i915/kbl_dmc_ver1_04.bin	intel-gpu-firmware
+firmware	xe	i915/mtl_dmc.bin	intel-gpu-firmware
+firmware	xe	i915/mtl_gsc_1.bin	intel-gpu-firmware
+firmware	xe	i915/mtl_guc_70.bin	intel-gpu-firmware
+firmware	xe	i915/mtl_huc_gsc.bin	intel-gpu-firmware
+firmware	xe	i915/rkl_dmc_ver2_03.bin	intel-gpu-firmware
+firmware	xe	i915/skl_dmc_ver1_27.bin	intel-gpu-firmware
+firmware	xe	i915/tgl_dmc_ver2_12.bin	intel-gpu-firmware
+firmware	xe	i915/tgl_guc_70.bin	intel-gpu-firmware
+firmware	xe	i915/tgl_huc.bin	intel-gpu-firmware
+firmware	xe	i915/xe2lpd_dmc.bin	intel-gpu-firmware
+firmware	xe	i915/xe3lpd_3002_dmc.bin	intel-gpu-firmware
+firmware	xe	i915/xe3lpd_dmc.bin	intel-gpu-firmware
+firmware	xe	xe/bmg_guc_70.bin	linux-firmware
+firmware	xe	xe/bmg_huc.bin	linux-firmware
+firmware	xe	xe/lnl_gsc_1.bin	linux-firmware
+firmware	xe	xe/lnl_guc_70.bin	linux-firmware
+firmware	xe	xe/lnl_huc.bin	linux-firmware
+firmware	xe	xe/ptl_guc_70.bin	linux-firmware
+firmware	xe	xe/ptl_huc.bin	linux-firmware
+module	aer_inject	kernel-modules-extra
+module	arp_tables	kernel-modules-extra
+module	arpt_mangle	kernel-modules-extra
+module	arptable_filter	kernel-modules-extra
+module	br_netfilter	kernel-modules-extra
+module	cuse	kernel-modules-extra
+module	ebt_802_3	kernel-modules-extra
+module	ebt_among	kernel-modules-extra
+module	ebt_arp	kernel-modules-extra
+module	ebt_arpreply	kernel-modules-extra
+module	ebt_dnat	kernel-modules-extra
+module	ebt_ip	kernel-modules-extra
+module	ebt_ip6	kernel-modules-extra
+module	ebt_limit	kernel-modules-extra
+module	ebt_log	kernel-modules-extra
+module	ebt_mark	kernel-modules-extra
+module	ebt_mark_m	kernel-modules-extra
+module	ebt_nflog	kernel-modules-extra
+module	ebt_pkttype	kernel-modules-extra
+module	ebt_redirect	kernel-modules-extra
+module	ebt_snat	kernel-modules-extra
+module	ebt_stp	kernel-modules-extra
+module	ebt_vlan	kernel-modules-extra
+module	ebtable_broute	kernel-modules-extra
+module	ebtable_filter	kernel-modules-extra
+module	ebtable_nat	kernel-modules-extra
+module	ebtables	kernel-modules-extra
+module	ems_usb	kernel-modules-extra
+module	fou	kernel-modules-extra
+module	fou6	kernel-modules-extra
+module	ip6_tables	kernel-modules-extra
+module	ip6t_NPT	kernel-modules-extra
+module	ip6t_REJECT	kernel-modules-extra
+module	ip6t_ah	kernel-modules-extra
+module	ip6t_eui64	kernel-modules-extra
+module	ip6t_frag	kernel-modules-extra
+module	ip6t_hbh	kernel-modules-extra
+module	ip6t_ipv6header	kernel-modules-extra
+module	ip6t_mh	kernel-modules-extra
+module	ip6t_rpfilter	kernel-modules-extra
+module	ip6t_rt	kernel-modules-extra
+module	ip6table_filter	kernel-modules-extra
+module	ip6table_mangle	kernel-modules-extra
+module	ip6table_nat	kernel-modules-extra
+module	ip6table_raw	kernel-modules-extra
+module	ip6table_security	kernel-modules-extra
+module	ip_set	kernel-modules-extra
+module	ip_set_bitmap_ip	kernel-modules-extra
+module	ip_set_bitmap_ipmac	kernel-modules-extra
+module	ip_set_bitmap_port	kernel-modules-extra
+module	ip_set_hash_ip	kernel-modules-extra
+module	ip_set_hash_ipmac	kernel-modules-extra
+module	ip_set_hash_ipmark	kernel-modules-extra
+module	ip_set_hash_ipport	kernel-modules-extra
+module	ip_set_hash_ipportip	kernel-modules-extra
+module	ip_set_hash_ipportnet	kernel-modules-extra
+module	ip_set_hash_mac	kernel-modules-extra
+module	ip_set_hash_net	kernel-modules-extra
+module	ip_set_hash_netiface	kernel-modules-extra
+module	ip_set_hash_netnet	kernel-modules-extra
+module	ip_set_hash_netport	kernel-modules-extra
+module	ip_set_hash_netportnet	kernel-modules-extra
+module	ip_set_list_set	kernel-modules-extra
+module	ip_tables	kernel-modules-extra
+module	ipt_ECN	kernel-modules-extra
+module	ipt_REJECT	kernel-modules-extra
+module	ipt_ah	kernel-modules-extra
+module	ipt_rpfilter	kernel-modules-extra
+module	iptable_filter	kernel-modules-extra
+module	iptable_mangle	kernel-modules-extra
+module	iptable_nat	kernel-modules-extra
+module	iptable_raw	kernel-modules-extra
+module	iptable_security	kernel-modules-extra
+module	kafs	kernel-modules-partner
+module	l2tp_core	kernel-modules-extra
+module	l2tp_debugfs	kernel-modules-extra
+module	l2tp_eth	kernel-modules-extra
+module	l2tp_ip	kernel-modules-extra
+module	l2tp_ip6	kernel-modules-extra
+module	l2tp_netlink	kernel-modules-extra
+module	l2tp_ppp	kernel-modules-extra
+module	mshv_root	kernel-modules-extra
+module	nft_compat	kernel-modules-extra
+module	rxperf	kernel-modules-partner
+module	rxrpc	kernel-modules-partner
+module	sctp	kernel-modules-extra
+module	sctp_diag	kernel-modules-extra
+module	slcan	kernel-modules-extra
+module	slip	kernel-modules-extra
+module	tcp_bic	kernel-modules-extra
+module	tcp_htcp	kernel-modules-extra
+module	tcp_illinois	kernel-modules-extra
+module	tcp_westwood	kernel-modules-extra
+module	tipc	kernel-modules-extra
+module	tipc_diag	kernel-modules-extra
+module	vcan	kernel-modules-extra
+module	xt_AUDIT	kernel-modules-extra
+module	xt_CHECKSUM	kernel-modules-extra
+module	xt_CLASSIFY	kernel-modules-extra
+module	xt_CONNSECMARK	kernel-modules-extra
+module	xt_CT	kernel-modules-extra
+module	xt_DSCP	kernel-modules-extra
+module	xt_HL	kernel-modules-extra
+module	xt_HMARK	kernel-modules-extra
+module	xt_IDLETIMER	kernel-modules-extra
+module	xt_LOG	kernel-modules-extra
+module	xt_MASQUERADE	kernel-modules-extra
+module	xt_NETMAP	kernel-modules-extra
+module	xt_NFLOG	kernel-modules-extra
+module	xt_NFQUEUE	kernel-modules-extra
+module	xt_RATEEST	kernel-modules-extra
+module	xt_REDIRECT	kernel-modules-extra
+module	xt_SECMARK	kernel-modules-extra
+module	xt_TCPMSS	kernel-modules-extra
+module	xt_TCPOPTSTRIP	kernel-modules-extra
+module	xt_TEE	kernel-modules-extra
+module	xt_TPROXY	kernel-modules-extra
+module	xt_TRACE	kernel-modules-extra
+module	xt_addrtype	kernel-modules-extra
+module	xt_bpf	kernel-modules-extra
+module	xt_cgroup	kernel-modules-extra
+module	xt_cluster	kernel-modules-extra
+module	xt_comment	kernel-modules-extra
+module	xt_connbytes	kernel-modules-extra
+module	xt_connlabel	kernel-modules-extra
+module	xt_connlimit	kernel-modules-extra
+module	xt_connmark	kernel-modules-extra
+module	xt_conntrack	kernel-modules-extra
+module	xt_cpu	kernel-modules-extra
+module	xt_dccp	kernel-modules-extra
+module	xt_devgroup	kernel-modules-extra
+module	xt_dscp	kernel-modules-extra
+module	xt_ecn	kernel-modules-extra
+module	xt_esp	kernel-modules-extra
+module	xt_hashlimit	kernel-modules-extra
+module	xt_helper	kernel-modules-extra
+module	xt_hl	kernel-modules-extra
+module	xt_iprange	kernel-modules-extra
+module	xt_ipvs	kernel-modules-extra
+module	xt_length	kernel-modules-extra
+module	xt_limit	kernel-modules-extra
+module	xt_mac	kernel-modules-extra
+module	xt_mark	kernel-modules-extra
+module	xt_multiport	kernel-modules-extra
+module	xt_nat	kernel-modules-extra
+module	xt_osf	kernel-modules-extra
+module	xt_owner	kernel-modules-extra
+module	xt_physdev	kernel-modules-extra
+module	xt_pkttype	kernel-modules-extra
+module	xt_policy	kernel-modules-extra
+module	xt_quota	kernel-modules-extra
+module	xt_rateest	kernel-modules-extra
+module	xt_realm	kernel-modules-extra
+module	xt_recent	kernel-modules-extra
+module	xt_sctp	kernel-modules-extra
+module	xt_set	kernel-modules-extra
+module	xt_socket	kernel-modules-extra
+module	xt_state	kernel-modules-extra
+module	xt_statistic	kernel-modules-extra
+module	xt_string	kernel-modules-extra
+module	xt_tcpmss	kernel-modules-extra
+proprietary	pci:v000010DEd*sv*sd*bc03sc*i*	NVIDIA	akmod-nvidia-580xx xorg-x11-drv-nvidia-580xx
+proprietary	pci:v000014E4d00004311sv*sd*bc02sc80i*	Broadcom wl	broadcom-wl kmod-wl
+proprietary	pci:v000014E4d00004312sv*sd*bc02sc80i*	Broadcom wl	broadcom-wl kmod-wl
+proprietary	pci:v000014E4d00004313sv*sd*bc02sc80i*	Broadcom wl	broadcom-wl kmod-wl
+proprietary	pci:v000014E4d00004315sv*sd*bc02sc80i*	Broadcom wl	broadcom-wl kmod-wl
+proprietary	pci:v000014E4d00004727sv*sd*bc02sc80i*	Broadcom wl	broadcom-wl kmod-wl
+proprietary	pci:v000014E4d00004328sv*sd*bc02sc80i*	Broadcom wl	broadcom-wl kmod-wl
+proprietary	pci:v000014E4d00004329sv*sd*bc02sc80i*	Broadcom wl	broadcom-wl kmod-wl
+proprietary	pci:v000014E4d0000432Asv*sd*bc02sc80i*	Broadcom wl	broadcom-wl kmod-wl
+proprietary	pci:v000014E4d0000432Bsv*sd*bc02sc80i*	Broadcom wl	broadcom-wl kmod-wl
+proprietary	pci:v000014E4d0000432Csv*sd*bc02sc80i*	Broadcom wl	broadcom-wl kmod-wl
+proprietary	pci:v000014E4d0000432Dsv*sd*bc02sc80i*	Broadcom wl	broadcom-wl kmod-wl
+proprietary	pci:v000014E4d00004365sv*sd*bc02sc80i*	Broadcom wl	broadcom-wl kmod-wl
+proprietary	pci:v000014E4d00004353sv*sd*bc02sc80i*	Broadcom wl	broadcom-wl kmod-wl
+proprietary	pci:v000014E4d00004357sv*sd*bc02sc80i*	Broadcom wl	broadcom-wl kmod-wl
+proprietary	pci:v000014E4d00004358sv*sd*bc02sc80i*	Broadcom wl	broadcom-wl kmod-wl
+proprietary	pci:v000014E4d00004359sv*sd*bc02sc80i*	Broadcom wl	broadcom-wl kmod-wl
+proprietary	pci:v000014E4d00004331sv*sd*bc02sc80i*	Broadcom wl	broadcom-wl kmod-wl
+proprietary	pci:v000014E4d000043A0sv*sd*bc02sc80i*	Broadcom wl	broadcom-wl kmod-wl
+proprietary	pci:v000014E4d000043B1sv*sd*bc02sc80i*	Broadcom wl	broadcom-wl kmod-wl

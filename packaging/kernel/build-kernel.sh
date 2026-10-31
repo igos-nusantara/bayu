@@ -2,7 +2,8 @@
 # Rebuilds the AlmaLinux kernel with packaging/kernel/kernel-local applied
 # (binder for Android containers) and cs8409-macbookpro.patch (MacBook Pro
 # sound), and adds it to the out/repo dnf repository. Its resulting config is
-# written to packaging/kernel/config-x86_64, to commit with the change.
+# written to packaging/kernel/config-x86_64 and its driver database to
+# packaging/kernel/drivers.db, to commit with the change.
 # The release gets .BUILD.bayu, so it sorts above the AlmaLinux build it came
 # from and above Bayu's last build of it. A build is kept in KERNEL_CACHE and
 # reused: releases only rebuild it when KERNEL or BUILD changes.
@@ -42,5 +43,8 @@ cp "$CACHE"/kernel*.x86_64.rpm "$ROOT/out/repo/"
 podman run --rm -v "$CACHE":/kernel:ro,Z bayu-builder bash -c \
   "rpm2archive - < \$(ls /kernel/kernel-core-*.rpm | head -1) | tar xzO --wildcards './lib/modules/*/config'" \
   > "$ROOT/packaging/kernel/config-x86_64"
+# And what its devices need from the repositories, for Settings > Drivers &
+# Hardware (driver-db.sh), kept beside it too; bayu-desktop installs it.
+"$ROOT/packaging/kernel/driver-db.sh" "$CACHE" > "$ROOT/packaging/kernel/drivers.db"
 podman run --rm -v "$ROOT/out/repo":/repo:Z bayu-builder createrepo_c -q --update /repo
 ls -l "$CACHE"

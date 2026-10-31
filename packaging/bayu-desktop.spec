@@ -121,6 +121,9 @@ install -Dm 755 components/bayu-computer-use/target/release/bayu-computer-use \
   %{buildroot}%{_bindir}/bayu-computer-use
 install -m 644 packaging/pam/bayu-dm packaging/pam/bayu-dm-greeter packaging/pam/bayu-auth \
   %{buildroot}%{_sysconfdir}/pam.d/
+# What the devices of a computer need from the repositories, for Settings >
+# Drivers & Hardware (packaging/kernel/driver-db.sh).
+install -Dm 644 packaging/kernel/drivers.db %{buildroot}%{_datadir}/bayu/drivers.db
 install -Dm 644 packaging/fontconfig/60-bayu-noto-mono.conf \
   %{buildroot}%{_datadir}/fontconfig/conf.avail/60-bayu-noto-mono.conf
 mkdir -p %{buildroot}%{_sysconfdir}/fonts/conf.d
