@@ -162,6 +162,7 @@ bool Daemon::autologin()
     start.command = {entry->x11 ? DM_XSESSION_WRAPPER : DM_SESSION_WRAPPER};
     start.command.insert(start.command.end(), entry->exec.begin(), entry->exec.end());
     start.environment = sessionEnvironment(*entry, m_config.sessionVt);
+    start.activateFirst = !isBayuSession(*entry);
 
     m_login = std::make_unique<HelperProcess>();
     auto *login = m_login.get();
@@ -425,6 +426,7 @@ void Daemon::startSession(const std::vector<std::string> &command, const std::ve
 
         start.command = {entry->x11 ? DM_XSESSION_WRAPPER : DM_SESSION_WRAPPER};
         start.command.insert(start.command.end(), entry->exec.begin(), entry->exec.end());
+        start.activateFirst = !isBayuSession(*entry);
         const auto variables = sessionEnvironment(*entry, m_config.sessionVt);
         start.environment.insert(start.environment.end(), variables.begin(), variables.end());
         m_state.remember(m_login->user(), session);
@@ -473,13 +475,17 @@ void Daemon::launchSession(PendingStart start)
     session->onFailed = [](bool, const std::string &message) {
         CF_WARNING(base::LogCategory::defaultCategory()) << "Session:" << message;
     };
-    session->onStarted = [this, session](const std::string &id) {
-        whenControlled(session, m_config.sessionVt, [this, session, id](bool controlled) {
+    session->onStarted = [this, session, activateFirst = start.activateFirst](const std::string &id) {
+        if (activateFirst && !activateSession(id)) {
+            session->terminate();
+            return;
+        }
+        whenControlled(session, m_config.sessionVt, [this, session, id, activateFirst](bool controlled) {
             if (m_session.get() != session)
                 return;
 
-            // Never switch to a VT nobody took; end the session instead.
-            if (!controlled || !activateSession(id)) {
+            // Never stay on a VT nobody took; end the session instead.
+            if (!controlled || (!activateFirst && !activateSession(id))) {
                 CF_WARNING(base::LogCategory::defaultCategory())
                         << "Cannot switch to the session on VT" << m_config.sessionVt << "- ending it";
                 session->terminate();
