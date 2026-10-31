@@ -67,6 +67,12 @@ Transaction::~Transaction()
 
 void Transaction::refreshCache(bool background)
 {
+    refreshCache(background, false);
+}
+
+void Transaction::refreshCache(bool background, bool force)
+{
+    m_force = force;
     start(Kind::RefreshCache, {}, background);
 }
 
@@ -196,7 +202,7 @@ void Transaction::run(const std::string& path)
     };
     switch (m_kind) {
     case Kind::RefreshCache:
-        m_call = m_transaction->callAsync("RefreshCache", failed, false);
+        m_call = m_transaction->callAsync("RefreshCache", failed, m_force);
         break;
     case Kind::GetUpdates:
         m_call = m_transaction->callAsync("GetUpdates", failed, kFilterNone);

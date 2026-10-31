@@ -42,8 +42,12 @@ public:
     Transaction& operator=(const Transaction&) = delete;
 
     // `background` lets PackageKit run it at low priority, without asking
-    // the user anything (polkit's no-interaction).
+    // the user anything (polkit's no-interaction). `force` reads every
+    // repository again, though its metadata has not expired, as a check the
+    // user asks for must (issue #123). Two functions, so that what was built
+    // against the first keeps linking.
     void refreshCache(bool background = false);
+    void refreshCache(bool background, bool force);
     void getUpdates(bool background = false);
     // Downloads the updates only (PackageKit's only-download flag), for
     // the offline update to install at the next restart.
@@ -67,6 +71,7 @@ public:
 
 private:
     void start(Kind kind, std::vector<std::string> ids, bool background);
+    bool m_force = false;
     void run(const std::string& path);
     void end(bool success, const std::string& error);
 
