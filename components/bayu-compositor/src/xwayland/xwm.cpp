@@ -22,6 +22,7 @@
 #include <csignal>
 #include <unistd.h>
 #include <xcb/composite.h>
+#include <xcb/render.h>
 #include <xcb/shape.h>
 #include <xcb/sync.h>
 #include <xcb/xcbext.h>
@@ -29,9 +30,12 @@
 
 #include "base/event_loop.h"
 #include "base/logging.h"
+#include "base/settings.h"
 #include "base/strings.h"
 #include "compositor/surface.h"
 #include "core/main_loop.h"
+#include "core/preferences.h"
+#include "cursor/theme.h"
 #include "dnd_bridge.h"
 #include "fd_watch.h"
 #include "input/seat.h"
@@ -126,7 +130,8 @@ const char *const atomNames[] = {"WL_SURFACE_SERIAL",
                                  "WM_CLIENT_MACHINE",
                                  "_NET_WM_SYNC_REQUEST",
                                  "_NET_WM_SYNC_REQUEST_COUNTER",
-                                 "_NET_WM_WINDOW_OPACITY"};
+                                 "_NET_WM_WINDOW_OPACITY",
+                                 "_GTK_FRAME_EXTENTS"};
 
 // How long a resize waits for the client's sync counter before going ahead.
 constexpr int kSyncTimeoutMs = 1000;
@@ -247,6 +252,11 @@ struct Xwm::X11Window : compositor::SurfaceObserver, wm::WindowObserver {
     // No maximum: an empty size.
     base::Size minimum {1, 1}, maximum, increment {1, 1}, base {0, 0};
     bool mapped = false, overrideRedirect = false, decorated = true;
+    // _GTK_FRAME_EXTENTS, in logical units: the shadow and resize margins a
+    // client that draws its own frame keeps around it inside its X window, as
+    // OnlyOffice, Chromium and GTK 3 do (issue #124). The window proper is the
+    // X window inside them, as xdg_surface.set_window_geometry says for Wayland.
+    wm::Insets clientFrame;
     bool input = true, takeFocus = false, deleteWindow = false, pingable = false;
     // Requested through _NET_WM_STATE; there is no pager, but the state is kept.
     bool above = false, skipTaskbar = false, skipPager = false;
@@ -714,6 +724,67 @@ void Xwm::setScale(double scale)
     xcb_flush(m_connection);
 }
 
+// The root window's cursor, which every X window without one of its own shows,
+// as AnyDesk's and the transparent margins of OnlyOffice's (issue #122): the
+// theme's arrow, as the session's cursor preferences name it, not the X
+// server's own "X". It is a RENDER cursor, as wlroots' is.
+// ponytail: set at start; a theme changed later reaches X windows at the next
+// session.
+void Xwm::setRootCursor()
+{
+    const base::Settings settings(preferencesFile("services"));
+    const std::string theme = settings.stringValue("Appearance/CursorTheme", "default");
+    const int64_t stored = settings.contains("Appearance/CursorSize")
+            ? settings.intValue("Appearance/CursorSize", 0)
+            : cursor::defaultSize();
+    const int size = int(std::lround(double(std::clamp<int64_t>(stored, 16, 64)) * m_scale));
+    std::vector<cursor::Frame> frames = cursor::load(input::CursorShape::Default, size,
+                                                     cursor::validThemeName(theme) ? theme : "default");
+    if (frames.empty() || frames.front().image.width() <= 0)
+        return;
+    reply(xcb_render_query_pict_formats(m_connection).sequence, [this, frame = std::move(frames.front())](void *p) {
+        auto *formats = static_cast<xcb_render_query_pict_formats_reply_t *>(p);
+        if (!formats)
+            return;
+        xcb_render_pictformat_t argb = 0;
+        for (auto it = xcb_render_query_pict_formats_formats_iterator(formats); it.rem;
+             xcb_render_pictforminfo_next(&it)) {
+            const xcb_render_directformat_t &d = it.data->direct;
+            if (it.data->type == XCB_RENDER_PICT_TYPE_DIRECT && it.data->depth == 32 && d.alpha_shift == 24
+                && d.alpha_mask == 0xff && d.red_shift == 16 && d.green_shift == 8 && d.blue_shift == 0) {
+                argb = it.data->id;
+                break;
+            }
+        }
+        if (!argb)
+            return;
+        // Argb32Premultiplied, as RENDER's ARGB32 has it; the rows packed.
+        const ui::Bitmap &image = frame.image;
+        const int width = image.width(), height = image.height();
+        std::vector<uint8_t> pixels(size_t(width) * size_t(height) * 4);
+        for (int y = 0; y < height; ++y)
+            std::memcpy(pixels.data() + size_t(y) * size_t(width) * 4, image.constScanLine(y), size_t(width) * 4);
+        const xcb_pixmap_t pixmap = xcb_generate_id(m_connection);
+        xcb_create_pixmap(m_connection, 32, pixmap, m_root, width, height);
+        const xcb_gcontext_t gc = xcb_generate_id(m_connection);
+        xcb_create_gc(m_connection, gc, pixmap, 0, nullptr);
+        xcb_put_image(m_connection, XCB_IMAGE_FORMAT_Z_PIXMAP, pixmap, gc, width, height, 0, 0, 0, 32,
+                      uint32_t(pixels.size()), pixels.data());
+        const xcb_render_picture_t picture = xcb_generate_id(m_connection);
+        xcb_render_create_picture(m_connection, picture, pixmap, argb, 0, nullptr);
+        const xcb_cursor_t cursor = xcb_generate_id(m_connection);
+        xcb_render_create_cursor(m_connection, cursor, picture, uint16_t(frame.hotspot.x()),
+                                 uint16_t(frame.hotspot.y()));
+        xcb_change_window_attributes(m_connection, m_root, XCB_CW_CURSOR, &cursor);
+        // The root window keeps the cursor; the rest goes.
+        xcb_free_cursor(m_connection, cursor);
+        xcb_render_free_picture(m_connection, picture);
+        xcb_free_gc(m_connection, gc);
+        xcb_free_pixmap(m_connection, pixmap);
+        xcb_flush(m_connection);
+    });
+}
+
 void Xwm::reply(unsigned sequence, std::function<void(void *)> callback)
 {
     m_replies.push_back({sequence, std::move(callback)});
@@ -760,6 +831,7 @@ void Xwm::setup()
                                                                   XCB_CW_EVENT_MASK, &mask);
         m_redirection = xcb_composite_redirect_subwindows_checked(m_connection, m_root,
                                                                   XCB_COMPOSITE_REDIRECT_MANUAL);
+        setRootCursor();
         m_support = xcb_generate_id(m_connection);
         uint32_t supportMask = XCB_EVENT_MASK_PROPERTY_CHANGE;
         xcb_create_window(m_connection, 0, m_support, m_root, 0, 0, 1, 1, 0,
@@ -1027,7 +1099,7 @@ std::vector<xcb_atom_t> Xwm::followedProperties()
             atom("WM_PROTOCOLS"),      atom("_MOTIF_WM_HINTS"),     atom("_NET_WM_STATE"),
             atom("_NET_WM_WINDOW_TYPE"), atom("WM_CLIENT_LEADER"), atom("_NET_STARTUP_ID"),
             atom("WM_CLIENT_MACHINE"),   atom("_NET_WM_SYNC_REQUEST_COUNTER"),
-            atom("_NET_WM_WINDOW_OPACITY")};
+            atom("_NET_WM_WINDOW_OPACITY"), atom("_GTK_FRAME_EXTENTS")};
 }
 
 void Xwm::properties(X11Window &w, std::vector<xcb_atom_t> atoms)
@@ -1192,6 +1264,16 @@ void Xwm::properties(X11Window &w, std::vector<xcb_atom_t> atoms)
                       w.opacity = r->type == XCB_ATOM_CARDINAL && count >= 1
                               ? float(double(words[0]) / 0xffffffffu)
                               : 1;
+                  } else if (a == atom("_GTK_FRAME_EXTENTS")) {
+                      // left, right, top, bottom, in X11 pixels.
+                      w.clientFrame = {};
+                      if (r->type == XCB_ATOM_CARDINAL && count == 4) {
+                          auto logical = [this](uint32_t value) {
+                              return int(std::lround(std::min<uint32_t>(value, 4096) / m_scale));
+                          };
+                          w.clientFrame = {logical(words[0]), logical(words[2]), logical(words[1]),
+                                           logical(words[3])};
+                      }
                   } else if (a == atom("_MOTIF_WM_HINTS")) {
                       w.decorated = true;
                       if (r->type == a && count >= 3 && (words[0] & 2))
@@ -1284,6 +1366,7 @@ void Xwm::properties(X11Window &w, std::vector<xcb_atom_t> atoms)
             w.window->setMinimumSize(sizeFromX(w.minimum));
             w.window->setMaximumSize(w.maximum.isEmpty() ? base::Size() : sizeFromX(w.maximum));
             w.window->setDecorated(w.decorated);
+            w.window->setClientExteriorInsets(w.clientFrame);
             w.window->setOpacity(w.opacity);
             w.window->setFocusPolicy(w.input || w.takeFocus ? wm::FocusPolicy::Normal
                                                             : wm::FocusPolicy::NoFocus);
@@ -1333,9 +1416,9 @@ void Xwm::present(X11Window &w)
         const auto edge = m_manager->eventHandler()->draggedWindow() == w.window
                 ? m_manager->eventHandler()->draggedEdge()
                 : wm::ResizeEdge::None;
-        const auto delta = w.window->contentBounds().size() - w.surface->contentSize();
-        w.window->setSurfaceOrigin(base::Point(wm::isLeftEdge(edge) ? delta.width() : 0,
-                                          wm::isTopEdge(edge) ? delta.height() : 0));
+        const auto delta = w.clientFrame.outset(w.window->contentBounds().size()) - w.surface->contentSize();
+        w.window->setSurfaceOrigin(base::Point((wm::isLeftEdge(edge) ? delta.width() : 0) - w.clientFrame.left,
+                                          (wm::isTopEdge(edge) ? delta.height() : 0) - w.clientFrame.top));
         return;
     }
     wm::WindowInit init;
@@ -1343,7 +1426,7 @@ void Xwm::present(X11Window &w)
     init.applicationId = applicationId(w);
     init.processId = ownerPid(w);
     init.decorated = w.decorated;
-    init.requestedSize = w.surface->contentSize();
+    init.requestedSize = w.clientFrame.inset(base::Rect(base::Point(), w.surface->contentSize())).size();
     init.minimumSize = sizeFromX(w.minimum);
     init.maximumSize = w.maximum.isEmpty() ? base::Size() : sizeFromX(w.maximum);
     init.focusPolicy = w.input || w.takeFocus ? wm::FocusPolicy::Normal : wm::FocusPolicy::NoFocus;
@@ -1376,6 +1459,7 @@ void Xwm::present(X11Window &w)
     });
     property(w.id, "_NET_WM_DESKTOP", XCB_ATOM_CARDINAL, {0});
     w.window->addObserver(&w);
+    w.window->setClientExteriorInsets(w.clientFrame);
     w.window->setOpacity(w.opacity);
     w.window->setMinimumSize(sizeFromX(w.minimum));
     w.window->setMaximumSize(w.maximum.isEmpty() ? base::Size() : sizeFromX(w.maximum));
@@ -1508,7 +1592,8 @@ void Xwm::synchronize(X11Window &w)
     base::Rect rect = w.window->contentBounds();
     // Size hints are in X11 pixels, so the increments are applied there; a
     // character cell is not a whole number of logical units at every scale.
-    base::Size xSize = sizeToX(rect.size());
+    // They size the whole X window, the client's own frame included.
+    base::Size xSize = sizeToX(w.clientFrame.outset(rect.size()));
     if (w.window->stateType() == wm::WindowStateType::Normal) {
         base::Size constrained = xSize;
         constrained.setWidth(constrainedExtent(xSize.width(), w.base.width(), w.increment.width(),
@@ -1517,18 +1602,18 @@ void Xwm::synchronize(X11Window &w)
                                                 w.increment.height(), w.minimum.height(),
                                                 w.maximum.height()));
         if (constrained != xSize) {
-            const base::Size size = sizeFromX(constrained);
+            const base::Size size = w.clientFrame.inset(base::Rect(base::Point(), sizeFromX(constrained))).size();
             if (size != rect.size()) {
                 w.window->setBounds(base::Rect(w.window->bounds().topLeft(),
                                                w.window->frameInsets().outset(size)));
                 rect = w.window->contentBounds();
             }
-            xSize = rect.size() == size ? constrained : sizeToX(rect.size());
+            xSize = rect.size() == size ? constrained : sizeToX(w.clientFrame.outset(rect.size()));
         }
     }
     present(w);
     w.geometry = rect;
-    const base::Point xPosition = toX(rect.topLeft());
+    const base::Point xPosition = toX(w.clientFrame.outset(rect).topLeft());
     // A client that paints to a sync counter takes one size at a time; a newer
     // one waits for the counter, as in KWin, and only the latest is sent.
     bool deferred = false;
@@ -1867,9 +1952,8 @@ void Xwm::event(xcb_generic_event_t *generic)
     } else if (type == XCB_CONFIGURE_REQUEST) {
         auto *e = reinterpret_cast<xcb_configure_request_event_t *>(generic);
         // The request in X11 pixels, then in logical units.
-        base::Rect xRect = w.window ? base::Rect(toX(w.window->contentBounds().topLeft()),
-                                                 sizeToX(w.window->contentBounds().size()))
-                                    : w.xGeometry;
+        const base::Rect current = w.window ? w.clientFrame.outset(w.window->contentBounds()) : base::Rect();
+        base::Rect xRect = w.window ? base::Rect(toX(current.topLeft()), sizeToX(current.size())) : w.xGeometry;
         // The event fills what the request leaves out from the server's geometry, which
         // can predate our answer to an earlier request; it only replaces an unknown size.
         if (!w.window && std::exchange(w.sizeUnknown, false))
@@ -1882,7 +1966,8 @@ void Xwm::event(xcb_generic_event_t *generic)
             xRect.setWidth(std::max<int>(1, e->width));
         if (e->value_mask & XCB_CONFIG_WINDOW_HEIGHT)
             xRect.setHeight(std::max<int>(1, e->height));
-        const base::Rect rect(fromX(xRect.topLeft()), sizeFromX(xRect.size()));
+        const base::Rect rect = w.window ? w.clientFrame.inset(base::Rect(fromX(xRect.topLeft()), sizeFromX(xRect.size())))
+                                         : base::Rect(fromX(xRect.topLeft()), sizeFromX(xRect.size()));
         if (w.window) {
             auto insets = w.window->frameInsets();
             w.window->requestBounds(base::Rect(rect.topLeft() - base::Point(insets.left, insets.top),

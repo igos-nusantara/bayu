@@ -47,6 +47,8 @@ public:
     // A package from a repository without signatures.
     bool unsigned_ = false;
     int updateCalls = 0;
+    // RefreshCache's force, -1 before any.
+    int forced = -1;
 
 private:
     void run(std::promise<bool>& ready)
@@ -69,6 +71,10 @@ private:
         transaction->addSignal("Finished", "uu");
         transaction->addProperty("Percentage", [this] { return m_percentage; });
         transaction->addMethod("SetHints", [this](const std::vector<std::string>& given) { hints = given; });
+        transaction->addMethod("RefreshCache", [this, t](bool force) {
+            forced = force;
+            t->emitSignal("Finished", uint32_t(1), uint32_t(10));
+        });
         transaction->addMethod("GetUpdates", [this, t](uint64_t) {
             t->emitSignal("Package", uint32_t(8), std::string("openssh;9.9p1-29;x86_64;igos-baseos"),
                           std::string("An open source implementation of SSH"));
@@ -162,6 +168,20 @@ TEST_F(PackageKitTest, ListsTheUpdates)
     EXPECT_TRUE(transaction.packages()[0].isSecurity());
     EXPECT_EQ(transaction.packages()[1].name(), "bayu-desktop");
     EXPECT_FALSE(transaction.isRunning());
+}
+
+// The check a user asks for reads the repositories again (issue #123); the
+// one in the background lets metadata that has not expired stand.
+TEST_F(PackageKitTest, RefreshesTheCacheWhenAsked)
+{
+    for (const bool force : {true, false}) {
+        Transaction transaction(bus());
+        bool done = false;
+        Subscription finished = transaction.finished.connect([&](bool, const std::string&) { done = true; });
+        transaction.refreshCache(!force, force);
+        ASSERT_TRUE(waitFor([&] { return done; }));
+        EXPECT_EQ(m_daemon->forced, force ? 1 : 0);
+    }
 }
 
 TEST_F(PackageKitTest, DownloadsOnlyAndTellsItsProgress)

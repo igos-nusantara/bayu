@@ -162,7 +162,10 @@ void UpdateMonitor::checkSystem()
                 listSystem();
         });
     });
-    m_transaction->refreshCache(true);
+    // Forced: PackageKit otherwise keeps metadata it thinks fresh for days, and
+    // updates dnf already lists are missed (issue #123). Only repomd.xml and
+    // what changed are downloaded.
+    m_transaction->refreshCache(true, true);
 }
 
 void UpdateMonitor::listSystem()
