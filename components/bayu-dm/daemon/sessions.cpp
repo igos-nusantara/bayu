@@ -187,6 +187,11 @@ std::optional<SessionEntry> findSession(const std::vector<std::string> &director
     return std::nullopt;
 }
 
+bool isBayuSession(const SessionEntry &session)
+{
+    return !session.x11 && base::strings::startsWith(session.id, "bayu");
+}
+
 std::vector<std::string> sessionEnvironment(const SessionEntry &session, int vt)
 {
     std::vector<std::string> environment {
