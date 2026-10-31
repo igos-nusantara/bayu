@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bayu-settings\n"
 "Report-Msgid-Bugs-To: https://github.com/bayuos\n"
-"POT-Creation-Date: 2026-10-30 22:50+0000\n"
+"POT-Creation-Date: 2026-10-31 00:20+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -991,51 +991,18 @@ msgid "Anti-Aliasing"
 msgstr ""
 
 #: src/pages/hardware/hardware.cpp
-msgid "Intel Wi-Fi"
+#, python-brace-format
+msgid "{driver} driver for {device}"
 msgstr ""
 
 #: src/pages/hardware/hardware.cpp
-msgid "Realtek Wi-Fi"
+#, python-brace-format
+msgid "Driver for {device}"
 msgstr ""
 
 #: src/pages/hardware/hardware.cpp
-msgid "Qualcomm Atheros Wi-Fi"
-msgstr ""
-
-#: src/pages/hardware/hardware.cpp
-msgid "MediaTek Wi-Fi"
-msgstr ""
-
-#: src/pages/hardware/hardware.cpp
-msgid "Broadcom Wi-Fi"
-msgstr ""
-
-#: src/pages/hardware/hardware.cpp
-msgid "AMD graphics"
-msgstr ""
-
-#: src/pages/hardware/hardware.cpp
-msgid "Intel graphics"
-msgstr ""
-
-#: src/pages/hardware/hardware.cpp
-msgid "NVIDIA graphics"
-msgstr ""
-
-#: src/pages/hardware/hardware.cpp
-msgid "Intel sound"
-msgstr ""
-
-#: src/pages/hardware/hardware.cpp
-msgid "Realtek USB Wi-Fi or Bluetooth"
-msgstr ""
-
-#: src/pages/hardware/hardware.cpp
-msgid "Qualcomm Atheros USB Wi-Fi or Bluetooth"
-msgstr ""
-
-#: src/pages/hardware/hardware.cpp
-msgid "MediaTek USB Wi-Fi or Bluetooth"
+#, python-brace-format
+msgid "Firmware for {device}"
 msgstr ""
 
 #: src/pages/hardware/hardwarepage.cpp src/window/pagelist.cpp
@@ -1044,10 +1011,6 @@ msgstr ""
 
 #: src/pages/hardware/hardwarepage.cpp
 msgid "Recommended"
-msgstr ""
-
-#: src/pages/hardware/hardwarepage.cpp
-msgid "Firmware for the devices of this computer that is not installed yet. Without it, they may not work, or work only in part."
 msgstr ""
 
 #: src/pages/hardware/hardwarepage.cpp src/window/pagelist.cpp
@@ -1072,7 +1035,23 @@ msgid "Driver: {driver}"
 msgstr ""
 
 #: src/pages/hardware/hardwarepage.cpp
+msgid "Proprietary"
+msgstr ""
+
+#: src/pages/hardware/hardwarepage.cpp
 msgid "Install"
+msgstr ""
+
+#: src/pages/hardware/hardwarepage.cpp
+msgid "The driver is installed. Restart the computer to use it."
+msgstr ""
+
+#: src/pages/hardware/hardwarepage.cpp
+msgid "Drivers and firmware for the devices of this computer that are not installed yet. Without them, the devices may not work, or work only in part."
+msgstr ""
+
+#: src/pages/hardware/hardwarepage.cpp
+msgid "Secure Boot is on: it keeps proprietary drivers built on this computer from loading. Turn it off in the computer's firmware settings to use them."
 msgstr ""
 
 #: src/pages/hotcorners/hotcorners.cpp src/pages/shortcuts/shortcutsmodel.cpp

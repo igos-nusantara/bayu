@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bayu-settings\n"
 "Report-Msgid-Bugs-To: https://github.com/bayuos\n"
-"POT-Creation-Date: 2026-10-30 22:50+0000\n"
+"POT-Creation-Date: 2026-10-31 00:20+0000\n"
 "PO-Revision-Date: 2026-10-25 12:00+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -990,52 +990,19 @@ msgid "Anti-Aliasing"
 msgstr "Suavizado de bordes"
 
 #: src/pages/hardware/hardware.cpp
-msgid "Intel Wi-Fi"
-msgstr "Wi-Fi Intel"
+#, python-brace-format
+msgid "{driver} driver for {device}"
+msgstr "Controlador {driver} para {device}"
 
 #: src/pages/hardware/hardware.cpp
-msgid "Realtek Wi-Fi"
-msgstr "Wi-Fi Realtek"
+#, python-brace-format
+msgid "Driver for {device}"
+msgstr "Controlador para {device}"
 
 #: src/pages/hardware/hardware.cpp
-msgid "Qualcomm Atheros Wi-Fi"
-msgstr "Wi-Fi Qualcomm Atheros"
-
-#: src/pages/hardware/hardware.cpp
-msgid "MediaTek Wi-Fi"
-msgstr "Wi-Fi MediaTek"
-
-#: src/pages/hardware/hardware.cpp
-msgid "Broadcom Wi-Fi"
-msgstr "Wi-Fi Broadcom"
-
-#: src/pages/hardware/hardware.cpp
-msgid "AMD graphics"
-msgstr "Gráficos AMD"
-
-#: src/pages/hardware/hardware.cpp
-msgid "Intel graphics"
-msgstr "Gráficos Intel"
-
-#: src/pages/hardware/hardware.cpp
-msgid "NVIDIA graphics"
-msgstr "Gráficos NVIDIA"
-
-#: src/pages/hardware/hardware.cpp
-msgid "Intel sound"
-msgstr "Sonido Intel"
-
-#: src/pages/hardware/hardware.cpp
-msgid "Realtek USB Wi-Fi or Bluetooth"
-msgstr "Wi-Fi o Bluetooth USB Realtek"
-
-#: src/pages/hardware/hardware.cpp
-msgid "Qualcomm Atheros USB Wi-Fi or Bluetooth"
-msgstr "Wi-Fi o Bluetooth USB Qualcomm Atheros"
-
-#: src/pages/hardware/hardware.cpp
-msgid "MediaTek USB Wi-Fi or Bluetooth"
-msgstr "Wi-Fi o Bluetooth USB MediaTek"
+#, python-brace-format
+msgid "Firmware for {device}"
+msgstr "Firmware para {device}"
 
 #: src/pages/hardware/hardwarepage.cpp src/window/pagelist.cpp
 msgid "Drivers & Hardware"
@@ -1044,10 +1011,6 @@ msgstr "Controladores y hardware"
 #: src/pages/hardware/hardwarepage.cpp
 msgid "Recommended"
 msgstr "Recomendado"
-
-#: src/pages/hardware/hardwarepage.cpp
-msgid "Firmware for the devices of this computer that is not installed yet. Without it, they may not work, or work only in part."
-msgstr "Firmware para los dispositivos de este equipo que aún no está instalado. Sin él, es posible que no funcionen o que funcionen solo en parte."
 
 #: src/pages/hardware/hardwarepage.cpp src/window/pagelist.cpp
 msgid "Devices"
@@ -1071,8 +1034,24 @@ msgid "Driver: {driver}"
 msgstr "Controlador: {driver}"
 
 #: src/pages/hardware/hardwarepage.cpp
+msgid "Proprietary"
+msgstr "Privativo"
+
+#: src/pages/hardware/hardwarepage.cpp
 msgid "Install"
 msgstr "Instalar"
+
+#: src/pages/hardware/hardwarepage.cpp
+msgid "The driver is installed. Restart the computer to use it."
+msgstr "El controlador está instalado. Reinicie el equipo para usarlo."
+
+#: src/pages/hardware/hardwarepage.cpp
+msgid "Drivers and firmware for the devices of this computer that are not installed yet. Without them, the devices may not work, or work only in part."
+msgstr "Controladores y firmware para los dispositivos de este equipo que aún no están instalados. Sin ellos, es posible que no funcionen o que funcionen solo en parte."
+
+#: src/pages/hardware/hardwarepage.cpp
+msgid "Secure Boot is on: it keeps proprietary drivers built on this computer from loading. Turn it off in the computer's firmware settings to use them."
+msgstr "El arranque seguro está activado: impide que se carguen los controladores privativos compilados en este equipo. Desactívelo en la configuración del firmware del equipo para usarlos."
 
 #: src/pages/hotcorners/hotcorners.cpp src/pages/shortcuts/shortcutsmodel.cpp
 msgctxt "key"
@@ -2862,3 +2841,39 @@ msgstr "Ajustes"
 #: src/window/sidebar.cpp
 msgid "No results"
 msgstr "Sin resultados"
+
+#~ msgid "Intel Wi-Fi"
+#~ msgstr "Wi-Fi Intel"
+
+#~ msgid "Realtek Wi-Fi"
+#~ msgstr "Wi-Fi Realtek"
+
+#~ msgid "Qualcomm Atheros Wi-Fi"
+#~ msgstr "Wi-Fi Qualcomm Atheros"
+
+#~ msgid "MediaTek Wi-Fi"
+#~ msgstr "Wi-Fi MediaTek"
+
+#~ msgid "Broadcom Wi-Fi"
+#~ msgstr "Wi-Fi Broadcom"
+
+#~ msgid "AMD graphics"
+#~ msgstr "Gráficos AMD"
+
+#~ msgid "Intel graphics"
+#~ msgstr "Gráficos Intel"
+
+#~ msgid "NVIDIA graphics"
+#~ msgstr "Gráficos NVIDIA"
+
+#~ msgid "Intel sound"
+#~ msgstr "Sonido Intel"
+
+#~ msgid "Realtek USB Wi-Fi or Bluetooth"
+#~ msgstr "Wi-Fi o Bluetooth USB Realtek"
+
+#~ msgid "Qualcomm Atheros USB Wi-Fi or Bluetooth"
+#~ msgstr "Wi-Fi o Bluetooth USB Qualcomm Atheros"
+
+#~ msgid "MediaTek USB Wi-Fi or Bluetooth"
+#~ msgstr "Wi-Fi o Bluetooth USB MediaTek"

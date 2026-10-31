@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bayu-settings\n"
 "Report-Msgid-Bugs-To: https://github.com/bayuos\n"
-"POT-Creation-Date: 2026-10-30 22:50+0000\n"
+"POT-Creation-Date: 2026-10-31 00:20+0000\n"
 "PO-Revision-Date: 2026-10-25 12:00+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -985,52 +985,19 @@ msgid "Anti-Aliasing"
 msgstr "안티앨리어싱"
 
 #: src/pages/hardware/hardware.cpp
-msgid "Intel Wi-Fi"
-msgstr "Intel Wi-Fi"
+#, python-brace-format
+msgid "{driver} driver for {device}"
+msgstr "{device}용 {driver} 드라이버"
 
 #: src/pages/hardware/hardware.cpp
-msgid "Realtek Wi-Fi"
-msgstr "Realtek Wi-Fi"
+#, python-brace-format
+msgid "Driver for {device}"
+msgstr "{device}용 드라이버"
 
 #: src/pages/hardware/hardware.cpp
-msgid "Qualcomm Atheros Wi-Fi"
-msgstr "Qualcomm Atheros Wi-Fi"
-
-#: src/pages/hardware/hardware.cpp
-msgid "MediaTek Wi-Fi"
-msgstr "MediaTek Wi-Fi"
-
-#: src/pages/hardware/hardware.cpp
-msgid "Broadcom Wi-Fi"
-msgstr "Broadcom Wi-Fi"
-
-#: src/pages/hardware/hardware.cpp
-msgid "AMD graphics"
-msgstr "AMD 그래픽"
-
-#: src/pages/hardware/hardware.cpp
-msgid "Intel graphics"
-msgstr "Intel 그래픽"
-
-#: src/pages/hardware/hardware.cpp
-msgid "NVIDIA graphics"
-msgstr "NVIDIA 그래픽"
-
-#: src/pages/hardware/hardware.cpp
-msgid "Intel sound"
-msgstr "Intel 사운드"
-
-#: src/pages/hardware/hardware.cpp
-msgid "Realtek USB Wi-Fi or Bluetooth"
-msgstr "Realtek USB Wi-Fi 또는 블루투스"
-
-#: src/pages/hardware/hardware.cpp
-msgid "Qualcomm Atheros USB Wi-Fi or Bluetooth"
-msgstr "Qualcomm Atheros USB Wi-Fi 또는 블루투스"
-
-#: src/pages/hardware/hardware.cpp
-msgid "MediaTek USB Wi-Fi or Bluetooth"
-msgstr "MediaTek USB Wi-Fi 또는 블루투스"
+#, python-brace-format
+msgid "Firmware for {device}"
+msgstr "{device}용 펌웨어"
 
 #: src/pages/hardware/hardwarepage.cpp src/window/pagelist.cpp
 msgid "Drivers & Hardware"
@@ -1039,10 +1006,6 @@ msgstr "드라이버 및 하드웨어"
 #: src/pages/hardware/hardwarepage.cpp
 msgid "Recommended"
 msgstr "권장"
-
-#: src/pages/hardware/hardwarepage.cpp
-msgid "Firmware for the devices of this computer that is not installed yet. Without it, they may not work, or work only in part."
-msgstr "이 컴퓨터의 장치에 필요하지만 아직 설치되지 않은 펌웨어입니다. 없으면 장치가 작동하지 않거나 일부만 작동할 수 있습니다."
 
 #: src/pages/hardware/hardwarepage.cpp src/window/pagelist.cpp
 msgid "Devices"
@@ -1066,8 +1029,24 @@ msgid "Driver: {driver}"
 msgstr "드라이버: {driver}"
 
 #: src/pages/hardware/hardwarepage.cpp
+msgid "Proprietary"
+msgstr "독점"
+
+#: src/pages/hardware/hardwarepage.cpp
 msgid "Install"
 msgstr "설치"
+
+#: src/pages/hardware/hardwarepage.cpp
+msgid "The driver is installed. Restart the computer to use it."
+msgstr "드라이버가 설치되었습니다. 사용하려면 컴퓨터를 다시 시작하십시오."
+
+#: src/pages/hardware/hardwarepage.cpp
+msgid "Drivers and firmware for the devices of this computer that are not installed yet. Without them, the devices may not work, or work only in part."
+msgstr "이 컴퓨터의 장치에 필요하지만 아직 설치되지 않은 드라이버와 펌웨어입니다. 없으면 장치가 작동하지 않거나 일부만 작동할 수 있습니다."
+
+#: src/pages/hardware/hardwarepage.cpp
+msgid "Secure Boot is on: it keeps proprietary drivers built on this computer from loading. Turn it off in the computer's firmware settings to use them."
+msgstr "보안 부팅이 켜져 있어 이 컴퓨터에서 빌드한 독점 드라이버를 불러올 수 없습니다. 사용하려면 컴퓨터의 펌웨어 설정에서 끄십시오."
 
 #: src/pages/hotcorners/hotcorners.cpp src/pages/shortcuts/shortcutsmodel.cpp
 msgctxt "key"
@@ -2851,3 +2830,39 @@ msgstr "설정"
 #: src/window/sidebar.cpp
 msgid "No results"
 msgstr "결과 없음"
+
+#~ msgid "Intel Wi-Fi"
+#~ msgstr "Intel Wi-Fi"
+
+#~ msgid "Realtek Wi-Fi"
+#~ msgstr "Realtek Wi-Fi"
+
+#~ msgid "Qualcomm Atheros Wi-Fi"
+#~ msgstr "Qualcomm Atheros Wi-Fi"
+
+#~ msgid "MediaTek Wi-Fi"
+#~ msgstr "MediaTek Wi-Fi"
+
+#~ msgid "Broadcom Wi-Fi"
+#~ msgstr "Broadcom Wi-Fi"
+
+#~ msgid "AMD graphics"
+#~ msgstr "AMD 그래픽"
+
+#~ msgid "Intel graphics"
+#~ msgstr "Intel 그래픽"
+
+#~ msgid "NVIDIA graphics"
+#~ msgstr "NVIDIA 그래픽"
+
+#~ msgid "Intel sound"
+#~ msgstr "Intel 사운드"
+
+#~ msgid "Realtek USB Wi-Fi or Bluetooth"
+#~ msgstr "Realtek USB Wi-Fi 또는 블루투스"
+
+#~ msgid "Qualcomm Atheros USB Wi-Fi or Bluetooth"
+#~ msgstr "Qualcomm Atheros USB Wi-Fi 또는 블루투스"
+
+#~ msgid "MediaTek USB Wi-Fi or Bluetooth"
+#~ msgstr "MediaTek USB Wi-Fi 또는 블루투스"

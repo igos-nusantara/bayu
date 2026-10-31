@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bayu-settings\n"
 "Report-Msgid-Bugs-To: https://github.com/bayuos\n"
-"POT-Creation-Date: 2026-10-30 22:50+0000\n"
+"POT-Creation-Date: 2026-10-31 00:20+0000\n"
 "PO-Revision-Date: 2026-10-25 12:00+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -985,52 +985,19 @@ msgid "Anti-Aliasing"
 msgstr "Anti-Aliasing"
 
 #: src/pages/hardware/hardware.cpp
-msgid "Intel Wi-Fi"
-msgstr "Wi-Fi Intel"
+#, python-brace-format
+msgid "{driver} driver for {device}"
+msgstr "Driver {driver} kanggo {device}"
 
 #: src/pages/hardware/hardware.cpp
-msgid "Realtek Wi-Fi"
-msgstr "Wi-Fi Realtek"
+#, python-brace-format
+msgid "Driver for {device}"
+msgstr "Driver kanggo {device}"
 
 #: src/pages/hardware/hardware.cpp
-msgid "Qualcomm Atheros Wi-Fi"
-msgstr "Wi-Fi Qualcomm Atheros"
-
-#: src/pages/hardware/hardware.cpp
-msgid "MediaTek Wi-Fi"
-msgstr "Wi-Fi MediaTek"
-
-#: src/pages/hardware/hardware.cpp
-msgid "Broadcom Wi-Fi"
-msgstr "Wi-Fi Broadcom"
-
-#: src/pages/hardware/hardware.cpp
-msgid "AMD graphics"
-msgstr "Grafis AMD"
-
-#: src/pages/hardware/hardware.cpp
-msgid "Intel graphics"
-msgstr "Grafis Intel"
-
-#: src/pages/hardware/hardware.cpp
-msgid "NVIDIA graphics"
-msgstr "Grafis NVIDIA"
-
-#: src/pages/hardware/hardware.cpp
-msgid "Intel sound"
-msgstr "Sora Intel"
-
-#: src/pages/hardware/hardware.cpp
-msgid "Realtek USB Wi-Fi or Bluetooth"
-msgstr "Wi-Fi atanapi Bluetooth USB Realtek"
-
-#: src/pages/hardware/hardware.cpp
-msgid "Qualcomm Atheros USB Wi-Fi or Bluetooth"
-msgstr "Wi-Fi atanapi Bluetooth USB Qualcomm Atheros"
-
-#: src/pages/hardware/hardware.cpp
-msgid "MediaTek USB Wi-Fi or Bluetooth"
-msgstr "Wi-Fi atanapi Bluetooth USB MediaTek"
+#, python-brace-format
+msgid "Firmware for {device}"
+msgstr "Firmware kanggo {device}"
 
 #: src/pages/hardware/hardwarepage.cpp src/window/pagelist.cpp
 msgid "Drivers & Hardware"
@@ -1039,10 +1006,6 @@ msgstr "Driver & Parangkat Teuas"
 #: src/pages/hardware/hardwarepage.cpp
 msgid "Recommended"
 msgstr "Disarankeun"
-
-#: src/pages/hardware/hardwarepage.cpp
-msgid "Firmware for the devices of this computer that is not installed yet. Without it, they may not work, or work only in part."
-msgstr "Firmware kanggo parangkat komputer ieu anu teu acan dipasang. Tanpa éta, parangkat tiasa teu jalan, atanapi ngan sabagian."
 
 #: src/pages/hardware/hardwarepage.cpp src/window/pagelist.cpp
 msgid "Devices"
@@ -1066,8 +1029,24 @@ msgid "Driver: {driver}"
 msgstr "Driver: {driver}"
 
 #: src/pages/hardware/hardwarepage.cpp
+msgid "Proprietary"
+msgstr "Proprietari"
+
+#: src/pages/hardware/hardwarepage.cpp
 msgid "Install"
 msgstr "Pasang"
+
+#: src/pages/hardware/hardwarepage.cpp
+msgid "The driver is installed. Restart the computer to use it."
+msgstr "Driver parantos dipasang. Hurungkeun deui komputer pikeun nganggona."
+
+#: src/pages/hardware/hardwarepage.cpp
+msgid "Drivers and firmware for the devices of this computer that are not installed yet. Without them, the devices may not work, or work only in part."
+msgstr "Driver sareng firmware kanggo parangkat komputer ieu anu teu acan dipasang. Tanpa éta, parangkat tiasa teu jalan, atanapi ngan sabagian."
+
+#: src/pages/hardware/hardwarepage.cpp
+msgid "Secure Boot is on: it keeps proprietary drivers built on this computer from loading. Turn it off in the computer's firmware settings to use them."
+msgstr "Secure Boot hurung: driver proprietari anu didamel di komputer ieu teu tiasa dimuat. Pareuman Secure Boot dina setélan firmware komputer pikeun nganggona."
 
 #: src/pages/hotcorners/hotcorners.cpp src/pages/shortcuts/shortcutsmodel.cpp
 msgctxt "key"
@@ -2851,3 +2830,39 @@ msgstr "Setélan"
 #: src/window/sidebar.cpp
 msgid "No results"
 msgstr "Euweuh hasil"
+
+#~ msgid "Intel Wi-Fi"
+#~ msgstr "Wi-Fi Intel"
+
+#~ msgid "Realtek Wi-Fi"
+#~ msgstr "Wi-Fi Realtek"
+
+#~ msgid "Qualcomm Atheros Wi-Fi"
+#~ msgstr "Wi-Fi Qualcomm Atheros"
+
+#~ msgid "MediaTek Wi-Fi"
+#~ msgstr "Wi-Fi MediaTek"
+
+#~ msgid "Broadcom Wi-Fi"
+#~ msgstr "Wi-Fi Broadcom"
+
+#~ msgid "AMD graphics"
+#~ msgstr "Grafis AMD"
+
+#~ msgid "Intel graphics"
+#~ msgstr "Grafis Intel"
+
+#~ msgid "NVIDIA graphics"
+#~ msgstr "Grafis NVIDIA"
+
+#~ msgid "Intel sound"
+#~ msgstr "Sora Intel"
+
+#~ msgid "Realtek USB Wi-Fi or Bluetooth"
+#~ msgstr "Wi-Fi atanapi Bluetooth USB Realtek"
+
+#~ msgid "Qualcomm Atheros USB Wi-Fi or Bluetooth"
+#~ msgstr "Wi-Fi atanapi Bluetooth USB Qualcomm Atheros"
+
+#~ msgid "MediaTek USB Wi-Fi or Bluetooth"
+#~ msgstr "Wi-Fi atanapi Bluetooth USB MediaTek"

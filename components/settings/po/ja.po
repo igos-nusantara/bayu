@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bayu-settings\n"
 "Report-Msgid-Bugs-To: https://github.com/bayuos\n"
-"POT-Creation-Date: 2026-10-30 22:50+0000\n"
+"POT-Creation-Date: 2026-10-31 00:20+0000\n"
 "PO-Revision-Date: 2026-10-25 00:00+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -986,52 +986,19 @@ msgid "Anti-Aliasing"
 msgstr "アンチエイリアス"
 
 #: src/pages/hardware/hardware.cpp
-msgid "Intel Wi-Fi"
-msgstr "Intel Wi-Fi"
+#, python-brace-format
+msgid "{driver} driver for {device}"
+msgstr "{device} 用の {driver} ドライバー"
 
 #: src/pages/hardware/hardware.cpp
-msgid "Realtek Wi-Fi"
-msgstr "Realtek Wi-Fi"
+#, python-brace-format
+msgid "Driver for {device}"
+msgstr "{device} 用のドライバー"
 
 #: src/pages/hardware/hardware.cpp
-msgid "Qualcomm Atheros Wi-Fi"
-msgstr "Qualcomm Atheros Wi-Fi"
-
-#: src/pages/hardware/hardware.cpp
-msgid "MediaTek Wi-Fi"
-msgstr "MediaTek Wi-Fi"
-
-#: src/pages/hardware/hardware.cpp
-msgid "Broadcom Wi-Fi"
-msgstr "Broadcom Wi-Fi"
-
-#: src/pages/hardware/hardware.cpp
-msgid "AMD graphics"
-msgstr "AMD グラフィックス"
-
-#: src/pages/hardware/hardware.cpp
-msgid "Intel graphics"
-msgstr "Intel グラフィックス"
-
-#: src/pages/hardware/hardware.cpp
-msgid "NVIDIA graphics"
-msgstr "NVIDIA グラフィックス"
-
-#: src/pages/hardware/hardware.cpp
-msgid "Intel sound"
-msgstr "Intel サウンド"
-
-#: src/pages/hardware/hardware.cpp
-msgid "Realtek USB Wi-Fi or Bluetooth"
-msgstr "Realtek USB Wi-Fi または Bluetooth"
-
-#: src/pages/hardware/hardware.cpp
-msgid "Qualcomm Atheros USB Wi-Fi or Bluetooth"
-msgstr "Qualcomm Atheros USB Wi-Fi または Bluetooth"
-
-#: src/pages/hardware/hardware.cpp
-msgid "MediaTek USB Wi-Fi or Bluetooth"
-msgstr "MediaTek USB Wi-Fi または Bluetooth"
+#, python-brace-format
+msgid "Firmware for {device}"
+msgstr "{device} 用のファームウェア"
 
 #: src/pages/hardware/hardwarepage.cpp src/window/pagelist.cpp
 msgid "Drivers & Hardware"
@@ -1040,10 +1007,6 @@ msgstr "ドライバーとハードウェア"
 #: src/pages/hardware/hardwarepage.cpp
 msgid "Recommended"
 msgstr "推奨"
-
-#: src/pages/hardware/hardwarepage.cpp
-msgid "Firmware for the devices of this computer that is not installed yet. Without it, they may not work, or work only in part."
-msgstr "このコンピューターのデバイス用で、まだインストールされていないファームウェアです。これがないと、デバイスが動作しないか、一部しか動作しないことがあります。"
 
 #: src/pages/hardware/hardwarepage.cpp src/window/pagelist.cpp
 msgid "Devices"
@@ -1067,8 +1030,24 @@ msgid "Driver: {driver}"
 msgstr "ドライバー: {driver}"
 
 #: src/pages/hardware/hardwarepage.cpp
+msgid "Proprietary"
+msgstr "プロプライエタリ"
+
+#: src/pages/hardware/hardwarepage.cpp
 msgid "Install"
 msgstr "インストール"
+
+#: src/pages/hardware/hardwarepage.cpp
+msgid "The driver is installed. Restart the computer to use it."
+msgstr "ドライバーがインストールされました。使用するにはコンピューターを再起動してください。"
+
+#: src/pages/hardware/hardwarepage.cpp
+msgid "Drivers and firmware for the devices of this computer that are not installed yet. Without them, the devices may not work, or work only in part."
+msgstr "このコンピューターのデバイス用で、まだインストールされていないドライバーとファームウェアです。これがないと、デバイスが動作しないか、一部しか動作しないことがあります。"
+
+#: src/pages/hardware/hardwarepage.cpp
+msgid "Secure Boot is on: it keeps proprietary drivers built on this computer from loading. Turn it off in the computer's firmware settings to use them."
+msgstr "セキュアブートがオンです。このコンピューターでビルドされたプロプライエタリドライバーは読み込まれません。使用するには、コンピューターのファームウェア設定でオフにしてください。"
 
 #: src/pages/hotcorners/hotcorners.cpp src/pages/shortcuts/shortcutsmodel.cpp
 msgctxt "key"
@@ -2852,3 +2831,39 @@ msgstr "設定"
 #: src/window/sidebar.cpp
 msgid "No results"
 msgstr "結果なし"
+
+#~ msgid "Intel Wi-Fi"
+#~ msgstr "Intel Wi-Fi"
+
+#~ msgid "Realtek Wi-Fi"
+#~ msgstr "Realtek Wi-Fi"
+
+#~ msgid "Qualcomm Atheros Wi-Fi"
+#~ msgstr "Qualcomm Atheros Wi-Fi"
+
+#~ msgid "MediaTek Wi-Fi"
+#~ msgstr "MediaTek Wi-Fi"
+
+#~ msgid "Broadcom Wi-Fi"
+#~ msgstr "Broadcom Wi-Fi"
+
+#~ msgid "AMD graphics"
+#~ msgstr "AMD グラフィックス"
+
+#~ msgid "Intel graphics"
+#~ msgstr "Intel グラフィックス"
+
+#~ msgid "NVIDIA graphics"
+#~ msgstr "NVIDIA グラフィックス"
+
+#~ msgid "Intel sound"
+#~ msgstr "Intel サウンド"
+
+#~ msgid "Realtek USB Wi-Fi or Bluetooth"
+#~ msgstr "Realtek USB Wi-Fi または Bluetooth"
+
+#~ msgid "Qualcomm Atheros USB Wi-Fi or Bluetooth"
+#~ msgstr "Qualcomm Atheros USB Wi-Fi または Bluetooth"
+
+#~ msgid "MediaTek USB Wi-Fi or Bluetooth"
+#~ msgstr "MediaTek USB Wi-Fi または Bluetooth"

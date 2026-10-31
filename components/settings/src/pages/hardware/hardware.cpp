@@ -4,9 +4,10 @@
 
 #include <algorithm>
 #include <cstdio>
-#include <dirent.h>
 #include <filesystem>
-#include <map>
+#include <fnmatch.h>
+#include <set>
+#include <sys/utsname.h>
 #include <tuple>
 #include <unistd.h>
 
@@ -15,7 +16,8 @@
 #include "base/strings.h"
 
 using namespace bayu;
-using bayu::i18n::trNoop;
+using bayu::i18n::format;
+using bayu::i18n::tr;
 
 namespace settings::hardware {
 
@@ -47,12 +49,30 @@ std::string commandOutput(const char* command)
     return output;
 }
 
+// The kernel module behind a sysfs device's driver, as modules name it.
+std::string moduleOf(const std::filesystem::path& device)
+{
+    std::error_code error;
+    const auto module = std::filesystem::read_symlink(device / "driver" / "module", error);
+    return error ? std::string() : module.filename().string();
+}
+
 // The chipset's own parts, that users have nothing to do with: bridges,
 // memory and system peripherals, SMBus, signal processing.
 bool isChipset(const std::string& classId)
 {
     return classId.starts_with("05") || classId.starts_with("06") || classId.starts_with("08")
         || classId == "0c05" || classId.starts_with("11");
+}
+
+bool matches(const std::string& pattern, const std::string& modalias)
+{
+    return fnmatch(pattern.c_str(), modalias.c_str(), 0) == 0;
+}
+
+std::string displayName(const Device& device)
+{
+    return device.vendor.empty() ? device.name : device.vendor + " " + device.name;
 }
 
 } // namespace
@@ -93,9 +113,19 @@ std::vector<Device> parseLspci(const std::string& output)
     return devices;
 }
 
-std::vector<Device> pciDevices()
+std::vector<Device> pciDevices(const std::string& sysfs)
 {
-    return parseLspci(commandOutput("lspci -vmmnnk 2>/dev/null"));
+    std::vector<Device> devices = parseLspci(commandOutput("lspci -D -vmmnnk 2>/dev/null"));
+    for (Device& device : devices) {
+        const std::filesystem::path path = std::filesystem::path(sysfs) / device.slot;
+        if (const std::string modalias = readTrimmed(path.string() + "/modalias"); !modalias.empty())
+            device.modaliases.push_back(modalias);
+        device.module = moduleOf(path);
+        // 0000:00:02.0 is 00:02.0 to people.
+        if (device.slot.starts_with("0000:"))
+            device.slot = device.slot.substr(5);
+    }
+    return devices;
 }
 
 std::vector<Device> usbDevices(const std::string& sysfs)
@@ -120,65 +150,136 @@ std::vector<Device> usbDevices(const std::string& sysfs)
         if (device.name.empty())
             device.name = device.vendorId + ":" + device.deviceId;
         device.kind = "USB";
-        std::vector<std::string> classes;
+        std::set<std::string> classes;
         for (const auto& interface : std::filesystem::directory_iterator(path, error)) {
-            const std::string name = interface.path().filename().string();
-            if (!name.starts_with(port + ":"))
+            if (!interface.path().filename().string().starts_with(port + ":"))
                 continue;
-            classes.push_back(readTrimmed(interface.path().string() + "/bInterfaceClass"));
-            if (device.driver.empty() && std::filesystem::exists(interface.path() / "driver"))
+            const std::string dir = interface.path().string();
+            classes.insert(readTrimmed(dir + "/bInterfaceClass"));
+            if (const std::string modalias = readTrimmed(dir + "/modalias"); !modalias.empty())
+                device.modaliases.push_back(modalias);
+            if (device.driver.empty() && std::filesystem::exists(interface.path() / "driver")) {
                 device.driver = std::filesystem::read_symlink(interface.path() / "driver").filename().string();
+                device.module = moduleOf(interface.path());
+            }
         }
-        std::sort(classes.begin(), classes.end());
-        classes.erase(std::unique(classes.begin(), classes.end()), classes.end());
-        device.classId = base::strings::join(classes, " ");
+        device.classId = base::strings::join(std::vector<std::string>(classes.begin(), classes.end()), " ");
         devices.push_back(device);
     }
     std::sort(devices.begin(), devices.end(), [](const Device& a, const Device& b) { return a.slot < b.slot; });
     return devices;
 }
 
-std::vector<Package> packagesFor(const std::vector<Device>& devices)
+DriverDatabase DriverDatabase::parse(const std::string& text)
 {
-    struct Rule
-    {
-        Device::Bus bus;
-        const char* classPrefix; // PCI class, or a USB interface class it has; empty for any
-        const char* vendorId;
-        const char* package;
-        const char* reason;
+    DriverDatabase database;
+    for (const std::string_view line : base::strings::splitViews(text, '\n')) {
+        if (line.empty() || line.front() == '#')
+            continue;
+        const std::vector<std::string> fields = base::strings::split(std::string(line), '\t');
+        if (fields[0] == "firmware" && fields.size() == 4)
+            database.firmware.emplace(fields[1], Firmware{fields[2], fields[3]});
+        else if (fields[0] == "module" && fields.size() == 3)
+            database.modules[fields[1]] = fields[2];
+        else if (fields[0] == "alias" && fields.size() == 3)
+            database.aliases.push_back({fields[1], fields[2]});
+        else if (fields[0] == "proprietary" && fields.size() == 4)
+            database.proprietary.push_back({fields[1], fields[2], base::strings::splitWhitespace(fields[3])});
+    }
+    return database;
+}
+
+DriverDatabase DriverDatabase::load(const std::string& path)
+{
+    return parse(base::file::read(path).value_or(""));
+}
+
+std::vector<DriverDatabase::Alias> parseModulesAlias(const std::string& text)
+{
+    std::vector<DriverDatabase::Alias> aliases;
+    for (const std::string_view line : base::strings::splitViews(text, '\n')) {
+        const std::vector<std::string> fields = base::strings::splitWhitespace(std::string(line));
+        if (fields.size() == 3 && fields[0] == "alias")
+            aliases.push_back({fields[1], fields[2]});
+    }
+    return aliases;
+}
+
+System currentSystem()
+{
+    utsname kernel{};
+    uname(&kernel);
+    System system;
+    system.installedAliases = parseModulesAlias(
+            base::file::read(std::string("/lib/modules/") + kernel.release + "/modules.alias").value_or(""));
+    system.hasFirmware = [](const std::string& file) {
+        const std::string path = "/lib/firmware/" + file;
+        return access(path.c_str(), F_OK) == 0 || access((path + ".xz").c_str(), F_OK) == 0
+            || access((path + ".zst").c_str(), F_OK) == 0;
     };
-    static const Rule rules[] = {
-        {Device::Bus::Pci, "0280", "8086", "iwlwifi-mvm-firmware", trNoop("Intel Wi-Fi")},
-        {Device::Bus::Pci, "0280", "10ec", "realtek-firmware", trNoop("Realtek Wi-Fi")},
-        {Device::Bus::Pci, "0280", "168c", "atheros-firmware", trNoop("Qualcomm Atheros Wi-Fi")},
-        {Device::Bus::Pci, "0280", "17cb", "atheros-firmware", trNoop("Qualcomm Atheros Wi-Fi")},
-        {Device::Bus::Pci, "0280", "14c3", "mt7xxx-firmware", trNoop("MediaTek Wi-Fi")},
-        {Device::Bus::Pci, "0280", "14e4", "brcmfmac-firmware", trNoop("Broadcom Wi-Fi")},
-        {Device::Bus::Pci, "03", "1002", "amd-gpu-firmware", trNoop("AMD graphics")},
-        {Device::Bus::Pci, "03", "8086", "intel-gpu-firmware", trNoop("Intel graphics")},
-        {Device::Bus::Pci, "03", "10de", "nvidia-gpu-firmware", trNoop("NVIDIA graphics")},
-        {Device::Bus::Pci, "04", "8086", "alsa-sof-firmware", trNoop("Intel sound")},
-        {Device::Bus::Usb, "", "0bda", "realtek-firmware", trNoop("Realtek USB Wi-Fi or Bluetooth")},
-        {Device::Bus::Usb, "", "0cf3", "atheros-firmware", trNoop("Qualcomm Atheros USB Wi-Fi or Bluetooth")},
-        {Device::Bus::Usb, "", "0e8d", "mt7xxx-firmware", trNoop("MediaTek USB Wi-Fi or Bluetooth")},
-    };
+    return system;
+}
+
+std::vector<Package> packagesFor(const std::vector<Device>& devices, const DriverDatabase& database,
+                                 const System& system)
+{
     std::vector<Package> packages;
+    std::set<std::string> offered;
+    const auto offer = [&](std::vector<std::string> names, std::string reason, bool proprietary) {
+        names.erase(std::remove_if(names.begin(), names.end(),
+                                   [&](const std::string& name) { return offered.count(name) > 0; }),
+                    names.end());
+        if (names.empty())
+            return;
+        offered.insert(names.begin(), names.end());
+        packages.push_back({std::move(names), std::move(reason), proprietary});
+    };
+
     for (const Device& device : devices) {
-        for (const Rule& rule : rules) {
-            if (rule.bus != device.bus || device.vendorId != rule.vendorId)
+        const std::string name = displayName(device);
+        for (const auto& driver : database.proprietary) {
+            if (std::any_of(device.modaliases.begin(), device.modaliases.end(),
+                            [&](const std::string& modalias) { return matches(driver.pattern, modalias); }))
+                offer(driver.packages, format(tr("{driver} driver for {device}"), {{"driver", driver.name}, {"device", name}}),
+                      true);
+        }
+
+        // The modules that would drive it: its own, or for a device without one,
+        // those whose aliases match it.
+        std::set<std::string> modules;
+        if (!device.module.empty())
+            modules.insert(device.module);
+        if (device.driver.empty()) {
+            for (const std::string& modalias : device.modaliases) {
+                for (const auto& alias : system.installedAliases) {
+                    if (matches(alias.pattern, modalias))
+                        modules.insert(alias.module);
+                }
+                // Not installed: in a package of their own, as kernel-modules-extra.
+                for (const auto& alias : database.aliases) {
+                    const auto package = database.modules.find(alias.module);
+                    if (package != database.modules.end() && matches(alias.pattern, modalias))
+                        offer({package->second}, format(tr("Driver for {device}"), {{"device", name}}), false);
+                }
+            }
+        }
+
+        // Firmware a module loads, none of which is there.
+        for (const std::string& module : modules) {
+            const auto [begin, end] = database.firmware.equal_range(module);
+            if (begin == end)
                 continue;
-            if (device.bus == Device::Bus::Pci && !device.classId.starts_with(rule.classPrefix))
+            const bool present = std::any_of(begin, end, [&](const auto& entry) {
+                return system.hasFirmware && system.hasFirmware(entry.second.file);
+            });
+            if (present)
                 continue;
-            // USB: only what has a wireless (e0) or vendor (ff) interface, as
-            // Wi-Fi adapters, not a card reader of the same maker.
-            if (device.bus == Device::Bus::Usb && device.classId.find("e0") == std::string::npos
-                && device.classId.find("ff") == std::string::npos)
-                continue;
-            const bool known = std::any_of(packages.begin(), packages.end(),
-                                           [&](const Package& package) { return package.name == rule.package; });
-            if (!known)
-                packages.push_back({rule.package, i18n::tr(rule.reason)});
+            std::vector<std::string> names;
+            for (auto it = begin; it != end; ++it) {
+                if (std::find(names.begin(), names.end(), it->second.package) == names.end())
+                    names.push_back(it->second.package);
+            }
+            offer(names, format(tr("Firmware for {device}"), {{"device", name}}), false);
         }
     }
     return packages;
@@ -189,7 +290,7 @@ std::string report(const std::vector<Device>& devices)
     std::string text;
     for (const Device& device : devices) {
         text += device.bus == Device::Bus::Pci ? "PCI " : "USB ";
-        text += device.slot + "  " + device.kind + ": " + device.vendor + " " + device.name;
+        text += device.slot + "  " + device.kind + ": " + displayName(device);
         text += " [" + device.vendorId + ":" + device.deviceId + "]";
         text += device.driver.empty() ? std::string("  (no driver)") : "  driver: " + device.driver;
         text += '\n';
