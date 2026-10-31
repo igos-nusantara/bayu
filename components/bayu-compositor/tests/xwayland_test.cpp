@@ -1011,6 +1011,71 @@ TEST_F(XwaylandTest, NetWmWindowOpacityFadesTheWholeWindow)
     }));
 }
 
+// The margins a client that draws its own frame keeps around it (issue #124):
+// the window is the X window inside them, which stays around it as it moves.
+TEST_F(XwaylandTest, GtkFrameExtentsAreTheClientsOwnMargins)
+{
+    ASSERT_TRUE(start()) << xwayland->error();
+    setenv("XAUTHORITY", xwayland->authority().c_str(), 1);
+    auto *c = xcbReply([&] {
+        return xcb_connect(xwayland->display().c_str(), nullptr);
+    });
+    ASSERT_EQ(xcb_connection_has_error(c), 0);
+    base::ScopeGuard cleanup([&] {
+        xcb_disconnect(c);
+    });
+    auto *screen = xcb_setup_roots_iterator(xcb_get_setup(c)).data;
+    const auto id = xcb_generate_id(c);
+    const uint32_t values[] = {screen->white_pixel};
+    xcb_create_window(c, XCB_COPY_FROM_PARENT, id, screen->root, 0, 0, 400, 300, 0,
+                      XCB_WINDOW_CLASS_INPUT_OUTPUT, screen->root_visual, XCB_CW_BACK_PIXEL,
+                      values);
+    const xcb_atom_t extents = intern(c, "_GTK_FRAME_EXTENTS");
+    // left, right, top, bottom
+    const uint32_t margins[] = {20, 20, 10, 30};
+    xcb_change_property(c, XCB_PROP_MODE_REPLACE, id, extents, XCB_ATOM_CARDINAL, 32, 4, margins);
+    xcb_map_window(c, id);
+    xcb_flush(c);
+    ASSERT_TRUE(until([&] {
+        return manager->windows().size() == 1;
+    }));
+    wm::Window *window = manager->windows()[0];
+    const auto xGeometry = [&] {
+        auto *geometry = xcb_get_geometry_reply(c, xcb_get_geometry(c, id), nullptr);
+        auto *translated = xcb_translate_coordinates_reply(
+                c, xcb_translate_coordinates(c, id, screen->root, 0, 0), nullptr);
+        base::Rect rect;
+        if (geometry && translated)
+            rect = base::Rect(translated->dst_x, translated->dst_y, geometry->width, geometry->height);
+        free(geometry);
+        free(translated);
+        return rect;
+    };
+    ASSERT_TRUE(until([&] {
+        return window->clientExteriorInsets().left == 20;
+    }));
+    const wm::Insets insets = window->clientExteriorInsets();
+    EXPECT_EQ(insets.top, 10);
+    EXPECT_EQ(insets.right, 20);
+    EXPECT_EQ(insets.bottom, 30);
+    EXPECT_EQ(window->contentBounds().size(), base::Size(360, 260));
+    EXPECT_TRUE(until([&] {
+        const base::Rect content = window->contentBounds();
+        return xGeometry() == base::Rect(content.x() - 20, content.y() - 10, 400, 300);
+    }));
+
+    // Maximized, a client takes its margins away; its window is then all of it.
+    xcb_delete_property(c, id, extents);
+    xcb_flush(c);
+    EXPECT_TRUE(until([&] {
+        return window->clientExteriorInsets().isNull();
+    }));
+    EXPECT_TRUE(until([&] {
+        const base::Rect content = window->contentBounds();
+        return xGeometry() == base::Rect(content.topLeft(), content.size());
+    }));
+}
+
 TEST_F(XwaylandTest, OnlyAChangedFollowedPropertyIsReadAndNothingIsWrittenTwice)
 {
     ASSERT_TRUE(start()) << xwayland->error();
