@@ -179,9 +179,11 @@ const pw_node_events Backend::nodeEvents = [] {
     };
     events.param = [](void* data, int, uint32_t id, uint32_t, uint32_t, const spa_pod* param) {
         auto* binding = static_cast<Binding*>(data);
-        // The card's cached route still holds the previous volume at this
-        // point; applying it here would flash the old value.
-        if (id == SPA_PARAM_Props)
+        // A card's node takes its volume from the card's route, the hardware
+        // mixer: its own Props stay at 1.0 there. The route is read before
+        // the node appears at login, so the node's Props, arriving last, put
+        // the volume at 100% until it was next changed (#131).
+        if (id == SPA_PARAM_Props && !binding->backend->updateRouteVolume(binding->object.get()))
             binding->object->updateVolume(param);
     };
     return events;
@@ -596,14 +598,16 @@ void Backend::checkResult(int result, const char* operation)
             format(tr("{operation}: {error}"), {{"operation", tr(operation)}, {"error", std::strerror(-result)}}));
 }
 
-void Backend::updateRouteVolume(AudioObject* node)
+bool Backend::updateRouteVolume(AudioObject* node)
 {
     const std::shared_ptr<AudioObject> card = object(node->cardIndex());
     if (!card || card->kind() != AudioObject::Card)
-        return;
+        return false;
     const auto props = card->m_routeProperties.find(node->profileDevice());
-    if (props != card->m_routeProperties.end() && !props->second.empty())
-        node->updateVolume(reinterpret_cast<const spa_pod*>(props->second.data()));
+    if (props == card->m_routeProperties.end() || props->second.empty())
+        return false;
+    node->updateVolume(reinterpret_cast<const spa_pod*>(props->second.data()));
+    return true;
 }
 
 void Backend::setNodeParam(AudioObject* node, const spa_pod* param)
