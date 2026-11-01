@@ -15,7 +15,7 @@ export PROFILE
 # What packaging/kernel/build-kernel.sh and packaging/wl/build-wl.sh build,
 # for test-kernel.sh to find in their caches.
 KERNEL_BUILD = $(shell sed -n 's/^KERNEL=$${KERNEL:-\(.*\)}$$/\1/p' packaging/kernel/build-kernel.sh).$(shell sed -n 's/^BUILD=$${BUILD:-\(.*\)}$$/\1/p' packaging/kernel/build-kernel.sh)
-WL_BUILD     = $(shell sed -n 's/^WL=$${WL:-\(.*\)}$$/\1/p' packaging/wl/build-wl.sh)
+WL_RELEASE   = $(shell sed -n 's/^WL=$${WL:-\(.*\)}$$/\1/p' packaging/wl/build-wl.sh).$(shell sed -n 's/^WL_BUILD=$${WL_BUILD:-\(.*\)}$$/\1/p' packaging/wl/build-wl.sh)
 
 .PHONY: help all desktop rpm kernel kernel-test lapis packages sign iso image vm iso-vm serve e2e clean
 
@@ -52,10 +52,10 @@ kernel:
 
 # A pass is kept with the build, so a kernel is tested once, as in releases.
 kernel-test:
-	@stamp=$(HOME)/.cache/bayu-kernel/$(KERNEL_BUILD)/tested-wl-$(WL_BUILD); \
-	if [ -f "$$stamp" ]; then echo "$(KERNEL_BUILD) with wl $(WL_BUILD) passed before"; \
+	@stamp=$(HOME)/.cache/bayu-kernel/$(KERNEL_BUILD)/tested-wl-$(WL_RELEASE); \
+	if [ -f "$$stamp" ]; then echo "$(KERNEL_BUILD) with wl $(WL_RELEASE) passed before"; \
 	else packaging/kernel/test-kernel.sh $(HOME)/.cache/bayu-kernel/$(KERNEL_BUILD) \
-	  $(HOME)/.cache/bayu-wl/$(WL_BUILD) && touch "$$stamp"; fi
+	  $(HOME)/.cache/bayu-wl/$(WL_RELEASE) && touch "$$stamp"; fi
 
 lapis:
 	packaging/fetch-lapis.sh

@@ -1,4 +1,4 @@
-# The wireless drivers of the kernel Bayu ships (AlmaLinux 211.68 with binder
+# The wireless drivers of the kernel Bayu shipped (AlmaLinux 211.68 with binder
 # and the drivers of issue #73), which a new kernel build must keep:
 # test-kernel.sh fails on any missing.
 # Regenerate with the build of a kernel known to work.
