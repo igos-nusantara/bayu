@@ -53,7 +53,7 @@ public:
     const std::string &iconName() const { return m_iconName; }
     void setToolTip(std::string text) { m_toolTip = std::move(text); }
     const std::string &toolTipText() const { return m_toolTip; }
-    // With its windows' number: a dot for each, up to three.
+    // With its windows' number: a dot for each, up to two.
     void setRunning(bool running, int windows = 1);
     bool isRunning() const { return m_running; }
     int dotCount() const { return m_running ? m_dots : 0; }

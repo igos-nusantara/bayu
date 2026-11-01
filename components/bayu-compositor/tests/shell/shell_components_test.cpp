@@ -433,7 +433,7 @@ TEST_F(ShellComponentsTest, TheDockSitsAlongTheBottomOnItsGlassAndReservesItsStr
     EXPECT_EQ(48, dock->divider().height());
 }
 
-TEST_F(ShellComponentsTest, TheDockShowsADotForEachWindowUpToThree)
+TEST_F(ShellComponentsTest, TheDockShowsADotForEachWindowUpToTwo)
 {
     auto *dock = openDock("[Dock]\nPinned=files\n");
     shell::TaskWindow terminal;
@@ -442,7 +442,7 @@ TEST_F(ShellComponentsTest, TheDockShowsADotForEachWindowUpToThree)
     for (int i = 1; i <= 4; ++i) {
         terminal.title = "Terminal " + std::to_string(i);
         windows->add(terminal);
-        const int expected = std::min(i, 3);
+        const int expected = std::min(i, 2);
         ASSERT_TRUE(test::runUntil([dock, expected] {
             const shell::DockIcon *icon = dock->applicationIcon("terminal");
             return icon && icon->dotCount() == expected;
@@ -451,7 +451,7 @@ TEST_F(ShellComponentsTest, TheDockShowsADotForEachWindowUpToThree)
     EXPECT_EQ(0, dock->applicationIcon("files")->dotCount());
 }
 
-TEST_F(ShellComponentsTest, ThePanelShowsADotForEachWindowUpToThreeAsTheDock)
+TEST_F(ShellComponentsTest, ThePanelShowsADotForEachWindowUpToTwoAsTheDock)
 {
     auto *view = openDock("[Dock]\nPinned=files\n");
     shell::PanelTasks panel(*windows, view->dock().applications());
@@ -462,7 +462,7 @@ TEST_F(ShellComponentsTest, ThePanelShowsADotForEachWindowUpToThreeAsTheDock)
     for (int i = 1; i <= 4; ++i) {
         terminal.title = "Terminal " + std::to_string(i);
         windows->add(terminal);
-        const int expected = std::min(i, 3);
+        const int expected = std::min(i, 2);
         ASSERT_TRUE(test::runUntil([&] { return panel.applicationDots("terminal") == expected; })) << i << " windows";
     }
 }

@@ -211,7 +211,7 @@ void DockIcon::updateMask()
 
 void DockIcon::setRunning(bool running, int windows)
 {
-    const int dots = std::clamp(windows, 1, 3);
+    const int dots = std::clamp(windows, 1, 2);
     if (running == m_running && dots == m_dots)
         return;
     m_running = running;

@@ -25,8 +25,8 @@ class TaskWindows;
 
 // The panel's left side, in the panel layout (Shell/Layout): the Start
 // button, then the applications. As icons (the default), the dock's pinned
-// and running applications, a dot for each window under the running ones
-// (up to three, as the dock), the active one
+// and running applications, a dot for each window below the running ones'
+// tiles (up to two, as the dock), the active one
 // selected; with titles (Panel/WindowTitles), the pinned applications and a
 // button for each window. A right click gives the dock's menu: the
 // application's windows, Open, Pin or Unpin, and Quit. Pitaloka's metrics

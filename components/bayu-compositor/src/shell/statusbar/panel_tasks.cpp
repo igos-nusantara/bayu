@@ -90,6 +90,7 @@ public:
         }
     }
     bool acceptsPointer() const override { return true; }
+    bool isSelected() const { return m_selected; }
 
 protected:
     bool m_selected = false;
@@ -154,8 +155,8 @@ protected:
     }
 };
 
-// An application: its icon on a tile; under it while it runs, a dot of the
-// accent for each window, up to three, as the dock's.
+// An application: its icon on a tile. The panel draws its dots below the tile
+// while it runs, one for each window, up to two, as the dock's.
 class PanelTasks::AppButton final : public PanelTasks::Button
 {
 public:
@@ -178,7 +179,7 @@ public:
     {
         m_icon->setIconName(item.iconName.empty() ? "application-x-desktop" : item.iconName);
         m_running = !item.windows.empty();
-        m_dots = std::clamp(int(item.windows.size()), 1, 3);
+        m_dots = std::clamp(int(item.windows.size()), 1, 2);
         setSelected(item.isActive);
         requestPaint();
     }
@@ -195,23 +196,11 @@ protected:
     {
         const double size = std::round(localRect().height * 0.66);
         m_icon->setSize(size);
-        // A little up, for the dot.
-        m_icon->setGeometry({std::round((localRect().width - size) / 2), std::round((localRect().height - size) / 2) - 1,
+        m_icon->setGeometry({std::round((localRect().width - size) / 2), std::round((localRect().height - size) / 2),
                              size, size});
         m_badge->setIconRect(m_icon->geometry());
     }
-    void paint(ui::Painter &painter) override
-    {
-        paintPlate(painter);
-        if (m_running) {
-            const double dot = 4;
-            for (int i = 0; i < m_dots; ++i) {
-                const double x = (localRect().width - dot) / 2 + (i - (m_dots - 1) / 2.0) * dot * 2;
-                painter.fillEllipse({x, localRect().height - dot - 2, dot, dot},
-                                    m_selected ? accent(false) : PIT_COLOR(TEXT_SECONDARY));
-            }
-        }
-    }
+    void paint(ui::Painter &painter) override { paintPlate(painter); }
 
 private:
     ui::ThemeIcon *m_icon = nullptr;
@@ -380,6 +369,8 @@ void PanelTasks::syncApplications()
         // Only their state changed: keep the buttons, and so their hover.
         for (size_t i = 0; i < items.size(); ++i)
             m_apps[i]->update(*items[i]);
+        // The dots, which this view draws.
+        requestPaint();
         targetsChanged();
         return;
     }
@@ -568,6 +559,17 @@ void PanelTasks::paint(ui::Painter &painter)
     const double height = std::round(std::min(m_tileSize, localRect().height) * 0.55);
     for (double x : m_dividers)
         painter.fillRect({x, std::round((localRect().height - height) / 2), 1, height}, PIT_COLOR(BORDER));
+
+    // The running applications' dots, below their tiles, a dot apart.
+    constexpr double dot = 4;
+    for (const AppButton *button : m_apps) {
+        const ui::RectF tile = button->geometry();
+        const double y = std::min(tile.y + tile.height + 2, localRect().height - dot);
+        for (int i = 0, dots = button->dots(); i < dots; ++i) {
+            const double x = tile.x + (tile.width - dot) / 2 + (i - (dots - 1) / 2.0) * dot * 2;
+            painter.fillEllipse({x, y, dot, dot}, button->isSelected() ? accent(false) : PIT_COLOR(TEXT_SECONDARY));
+        }
+    }
 }
 
 std::map<uint64_t, ui::RectF> PanelTasks::windowTargets() const
