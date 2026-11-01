@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # Tests a kernel build before it is published: what Bayu needs of it.
-#   1. its config: binder and binderfs built in, PSI on by default (lapis);
+#   1. its config: binder and binderfs built in, PSI on by default (lapis),
+#      and the modprobe the kernel loads modules with is EL10's;
 #   2. every wireless driver of wireless-modules.txt is there (Realtek's
 #      rtw88/rtw89/rtl8xxxu, brcmfmac, iwlwifi, ath, mt76...);
 #   3. wl, the Broadcom driver of older MacBooks, builds for it from akmod-wl,
@@ -37,7 +38,11 @@ podman run --rm --network host -v "$KERNEL_DIR":/kernel:ro,Z -v "$WL_DIR":/wl:ro
   done
   grep -qx "CONFIG_PSI=y" "$config" || fail "config: CONFIG_PSI=y"
   grep -qx "CONFIG_PSI_DEFAULT_DISABLED=y" "$config" && fail "config: PSI is off by default"
-  echo "ok: config (binder, binderfs, PSI)"
+  # Fedora sets /usr/bin/modprobe, which EL10 does not have: the kernel then
+  # loads no module by itself (the live ISO found no squashfs).
+  modprobe_path=$(sed -n "s/^CONFIG_MODPROBE_PATH=\"\(.*\)\"$/\1/p" "$config")
+  [ -x "$modprobe_path" ] || fail "config: CONFIG_MODPROBE_PATH=$modprobe_path, not in EL10"
+  echo "ok: config (binder, binderfs, PSI, modprobe $modprobe_path)"
 
   depmod "$kver"
   missing=0
@@ -90,6 +95,10 @@ result "kernel $(uname -r)"
 mkdir -p /dev/binderfs
 if mount -t binder binder /dev/binderfs && [ -e /dev/binderfs/binder-control ]; then result "ok binderfs"; else result "FAIL binderfs"; fi
 if [ -r /proc/pressure/memory ]; then result "ok psi"; else result "FAIL psi"; fi
+# The kernel loads a file system module by itself: a mount of squashfs asks
+# for fs-squashfs before it looks at the device.
+mkdir -p /tmp/autoload && mount -t squashfs /dev/null /tmp/autoload 2>/dev/null
+if grep -qw squashfs /proc/filesystems; then result "ok module autoload"; else result "FAIL module autoload"; fi
 if modprobe mac80211_hwsim radios=2 && [ -e /sys/class/ieee80211/phy0 ]; then result "ok wifi-stack"; else result "FAIL wifi-stack"; fi
 for module in wl rtw89_8852be rtw89_8852ae rtw88_8822ce rtw88_8821ce rtl8xxxu brcmfmac iwlwifi ath9k ath10k_pci ath11k_pci mt7921e \
     rtw88_8821cu rtw88_8822cu rtw88_8812au rtw89_8852bu mt7921u mt7925u rt2800usb ath9k_htc; do
@@ -102,7 +111,7 @@ CHECK
   # What the build has: a missing one fails its load at the boot instead of
   # stopping dracut.
   drivers=""
-  for module in cfg80211 mac80211 mac80211_hwsim wl rtw89_8852be rtw89_8852ae rtw88_8822ce rtw88_8821ce rtl8xxxu \
+  for module in squashfs cfg80211 mac80211 mac80211_hwsim wl rtw89_8852be rtw89_8852ae rtw88_8822ce rtw88_8821ce rtl8xxxu \
                 brcmfmac iwlwifi ath9k ath10k_pci ath11k_pci mt7921e rtw88_8821cu rtw88_8822cu rtw88_8812au \
                 rtw89_8852bu mt7921u mt7925u rt2800usb ath9k_htc; do
     modinfo -k "$kver" "$module" >/dev/null 2>&1 && drivers="$drivers $module"

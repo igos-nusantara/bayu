@@ -8,16 +8,20 @@ adaptation pick the old prototypes there. One macro for them, true on
 
 --- a/src/wl/sys/wl_cfg80211_hybrid.c
 +++ b/src/wl/sys/wl_cfg80211_hybrid.c
-@@ -46,6 +46,15 @@
+@@ -46,6 +46,19 @@
  #include <linux/sched/signal.h>
  #endif
  
 +/* The cfg80211 of 6.17 (radio_idx in the wiphy and tx power callbacks),
 + * which EL10.2's 6.12 kernel carries too. */
-+#if LINUX_VERSION_CODE >= KERNEL_VERSION(6, 17, 0) || \
-+	(defined(RHEL_RELEASE_CODE) && RHEL_RELEASE_CODE >= RHEL_RELEASE_VERSION(10, 2))
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(6, 17, 0)
 +#define WL_CFG80211_6_17 1
-+#else
++#elif defined(RHEL_RELEASE_CODE) && defined(RHEL_RELEASE_VERSION)
++#if RHEL_RELEASE_CODE >= RHEL_RELEASE_VERSION(10, 2)
++#define WL_CFG80211_6_17 1
++#endif
++#endif
++#ifndef WL_CFG80211_6_17
 +#define WL_CFG80211_6_17 0
 +#endif
 +

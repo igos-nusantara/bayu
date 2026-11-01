@@ -1,7 +1,8 @@
-# Follows AlmaLinux's kernel: when BaseOS has a newer one than
-# packaging/kernel/build-kernel.sh builds, it is rebuilt with binder, wl is
-# built for it, and packaging/kernel/test-kernel.sh tests it (binder, PSI,
-# the Wi-Fi drivers, wl, a boot in QEMU). A kernel that passes comes as a
+# Follows Fedora 44's kernel: when its updates (or updates-testing) have a
+# newer one than packaging/kernel/build-kernel.sh builds, it is rebuilt for
+# EL10 with kernel-local, wl is built for it, and
+# packaging/kernel/test-kernel.sh tests it (binder, PSI, the Wi-Fi drivers,
+# wl, a boot in QEMU). A kernel that passes comes as a
 # pull request that moves KERNEL to it, so the next release ships it; one
 # that fails comes as an issue with the test's log, and nothing changes.
 name: Kernel
@@ -27,13 +28,14 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Find AlmaLinux's kernel
+      - name: Find Fedora's kernel
         id: find
         run: |
           current=$(sed -n 's/^KERNEL=${KERNEL:-\(.*\)}$/\1/p' packaging/kernel/build-kernel.sh)
-          latest=$(curl -fsSL https://repo.almalinux.org/almalinux/10/BaseOS/x86_64/os/Packages/ |
-            grep -o 'kernel-core-6[^"]*\.x86_64\.rpm' | sed 's/^kernel-core-//; s/\.x86_64\.rpm$//' | sort -uV | tail -1)
-          echo "current $current, AlmaLinux $latest"
+          latest=$(for repo in updates updates/testing; do
+              curl -fsSL "https://dl.fedoraproject.org/pub/fedora/linux/$repo/44/Everything/source/tree/Packages/k/" || true
+            done | grep -o 'kernel-[0-9][^"]*\.fc44\.src\.rpm' | sed 's/^kernel-//; s/\.src\.rpm$//' | sort -uV | tail -1)
+          echo "current $current, Fedora $latest"
           echo "current=$current" >> "$GITHUB_OUTPUT"
           echo "latest=$latest" >> "$GITHUB_OUTPUT"
           if [ -z "$latest" ] || [ "$latest" = "$current" ] ||
@@ -63,6 +65,7 @@ jobs:
           KERNEL: ${{ steps.find.outputs.new }}
         run: |
           wl=$(sed -n 's/^WL=${WL:-\(.*\)}$/\1/p' packaging/wl/build-wl.sh)
+          wl=$wl.$(sed -n 's/^WL_BUILD=${WL_BUILD:-\(.*\)}$/\1/p' packaging/wl/build-wl.sh)
           build=$(sed -n 's/^BUILD=${BUILD:-\(.*\)}$/\1/p' packaging/kernel/build-kernel.sh)
           set -o pipefail
           packaging/kernel/test-kernel.sh "$HOME/.cache/bayu-kernel/$KERNEL.$build" "$HOME/.cache/bayu-wl/$wl" 2>&1 |
@@ -80,10 +83,10 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git checkout -b "$branch"
           sed -i "s/^KERNEL=\${KERNEL:-.*}$/KERNEL=\${KERNEL:-$KERNEL}/" packaging/kernel/build-kernel.sh
-          git commit -qam "Kernel: AlmaLinux $KERNEL with binder"
+          git commit -qam "Kernel: Fedora $KERNEL for EL10"
           git push -q origin "$branch"
           {
-            echo "AlmaLinux has kernel \`$KERNEL\` (Bayu ships \`$CURRENT\`). It was built with binder and passed \`packaging/kernel/test-kernel.sh\`:"
+            echo "Fedora 44 has kernel \`$KERNEL\` (Bayu ships \`$CURRENT\`). It was built for EL10 with kernel-local and passed \`packaging/kernel/test-kernel.sh\`:"
             echo
             echo '```'
             cat "$RUNNER_TEMP/kernel-test.log"
@@ -91,7 +94,7 @@ jobs:
             echo
             echo "Merging it makes the next release ship it, with wl built for it. Try it on a MacBook with Broadcom Wi-Fi and a Realtek card first if you can."
           } > "$RUNNER_TEMP/body.md"
-          gh pr create --head "$branch" --title "Kernel: AlmaLinux $KERNEL with binder" --body-file "$RUNNER_TEMP/body.md"
+          gh pr create --head "$branch" --title "Kernel: Fedora $KERNEL for EL10" --body-file "$RUNNER_TEMP/body.md"
 
       - name: Report a failure
         if: failure() && steps.find.outputs.new != ''
@@ -100,7 +103,7 @@ jobs:
           KERNEL: ${{ steps.find.outputs.new }}
         run: |
           {
-            echo "AlmaLinux's kernel \`$KERNEL\` did not pass Bayu's kernel test, so Bayu stays on its kernel. Run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+            echo "Fedora's kernel \`$KERNEL\` did not pass Bayu's kernel test, so Bayu stays on its kernel. Run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
             echo
             echo '```'
             tail -60 "$RUNNER_TEMP/kernel-test.log" 2>/dev/null || echo "The build failed before the test."

@@ -83,6 +83,7 @@ jobs:
           kernel=$(sed -n 's/^KERNEL=${KERNEL:-\(.*\)}$/\1/p' packaging/kernel/build-kernel.sh)
           kernel=$kernel.$(sed -n 's/^BUILD=${BUILD:-\(.*\)}$/\1/p' packaging/kernel/build-kernel.sh)
           wl=$(sed -n 's/^WL=${WL:-\(.*\)}$/\1/p' packaging/wl/build-wl.sh)
+          wl=$wl.$(sed -n 's/^WL_BUILD=${WL_BUILD:-\(.*\)}$/\1/p' packaging/wl/build-wl.sh)
           stamp="$HOME/.cache/bayu-kernel/$kernel/tested-wl-$wl"
           if [ -f "$stamp" ]; then
             echo "$kernel with wl $wl passed before"

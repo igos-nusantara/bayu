@@ -1,200 +1,223 @@
-# Bayu driver database, from kernel-core-6.12.0-211.69.1.3.bayu.el10_2.x86_64
+# Bayu driver database, from kernel-core-7.3.1-200.2.bayu.el10_2.x86_64
 # Written by packaging/kernel/driver-db.sh; see there.
-alias	arpt_AUDIT	xt_AUDIT
-alias	arpt_CLASSIFY	xt_CLASSIFY
-alias	arpt_MARK	xt_mark
-alias	arpt_NFQUEUE	xt_NFQUEUE
+alias	block-major-2-*	floppy
 alias	char-major-10-203	cuse
+alias	char-major-67-*	coda
 alias	devname:cuse	cuse
-alias	ebt_AUDIT	xt_AUDIT
-alias	ebt_string	xt_string
-alias	fs-afs	kafs
-alias	ip6t_AUDIT	xt_AUDIT
-alias	ip6t_CHECKSUM	xt_CHECKSUM
-alias	ip6t_CLASSIFY	xt_CLASSIFY
-alias	ip6t_CONNMARK	xt_connmark
-alias	ip6t_CONNSECMARK	xt_CONNSECMARK
-alias	ip6t_CT	xt_CT
-alias	ip6t_DNAT	xt_nat
-alias	ip6t_DNPT	ip6t_NPT
-alias	ip6t_DSCP	xt_DSCP
-alias	ip6t_HL	xt_HL
-alias	ip6t_HMARK	xt_HMARK
-alias	ip6t_IDLETIMER	xt_IDLETIMER
-alias	ip6t_LOG	xt_LOG
-alias	ip6t_MARK	xt_mark
-alias	ip6t_MASQUERADE	xt_MASQUERADE
-alias	ip6t_NETMAP	xt_NETMAP
-alias	ip6t_NFLOG	xt_NFLOG
-alias	ip6t_NFQUEUE	xt_NFQUEUE
-alias	ip6t_NOTRACK	xt_CT
-alias	ip6t_RATEEST	xt_RATEEST
-alias	ip6t_REDIRECT	xt_REDIRECT
-alias	ip6t_SECMARK	xt_SECMARK
-alias	ip6t_SET	xt_set
-alias	ip6t_SNAT	xt_nat
-alias	ip6t_SNPT	ip6t_NPT
-alias	ip6t_TCPMSS	xt_TCPMSS
-alias	ip6t_TCPOPTSTRIP	xt_TCPOPTSTRIP
-alias	ip6t_TEE	xt_TEE
-alias	ip6t_TOS	xt_DSCP
-alias	ip6t_TPROXY	xt_TPROXY
-alias	ip6t_TRACE	xt_TRACE
-alias	ip6t_addrtype	xt_addrtype
-alias	ip6t_bpf	xt_bpf
-alias	ip6t_cgroup	xt_cgroup
-alias	ip6t_cluster	xt_cluster
-alias	ip6t_comment	xt_comment
-alias	ip6t_connbytes	xt_connbytes
-alias	ip6t_connlabel	xt_connlabel
-alias	ip6t_connlimit	xt_connlimit
-alias	ip6t_connmark	xt_connmark
-alias	ip6t_conntrack	xt_conntrack
-alias	ip6t_cpu	xt_cpu
-alias	ip6t_dccp	xt_dccp
-alias	ip6t_devgroup	xt_devgroup
-alias	ip6t_dscp	xt_dscp
-alias	ip6t_dst	ip6t_hbh
-alias	ip6t_ecn	xt_ecn
-alias	ip6t_esp	xt_esp
-alias	ip6t_hashlimit	xt_hashlimit
-alias	ip6t_helper	xt_helper
-alias	ip6t_hl	xt_hl
-alias	ip6t_iprange	xt_iprange
-alias	ip6t_ipvs	xt_ipvs
-alias	ip6t_length	xt_length
-alias	ip6t_limit	xt_limit
-alias	ip6t_mac	xt_mac
-alias	ip6t_mark	xt_mark
-alias	ip6t_multiport	xt_multiport
-alias	ip6t_osf	xt_osf
-alias	ip6t_owner	xt_owner
-alias	ip6t_physdev	xt_physdev
-alias	ip6t_pkttype	xt_pkttype
-alias	ip6t_policy	xt_policy
-alias	ip6t_quota	xt_quota
-alias	ip6t_rateest	xt_rateest
-alias	ip6t_recent	xt_recent
-alias	ip6t_sctp	xt_sctp
-alias	ip6t_set	xt_set
-alias	ip6t_socket	xt_socket
-alias	ip6t_state	xt_state
-alias	ip6t_statistic	xt_statistic
-alias	ip6t_string	xt_string
-alias	ip6t_tcpmss	xt_tcpmss
-alias	ip6t_tos	xt_dscp
-alias	ip_set_bitmap:ip	ip_set_bitmap_ip
-alias	ip_set_bitmap:ip,mac	ip_set_bitmap_ipmac
-alias	ip_set_bitmap:port	ip_set_bitmap_port
-alias	ip_set_hash:ip	ip_set_hash_ip
-alias	ip_set_hash:ip,mac	ip_set_hash_ipmac
-alias	ip_set_hash:ip,mark	ip_set_hash_ipmark
-alias	ip_set_hash:ip,port	ip_set_hash_ipport
-alias	ip_set_hash:ip,port,ip	ip_set_hash_ipportip
-alias	ip_set_hash:ip,port,net	ip_set_hash_ipportnet
-alias	ip_set_hash:mac	ip_set_hash_mac
-alias	ip_set_hash:net	ip_set_hash_net
-alias	ip_set_hash:net,iface	ip_set_hash_netiface
-alias	ip_set_hash:net,net	ip_set_hash_netnet
-alias	ip_set_hash:net,port	ip_set_hash_netport
-alias	ip_set_hash:net,port,net	ip_set_hash_netportnet
-alias	ip_set_list:set	ip_set_list_set
-alias	ipt_AUDIT	xt_AUDIT
-alias	ipt_CHECKSUM	xt_CHECKSUM
-alias	ipt_CLASSIFY	xt_CLASSIFY
-alias	ipt_CONNMARK	xt_connmark
-alias	ipt_CONNSECMARK	xt_CONNSECMARK
-alias	ipt_CT	xt_CT
-alias	ipt_DNAT	xt_nat
-alias	ipt_DSCP	xt_DSCP
-alias	ipt_HMARK	xt_HMARK
-alias	ipt_IDLETIMER	xt_IDLETIMER
-alias	ipt_LOG	xt_LOG
-alias	ipt_MARK	xt_mark
-alias	ipt_MASQUERADE	xt_MASQUERADE
-alias	ipt_NETMAP	xt_NETMAP
-alias	ipt_NFLOG	xt_NFLOG
-alias	ipt_NFQUEUE	xt_NFQUEUE
-alias	ipt_NOTRACK	xt_CT
-alias	ipt_RATEEST	xt_RATEEST
-alias	ipt_REDIRECT	xt_REDIRECT
-alias	ipt_SECMARK	xt_SECMARK
-alias	ipt_SET	xt_set
-alias	ipt_SNAT	xt_nat
-alias	ipt_TCPMSS	xt_TCPMSS
-alias	ipt_TCPOPTSTRIP	xt_TCPOPTSTRIP
-alias	ipt_TEE	xt_TEE
-alias	ipt_TOS	xt_DSCP
-alias	ipt_TPROXY	xt_TPROXY
-alias	ipt_TRACE	xt_TRACE
-alias	ipt_TTL	xt_HL
-alias	ipt_addrtype	xt_addrtype
-alias	ipt_bpf	xt_bpf
-alias	ipt_cgroup	xt_cgroup
-alias	ipt_cluster	xt_cluster
-alias	ipt_comment	xt_comment
-alias	ipt_connbytes	xt_connbytes
-alias	ipt_connlabel	xt_connlabel
-alias	ipt_connlimit	xt_connlimit
-alias	ipt_connmark	xt_connmark
-alias	ipt_conntrack	xt_conntrack
-alias	ipt_cpu	xt_cpu
-alias	ipt_dccp	xt_dccp
-alias	ipt_devgroup	xt_devgroup
-alias	ipt_dscp	xt_dscp
-alias	ipt_ecn	xt_ecn
-alias	ipt_esp	xt_esp
-alias	ipt_hashlimit	xt_hashlimit
-alias	ipt_helper	xt_helper
-alias	ipt_iprange	xt_iprange
-alias	ipt_ipvs	xt_ipvs
-alias	ipt_length	xt_length
-alias	ipt_limit	xt_limit
-alias	ipt_mac	xt_mac
-alias	ipt_mark	xt_mark
-alias	ipt_multiport	xt_multiport
-alias	ipt_osf	xt_osf
-alias	ipt_owner	xt_owner
-alias	ipt_physdev	xt_physdev
-alias	ipt_pkttype	xt_pkttype
-alias	ipt_policy	xt_policy
-alias	ipt_quota	xt_quota
-alias	ipt_rateest	xt_rateest
-alias	ipt_realm	xt_realm
-alias	ipt_recent	xt_recent
-alias	ipt_sctp	xt_sctp
-alias	ipt_set	xt_set
-alias	ipt_socket	xt_socket
-alias	ipt_state	xt_state
-alias	ipt_statistic	xt_statistic
-alias	ipt_string	xt_string
-alias	ipt_tcpmss	xt_tcpmss
-alias	ipt_tos	xt_dscp
-alias	ipt_ttl	xt_hl
+alias	fs-affs	affs
+alias	fs-befs	befs
+alias	fs-coda	coda
+alias	fs-gfs2	gfs2
+alias	fs-gfs2meta	gfs2
+alias	fs-nilfs2	nilfs2
+alias	fs-ocfs2	ocfs2
+alias	fs-ocfs2_dlmfs	ocfs2_dlmfs
+alias	fs-ubifs	ubifs
+alias	fs-ufs	ufs
+alias	i2c:ds2482	ds2482
+alias	i2c:ds2484	ds2482
+alias	i2c:qwiic_joystick	qwiic_joystick
 alias	net-l2tp-type-5	l2tp_eth
 alias	net-l2tp-type-7	l2tp_ppp
-alias	net-pf-10-proto-115	l2tp_ip6
-alias	net-pf-10-proto-115-type-2	l2tp_ip6
-alias	net-pf-10-proto-132	sctp
+alias	net-pf-16-proto-16-family-batadv	batman_adv
 alias	net-pf-16-proto-16-family-l2tp	l2tp_netlink
-alias	net-pf-16-proto-4-type-2-132	sctp_diag
-alias	net-pf-16-proto-4-type-30	tipc_diag
-alias	net-pf-2-proto-115	l2tp_ip
-alias	net-pf-2-proto-115-type-2	l2tp_ip
-alias	net-pf-2-proto-132	sctp
+alias	net-pf-21	rds
 alias	net-pf-24-proto-1	l2tp_ppp
-alias	net-pf-33	rxrpc
-alias	nfnetlink-subsys-11	nft_compat
-alias	nfnetlink-subsys-6	ip_set
-alias	nft-expr-match	nft_compat
-alias	nft-expr-target	nft_compat
+alias	pci:v00001000d00000621sv*sd*bc*sc*i*	mptfc
+alias	pci:v00001000d00000622sv*sd*bc*sc*i*	mptfc
+alias	pci:v00001000d00000624sv*sd*bc*sc*i*	mptfc
+alias	pci:v00001000d00000626sv*sd*bc*sc*i*	mptfc
+alias	pci:v00001000d00000628sv*sd*bc*sc*i*	mptfc
+alias	pci:v00001000d00000640sv*sd*bc*sc*i*	mptfc
+alias	pci:v00001000d00000642sv*sd*bc*sc*i*	mptfc
+alias	pci:v00001000d00000646sv*sd*bc*sc*i*	mptfc
+alias	pci:v00001657d00000646sv*sd*bc*sc*i*	mptfc
+alias	platform:dln2-adc	dln2_adc
+alias	platform:dln2-gpio	gpio_dln2
+alias	platform:dln2-i2c	i2c_dln2
+alias	platform:dln2-spi	spi_dln2
+alias	platform:pcspkr	pcspkr
+alias	pnp:dPNP0700*	floppy
+alias	rtnl-link-batadv	batman_adv
 alias	rtnl-link-vcan	vcan
+alias	serio:ty02pr18id*ex*	warrior
+alias	serio:ty02pr19id*ex*	spaceorb
+alias	serio:ty02pr1Aid*ex*	magellan
+alias	serio:ty02pr1Bid*ex*	spaceball
+alias	serio:ty02pr1Did*ex*	iforce_serio
+alias	serio:ty02pr1Eid*ex*	stinger
+alias	serio:ty02pr24id*ex*	twidjoy
+alias	serio:ty02pr36id*ex*	zhenhua
+alias	spi:psxpad-spi	psxpad_spi
 alias	tty-ldisc-1	slip
 alias	tty-ldisc-17	slcan
+alias	usb:v*p*d*dc*dsc*dp*ic58isc42ip00in*	xpad
+alias	usb:v0079p*d*dc*dsc*dp*icFFisc5Dip01in*	xpad
+alias	usb:v0079p*d*dc*dsc*dp*icFFisc5Dip81in*	xpad
+alias	usb:v0351p*d*dc*dsc*dp*icFFisc5Dip01in*	xpad
+alias	usb:v0351p*d*dc*dsc*dp*icFFisc5Dip81in*	xpad
+alias	usb:v03EBp*d*dc*dsc*dp*icFFisc5Dip01in*	xpad
+alias	usb:v03EBp*d*dc*dsc*dp*icFFisc5Dip81in*	xpad
+alias	usb:v03F0p*d*dc*dsc*dp*icFFisc47ipD0in*	xpad
+alias	usb:v03F0p*d*dc*dsc*dp*icFFisc5Dip01in*	xpad
+alias	usb:v03F0p*d*dc*dsc*dp*icFFisc5Dip81in*	xpad
+alias	usb:v044Fp*d*dc*dsc*dp*icFFisc47ipD0in*	xpad
+alias	usb:v044Fp*d*dc*dsc*dp*icFFisc5Dip01in*	xpad
+alias	usb:v044Fp*d*dc*dsc*dp*icFFisc5Dip81in*	xpad
+alias	usb:v044FpA01Cd*dc*dsc*dp*ic*isc*ip*in*	iforce_usb
+alias	usb:v045Ep*d*dc*dsc*dp*icFFisc47ipD0in*	xpad
+alias	usb:v045Ep*d*dc*dsc*dp*icFFisc5Dip01in*	xpad
+alias	usb:v045Ep*d*dc*dsc*dp*icFFisc5Dip81in*	xpad
+alias	usb:v046Dp*d*dc*dsc*dp*icFFisc5Dip01in*	xpad
+alias	usb:v046Dp*d*dc*dsc*dp*icFFisc5Dip81in*	xpad
+alias	usb:v046DpC281d*dc*dsc*dp*ic*isc*ip*in*	iforce_usb
+alias	usb:v046DpC291d*dc*dsc*dp*ic*isc*ip*in*	iforce_usb
+alias	usb:v04FAp2490d*dc*dsc*dp*ic*isc*ip*in*	ds2490
+alias	usb:v0502p*d*dc*dsc*dp*icFFisc5Dip01in*	xpad
+alias	usb:v0502p*d*dc*dsc*dp*icFFisc5Dip81in*	xpad
+alias	usb:v056Ep*d*dc*dsc*dp*icFFisc5Dip01in*	xpad
+alias	usb:v056Ep*d*dc*dsc*dp*icFFisc5Dip81in*	xpad
+alias	usb:v05EFp020Ad*dc*dsc*dp*ic*isc*ip*in*	iforce_usb
+alias	usb:v05EFp8884d*dc*dsc*dp*ic*isc*ip*in*	iforce_usb
+alias	usb:v05EFp8888d*dc*dsc*dp*ic*isc*ip*in*	iforce_usb
+alias	usb:v061CpC084d*dc*dsc*dp*ic*isc*ip*in*	iforce_usb
+alias	usb:v061CpC0A4d*dc*dsc*dp*ic*isc*ip*in*	iforce_usb
+alias	usb:v06A3p*d*dc*dsc*dp*icFFisc5Dip01in*	xpad
+alias	usb:v06A3p*d*dc*dsc*dp*icFFisc5Dip81in*	xpad
+alias	usb:v06A3pFF04d*dc*dsc*dp*ic*isc*ip*in*	iforce_usb
+alias	usb:v06F8p0001d*dc*dsc*dp*ic*isc*ip*in*	iforce_usb
+alias	usb:v06F8p0003d*dc*dsc*dp*ic*isc*ip*in*	iforce_usb
+alias	usb:v06F8p0004d*dc*dsc*dp*ic*isc*ip*in*	iforce_usb
+alias	usb:v06F8pA302d*dc*dsc*dp*ic*isc*ip*in*	iforce_usb
+alias	usb:v0738p*d*dc*dsc*dp*icFFisc47ipD0in*	xpad
+alias	usb:v0738p*d*dc*dsc*dp*icFFisc5Dip01in*	xpad
+alias	usb:v0738p*d*dc*dsc*dp*icFFisc5Dip81in*	xpad
+alias	usb:v0738p4540d*dc*dsc*dp*ic*isc*ip*in*	xpad
+alias	usb:v07FFp*d*dc*dsc*dp*icFFisc5Dip01in*	xpad
+alias	usb:v07FFp*d*dc*dsc*dp*icFFisc5Dip81in*	xpad
+alias	usb:v0B05p*d*dc*dsc*dp*icFFisc47ipD0in*	xpad
+alias	usb:v0B05p*d*dc*dsc*dp*icFFisc5Dip01in*	xpad
+alias	usb:v0B05p*d*dc*dsc*dp*icFFisc5Dip81in*	xpad
+alias	usb:v0B49p064Fd*dc*dsc*dp*ic*isc*ip*in*	trancevibrator
+alias	usb:v0C12p*d*dc*dsc*dp*icFFisc5Dip01in*	xpad
+alias	usb:v0C12p*d*dc*dsc*dp*icFFisc5Dip81in*	xpad
+alias	usb:v0DB0p*d*dc*dsc*dp*icFFisc5Dip01in*	xpad
+alias	usb:v0DB0p*d*dc*dsc*dp*icFFisc5Dip81in*	xpad
+alias	usb:v0E6Fp*d*dc*dsc*dp*icFFisc47ipD0in*	xpad
+alias	usb:v0E6Fp*d*dc*dsc*dp*icFFisc5Dip01in*	xpad
+alias	usb:v0E6Fp*d*dc*dsc*dp*icFFisc5Dip81in*	xpad
+alias	usb:v0F0Dp*d*dc*dsc*dp*icFFisc47ipD0in*	xpad
+alias	usb:v0F0Dp*d*dc*dsc*dp*icFFisc5Dip01in*	xpad
+alias	usb:v0F0Dp*d*dc*dsc*dp*icFFisc5Dip81in*	xpad
+alias	usb:v1038p*d*dc*dsc*dp*icFFisc5Dip01in*	xpad
+alias	usb:v1038p*d*dc*dsc*dp*icFFisc5Dip81in*	xpad
+alias	usb:v10F5p*d*dc*dsc*dp*icFFisc47ipD0in*	xpad
+alias	usb:v11C9p*d*dc*dsc*dp*icFFisc5Dip01in*	xpad
+alias	usb:v11C9p*d*dc*dsc*dp*icFFisc5Dip81in*	xpad
+alias	usb:v11FFp*d*dc*dsc*dp*icFFisc5Dip01in*	xpad
+alias	usb:v11FFp*d*dc*dsc*dp*icFFisc5Dip81in*	xpad
+alias	usb:v1209p*d*dc*dsc*dp*icFFisc5Dip01in*	xpad
+alias	usb:v1209p*d*dc*dsc*dp*icFFisc5Dip81in*	xpad
+alias	usb:v12ABp*d*dc*dsc*dp*icFFisc5Dip01in*	xpad
+alias	usb:v12ABp*d*dc*dsc*dp*icFFisc5Dip81in*	xpad
 alias	usb:v12D6p0444d*dc*dsc*dp*ic*isc*ip*in*	ems_usb
-alias	xt_SET	xt_set
+alias	usb:v1430p*d*dc*dsc*dp*icFFisc5Dip01in*	xpad
+alias	usb:v1430p*d*dc*dsc*dp*icFFisc5Dip81in*	xpad
+alias	usb:v146Bp*d*dc*dsc*dp*icFFisc5Dip01in*	xpad
+alias	usb:v146Bp*d*dc*dsc*dp*icFFisc5Dip81in*	xpad
+alias	usb:v1532p*d*dc*dsc*dp*icFFisc47ipD0in*	xpad
+alias	usb:v1532p*d*dc*dsc*dp*icFFisc5Dip01in*	xpad
+alias	usb:v1532p*d*dc*dsc*dp*icFFisc5Dip81in*	xpad
+alias	usb:v15E4p*d*dc*dsc*dp*icFFisc5Dip01in*	xpad
+alias	usb:v15E4p*d*dc*dsc*dp*icFFisc5Dip81in*	xpad
+alias	usb:v162Ep*d*dc*dsc*dp*icFFisc5Dip01in*	xpad
+alias	usb:v162Ep*d*dc*dsc*dp*icFFisc5Dip81in*	xpad
+alias	usb:v1689p*d*dc*dsc*dp*icFFisc5Dip01in*	xpad
+alias	usb:v1689p*d*dc*dsc*dp*icFFisc5Dip81in*	xpad
+alias	usb:v16D0p*d*dc*dsc*dp*icFFisc5Dip01in*	xpad
+alias	usb:v16D0p*d*dc*dsc*dp*icFFisc5Dip81in*	xpad
+alias	usb:v1781p0898d*dc*dsc*dp*ic*isc*ip*in*	pxrc
+alias	usb:v17EFp*d*dc*dsc*dp*icFFisc5Dip01in*	xpad
+alias	usb:v17EFp*d*dc*dsc*dp*icFFisc5Dip81in*	xpad
+alias	usb:v1949p*d*dc*dsc*dp*icFFisc5Dip01in*	xpad
+alias	usb:v1949p*d*dc*dsc*dp*icFFisc5Dip81in*	xpad
+alias	usb:v1A86p*d*dc*dsc*dp*icFFisc5Dip01in*	xpad
+alias	usb:v1A86p*d*dc*dsc*dp*icFFisc5Dip81in*	xpad
+alias	usb:v1B1Cp*d*dc*dsc*dp*icFFisc5Dip01in*	xpad
+alias	usb:v1B1Cp*d*dc*dsc*dp*icFFisc5Dip81in*	xpad
+alias	usb:v1BADp*d*dc*dsc*dp*icFFisc5Dip01in*	xpad
+alias	usb:v1BADp*d*dc*dsc*dp*icFFisc5Dip81in*	xpad
+alias	usb:v1EE9p*d*dc*dsc*dp*icFFisc5Dip01in*	xpad
+alias	usb:v1EE9p*d*dc*dsc*dp*icFFisc5Dip81in*	xpad
+alias	usb:v20BCp*d*dc*dsc*dp*icFFisc5Dip01in*	xpad
+alias	usb:v20BCp*d*dc*dsc*dp*icFFisc5Dip81in*	xpad
+alias	usb:v20D6p*d*dc*dsc*dp*icFFisc47ipD0in*	xpad
+alias	usb:v20D6p*d*dc*dsc*dp*icFFisc5Dip01in*	xpad
+alias	usb:v20D6p*d*dc*dsc*dp*icFFisc5Dip81in*	xpad
+alias	usb:v2345p*d*dc*dsc*dp*icFFisc5Dip01in*	xpad
+alias	usb:v2345p*d*dc*dsc*dp*icFFisc5Dip81in*	xpad
+alias	usb:v24C6p*d*dc*dsc*dp*icFFisc47ipD0in*	xpad
+alias	usb:v24C6p*d*dc*dsc*dp*icFFisc5Dip01in*	xpad
+alias	usb:v24C6p*d*dc*dsc*dp*icFFisc5Dip81in*	xpad
+alias	usb:v2563p*d*dc*dsc*dp*icFFisc5Dip01in*	xpad
+alias	usb:v2563p*d*dc*dsc*dp*icFFisc5Dip81in*	xpad
+alias	usb:v260Dp*d*dc*dsc*dp*icFFisc5Dip01in*	xpad
+alias	usb:v260Dp*d*dc*dsc*dp*icFFisc5Dip81in*	xpad
+alias	usb:v294Bp*d*dc*dsc*dp*icFFisc47ipD0in*	xpad
+alias	usb:v2993p*d*dc*dsc*dp*icFFisc5Dip01in*	xpad
+alias	usb:v2993p*d*dc*dsc*dp*icFFisc5Dip81in*	xpad
+alias	usb:v2C22p*d*dc*dsc*dp*icFFisc5Dip01in*	xpad
+alias	usb:v2C22p*d*dc*dsc*dp*icFFisc5Dip81in*	xpad
+alias	usb:v2DC8p*d*dc*dsc*dp*icFFisc47ipD0in*	xpad
+alias	usb:v2DC8p*d*dc*dsc*dp*icFFisc5Dip01in*	xpad
+alias	usb:v2DC8p*d*dc*dsc*dp*icFFisc5Dip81in*	xpad
+alias	usb:v2E24p*d*dc*dsc*dp*icFFisc47ipD0in*	xpad
+alias	usb:v2E95p*d*dc*dsc*dp*icFFisc47ipD0in*	xpad
+alias	usb:v2F24p*d*dc*dsc*dp*icFFisc5Dip01in*	xpad
+alias	usb:v2F24p*d*dc*dsc*dp*icFFisc5Dip81in*	xpad
+alias	usb:v31E3p*d*dc*dsc*dp*icFFisc5Dip01in*	xpad
+alias	usb:v31E3p*d*dc*dsc*dp*icFFisc5Dip81in*	xpad
+alias	usb:v3285p*d*dc*dsc*dp*icFFisc47ipD0in*	xpad
+alias	usb:v3285p*d*dc*dsc*dp*icFFisc5Dip01in*	xpad
+alias	usb:v3285p*d*dc*dsc*dp*icFFisc5Dip81in*	xpad
+alias	usb:v3507p*d*dc*dsc*dp*icFFisc5Dip01in*	xpad
+alias	usb:v3507p*d*dc*dsc*dp*icFFisc5Dip81in*	xpad
+alias	usb:v3537p*d*dc*dsc*dp*icFFisc47ipD0in*	xpad
+alias	usb:v3537p*d*dc*dsc*dp*icFFisc5Dip01in*	xpad
+alias	usb:v3537p*d*dc*dsc*dp*icFFisc5Dip81in*	xpad
+alias	usb:v3651p*d*dc*dsc*dp*icFFisc5Dip01in*	xpad
+alias	usb:v3651p*d*dc*dsc*dp*icFFisc5Dip81in*	xpad
+alias	usb:v366Cp*d*dc*dsc*dp*icFFisc47ipD0in*	xpad
+alias	usb:v37D7p*d*dc*dsc*dp*icFFisc5Dip01in*	xpad
+alias	usb:v37D7p*d*dc*dsc*dp*icFFisc5Dip81in*	xpad
+alias	usb:v3958p*d*dc*dsc*dp*icFFisc5Dip01in*	xpad
+alias	usb:v3958p*d*dc*dsc*dp*icFFisc5Dip81in*	xpad
+alias	usb:v413Dp*d*dc*dsc*dp*icFFisc5Dip01in*	xpad
+alias	usb:v413Dp*d*dc*dsc*dp*icFFisc5Dip81in*	xpad
+alias	usb:vA257p2013d*dc*dsc*dp*ic*isc*ip*in*	dln2
+alias	w1-family-0x01	w1_smem
+alias	w1-family-0x10	w1_therm
+alias	w1-family-0x1C	w1_ds28e04
+alias	w1-family-0x1D	w1_ds2423
+alias	w1-family-0x22	w1_therm
+alias	w1-family-0x23	w1_ds2433
+alias	w1-family-0x28	w1_therm
+alias	w1-family-0x29	w1_ds2408
+alias	w1-family-0x2D	w1_ds2431
+alias	w1-family-0x32	w1_ds2780
+alias	w1-family-0x3B	w1_therm
+alias	w1-family-0x3D	w1_ds2781
+alias	w1-family-0x42	w1_therm
+alias	w1-family-0x43	w1_ds2433
+alias	w1-family-0x81	w1_smem
+firmware	advansys	advansys/3550.bin	linux-firmware
+firmware	advansys	advansys/38C0800.bin	linux-firmware
+firmware	advansys	advansys/38C1600.bin	linux-firmware
+firmware	advansys	advansys/mcode.bin	linux-firmware
 firmware	air_en8811h	airoha/EthMD32.DSP.bin	linux-firmware
 firmware	air_en8811h	airoha/EthMD32.dm.bin	linux-firmware
+firmware	air_en8811h	airoha/an8811hb/EthMD32_CRC.DM.bin	linux-firmware
+firmware	air_en8811h	airoha/an8811hb/EthMD32_CRC.DSP.bin	linux-firmware
 firmware	amdgpu	amdgpu/aldebaran_ip_discovery.bin	amd-gpu-firmware
 firmware	amdgpu	amdgpu/aldebaran_mec.bin	amd-gpu-firmware
 firmware	amdgpu	amdgpu/aldebaran_mec2.bin	amd-gpu-firmware
@@ -216,6 +239,7 @@ firmware	amdgpu	amdgpu/arcturus_smc.bin	amd-gpu-firmware
 firmware	amdgpu	amdgpu/arcturus_sos.bin	amd-gpu-firmware
 firmware	amdgpu	amdgpu/arcturus_ta.bin	amd-gpu-firmware
 firmware	amdgpu	amdgpu/arcturus_vcn.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/banks_k_2_smc.bin	amd-gpu-firmware
 firmware	amdgpu	amdgpu/beige_goby_ce.bin	amd-gpu-firmware
 firmware	amdgpu	amdgpu/beige_goby_dmcub.bin	amd-gpu-firmware
 firmware	amdgpu	amdgpu/beige_goby_me.bin	amd-gpu-firmware
@@ -228,9 +252,18 @@ firmware	amdgpu	amdgpu/beige_goby_smc.bin	amd-gpu-firmware
 firmware	amdgpu	amdgpu/beige_goby_sos.bin	amd-gpu-firmware
 firmware	amdgpu	amdgpu/beige_goby_ta.bin	amd-gpu-firmware
 firmware	amdgpu	amdgpu/beige_goby_vcn.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/bonaire_ce.bin	amd-gpu-firmware
 firmware	amdgpu	amdgpu/bonaire_k_smc.bin	amd-gpu-firmware
 firmware	amdgpu	amdgpu/bonaire_mc.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/bonaire_me.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/bonaire_mec.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/bonaire_pfp.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/bonaire_rlc.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/bonaire_sdma.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/bonaire_sdma1.bin	amd-gpu-firmware
 firmware	amdgpu	amdgpu/bonaire_smc.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/bonaire_uvd.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/bonaire_vce.bin	amd-gpu-firmware
 firmware	amdgpu	amdgpu/carrizo_ce.bin	amd-gpu-firmware
 firmware	amdgpu	amdgpu/carrizo_me.bin	amd-gpu-firmware
 firmware	amdgpu	amdgpu/carrizo_mec.bin	amd-gpu-firmware
@@ -258,6 +291,7 @@ firmware	amdgpu	amdgpu/dcn_3_5_1_dmcub.bin	amd-gpu-firmware
 firmware	amdgpu	amdgpu/dcn_3_5_dmcub.bin	amd-gpu-firmware
 firmware	amdgpu	amdgpu/dcn_3_6_dmcub.bin	amd-gpu-firmware
 firmware	amdgpu	amdgpu/dcn_4_0_1_dmcub.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/dcn_4_2_dmcub.bin	amd-gpu-firmware
 firmware	amdgpu	amdgpu/dimgrey_cavefish_ce.bin	amd-gpu-firmware
 firmware	amdgpu	amdgpu/dimgrey_cavefish_dmcub.bin	amd-gpu-firmware
 firmware	amdgpu	amdgpu/dimgrey_cavefish_me.bin	amd-gpu-firmware
@@ -363,6 +397,20 @@ firmware	amdgpu	amdgpu/gc_11_5_3_mes1.bin	amd-gpu-firmware
 firmware	amdgpu	amdgpu/gc_11_5_3_mes_2.bin	amd-gpu-firmware
 firmware	amdgpu	amdgpu/gc_11_5_3_pfp.bin	amd-gpu-firmware
 firmware	amdgpu	amdgpu/gc_11_5_3_rlc.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/gc_11_7_0_imu.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/gc_11_7_0_me.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/gc_11_7_0_mec.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/gc_11_7_0_mes1.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/gc_11_7_0_mes_2.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/gc_11_7_0_pfp.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/gc_11_7_0_rlc.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/gc_11_7_1_imu.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/gc_11_7_1_me.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/gc_11_7_1_mec.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/gc_11_7_1_mes1.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/gc_11_7_1_mes_2.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/gc_11_7_1_pfp.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/gc_11_7_1_rlc.bin	amd-gpu-firmware
 firmware	amdgpu	amdgpu/gc_12_0_0_imu.bin	amd-gpu-firmware
 firmware	amdgpu	amdgpu/gc_12_0_0_me.bin	amd-gpu-firmware
 firmware	amdgpu	amdgpu/gc_12_0_0_mec.bin	amd-gpu-firmware
@@ -402,10 +450,54 @@ firmware	amdgpu	amdgpu/green_sardine_rlc.bin	amd-gpu-firmware
 firmware	amdgpu	amdgpu/green_sardine_sdma.bin	amd-gpu-firmware
 firmware	amdgpu	amdgpu/green_sardine_ta.bin	amd-gpu-firmware
 firmware	amdgpu	amdgpu/green_sardine_vcn.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/hainan_ce.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/hainan_k_smc.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/hainan_mc.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/hainan_me.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/hainan_pfp.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/hainan_rlc.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/hainan_smc.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/hawaii_ce.bin	amd-gpu-firmware
 firmware	amdgpu	amdgpu/hawaii_k_smc.bin	amd-gpu-firmware
 firmware	amdgpu	amdgpu/hawaii_mc.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/hawaii_me.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/hawaii_mec.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/hawaii_pfp.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/hawaii_rlc.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/hawaii_sdma.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/hawaii_sdma1.bin	amd-gpu-firmware
 firmware	amdgpu	amdgpu/hawaii_smc.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/hawaii_uvd.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/hawaii_vce.bin	amd-gpu-firmware
 firmware	amdgpu	amdgpu/isp_4_1_1.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/kabini_ce.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/kabini_me.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/kabini_mec.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/kabini_pfp.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/kabini_rlc.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/kabini_sdma.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/kabini_sdma1.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/kabini_uvd.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/kabini_vce.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/kaveri_ce.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/kaveri_me.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/kaveri_mec.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/kaveri_mec2.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/kaveri_pfp.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/kaveri_rlc.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/kaveri_sdma.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/kaveri_sdma1.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/kaveri_uvd.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/kaveri_vce.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/mullins_ce.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/mullins_me.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/mullins_mec.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/mullins_pfp.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/mullins_rlc.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/mullins_sdma.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/mullins_sdma1.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/mullins_uvd.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/mullins_vce.bin	amd-gpu-firmware
 firmware	amdgpu	amdgpu/navi10_asd.bin	amd-gpu-firmware
 firmware	amdgpu	amdgpu/navi10_ce.bin	amd-gpu-firmware
 firmware	amdgpu	amdgpu/navi10_me.bin	amd-gpu-firmware
@@ -464,6 +556,14 @@ firmware	amdgpu	amdgpu/navy_flounder_smc.bin	amd-gpu-firmware
 firmware	amdgpu	amdgpu/navy_flounder_sos.bin	amd-gpu-firmware
 firmware	amdgpu	amdgpu/navy_flounder_ta.bin	amd-gpu-firmware
 firmware	amdgpu	amdgpu/navy_flounder_vcn.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/oland_ce.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/oland_k_smc.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/oland_mc.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/oland_me.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/oland_pfp.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/oland_rlc.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/oland_smc.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/oland_uvd.bin	amd-gpu-firmware
 firmware	amdgpu	amdgpu/picasso_asd.bin	amd-gpu-firmware
 firmware	amdgpu	amdgpu/picasso_ce.bin	amd-gpu-firmware
 firmware	amdgpu	amdgpu/picasso_gpu_info.bin	amd-gpu-firmware
@@ -477,6 +577,14 @@ firmware	amdgpu	amdgpu/picasso_rlc_am4.bin	amd-gpu-firmware
 firmware	amdgpu	amdgpu/picasso_sdma.bin	amd-gpu-firmware
 firmware	amdgpu	amdgpu/picasso_ta.bin	amd-gpu-firmware
 firmware	amdgpu	amdgpu/picasso_vcn.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/pitcairn_ce.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/pitcairn_k_smc.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/pitcairn_mc.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/pitcairn_me.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/pitcairn_pfp.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/pitcairn_rlc.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/pitcairn_smc.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/pitcairn_uvd.bin	amd-gpu-firmware
 firmware	amdgpu	amdgpu/polaris10_ce.bin	amd-gpu-firmware
 firmware	amdgpu	amdgpu/polaris10_ce_2.bin	amd-gpu-firmware
 firmware	amdgpu	amdgpu/polaris10_k2_smc.bin	amd-gpu-firmware
@@ -551,6 +659,8 @@ firmware	amdgpu	amdgpu/psp_13_0_12_sos.bin	amd-gpu-firmware
 firmware	amdgpu	amdgpu/psp_13_0_12_ta.bin	amd-gpu-firmware
 firmware	amdgpu	amdgpu/psp_13_0_14_sos.bin	amd-gpu-firmware
 firmware	amdgpu	amdgpu/psp_13_0_14_ta.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/psp_13_0_15_sos.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/psp_13_0_15_ta.bin	amd-gpu-firmware
 firmware	amdgpu	amdgpu/psp_13_0_4_ta.bin	amd-gpu-firmware
 firmware	amdgpu	amdgpu/psp_13_0_4_toc.bin	amd-gpu-firmware
 firmware	amdgpu	amdgpu/psp_13_0_5_ta.bin	amd-gpu-firmware
@@ -575,6 +685,10 @@ firmware	amdgpu	amdgpu/psp_14_0_4_ta.bin	amd-gpu-firmware
 firmware	amdgpu	amdgpu/psp_14_0_4_toc.bin	amd-gpu-firmware
 firmware	amdgpu	amdgpu/psp_14_0_5_ta.bin	amd-gpu-firmware
 firmware	amdgpu	amdgpu/psp_14_0_5_toc.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/psp_15_0_0_ta.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/psp_15_0_0_toc.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/psp_15_0_9_ta.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/psp_15_0_9_toc.bin	amd-gpu-firmware
 firmware	amdgpu	amdgpu/raven2_asd.bin	amd-gpu-firmware
 firmware	amdgpu	amdgpu/raven2_ce.bin	amd-gpu-firmware
 firmware	amdgpu	amdgpu/raven2_gpu_info.bin	amd-gpu-firmware
@@ -624,8 +738,10 @@ firmware	amdgpu	amdgpu/sdma_6_1_0.bin	amd-gpu-firmware
 firmware	amdgpu	amdgpu/sdma_6_1_1.bin	amd-gpu-firmware
 firmware	amdgpu	amdgpu/sdma_6_1_2.bin	amd-gpu-firmware
 firmware	amdgpu	amdgpu/sdma_6_1_3.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/sdma_6_1_4.bin	amd-gpu-firmware
 firmware	amdgpu	amdgpu/sdma_7_0_0.bin	amd-gpu-firmware
 firmware	amdgpu	amdgpu/sdma_7_0_1.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/si58_mc.bin	amd-gpu-firmware
 firmware	amdgpu	amdgpu/sienna_cichlid_ce.bin	amd-gpu-firmware
 firmware	amdgpu	amdgpu/sienna_cichlid_dmcub.bin	amd-gpu-firmware
 firmware	amdgpu	amdgpu/sienna_cichlid_me.bin	amd-gpu-firmware
@@ -655,6 +771,13 @@ firmware	amdgpu	amdgpu/stoney_rlc.bin	amd-gpu-firmware
 firmware	amdgpu	amdgpu/stoney_sdma.bin	amd-gpu-firmware
 firmware	amdgpu	amdgpu/stoney_uvd.bin	amd-gpu-firmware
 firmware	amdgpu	amdgpu/stoney_vce.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/tahiti_ce.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/tahiti_mc.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/tahiti_me.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/tahiti_pfp.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/tahiti_rlc.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/tahiti_smc.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/tahiti_uvd.bin	amd-gpu-firmware
 firmware	amdgpu	amdgpu/tonga_ce.bin	amd-gpu-firmware
 firmware	amdgpu	amdgpu/tonga_k_smc.bin	amd-gpu-firmware
 firmware	amdgpu	amdgpu/tonga_mc.bin	amd-gpu-firmware
@@ -690,6 +813,7 @@ firmware	amdgpu	amdgpu/vangogh_rlc.bin	amd-gpu-firmware
 firmware	amdgpu	amdgpu/vangogh_sdma.bin	amd-gpu-firmware
 firmware	amdgpu	amdgpu/vangogh_toc.bin	amd-gpu-firmware
 firmware	amdgpu	amdgpu/vangogh_vcn.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/vce_1_0_0.bin	amd-gpu-firmware
 firmware	amdgpu	amdgpu/vcn_3_1_2.bin	amd-gpu-firmware
 firmware	amdgpu	amdgpu/vcn_4_0_0.bin	amd-gpu-firmware
 firmware	amdgpu	amdgpu/vcn_4_0_2.bin	amd-gpu-firmware
@@ -700,6 +824,7 @@ firmware	amdgpu	amdgpu/vcn_4_0_6.bin	amd-gpu-firmware
 firmware	amdgpu	amdgpu/vcn_4_0_6_1.bin	amd-gpu-firmware
 firmware	amdgpu	amdgpu/vcn_5_0_0.bin	amd-gpu-firmware
 firmware	amdgpu	amdgpu/vcn_5_0_1.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/vcn_5_3_0.bin	amd-gpu-firmware
 firmware	amdgpu	amdgpu/vega10_acg_smc.bin	amd-gpu-firmware
 firmware	amdgpu	amdgpu/vega10_asd.bin	amd-gpu-firmware
 firmware	amdgpu	amdgpu/vega10_ce.bin	amd-gpu-firmware
@@ -757,6 +882,15 @@ firmware	amdgpu	amdgpu/vegam_sdma1.bin	amd-gpu-firmware
 firmware	amdgpu	amdgpu/vegam_smc.bin	amd-gpu-firmware
 firmware	amdgpu	amdgpu/vegam_uvd.bin	amd-gpu-firmware
 firmware	amdgpu	amdgpu/vegam_vce.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/verde_ce.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/verde_k_smc.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/verde_mc.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/verde_me.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/verde_pfp.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/verde_rlc.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/verde_smc.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/verde_uvd.bin	amd-gpu-firmware
+firmware	amdgpu	amdgpu/vpe_2_0_0.bin	amd-gpu-firmware
 firmware	amdgpu	amdgpu/vpe_6_1_0.bin	amd-gpu-firmware
 firmware	amdgpu	amdgpu/vpe_6_1_1.bin	amd-gpu-firmware
 firmware	amdgpu	amdgpu/vpe_6_1_3.bin	amd-gpu-firmware
@@ -771,6 +905,13 @@ firmware	amdgpu	amdgpu/yellow_carp_sdma.bin	amd-gpu-firmware
 firmware	amdgpu	amdgpu/yellow_carp_ta.bin	amd-gpu-firmware
 firmware	amdgpu	amdgpu/yellow_carp_toc.bin	amd-gpu-firmware
 firmware	amdgpu	amdgpu/yellow_carp_vcn.bin	amd-gpu-firmware
+firmware	amdxdna	amdnpu/1502_00/npu.sbin	amd-gpu-firmware
+firmware	amdxdna	amdnpu/1502_00/npu_7.sbin	amd-gpu-firmware
+firmware	amdxdna	amdnpu/17f0_10/npu.sbin	amd-gpu-firmware
+firmware	amdxdna	amdnpu/17f0_10/npu_7.sbin	amd-gpu-firmware
+firmware	amdxdna	amdnpu/17f0_11/npu.sbin	amd-gpu-firmware
+firmware	amdxdna	amdnpu/17f0_11/npu_7.sbin	amd-gpu-firmware
+firmware	ar5523	ar5523.bin	linux-firmware
 firmware	ath10k_pci	ath10k/QCA6174/hw2.1/board-2.bin	atheros-firmware
 firmware	ath10k_pci	ath10k/QCA6174/hw2.1/board.bin	atheros-firmware
 firmware	ath10k_pci	ath10k/QCA6174/hw2.1/firmware-5.bin	atheros-firmware
@@ -787,8 +928,25 @@ firmware	ath10k_pci	ath10k/QCA988X/hw2.0/board.bin	atheros-firmware
 firmware	ath10k_pci	ath10k/QCA988X/hw2.0/firmware-4.bin	atheros-firmware
 firmware	ath10k_pci	ath10k/QCA988X/hw2.0/firmware-5.bin	atheros-firmware
 firmware	ath3k	ath3k-1.fw	linux-firmware
+firmware	ath6kl_sdio	ath6k/AR6003/hw2.0/athwlan.bin.z77	atheros-firmware
+firmware	ath6kl_sdio	ath6k/AR6003/hw2.0/bdata.SD31.bin	atheros-firmware
+firmware	ath6kl_sdio	ath6k/AR6003/hw2.0/data.patch.bin	atheros-firmware
+firmware	ath6kl_sdio	ath6k/AR6003/hw2.0/otp.bin.z77	atheros-firmware
+firmware	ath6kl_sdio	ath6k/AR6003/hw2.1.1/athwlan.bin	atheros-firmware
+firmware	ath6kl_sdio	ath6k/AR6003/hw2.1.1/bdata.SD31.bin	atheros-firmware
+firmware	ath6kl_sdio	ath6k/AR6003/hw2.1.1/data.patch.bin	atheros-firmware
+firmware	ath6kl_sdio	ath6k/AR6003/hw2.1.1/otp.bin	atheros-firmware
+firmware	ath6kl_sdio	ath6k/AR6004/hw1.2/bdata.bin	atheros-firmware
+firmware	ath6kl_sdio	ath6k/AR6004/hw1.3/bdata.bin	atheros-firmware
+firmware	ath6kl_usb	ath6k/AR6004/hw1.2/bdata.bin	atheros-firmware
+firmware	ath6kl_usb	ath6k/AR6004/hw1.3/bdata.bin	atheros-firmware
 firmware	ath9k_htc	ath9k_htc/htc_7010-1.4.0.fw	atheros-firmware
 firmware	ath9k_htc	ath9k_htc/htc_9271-1.4.0.fw	atheros-firmware
+firmware	bfa	cbfw-3.2.5.1.bin	linux-firmware
+firmware	bfa	ct2fw-3.2.5.1.bin	linux-firmware
+firmware	bfa	ctfw-3.2.5.1.bin	linux-firmware
+firmware	bna	ct2fw-3.2.5.1.bin	linux-firmware
+firmware	bna	ctfw-3.2.5.1.bin	linux-firmware
 firmware	bnx2	bnx2/bnx2-mips-06-6.2.3.fw	linux-firmware
 firmware	bnx2	bnx2/bnx2-mips-09-6.2.1b.fw	linux-firmware
 firmware	bnx2	bnx2/bnx2-rv2p-06-6.0.15.fw	linux-firmware
@@ -858,6 +1016,7 @@ firmware	btmrvl_sdio	mrvl/sdsd8977_combo_v2.bin	linux-firmware
 firmware	btmrvl_sdio	mrvl/sdsd8997_combo_v4.bin	linux-firmware
 firmware	btmtk	mediatek/BT_RAM_CODE_MT7922_1_1_hdr.bin	mt7xxx-firmware
 firmware	btmtk	mediatek/BT_RAM_CODE_MT7961_1_2_hdr.bin	mt7xxx-firmware
+firmware	btmtk	mediatek/BT_RAM_CODE_MT7961_1a_2_hdr.bin	mt7xxx-firmware
 firmware	btmtk	mediatek/mt7622pr2h.bin	mt7xxx-firmware
 firmware	btmtk	mediatek/mt7663pr2h.bin	mt7xxx-firmware
 firmware	btmtk	mediatek/mt7668pr2h.bin	mt7xxx-firmware
@@ -877,6 +1036,8 @@ firmware	btrtl	rtl_bt/rtl8761b_config.bin	realtek-firmware
 firmware	btrtl	rtl_bt/rtl8761b_fw.bin	realtek-firmware
 firmware	btrtl	rtl_bt/rtl8761bu_config.bin	realtek-firmware
 firmware	btrtl	rtl_bt/rtl8761bu_fw.bin	realtek-firmware
+firmware	btrtl	rtl_bt/rtl8761cu_config.bin	realtek-firmware
+firmware	btrtl	rtl_bt/rtl8761cu_fw.bin	realtek-firmware
 firmware	btrtl	rtl_bt/rtl8821a_config.bin	realtek-firmware
 firmware	btrtl	rtl_bt/rtl8821a_fw.bin	realtek-firmware
 firmware	btrtl	rtl_bt/rtl8821c_config.bin	realtek-firmware
@@ -903,25 +1064,46 @@ firmware	btrtl	rtl_bt/rtl8852cu_fw_v2.bin	realtek-firmware
 firmware	btrtl	rtl_bt/rtl8922au_config.bin	realtek-firmware
 firmware	btrtl	rtl_bt/rtl8922au_fw.bin	realtek-firmware
 firmware	carl9170	carl9170-1.fw	linux-firmware
-firmware	ccp	amd/amd_sev_fam17h_model0xh.sbin	amd-ucode-firmware
-firmware	ccp	amd/amd_sev_fam17h_model3xh.sbin	amd-ucode-firmware
-firmware	ccp	amd/amd_sev_fam19h_model0xh.sbin	amd-ucode-firmware
-firmware	ccp	amd/amd_sev_fam19h_model1xh.sbin	amd-ucode-firmware
+firmware	cassini	sun/cassini.bin	linux-firmware
 firmware	cs42l43	cs42l43.bin	linux-firmware
 firmware	csiostor	cxgb4/t5fw.bin	linux-firmware
 firmware	csiostor	cxgb4/t6fw.bin	linux-firmware
+firmware	cx18	v4l-cx23418-apu.fw	dvb-firmware
+firmware	cx18	v4l-cx23418-cpu.fw	dvb-firmware
+firmware	cx18	v4l-cx23418-dig.fw	dvb-firmware
 firmware	cx25840	v4l-cx231xx-avcore-01.fw	dvb-firmware
 firmware	cx25840	v4l-cx23885-avcore-01.fw	dvb-firmware
 firmware	cx25840	v4l-cx25840.fw	dvb-firmware
+firmware	cxgb3	cxgb3/ael2005_opt_edc.bin	linux-firmware
+firmware	cxgb3	cxgb3/ael2005_twx_edc.bin	linux-firmware
+firmware	cxgb3	cxgb3/ael2020_twx_edc.bin	linux-firmware
+firmware	cxgb3	cxgb3/t3b_psram-1.1.0.bin	linux-firmware
+firmware	cxgb3	cxgb3/t3c_psram-1.1.0.bin	linux-firmware
+firmware	cxgb3	cxgb3/t3fw-7.12.0.bin	linux-firmware
 firmware	cxgb4	cxgb4/t4fw.bin	linux-firmware
 firmware	cxgb4	cxgb4/t5fw.bin	linux-firmware
 firmware	cxgb4	cxgb4/t6fw.bin	linux-firmware
+firmware	dvb_ttusb_budget	ttusb-budget/dspbootcode.bin	linux-firmware
+firmware	dvb_usb_af9035	dvb-usb-it9135-01.fw	dvb-firmware
+firmware	dvb_usb_af9035	dvb-usb-it9135-02.fw	dvb-firmware
+firmware	dvb_usb_dib0700	dvb-usb-dib0700-1.20.fw	dvb-firmware
+firmware	e100	e100/d101m_ucode.bin	linux-firmware
+firmware	e100	e100/d101s_ucode.bin	linux-firmware
+firmware	e100	e100/d102e_ucode.bin	linux-firmware
 firmware	emi26	emi26/bitstream.fw	linux-firmware
 firmware	emi26	emi26/firmware.fw	linux-firmware
 firmware	emi26	emi26/loader.fw	linux-firmware
 firmware	emi62	emi62/bitstream.fw	linux-firmware
 firmware	emi62	emi62/loader.fw	linux-firmware
 firmware	emi62	emi62/spdif.fw	linux-firmware
+firmware	go7007	go7007/go7007fw.bin	linux-firmware
+firmware	go7007	go7007/go7007tv.bin	linux-firmware
+firmware	go7007_loader	go7007/lr192.fw	linux-firmware
+firmware	go7007_loader	go7007/px-m402u.fw	linux-firmware
+firmware	go7007_loader	go7007/px-tv402u.fw	linux-firmware
+firmware	go7007_loader	go7007/s2250-1.fw	linux-firmware
+firmware	go7007_loader	go7007/s2250-2.fw	linux-firmware
+firmware	go7007_loader	go7007/wis-startrek.fw	linux-firmware
 firmware	gspca_vicam	vicam/firmware.fw	linux-firmware
 firmware	hfi1	hfi1_dc8051.fw	linux-firmware
 firmware	hfi1	hfi1_fabric.fw	linux-firmware
@@ -973,6 +1155,7 @@ firmware	i915	i915/tgl_huc_7.9.3.bin	intel-gpu-firmware
 firmware	i915	i915/xe2lpd_dmc.bin	intel-gpu-firmware
 firmware	i915	i915/xe3lpd_3002_dmc.bin	intel-gpu-firmware
 firmware	i915	i915/xe3lpd_dmc.bin	intel-gpu-firmware
+firmware	i915	i915/xe3p_lpd_dmc.bin	intel-gpu-firmware
 firmware	ice	intel/ice/ddp/ice.pkg	linux-firmware
 firmware	intel_ish_ipc	intel/ish/ish_lnlm.bin	linux-firmware
 firmware	intel_vpu	intel/vpu/vpu_37xx_v1.bin	linux-firmware
@@ -983,6 +1166,12 @@ firmware	io_edgeport	edgeport/boot2.fw	linux-firmware
 firmware	io_edgeport	edgeport/down.fw	linux-firmware
 firmware	io_edgeport	edgeport/down2.fw	linux-firmware
 firmware	io_ti	edgeport/down3.bin	linux-firmware
+firmware	ipu3_imgu	intel/ipu/irci_irci_ecr-master_20161208_0213_20170112_1500.bin	intel-vsc-firmware
+firmware	ipu3_imgu	intel/ipu3-fw.bin	intel-vsc-firmware
+firmware	ipu3_imgu	intel/irci_irci_ecr-master_20161208_0213_20170112_1500.bin	intel-vsc-firmware
+firmware	isci	isci/isci_firmware.bin	linux-firmware
+firmware	iwl3945	iwlwifi-3945-2.ucode	iwlegacy-firmware
+firmware	iwl4965	iwlwifi-4965-2.ucode	iwlegacy-firmware
 firmware	iwlwifi	iwlwifi-100-5.ucode	iwlwifi-dvm-firmware
 firmware	iwlwifi	iwlwifi-1000-5.ucode	iwlwifi-dvm-firmware
 firmware	iwlwifi	iwlwifi-105-6.ucode	iwlwifi-dvm-firmware
@@ -1003,15 +1192,28 @@ firmware	iwlwifi	iwlwifi-8000C-36.ucode	iwlwifi-mvm-firmware
 firmware	iwlwifi	iwlwifi-8265-36.ucode	iwlwifi-mvm-firmware
 firmware	iwlwifi	iwlwifi-9000-pu-b0-jf-b0-46.ucode	iwlwifi-mvm-firmware
 firmware	iwlwifi	iwlwifi-9260-th-b0-jf-b0-46.ucode	iwlwifi-mvm-firmware
+firmware	iwlwifi	iwlwifi-Qu-b0-hr-b0-77.ucode	iwlwifi-mvm-firmware
 firmware	iwlwifi	iwlwifi-Qu-b0-jf-b0-77.ucode	iwlwifi-mvm-firmware
+firmware	iwlwifi	iwlwifi-Qu-c0-hr-b0-77.ucode	iwlwifi-mvm-firmware
 firmware	iwlwifi	iwlwifi-Qu-c0-jf-b0-77.ucode	iwlwifi-mvm-firmware
+firmware	iwlwifi	iwlwifi-QuZ-a0-hr-b0-77.ucode	iwlwifi-mvm-firmware
 firmware	iwlwifi	iwlwifi-QuZ-a0-jf-b0-77.ucode	iwlwifi-mvm-firmware
 firmware	iwlwifi	iwlwifi-cc-a0-77.ucode	iwlwifi-mvm-firmware
+firmware	iwlwifi	iwlwifi-gl-c0-fm-c0-c107.ucode	iwlwifi-mvm-firmware
+firmware	iwlwifi	iwlwifi-ma-b0-gf-a0-89.ucode	iwlwifi-mvm-firmware
 firmware	iwlwifi	iwlwifi-ma-b0-gf-a0.pnvm	iwlwifi-mvm-firmware
+firmware	iwlwifi	iwlwifi-ma-b0-gf4-a0-89.ucode	iwlwifi-mvm-firmware
 firmware	iwlwifi	iwlwifi-ma-b0-gf4-a0.pnvm	iwlwifi-mvm-firmware
+firmware	iwlwifi	iwlwifi-ma-b0-hr-b0-89.ucode	iwlwifi-mvm-firmware
+firmware	iwlwifi	iwlwifi-sc-a0-fm-c0-c107.ucode	iwlwifi-mvm-firmware
 firmware	iwlwifi	iwlwifi-sc-a0-gf-a0-100.ucode	iwlwifi-mvm-firmware
+firmware	iwlwifi	iwlwifi-so-a0-gf-a0-89.ucode	iwlwifi-mvm-firmware
 firmware	iwlwifi	iwlwifi-so-a0-gf-a0.pnvm	iwlwifi-mvm-firmware
+firmware	iwlwifi	iwlwifi-so-a0-gf4-a0-89.ucode	iwlwifi-mvm-firmware
+firmware	iwlwifi	iwlwifi-so-a0-gf4-a0.pnvm	iwlwifi-mvm-firmware
+firmware	iwlwifi	iwlwifi-so-a0-hr-b0-89.ucode	iwlwifi-mvm-firmware
 firmware	iwlwifi	iwlwifi-so-a0-jf-b0-77.ucode	iwlwifi-mvm-firmware
+firmware	iwlwifi	iwlwifi-ty-a0-gf-a0-89.ucode	iwlwifi-mvm-firmware
 firmware	iwlwifi	iwlwifi-ty-a0-gf-a0.pnvm	iwlwifi-mvm-firmware
 firmware	kaweth	kaweth/new_code.bin	linux-firmware
 firmware	kaweth	kaweth/new_code_fix.bin	linux-firmware
@@ -1031,6 +1233,8 @@ firmware	keyspan	keyspan/usa49w.fw	linux-firmware
 firmware	keyspan	keyspan/usa49wlc.fw	linux-firmware
 firmware	keyspan_pda	keyspan_pda/keyspan_pda.fw	linux-firmware
 firmware	keyspan_pda	keyspan_pda/xircom_pgs.fw	linux-firmware
+firmware	lgs8gxx	lgs8g75.fw	dvb-firmware
+firmware	libertas_tf_usb	lbtf_usb.bin	linux-firmware
 firmware	mlxsw_spectrum	mellanox/lc_ini_bundle_2010_1006.bin	mlxsw_spectrum-firmware
 firmware	mlxsw_spectrum	mellanox/mlxsw_spectrum-13.2010.1006.mfa2	mlxsw_spectrum-firmware
 firmware	mlxsw_spectrum	mellanox/mlxsw_spectrum2-29.2010.1006.mfa2	mlxsw_spectrum-firmware
@@ -1038,6 +1242,17 @@ firmware	mlxsw_spectrum	mellanox/mlxsw_spectrum3-30.2010.1006.mfa2	mlxsw_spectru
 firmware	mscc	microchip/mscc_vsc8574_revb_int8051_29e8.bin	linux-firmware
 firmware	mscc	microchip/mscc_vsc8584_revb_int8051_fb48.bin	linux-firmware
 firmware	mt7601u	mt7601u.bin	mt7xxx-firmware
+firmware	mt7615e	mediatek/mt7615_cr4.bin	mt7xxx-firmware
+firmware	mt7615e	mediatek/mt7615_n9.bin	mt7xxx-firmware
+firmware	mt7615e	mediatek/mt7615_rom_patch.bin	mt7xxx-firmware
+firmware	mt7615e	mediatek/mt7663_n9_rebb.bin	mt7xxx-firmware
+firmware	mt7615e	mediatek/mt7663_n9_v3.bin	mt7xxx-firmware
+firmware	mt7615e	mediatek/mt7663pr2h.bin	mt7xxx-firmware
+firmware	mt7615e	mediatek/mt7663pr2h_rebb.bin	mt7xxx-firmware
+firmware	mt7663s	mediatek/mt7663_n9_rebb.bin	mt7xxx-firmware
+firmware	mt7663s	mediatek/mt7663_n9_v3.bin	mt7xxx-firmware
+firmware	mt7663s	mediatek/mt7663pr2h.bin	mt7xxx-firmware
+firmware	mt7663s	mediatek/mt7663pr2h_rebb.bin	mt7xxx-firmware
 firmware	mt7663u	mediatek/mt7663_n9_rebb.bin	mt7xxx-firmware
 firmware	mt7663u	mediatek/mt7663_n9_v3.bin	mt7xxx-firmware
 firmware	mt7663u	mediatek/mt7663pr2h.bin	mt7xxx-firmware
@@ -1050,18 +1265,42 @@ firmware	mt76x2e	mt7662.bin	mt7xxx-firmware
 firmware	mt76x2e	mt7662_rom_patch.bin	mt7xxx-firmware
 firmware	mt76x2u	mt7662.bin	mt7xxx-firmware
 firmware	mt76x2u	mt7662_rom_patch.bin	mt7xxx-firmware
+firmware	mt7915e	mediatek/mt7915_rom_patch.bin	mt7xxx-firmware
+firmware	mt7915e	mediatek/mt7915_wa.bin	mt7xxx-firmware
+firmware	mt7915e	mediatek/mt7915_wm.bin	mt7xxx-firmware
+firmware	mt7915e	mediatek/mt7916_rom_patch.bin	mt7xxx-firmware
+firmware	mt7915e	mediatek/mt7916_wa.bin	mt7xxx-firmware
+firmware	mt7915e	mediatek/mt7916_wm.bin	mt7xxx-firmware
+firmware	mt7921e	mediatek/WIFI_MT7902_patch_mcu_1_1_hdr.bin	mt7xxx-firmware
 firmware	mt7921e	mediatek/WIFI_MT7922_patch_mcu_1_1_hdr.bin	mt7xxx-firmware
 firmware	mt7921e	mediatek/WIFI_MT7961_patch_mcu_1_2_hdr.bin	mt7xxx-firmware
 firmware	mt7921e	mediatek/WIFI_MT7961_patch_mcu_1a_2_hdr.bin	mt7xxx-firmware
+firmware	mt7921e	mediatek/WIFI_RAM_CODE_MT7902_1.bin	mt7xxx-firmware
 firmware	mt7921e	mediatek/WIFI_RAM_CODE_MT7922_1.bin	mt7xxx-firmware
 firmware	mt7921e	mediatek/WIFI_RAM_CODE_MT7961_1.bin	mt7xxx-firmware
 firmware	mt7921e	mediatek/WIFI_RAM_CODE_MT7961_1a.bin	mt7xxx-firmware
+firmware	mt7921s	mediatek/WIFI_MT7902_patch_mcu_1_1_hdr.bin	mt7xxx-firmware
+firmware	mt7921s	mediatek/WIFI_MT7961_patch_mcu_1_2_hdr.bin	mt7xxx-firmware
+firmware	mt7921s	mediatek/WIFI_RAM_CODE_MT7902_1.bin	mt7xxx-firmware
+firmware	mt7921s	mediatek/WIFI_RAM_CODE_MT7961_1.bin	mt7xxx-firmware
 firmware	mt7921u	mediatek/WIFI_MT7961_patch_mcu_1_2_hdr.bin	mt7xxx-firmware
 firmware	mt7921u	mediatek/WIFI_RAM_CODE_MT7961_1.bin	mt7xxx-firmware
 firmware	mt7925e	mediatek/mt7925/WIFI_MT7925_PATCH_MCU_1_1_hdr.bin	mt7xxx-firmware
 firmware	mt7925e	mediatek/mt7925/WIFI_RAM_CODE_MT7925_1_1.bin	mt7xxx-firmware
+firmware	mt7925e	mediatek/mt7927/WIFI_MT6639_PATCH_MCU_2_1_hdr.bin	mt7xxx-firmware
+firmware	mt7925e	mediatek/mt7927/WIFI_RAM_CODE_MT6639_2_1.bin	mt7xxx-firmware
 firmware	mt7925u	mediatek/mt7925/WIFI_MT7925_PATCH_MCU_1_1_hdr.bin	mt7xxx-firmware
 firmware	mt7925u	mediatek/mt7925/WIFI_RAM_CODE_MT7925_1_1.bin	mt7xxx-firmware
+firmware	mt7996e	mediatek/mt7996/mt7990_rom_patch.bin	mt7xxx-firmware
+firmware	mt7996e	mediatek/mt7996/mt7990_wm.bin	mt7xxx-firmware
+firmware	mt7996e	mediatek/mt7996/mt7992_dsp.bin	mt7xxx-firmware
+firmware	mt7996e	mediatek/mt7996/mt7992_rom_patch.bin	mt7xxx-firmware
+firmware	mt7996e	mediatek/mt7996/mt7992_wa.bin	mt7xxx-firmware
+firmware	mt7996e	mediatek/mt7996/mt7992_wm.bin	mt7xxx-firmware
+firmware	mt7996e	mediatek/mt7996/mt7996_dsp.bin	mt7xxx-firmware
+firmware	mt7996e	mediatek/mt7996/mt7996_rom_patch.bin	mt7xxx-firmware
+firmware	mt7996e	mediatek/mt7996/mt7996_wa.bin	mt7xxx-firmware
+firmware	mt7996e	mediatek/mt7996/mt7996_wm.bin	mt7xxx-firmware
 firmware	mwifiex_pcie	mrvl/pcie8897_uapsta.bin	linux-firmware
 firmware	mwifiex_pcie	mrvl/pcieuart8997_combo_v4.bin	linux-firmware
 firmware	mwifiex_pcie	mrvl/pcieusb8997_combo_v4.bin	linux-firmware
@@ -1077,12 +1316,28 @@ firmware	mwifiex_usb	mrvl/usb8766_uapsta.bin	linux-firmware
 firmware	mwifiex_usb	mrvl/usb8797_uapsta.bin	linux-firmware
 firmware	mwifiex_usb	mrvl/usb8801_uapsta.bin	linux-firmware
 firmware	mwifiex_usb	mrvl/usbusb8997_combo_v4.bin	linux-firmware
+firmware	mwl8k	mwl8k/fmimage_8366.fw	linux-firmware
+firmware	mwl8k	mwl8k/fmimage_8366_ap-3.fw	linux-firmware
+firmware	mwl8k	mwl8k/fmimage_8687.fw	linux-firmware
+firmware	mwl8k	mwl8k/helper_8366.fw	linux-firmware
+firmware	mwl8k	mwl8k/helper_8687.fw	linux-firmware
 firmware	myri10ge	myri10ge_eth_z8e.dat	linux-firmware
 firmware	myri10ge	myri10ge_ethp_z8e.dat	linux-firmware
 firmware	myri10ge	myri10ge_rss_eth_z8e.dat	linux-firmware
 firmware	myri10ge	myri10ge_rss_ethp_z8e.dat	linux-firmware
 firmware	n5pf	cavium/cnn55xx_se.fw	linux-firmware
 firmware	netxen_nic	phanfw.bin	linux-firmware
+firmware	nfp	netronome/nic_AMDA0058-0011_2x40.nffw	netronome-firmware
+firmware	nfp	netronome/nic_AMDA0058-0012_2x40.nffw	netronome-firmware
+firmware	nfp	netronome/nic_AMDA0081-0001_1x40.nffw	netronome-firmware
+firmware	nfp	netronome/nic_AMDA0081-0001_4x10.nffw	netronome-firmware
+firmware	nfp	netronome/nic_AMDA0096-0001_2x10.nffw	netronome-firmware
+firmware	nfp	netronome/nic_AMDA0097-0001_2x40.nffw	netronome-firmware
+firmware	nfp	netronome/nic_AMDA0097-0001_4x10_1x40.nffw	netronome-firmware
+firmware	nfp	netronome/nic_AMDA0097-0001_8x10.nffw	netronome-firmware
+firmware	nfp	netronome/nic_AMDA0099-0001_1x10_1x25.nffw	netronome-firmware
+firmware	nfp	netronome/nic_AMDA0099-0001_2x10.nffw	netronome-firmware
+firmware	nfp	netronome/nic_AMDA0099-0001_2x25.nffw	netronome-firmware
 firmware	nouveau	nvidia/ad102/gsp/booter_load-535.113.01.bin	nvidia-gpu-firmware
 firmware	nouveau	nvidia/ad102/gsp/booter_load-570.144.bin	nvidia-gpu-firmware
 firmware	nouveau	nvidia/ad102/gsp/booter_unload-535.113.01.bin	nvidia-gpu-firmware
@@ -1499,6 +1754,14 @@ firmware	nouveau	nvidia/tu117/nvdec/scrubber.bin	nvidia-gpu-firmware
 firmware	nouveau	nvidia/tu117/sec2/desc.bin	nvidia-gpu-firmware
 firmware	nouveau	nvidia/tu117/sec2/image.bin	nvidia-gpu-firmware
 firmware	nouveau	nvidia/tu117/sec2/sig.bin	nvidia-gpu-firmware
+firmware	nxpwifi_sdio	nxp/sd_w61x_v1.bin.se	nxpwireless-firmware
+firmware	pcnet_cs	cis/DP83903.cis	linux-firmware
+firmware	pcnet_cs	cis/LA-PCM.cis	linux-firmware
+firmware	pcnet_cs	cis/NE2K.cis	linux-firmware
+firmware	pcnet_cs	cis/PCMLM28.cis	linux-firmware
+firmware	pcnet_cs	cis/PE-200.cis	linux-firmware
+firmware	pcnet_cs	cis/PE520.cis	linux-firmware
+firmware	pcnet_cs	cis/tamarack.cis	linux-firmware
 firmware	qat_420xx	qat_420xx.bin	linux-firmware
 firmware	qat_420xx	qat_420xx_mmp.bin	linux-firmware
 firmware	qat_4xxx	qat_402xx.bin	linux-firmware
@@ -1512,12 +1775,17 @@ firmware	qat_c62x	qat_c62x_mmp.bin	linux-firmware
 firmware	qat_dh895xcc	qat_895xcc.bin	linux-firmware
 firmware	qat_dh895xcc	qat_895xcc_mmp.bin	linux-firmware
 firmware	qed	qed/qed_init_values_zipped-8.59.1.0.bin	linux-firmware
+firmware	qla1280	qlogic/1040.bin	linux-firmware
+firmware	qla1280	qlogic/12160.bin	linux-firmware
+firmware	qla1280	qlogic/1280.bin	linux-firmware
 firmware	qla2xxx	ql2100_fw.bin	linux-firmware
 firmware	qla2xxx	ql2200_fw.bin	linux-firmware
 firmware	qla2xxx	ql2300_fw.bin	linux-firmware
 firmware	qla2xxx	ql2322_fw.bin	linux-firmware
 firmware	qla2xxx	ql2400_fw.bin	linux-firmware
 firmware	qla2xxx	ql2500_fw.bin	linux-firmware
+firmware	qla2xxx	ql2900_fw.bin	linux-firmware
+firmware	qlcnic	phanfw.bin	linux-firmware
 firmware	r8152	rtl_nic/rtl8153a-2.fw	linux-firmware
 firmware	r8152	rtl_nic/rtl8153a-3.fw	linux-firmware
 firmware	r8152	rtl_nic/rtl8153a-4.fw	linux-firmware
@@ -1532,6 +1800,7 @@ firmware	r8169	rtl_nic/rtl8107e-2.fw	linux-firmware
 firmware	r8169	rtl_nic/rtl8125a-3.fw	linux-firmware
 firmware	r8169	rtl_nic/rtl8125b-2.fw	linux-firmware
 firmware	r8169	rtl_nic/rtl8125bp-2.fw	linux-firmware
+firmware	r8169	rtl_nic/rtl8125cp-1.fw	linux-firmware
 firmware	r8169	rtl_nic/rtl8125d-1.fw	linux-firmware
 firmware	r8169	rtl_nic/rtl8125d-2.fw	linux-firmware
 firmware	r8169	rtl_nic/rtl8125k-1.fw	linux-firmware
@@ -1785,8 +2054,12 @@ firmware	radeon	radeon/verde_me.bin	amd-gpu-firmware
 firmware	radeon	radeon/verde_pfp.bin	amd-gpu-firmware
 firmware	radeon	radeon/verde_rlc.bin	amd-gpu-firmware
 firmware	radeon	radeon/verde_smc.bin	amd-gpu-firmware
+firmware	realtek	rtl_nic/rtl8261c.bin	linux-firmware
 firmware	rt2800pci	rt2860.bin	linux-firmware
 firmware	rt2800usb	rt2870.bin	linux-firmware
+firmware	rt61pci	rt2561.bin	linux-firmware
+firmware	rt61pci	rt2561s.bin	linux-firmware
+firmware	rt61pci	rt2661.bin	linux-firmware
 firmware	rt73usb	rt73.bin	linux-firmware
 firmware	rtl8188ee	rtlwifi/rtl8188efw.bin	realtek-firmware
 firmware	rtl8192ce	rtlwifi/rtl8192cfw.bin	realtek-firmware
@@ -1832,17 +2105,47 @@ firmware	rtw88_8821c	rtw88/rtw8821c_fw.bin	realtek-firmware
 firmware	rtw88_8822b	rtw88/rtw8822b_fw.bin	realtek-firmware
 firmware	rtw88_8822c	rtw88/rtw8822c_fw.bin	realtek-firmware
 firmware	rtw88_8822c	rtw88/rtw8822c_wow_fw.bin	realtek-firmware
-firmware	rtw89_8851b	rtw89/rtw8851b_fw.bin	realtek-firmware
-firmware	rtw89_8852a	rtw89/rtw8852a_fw.bin	realtek-firmware
-firmware	rtw89_8852b	rtw89/rtw8852b_fw-1.bin	realtek-firmware
+firmware	rtw89_8851b	rtw89/rtw8851b_fw-1.bin	realtek-firmware
+firmware	rtw89_8852a	rtw89/rtw8852a_fw-1.bin	realtek-firmware
+firmware	rtw89_8852b	rtw89/rtw8852b_fw-2.bin	realtek-firmware
 firmware	rtw89_8852bt	rtw89/rtw8852bt_fw.bin	realtek-firmware
 firmware	rtw89_8852c	rtw89/rtw8852c_fw-2.bin	realtek-firmware
 firmware	rtw89_8922a	rtw89/rtw8922a_fw-4.bin	realtek-firmware
+firmware	rtw89_8922d	rtw89/rtw8922d_fw.bin	realtek-firmware
+firmware	rtw89_8922d	rtw89/rtw8922ds_fw.bin	realtek-firmware
 firmware	s2255drv	f2255usb.bin	linux-firmware
+firmware	saa7134_go7007	go7007/go7007tv.bin	linux-firmware
+firmware	serial_cs	cis/3CCFEM556.cis	linux-firmware
+firmware	serial_cs	cis/3CXEM556.cis	linux-firmware
+firmware	serial_cs	cis/COMpad2.cis	linux-firmware
+firmware	serial_cs	cis/COMpad4.cis	linux-firmware
+firmware	serial_cs	cis/DP83903.cis	linux-firmware
+firmware	serial_cs	cis/MT5634ZLX.cis	linux-firmware
+firmware	serial_cs	cis/PCMLM28.cis	linux-firmware
+firmware	serial_cs	cis/RS-COM-2P.cis	linux-firmware
+firmware	serial_cs	cis/SW_555_SER.cis	linux-firmware
+firmware	serial_cs	cis/SW_7xx_SER.cis	linux-firmware
+firmware	serial_cs	cis/SW_8xx_SER.cis	linux-firmware
+firmware	smsmdtv	cmmb_vega_12mhz.inp	dvb-firmware
+firmware	smsmdtv	cmmb_venice_12mhz.inp	dvb-firmware
+firmware	smsmdtv	dvb_nova_12mhz.inp	dvb-firmware
+firmware	smsmdtv	dvb_nova_12mhz_b0.inp	dvb-firmware
+firmware	smsmdtv	isdbt_nova_12mhz.inp	dvb-firmware
+firmware	smsmdtv	isdbt_nova_12mhz_b0.inp	dvb-firmware
+firmware	smsmdtv	isdbt_rio.inp	dvb-firmware
+firmware	smsmdtv	sms1xxx-hcw-55xxx-dvbt-02.fw	dvb-firmware
+firmware	smsmdtv	sms1xxx-hcw-55xxx-isdbt-02.fw	dvb-firmware
+firmware	smsmdtv	sms1xxx-nova-a-dvbt-01.fw	dvb-firmware
+firmware	smsmdtv	sms1xxx-nova-b-dvbt-01.fw	dvb-firmware
+firmware	smsmdtv	sms1xxx-stellar-dvbt-01.fw	dvb-firmware
+firmware	smsmdtv	tdmb_nova_12mhz.inp	dvb-firmware
 firmware	snd_soc_avs	intel/avs/apl/dsp_basefw.bin	intel-audio-firmware
 firmware	snd_soc_avs	intel/avs/cnl/dsp_basefw.bin	intel-audio-firmware
 firmware	snd_soc_avs	intel/avs/lkf/dsp_basefw.bin	intel-audio-firmware
 firmware	snd_soc_avs	intel/avs/skl/dsp_basefw.bin	intel-audio-firmware
+firmware	starfire	adaptec/starfire_rx.bin	linux-firmware
+firmware	starfire	adaptec/starfire_tx.bin	linux-firmware
+firmware	tehuti	tehuti/bdx.bin	linux-firmware
 firmware	tg3	tigon/tg3.bin	linux-firmware
 firmware	tg3	tigon/tg357766.bin	linux-firmware
 firmware	tg3	tigon/tg3_tso.bin	linux-firmware
@@ -1859,6 +2162,24 @@ firmware	ti_usb_3410_5052	mts_mt9234mu.fw	linux-firmware
 firmware	ti_usb_3410_5052	mts_mt9234zba.fw	linux-firmware
 firmware	ti_usb_3410_5052	ti_3410.fw	linux-firmware
 firmware	ti_usb_3410_5052	ti_5052.fw	linux-firmware
+firmware	tn40xx	tehuti/bdx.bin	linux-firmware
+firmware	typhoon	3com/typhoon.bin	linux-firmware
+firmware	ueagle_atm	ueagle-atm/930-fpga.bin	linux-firmware
+firmware	ueagle_atm	ueagle-atm/CMV4p.bin.v2	linux-firmware
+firmware	ueagle_atm	ueagle-atm/CMV9i.bin	linux-firmware
+firmware	ueagle_atm	ueagle-atm/CMV9p.bin	linux-firmware
+firmware	ueagle_atm	ueagle-atm/CMVei.bin	linux-firmware
+firmware	ueagle_atm	ueagle-atm/CMVep.bin	linux-firmware
+firmware	ueagle_atm	ueagle-atm/DSP4p.bin	linux-firmware
+firmware	ueagle_atm	ueagle-atm/DSP9i.bin	linux-firmware
+firmware	ueagle_atm	ueagle-atm/DSP9p.bin	linux-firmware
+firmware	ueagle_atm	ueagle-atm/DSPei.bin	linux-firmware
+firmware	ueagle_atm	ueagle-atm/DSPep.bin	linux-firmware
+firmware	ueagle_atm	ueagle-atm/adi930.fw	linux-firmware
+firmware	ueagle_atm	ueagle-atm/eagleI.fw	linux-firmware
+firmware	ueagle_atm	ueagle-atm/eagleII.fw	linux-firmware
+firmware	ueagle_atm	ueagle-atm/eagleIII.fw	linux-firmware
+firmware	ueagle_atm	ueagle-atm/eagleIV.fw	linux-firmware
 firmware	ums_eneub6250	ene-ub6250/ms_init.bin	linux-firmware
 firmware	ums_eneub6250	ene-ub6250/ms_rdwr.bin	linux-firmware
 firmware	ums_eneub6250	ene-ub6250/msp_rdwr.bin	linux-firmware
@@ -1867,6 +2188,20 @@ firmware	ums_eneub6250	ene-ub6250/sd_init2.bin	linux-firmware
 firmware	ums_eneub6250	ene-ub6250/sd_rdwr.bin	linux-firmware
 firmware	whiteheat	whiteheat.fw	linux-firmware
 firmware	whiteheat	whiteheat_loader.fw	linux-firmware
+firmware	wil6210	wil6210.brd	linux-firmware
+firmware	wil6210	wil6210.fw	linux-firmware
+firmware	wl1251	ti-connectivity/wl1251-fw.bin	tiwilink-firmware
+firmware	wl1251	ti-connectivity/wl1251-nvs.bin	tiwilink-firmware
+firmware	wl12xx	ti-connectivity/wl127x-fw-5-mr.bin	tiwilink-firmware
+firmware	wl12xx	ti-connectivity/wl127x-fw-5-plt.bin	tiwilink-firmware
+firmware	wl12xx	ti-connectivity/wl127x-fw-5-sr.bin	tiwilink-firmware
+firmware	wl12xx	ti-connectivity/wl128x-fw-5-mr.bin	tiwilink-firmware
+firmware	wl12xx	ti-connectivity/wl128x-fw-5-plt.bin	tiwilink-firmware
+firmware	wl12xx	ti-connectivity/wl128x-fw-5-sr.bin	tiwilink-firmware
+firmware	wl18xx	ti-connectivity/wl18xx-fw-4.bin	tiwilink-firmware
+firmware	xc4000	dvb-fe-xc4000-1.4.1.fw	dvb-firmware
+firmware	xc5000	dvb-fe-xc5000-1.6.114.fw	dvb-firmware
+firmware	xc5000	dvb-fe-xc5000c-4.1.30.7.fw	dvb-firmware
 firmware	xe	i915/adlp_dmc.bin	intel-gpu-firmware
 firmware	xe	i915/adlp_dmc_ver2_16.bin	intel-gpu-firmware
 firmware	xe	i915/adlp_guc_70.bin	intel-gpu-firmware
@@ -1893,174 +2228,114 @@ firmware	xe	i915/tgl_huc.bin	intel-gpu-firmware
 firmware	xe	i915/xe2lpd_dmc.bin	intel-gpu-firmware
 firmware	xe	i915/xe3lpd_3002_dmc.bin	intel-gpu-firmware
 firmware	xe	i915/xe3lpd_dmc.bin	intel-gpu-firmware
+firmware	xe	i915/xe3p_lpd_dmc.bin	intel-gpu-firmware
 firmware	xe	xe/bmg_guc_70.bin	linux-firmware
 firmware	xe	xe/bmg_huc.bin	linux-firmware
 firmware	xe	xe/lnl_gsc_1.bin	linux-firmware
 firmware	xe	xe/lnl_guc_70.bin	linux-firmware
 firmware	xe	xe/lnl_huc.bin	linux-firmware
+firmware	xe	xe/nvl_guc_70.bin	linux-firmware
+firmware	xe	xe/ptl_gsc_1.bin	linux-firmware
 firmware	xe	xe/ptl_guc_70.bin	linux-firmware
 firmware	xe	xe/ptl_huc.bin	linux-firmware
+module	a3d	kernel-modules-extra
+module	adc_joystick	kernel-modules-extra
+module	adi	kernel-modules-extra
 module	aer_inject	kernel-modules-extra
-module	arp_tables	kernel-modules-extra
-module	arpt_mangle	kernel-modules-extra
-module	arptable_filter	kernel-modules-extra
-module	br_netfilter	kernel-modules-extra
+module	affs	kernel-modules-extra
+module	analog	kernel-modules-extra
+module	batman_adv	kernel-modules-extra
+module	befs	kernel-modules-extra
+module	br2684	kernel-modules-extra
+module	cobra	kernel-modules-extra
+module	coda	kernel-modules-extra
 module	cuse	kernel-modules-extra
-module	ebt_802_3	kernel-modules-extra
-module	ebt_among	kernel-modules-extra
-module	ebt_arp	kernel-modules-extra
-module	ebt_arpreply	kernel-modules-extra
-module	ebt_dnat	kernel-modules-extra
-module	ebt_ip	kernel-modules-extra
-module	ebt_ip6	kernel-modules-extra
-module	ebt_limit	kernel-modules-extra
-module	ebt_log	kernel-modules-extra
-module	ebt_mark	kernel-modules-extra
-module	ebt_mark_m	kernel-modules-extra
-module	ebt_nflog	kernel-modules-extra
-module	ebt_pkttype	kernel-modules-extra
-module	ebt_redirect	kernel-modules-extra
-module	ebt_snat	kernel-modules-extra
-module	ebt_stp	kernel-modules-extra
-module	ebt_vlan	kernel-modules-extra
-module	ebtable_broute	kernel-modules-extra
-module	ebtable_filter	kernel-modules-extra
-module	ebtable_nat	kernel-modules-extra
-module	ebtables	kernel-modules-extra
+module	db9	kernel-modules-extra
+module	dlm	kernel-modules-extra
+module	dln2	kernel-modules-extra
+module	dln2_adc	kernel-modules-extra
+module	ds2482	kernel-modules-extra
+module	ds2490	kernel-modules-extra
 module	ems_usb	kernel-modules-extra
-module	fou	kernel-modules-extra
-module	fou6	kernel-modules-extra
-module	ip6_tables	kernel-modules-extra
-module	ip6t_NPT	kernel-modules-extra
-module	ip6t_REJECT	kernel-modules-extra
-module	ip6t_ah	kernel-modules-extra
-module	ip6t_eui64	kernel-modules-extra
-module	ip6t_frag	kernel-modules-extra
-module	ip6t_hbh	kernel-modules-extra
-module	ip6t_ipv6header	kernel-modules-extra
-module	ip6t_mh	kernel-modules-extra
-module	ip6t_rpfilter	kernel-modules-extra
-module	ip6t_rt	kernel-modules-extra
-module	ip6table_filter	kernel-modules-extra
-module	ip6table_mangle	kernel-modules-extra
-module	ip6table_nat	kernel-modules-extra
-module	ip6table_raw	kernel-modules-extra
-module	ip6table_security	kernel-modules-extra
-module	ip_set	kernel-modules-extra
-module	ip_set_bitmap_ip	kernel-modules-extra
-module	ip_set_bitmap_ipmac	kernel-modules-extra
-module	ip_set_bitmap_port	kernel-modules-extra
-module	ip_set_hash_ip	kernel-modules-extra
-module	ip_set_hash_ipmac	kernel-modules-extra
-module	ip_set_hash_ipmark	kernel-modules-extra
-module	ip_set_hash_ipport	kernel-modules-extra
-module	ip_set_hash_ipportip	kernel-modules-extra
-module	ip_set_hash_ipportnet	kernel-modules-extra
-module	ip_set_hash_mac	kernel-modules-extra
-module	ip_set_hash_net	kernel-modules-extra
-module	ip_set_hash_netiface	kernel-modules-extra
-module	ip_set_hash_netnet	kernel-modules-extra
-module	ip_set_hash_netport	kernel-modules-extra
-module	ip_set_hash_netportnet	kernel-modules-extra
-module	ip_set_list_set	kernel-modules-extra
-module	ip_tables	kernel-modules-extra
-module	ipt_ECN	kernel-modules-extra
-module	ipt_REJECT	kernel-modules-extra
-module	ipt_ah	kernel-modules-extra
-module	ipt_rpfilter	kernel-modules-extra
-module	iptable_filter	kernel-modules-extra
-module	iptable_mangle	kernel-modules-extra
-module	iptable_nat	kernel-modules-extra
-module	iptable_raw	kernel-modules-extra
-module	iptable_security	kernel-modules-extra
-module	kafs	kernel-modules-partner
-module	l2tp_core	kernel-modules-extra
+module	floppy	kernel-modules-extra
+module	gamecon	kernel-modules-extra
+module	gf2k	kernel-modules-extra
+module	gfs2	kernel-modules-extra
+module	gpio_dln2	kernel-modules-extra
+module	grip	kernel-modules-extra
+module	grip_mp	kernel-modules-extra
+module	guillemot	kernel-modules-extra
+module	i2c_dln2	kernel-modules-extra
+module	iforce	kernel-modules-extra
+module	iforce_serio	kernel-modules-extra
+module	iforce_usb	kernel-modules-extra
+module	interact	kernel-modules-extra
+module	joydump	kernel-modules-extra
 module	l2tp_debugfs	kernel-modules-extra
 module	l2tp_eth	kernel-modules-extra
-module	l2tp_ip	kernel-modules-extra
-module	l2tp_ip6	kernel-modules-extra
 module	l2tp_netlink	kernel-modules-extra
 module	l2tp_ppp	kernel-modules-extra
-module	mshv_root	kernel-modules-extra
-module	nft_compat	kernel-modules-extra
-module	rxperf	kernel-modules-partner
-module	rxrpc	kernel-modules-partner
-module	sctp	kernel-modules-extra
-module	sctp_diag	kernel-modules-extra
+module	magellan	kernel-modules-extra
+module	mptctl	kernel-modules-extra
+module	mptfc	kernel-modules-extra
+module	nilfs2	kernel-modules-extra
+module	ocfs2	kernel-modules-extra
+module	ocfs2_dlm	kernel-modules-extra
+module	ocfs2_dlmfs	kernel-modules-extra
+module	ocfs2_nodemanager	kernel-modules-extra
+module	ocfs2_stack_o2cb	kernel-modules-extra
+module	ocfs2_stack_user	kernel-modules-extra
+module	ocfs2_stackglue	kernel-modules-extra
+module	pcspkr	kernel-modules-extra
+module	pppoatm	kernel-modules-extra
+module	psxpad_spi	kernel-modules-extra
+module	pxrc	kernel-modules-extra
+module	qwiic_joystick	kernel-modules-extra
+module	rds	kernel-modules-extra
+module	rds_rdma	kernel-modules-extra
+module	rds_tcp	kernel-modules-extra
+module	sidewinder	kernel-modules-extra
 module	slcan	kernel-modules-extra
 module	slip	kernel-modules-extra
+module	spaceball	kernel-modules-extra
+module	spaceorb	kernel-modules-extra
+module	spi_dln2	kernel-modules-extra
+module	stinger	kernel-modules-extra
 module	tcp_bic	kernel-modules-extra
+module	tcp_highspeed	kernel-modules-extra
 module	tcp_htcp	kernel-modules-extra
+module	tcp_hybla	kernel-modules-extra
 module	tcp_illinois	kernel-modules-extra
+module	tcp_lp	kernel-modules-extra
+module	tcp_scalable	kernel-modules-extra
+module	tcp_vegas	kernel-modules-extra
+module	tcp_veno	kernel-modules-extra
 module	tcp_westwood	kernel-modules-extra
-module	tipc	kernel-modules-extra
-module	tipc_diag	kernel-modules-extra
+module	tcp_yeah	kernel-modules-extra
+module	tmdc	kernel-modules-extra
+module	trancevibrator	kernel-modules-extra
+module	turbografx	kernel-modules-extra
+module	twidjoy	kernel-modules-extra
+module	ubifs	kernel-modules-extra
+module	ufs	kernel-modules-extra
+module	usbip_core	kernel-modules-extra
+module	usbip_host	kernel-modules-extra
+module	usbip_vudc	kernel-modules-extra
 module	vcan	kernel-modules-extra
-module	xt_AUDIT	kernel-modules-extra
-module	xt_CHECKSUM	kernel-modules-extra
-module	xt_CLASSIFY	kernel-modules-extra
-module	xt_CONNSECMARK	kernel-modules-extra
-module	xt_CT	kernel-modules-extra
-module	xt_DSCP	kernel-modules-extra
-module	xt_HL	kernel-modules-extra
-module	xt_HMARK	kernel-modules-extra
-module	xt_IDLETIMER	kernel-modules-extra
-module	xt_LOG	kernel-modules-extra
-module	xt_MASQUERADE	kernel-modules-extra
-module	xt_NETMAP	kernel-modules-extra
-module	xt_NFLOG	kernel-modules-extra
-module	xt_NFQUEUE	kernel-modules-extra
-module	xt_RATEEST	kernel-modules-extra
-module	xt_REDIRECT	kernel-modules-extra
-module	xt_SECMARK	kernel-modules-extra
-module	xt_TCPMSS	kernel-modules-extra
-module	xt_TCPOPTSTRIP	kernel-modules-extra
-module	xt_TEE	kernel-modules-extra
-module	xt_TPROXY	kernel-modules-extra
-module	xt_TRACE	kernel-modules-extra
-module	xt_addrtype	kernel-modules-extra
-module	xt_bpf	kernel-modules-extra
-module	xt_cgroup	kernel-modules-extra
-module	xt_cluster	kernel-modules-extra
-module	xt_comment	kernel-modules-extra
-module	xt_connbytes	kernel-modules-extra
-module	xt_connlabel	kernel-modules-extra
-module	xt_connlimit	kernel-modules-extra
-module	xt_connmark	kernel-modules-extra
-module	xt_conntrack	kernel-modules-extra
-module	xt_cpu	kernel-modules-extra
-module	xt_dccp	kernel-modules-extra
-module	xt_devgroup	kernel-modules-extra
-module	xt_dscp	kernel-modules-extra
-module	xt_ecn	kernel-modules-extra
-module	xt_esp	kernel-modules-extra
-module	xt_hashlimit	kernel-modules-extra
-module	xt_helper	kernel-modules-extra
-module	xt_hl	kernel-modules-extra
-module	xt_iprange	kernel-modules-extra
-module	xt_ipvs	kernel-modules-extra
-module	xt_length	kernel-modules-extra
-module	xt_limit	kernel-modules-extra
-module	xt_mac	kernel-modules-extra
-module	xt_mark	kernel-modules-extra
-module	xt_multiport	kernel-modules-extra
-module	xt_nat	kernel-modules-extra
-module	xt_osf	kernel-modules-extra
-module	xt_owner	kernel-modules-extra
-module	xt_physdev	kernel-modules-extra
-module	xt_pkttype	kernel-modules-extra
-module	xt_policy	kernel-modules-extra
-module	xt_quota	kernel-modules-extra
-module	xt_rateest	kernel-modules-extra
-module	xt_realm	kernel-modules-extra
-module	xt_recent	kernel-modules-extra
-module	xt_sctp	kernel-modules-extra
-module	xt_set	kernel-modules-extra
-module	xt_socket	kernel-modules-extra
-module	xt_state	kernel-modules-extra
-module	xt_statistic	kernel-modules-extra
-module	xt_string	kernel-modules-extra
-module	xt_tcpmss	kernel-modules-extra
+module	vhci_hcd	kernel-modules-extra
+module	w1_ds2408	kernel-modules-extra
+module	w1_ds2423	kernel-modules-extra
+module	w1_ds2431	kernel-modules-extra
+module	w1_ds2433	kernel-modules-extra
+module	w1_ds2780	kernel-modules-extra
+module	w1_ds2781	kernel-modules-extra
+module	w1_ds28e04	kernel-modules-extra
+module	w1_smem	kernel-modules-extra
+module	w1_therm	kernel-modules-extra
+module	walkera0701	kernel-modules-extra
+module	warrior	kernel-modules-extra
+module	xpad	kernel-modules-extra
+module	zhenhua	kernel-modules-extra
 proprietary	pci:v000010DEd*sv*sd*bc03sc*i*	NVIDIA	akmod-nvidia-580xx xorg-x11-drv-nvidia-580xx
 proprietary	pci:v000014E4d00004311sv*sd*bc02sc80i*	Broadcom wl	broadcom-wl kmod-wl
 proprietary	pci:v000014E4d00004312sv*sd*bc02sc80i*	Broadcom wl	broadcom-wl kmod-wl
