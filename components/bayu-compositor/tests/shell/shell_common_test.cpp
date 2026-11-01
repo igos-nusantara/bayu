@@ -8,6 +8,7 @@
 #include "shell/common/app_launcher.h"
 #include "shell/common/application_badges.h"
 #include "shell/common/count_badge.h"
+#include "shell/common/process_info.h"
 #include "shell/common/task_manager.h"
 #include "shell/common/text_match.h"
 #include "shell_test_util.h"
@@ -137,6 +138,33 @@ TEST_F(TaskManagerTest, KeepsAWindowWithItsEntryThroughARescan)
     applications.scan();
     EXPECT_EQ(events, (std::vector<std::string>{"org.example.Editor"}));
     EXPECT_EQ(tasks->entryForWindow(id)->name, "Better Editor");
+}
+
+TEST_F(TaskManagerTest, MatchesAFlatpakByItsSandboxApplicationId)
+{
+    applications.addSimple("org.gnome.Aisleriot", "AisleRiot Solitaire", "org.gnome.Aisleriot");
+    applications.scan();
+    auto tasks = create();
+    // Its window says "sol", its program is the sandbox's, its entry runs flatpak.
+    commands[400] = {"/app/bin/sol", "sol", "org.gnome.Aisleriot"};
+    const uint64_t id = windows.add(window("sol", "Klondike", 400));
+    EXPECT_EQ(tasks->applicationOf(id), "org.gnome.Aisleriot");
+    EXPECT_EQ(tasks->entryForWindow(id)->name, "AisleRiot Solitaire");
+    EXPECT_EQ(tasks->resolveProcess("sol", 400, {})->id, "org.gnome.Aisleriot");
+
+    // A sandbox id with no entry leaves the window to its own app id.
+    commands[401] = {"/app/bin/viewer", "viewer", "org.example.Missing"};
+    EXPECT_EQ(tasks->applicationOf(windows.add(window("org.example.Viewer", "Picture", 401))), "org.example.Viewer");
+}
+
+TEST(ProcessInfoTest, ReadsTheApplicationOfAFlatpakInfo)
+{
+    EXPECT_EQ(shell::flatpakApplication("[Application]\nname=org.gnome.Aisleriot\nruntime=runtime/org.gnome.Platform/x86_64/50\n\n"
+                                        "[Instance]\ninstance-id=1\n"),
+              "org.gnome.Aisleriot");
+    // The runtime's name is not the application's.
+    EXPECT_EQ(shell::flatpakApplication("[Runtime]\nname=org.gnome.Platform\n"), "");
+    EXPECT_EQ(shell::flatpakApplication(""), "");
 }
 
 TEST_F(TaskManagerTest, FindsTheEntryOfAProcessThroughItsAncestors)

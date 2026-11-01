@@ -91,6 +91,7 @@ private:
         int64_t pid = 0;
         std::string program;
         std::string programName;
+        std::string flatpakId;
         bool taskList = false;
         DesktopEntryPtr entry;
         std::string claimedBy;

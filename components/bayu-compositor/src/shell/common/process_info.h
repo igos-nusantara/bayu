@@ -17,6 +17,10 @@ struct ProcessCommand {
     std::string program;
     // The program's file name.
     std::string name;
+    // A Flatpak's application id, from its sandbox's /.flatpak-info: its
+    // program (/app/bin/sol) and window app id ("sol") are not its desktop
+    // entry's (org.gnome.Aisleriot, which runs flatpak).
+    std::string flatpakId;
 };
 
 // Empty when /proc cannot say. A script started through its shebang runs as
@@ -24,6 +28,9 @@ struct ProcessCommand {
 // language: the script stands for it instead, and inline code (-c, -e) or a
 // module (-m) for nothing.
 ProcessCommand processCommand(int64_t pid);
+
+// The [Application] name of a .flatpak-info; empty for anything else.
+std::string flatpakApplication(const std::string &flatpakInfo);
 
 // The parent process, or 0.
 int64_t parentProcess(int64_t pid);

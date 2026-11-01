@@ -61,6 +61,10 @@ DesktopEntryPtr TaskManager::resolveProcess(const std::string &appId, int64_t pi
                                             const std::string &windowClass) const
 {
     const ProcessCommand command = m_commandReader(pid);
+    if (!command.flatpakId.empty()) {
+        if (DesktopEntryPtr entry = m_applications.resolveWindow(command.flatpakId, appId, {}, {}))
+            return entry;
+    }
     return m_applications.resolveWindow(appId, windowClass, command.program, command.name);
 }
 
@@ -186,14 +190,18 @@ void TaskManager::readProcess(Window &window)
     const ProcessCommand command = m_commandReader(std::max<int64_t>(0, window.pid));
     window.program = command.program;
     window.programName = command.name;
+    window.flatpakId = command.flatpakId;
 }
 
 bool TaskManager::resolve(uint64_t id)
 {
     Window &window = m_windows[id];
-    DesktopEntryPtr entry = window.appId.empty() && window.program.empty()
-            ? nullptr
-            : m_applications.resolveWindow(window.appId, window.appId, window.program, window.programName);
+    DesktopEntryPtr entry;
+    // A Flatpak's entry is named in its sandbox, not by its window or program.
+    if (!window.flatpakId.empty())
+        entry = m_applications.resolveWindow(window.flatpakId, window.appId, {}, {});
+    if (!entry && !(window.appId.empty() && window.program.empty()))
+        entry = m_applications.resolveWindow(window.appId, window.appId, window.program, window.programName);
     if (entry)
         window.claimedBy = entry->id;
     // Every scan reads the files into new entries; one that reads the same

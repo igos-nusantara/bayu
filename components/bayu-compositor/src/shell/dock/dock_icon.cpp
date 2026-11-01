@@ -209,11 +209,13 @@ void DockIcon::updateMask()
         m_thumbnailMask->setVisible(thumbnailDimmed);
 }
 
-void DockIcon::setRunning(bool running)
+void DockIcon::setRunning(bool running, int windows)
 {
-    if (running == m_running)
+    const int dots = std::clamp(windows, 1, 2);
+    if (running == m_running && dots == m_dots)
         return;
     m_running = running;
+    m_dots = dots;
     requestPaint();
 }
 
@@ -361,9 +363,10 @@ void DockIcon::setPresentationOpacity(double opacity)
     setPresentation(m_scale, opacity);
 }
 
-void DockIcon::setDotRect(const ui::RectF &rect)
+void DockIcon::setDotRect(const ui::RectF &rect, bool vertical)
 {
     m_dotRect = rect;
+    m_dotsVertical = vertical;
     requestPaint();
 }
 
@@ -440,7 +443,12 @@ void DockIcon::paint(ui::Painter &painter)
     if (!m_thumbnail.isNull())
         paintThumbnail(painter);
     if (isDotShown() && m_dotRect.width > 0) {
-        painter.drawSmoothRectangle(m_dotRect, m_dotRect.width / 2, ui::Theme::current().text);
+        // Centred where the one dot goes, a dot apart.
+        for (int i = 0; i < m_dots; ++i) {
+            ui::RectF dot = m_dotRect;
+            (m_dotsVertical ? dot.y : dot.x) += (i - (m_dots - 1) / 2.0) * m_dotRect.width * 2;
+            painter.drawSmoothRectangle(dot, dot.width / 2, ui::Theme::current().text);
+        }
     }
 }
 

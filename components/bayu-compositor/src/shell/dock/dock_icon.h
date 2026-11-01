@@ -53,9 +53,11 @@ public:
     const std::string &iconName() const { return m_iconName; }
     void setToolTip(std::string text) { m_toolTip = std::move(text); }
     const std::string &toolTipText() const { return m_toolTip; }
-    void setRunning(bool running);
+    // With its windows' number: a dot for each, up to two.
+    void setRunning(bool running, int windows = 1);
     bool isRunning() const { return m_running; }
-    // The running dot: not while the icon appears, only once it is whole.
+    int dotCount() const { return m_running ? m_dots : 0; }
+    // The running dots: not while the icon appears, only once it is whole.
     bool isDotShown() const { return m_running && m_opacity == 1; }
     // A minimized window's image; null shows the icon.
     void setThumbnail(const ui::Bitmap *thumbnail, double aspect);
@@ -76,8 +78,9 @@ public:
     void setPresentationOpacity(double opacity);
     double presentationScale() const { return m_scale; }
     double presentationOpacity() const { return m_opacity; }
-    // The running dot, in this view.
-    void setDotRect(const ui::RectF &rect);
+    // The middle running dot, in this view; the others go along the dock,
+    // down it when `vertical`.
+    void setDotRect(const ui::RectF &rect, bool vertical = false);
 
     // Pressed, or holding its open menu: the icon is dimmed, except while
     // it is dragged.
@@ -124,6 +127,7 @@ private:
     bool m_iconIsFile = false;
     std::string m_toolTip;
     bool m_running = false;
+    int m_dots = 1;
     // The icon: a theme icon, or the launcher's artwork.
     ui::ThemeIcon *m_themeFace = nullptr;
     SvgFace *m_svgFace = nullptr;
@@ -145,6 +149,7 @@ private:
     CountBadge *m_countBadge = nullptr;
     ui::RectF m_iconRect;
     ui::RectF m_dotRect;
+    bool m_dotsVertical = false;
     double m_scale = 1;
     double m_opacity = 1;
     bool m_hovered = false;
