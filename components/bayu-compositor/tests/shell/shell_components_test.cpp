@@ -34,6 +34,7 @@
 #include "shell/dock/minimized_windows.h"
 #include "shell/dock/dock_tooltip.h"
 #include "shell/dock/dock_window.h"
+#include "shell/statusbar/panel_tasks.h"
 #include "shell/osd/level_track.h"
 #include "shell/osd/osd.h"
 #include "shell/shell.h"
@@ -448,6 +449,22 @@ TEST_F(ShellComponentsTest, TheDockShowsADotForEachWindowUpToThree)
         })) << i << " windows";
     }
     EXPECT_EQ(0, dock->applicationIcon("files")->dotCount());
+}
+
+TEST_F(ShellComponentsTest, ThePanelShowsADotForEachWindowUpToThreeAsTheDock)
+{
+    auto *view = openDock("[Dock]\nPinned=files\n");
+    shell::PanelTasks panel(*windows, view->dock().applications());
+    EXPECT_EQ(panel.applicationDots("files"), 0);
+    shell::TaskWindow terminal;
+    terminal.appId = "terminal";
+    terminal.pid = 4242;
+    for (int i = 1; i <= 4; ++i) {
+        terminal.title = "Terminal " + std::to_string(i);
+        windows->add(terminal);
+        const int expected = std::min(i, 3);
+        ASSERT_TRUE(test::runUntil([&] { return panel.applicationDots("terminal") == expected; })) << i << " windows";
+    }
 }
 
 TEST_F(ShellComponentsTest, TheDockFollowsRunningApplicationsAndTakesClicks)

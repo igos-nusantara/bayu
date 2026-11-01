@@ -154,8 +154,8 @@ protected:
     }
 };
 
-// An application: its icon on a tile; a dot of the accent under it while it
-// runs, as the dock's.
+// An application: its icon on a tile; under it while it runs, a dot of the
+// accent for each window, up to three, as the dock's.
 class PanelTasks::AppButton final : public PanelTasks::Button
 {
 public:
@@ -178,9 +178,11 @@ public:
     {
         m_icon->setIconName(item.iconName.empty() ? "application-x-desktop" : item.iconName);
         m_running = !item.windows.empty();
+        m_dots = std::clamp(int(item.windows.size()), 1, 3);
         setSelected(item.isActive);
         requestPaint();
     }
+    int dots() const { return m_running ? m_dots : 0; }
     // The icon, in the window's coordinates.
     ui::RectF iconTarget() const
     {
@@ -203,8 +205,11 @@ protected:
         paintPlate(painter);
         if (m_running) {
             const double dot = 4;
-            painter.fillEllipse({(localRect().width - dot) / 2, localRect().height - dot - 2, dot, dot},
-                                m_selected ? accent(false) : PIT_COLOR(TEXT_SECONDARY));
+            for (int i = 0; i < m_dots; ++i) {
+                const double x = (localRect().width - dot) / 2 + (i - (m_dots - 1) / 2.0) * dot * 2;
+                painter.fillEllipse({x, localRect().height - dot - 2, dot, dot},
+                                    m_selected ? accent(false) : PIT_COLOR(TEXT_SECONDARY));
+            }
         }
     }
 
@@ -212,6 +217,7 @@ private:
     ui::ThemeIcon *m_icon = nullptr;
     CountBadge *m_badge = nullptr;
     bool m_running = false;
+    int m_dots = 1;
 };
 
 // A window: a dot, its application's icon and its title.
@@ -592,6 +598,15 @@ std::vector<std::string> PanelTasks::applicationButtons() const
     for (const AppButton *button : m_apps)
         ids.push_back(button->id);
     return ids;
+}
+
+int PanelTasks::applicationDots(const std::string &application) const
+{
+    for (const AppButton *button : m_apps) {
+        if (button->id == application)
+            return button->dots();
+    }
+    return 0;
 }
 
 std::vector<uint64_t> PanelTasks::windowButtons() const
