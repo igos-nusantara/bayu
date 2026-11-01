@@ -9,6 +9,8 @@
 #   win-full     Windows (GPT, UEFI) filling 80 GiB: "install alongside" shrinks it
 #   win-free     Windows 37 GiB, 20 GiB free, exFAT data on the rest (issue #26)
 #   win-esp200   as win-free with a 200 MiB EFI system partition
+#   win-esp-full as win-free with its EFI system partition all but full, as
+#                vendors leave it: the boot loader needs a new one
 #   win-mbr      Windows on an MBR disk (BIOS): System Reserved, Windows, free space
 set -Eeuo pipefail
 scenario=$1 out=$2 size=${3:-}
@@ -143,5 +145,13 @@ if [[ $scenario != win-full ]]; then
 fi
 sudo mkfs.vfat -F 32 -n SYSTEM "$(part 1)" >/dev/null
 put "$(part 1)" EFI/Microsoft/Boot/bootmgfw.efi EFI/Microsoft/Boot/BCD EFI/Boot/bootx64.efi
+if [[ $scenario == win-esp-full ]]; then
+  # 2 MiB left: the copy of /boot/efi failed at 3% (rsync exit 10).
+  sudo mount "$(part 1)" "$mnt"
+  free=$(df -B1M --output=avail "$mnt" | tail -1)
+  sudo mkdir -p "$mnt/EFI/HP"
+  sudo dd if=/dev/urandom of="$mnt/EFI/HP/recovery.bin" bs=1M count=$((free - 2)) status=none
+  sudo umount "$mnt"
+fi
 windows "$(part 3)"
 sudo sgdisk -p "$dev" | tail -n +10

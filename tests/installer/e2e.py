@@ -45,6 +45,9 @@ SCENARIOS = {
                           flow="default", disk_if="sata"),
     "win-esp200": dict(disks=[("win-esp200", None)], keep=[(0, 1), (0, 2), (0, 3), (0, 4)], windows=True,
                        flow="default"),
+    # The EFI partition kept is full: the review offers a new one, accepted.
+    "win-esp-full": dict(disks=[("win-esp-full", None)], keep=[(0, 1), (0, 2), (0, 3), (0, 4)], windows=True,
+                         flow="new-esp"),
     "win-full": dict(disks=[("win-full", None)], keep=[(0, 1), (0, 2)], windows=True, flow="alongside"),
     "win-mbr": dict(disks=[("win-mbr", None)], keep=[(0, 1), (0, 2)], windows=True, flow="default", bios=True),
     "two-disks": dict(disks=[("win-full", None), ("blank", "40G")], keep=[(0, 1), (0, 2), (0, 3)], windows=True,
@@ -331,6 +334,12 @@ class Test:
         q.click(570, 567); q.type(PASSWORD)
         self.shot("account-filled")
         self.next("review")
+        if kind == "new-esp":
+            # The check finds the EFI partition full: the offer, accepted.
+            time.sleep(8)
+            self.shot("esp-full")
+            q.key("ret"); time.sleep(8)
+            self.shot("new-esp")
         if not q.wait(self.ready):
             raise RuntimeError("cannot start the installation")
         q.click(*self.INSTALL)
@@ -437,6 +446,9 @@ class Test:
         menu = sudo("grep -c osprober /boot/grub2/grub.cfg")
         windows = menu.isdigit() and int(menu) > 0
         self.note(windows == self.spec["windows"], f"Windows in the GRUB menu: {windows}")
+        if self.spec["flow"] == "new-esp":
+            esp = sh("findmnt -no SOURCE /boot/efi")
+            self.note(esp and not esp.endswith("1"), f"a new EFI partition: {esp}")
         binder = sh("grep -c '^CONFIG_ANDROID_BINDER_IPC=y' /boot/config-$(uname -r)")
         self.note(binder == "1", "kernel with binder")
         open(f"{self.out}/system.txt", "w").write(sh(

@@ -5,6 +5,7 @@
 #include <algorithm>
 
 #include "base/i18n.h"
+#include "ui/dialog_window.h"
 #include "ui/label.h"
 #include "ui/scroll_view.h"
 #include "ui/page.h"
@@ -110,10 +111,32 @@ public:
                                                m_report = report;
                                                fill();
                                                changed();
+                                               if (report.espFull)
+                                                   offerNewEsp();
                                            });
     }
 
 private:
+    // The EFI partition kept from another system is full: a new one, in the
+    // free space, only if the user agrees.
+    void offerNewEsp()
+    {
+        StoragePlan& plan = installer().choices().storage;
+        if (plan.method != StoragePlan::Method::Automatic || plan.newEsp)
+            return;
+        m_confirm = std::make_unique<ConfirmDialog>(
+                installer().window(), tr("Create a new EFI partition?"),
+                tr("The EFI partition on this disk is too full for IGOS Nusantara's boot loader. The installer can "
+                   "create an EFI partition of its own, 600 MB, in the space for IGOS Nusantara. The existing one "
+                   "and the system that starts from it are left as they are. Nothing has been written yet."));
+        m_confirm->setConfirmText(tr("Create EFI partition"));
+        m_confirm->onAccepted = [this] {
+            installer().choices().storage.newEsp = true;
+            enter();
+        };
+        m_confirm->show();
+    }
+
     void fill()
     {
         Backend& backend = installer().backend();
@@ -233,6 +256,7 @@ private:
         }
     }
 
+    std::unique_ptr<ConfirmDialog> m_confirm;
     DetailsCard* m_localization;
     DetailsCard* m_network;
     DetailsCard* m_account;
