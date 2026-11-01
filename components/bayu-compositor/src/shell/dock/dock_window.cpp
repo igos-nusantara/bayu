@@ -509,7 +509,7 @@ void DockWindow::rebuild()
         else
             icon->setIcon(item.iconName.empty() ? "application-x-desktop" : item.iconName);
         icon->setToolTip(item.visibleName);
-        icon->setRunning(!item.windows.empty());
+        icon->setRunning(!item.windows.empty(), int(item.windows.size()));
         icon->setCount(m_shell->badges().count(item.id));
         icons[item.id] = icon;
     }
@@ -718,9 +718,9 @@ void DockWindow::layoutItems()
         if (bottom)
             icon->setDotRect({iconRect.x + (itemSize - dot) / 2, iconRect.y + itemSize + dotGap, dot, dot});
         else if (left)
-            icon->setDotRect({iconRect.x - (dotGap + dot), iconRect.y + (itemSize - dot) / 2, dot, dot});
+            icon->setDotRect({iconRect.x - (dotGap + dot), iconRect.y + (itemSize - dot) / 2, dot, dot}, true);
         else
-            icon->setDotRect({iconRect.x + itemSize + dotGap, iconRect.y + (itemSize - dot) / 2, dot, dot});
+            icon->setDotRect({iconRect.x + itemSize + dotGap, iconRect.y + (itemSize - dot) / 2, dot, dot}, true);
     };
 
     // Out of the layout, above the icons that close up under it, where it was

@@ -34,14 +34,31 @@ static std::string fileName(const std::string &path)
     return slash == std::string::npos ? path : path.substr(slash + 1);
 }
 
+std::string flatpakApplication(const std::string &flatpakInfo)
+{
+    bool application = false;
+    for (std::string_view line : base::strings::splitViews(flatpakInfo, '\n')) {
+        line = base::strings::trimmed(line);
+        if (line.starts_with('['))
+            application = line == "[Application]";
+        else if (application && line.starts_with("name="))
+            return std::string(line.substr(5));
+    }
+    return {};
+}
+
 ProcessCommand processCommand(int64_t pid)
 {
     if (pid <= 0)
         return {};
 
+    // The sandbox's root, which /proc shows the process's own user.
+    const std::string flatpakId = flatpakApplication(
+            base::file::read("/proc/" + std::to_string(pid) + "/root/.flatpak-info").value_or(""));
+
     const std::optional<std::string> cmdline = base::file::read("/proc/" + std::to_string(pid) + "/cmdline");
     if (!cmdline || cmdline->empty() || cmdline->front() == '\0')
-        return {};
+        return {{}, {}, flatpakId};
 
     const std::vector<std::string> arguments = base::strings::split(*cmdline, '\0');
     std::string program = arguments.front();
@@ -58,10 +75,10 @@ ProcessCommand processCommand(int64_t pid)
             break;
         }
         if (program.empty())
-            return {};
+            return {{}, {}, flatpakId};
     }
 
-    return {program, fileName(program)};
+    return {program, fileName(program), flatpakId};
 }
 
 int64_t parentProcess(int64_t pid)

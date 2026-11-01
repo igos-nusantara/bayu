@@ -10,6 +10,8 @@
 
 #include <linux/input-event-codes.h>
 
+#include <algorithm>
+
 #include <gtest/gtest.h>
 
 #include "compositor/compositor.h"
@@ -428,6 +430,24 @@ TEST_F(ShellComponentsTest, TheDockSitsAlongTheBottomOnItsGlassAndReservesItsStr
     // The divider after the pins: its line centred in the gap, 48 long, 19 down.
     EXPECT_EQ(19, dock->divider().y());
     EXPECT_EQ(48, dock->divider().height());
+}
+
+TEST_F(ShellComponentsTest, TheDockShowsADotForEachWindowUpToThree)
+{
+    auto *dock = openDock("[Dock]\nPinned=files\n");
+    shell::TaskWindow terminal;
+    terminal.appId = "terminal";
+    terminal.pid = 4242;
+    for (int i = 1; i <= 4; ++i) {
+        terminal.title = "Terminal " + std::to_string(i);
+        windows->add(terminal);
+        const int expected = std::min(i, 3);
+        ASSERT_TRUE(test::runUntil([dock, expected] {
+            const shell::DockIcon *icon = dock->applicationIcon("terminal");
+            return icon && icon->dotCount() == expected;
+        })) << i << " windows";
+    }
+    EXPECT_EQ(0, dock->applicationIcon("files")->dotCount());
 }
 
 TEST_F(ShellComponentsTest, TheDockFollowsRunningApplicationsAndTakesClicks)
