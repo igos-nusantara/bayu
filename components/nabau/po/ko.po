@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: nabau\n"
 "Report-Msgid-Bugs-To: https://github.com/bayuos\n"
-"POT-Creation-Date: 2026-10-27 15:23+0000\n"
+"POT-Creation-Date: 2026-11-01 00:31+0000\n"
 "PO-Revision-Date: 2026-10-25 12:00+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -126,6 +126,11 @@ msgstr "{address}의 설치 백엔드에 연결할 수 없습니다."
 #: src/anaconda_backend.cpp
 msgid "Reading the disks"
 msgstr "디스크를 읽는 중"
+
+#: src/anaconda_backend.cpp
+#, python-brace-format
+msgid "The EFI partition {device} has {free} MB free; the boot loader needs {needed} MB."
+msgstr "EFI 파티션 {device}의 여유 공간은 {free} MB입니다. 부트 로더에는 {needed} MB가 필요합니다."
 
 #: src/anaconda_backend.cpp
 msgid "Lay out the disk first."
@@ -1243,6 +1248,18 @@ msgstr[0] "항목 {n}개"
 #: src/ui/pages/review_page.cpp
 msgid "Begin installation"
 msgstr "설치 시작"
+
+#: src/ui/pages/review_page.cpp
+msgid "Create a new EFI partition?"
+msgstr "새 EFI 파티션을 만드시겠습니까?"
+
+#: src/ui/pages/review_page.cpp
+msgid "The EFI partition on this disk is too full for IGOS Nusantara's boot loader. The installer can create an EFI partition of its own, 600 MB, in the space for IGOS Nusantara. The existing one and the system that starts from it are left as they are. Nothing has been written yet."
+msgstr "이 디스크의 EFI 파티션은 IGOS Nusantara 부트 로더를 넣기에 너무 가득 찼습니다. 설치 프로그램이 IGOS Nusantara용 공간에 전용 EFI 파티션(600 MB)을 만들 수 있습니다. 기존 파티션과 그곳에서 시작하는 시스템은 그대로 유지됩니다. 아직 아무것도 기록되지 않았습니다."
+
+#: src/ui/pages/review_page.cpp
+msgid "Create EFI partition"
+msgstr "EFI 파티션 만들기"
 
 #: src/ui/pages/review_page.cpp
 msgid "Keyboard"

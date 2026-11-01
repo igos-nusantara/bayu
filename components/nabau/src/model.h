@@ -149,6 +149,9 @@ struct ValidationReport
 {
     std::vector<std::string> errors;
     std::vector<std::string> warnings;
+    // The EFI partition kept from another system has no room for the boot
+    // loader: the review offers a new one (StoragePlan::newEsp).
+    bool espFull = false;
     bool ok() const { return errors.empty(); }
 };
 
@@ -176,6 +179,9 @@ struct StoragePlan
     bool encrypt = false;
     // "btrfs", "lvm", "plain".
     std::string scheme = "btrfs";
+    // Automatic: a new EFI partition in the free space, instead of the full
+    // one kept from another system.
+    bool newEsp = false;
 };
 
 // One change the custom editor has scheduled, for its summary.
