@@ -11,13 +11,13 @@
 # is kept in KERNEL_CACHE and reused: releases only rebuild it when KERNEL or
 # BUILD changes.
 #   KERNEL=7.3.1-200.fc44    Fedora kernel version-release to rebuild
-#   BUILD=2                  raised with every change to kernel-local or the patch
+#   BUILD=3                  raised with every change to kernel-local or the patch
 #   SRPM_URL=...             where to fetch its source RPM
 #   KERNEL_CACHE=~/.cache/bayu-kernel
 set -Eeuo pipefail
 ROOT=$(realpath "$(dirname "$0")/../..")
 KERNEL=${KERNEL:-7.3.1-200.fc44}
-BUILD=${BUILD:-2}
+BUILD=${BUILD:-3}
 SRPM_URL=${SRPM_URL:-https://kojipkgs.fedoraproject.org/packages/kernel/${KERNEL%-*}/${KERNEL##*-}/src/kernel-$KERNEL.src.rpm}
 CACHE=${KERNEL_CACHE:-$HOME/.cache/bayu-kernel}/$KERNEL.$BUILD
 mkdir -p "$CACHE" "$ROOT/out/repo"

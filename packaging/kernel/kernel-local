@@ -8,6 +8,10 @@ CONFIG_ANDROID_BINDER_DEVICES=""
 # Pressure stall information on by default: Android's lmkd needs
 # /proc/pressure, and the container reboots without it.
 # CONFIG_PSI_DEFAULT_DISABLED is not set
+# The modprobe the kernel loads modules with (file systems, network
+# protocols, crypto): Fedora's config has /usr/bin/modprobe, EL10 has it in
+# /usr/sbin.
+CONFIG_MODPROBE_PATH="/usr/sbin/modprobe"
 # Wi-Fi that AlmaLinux leaves out though its kernel carries the drivers
 # (issue #73): the common Realtek, MediaTek, Ralink and Atheros USB adapters,
 # and a few Realtek PCIe and SDIO cards. Modules, loaded for their hardware only.
