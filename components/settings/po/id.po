@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bayu-settings\n"
 "Report-Msgid-Bugs-To: https://github.com/bayuos\n"
-"POT-Creation-Date: 2026-10-31 00:20+0000\n"
+"POT-Creation-Date: 2026-11-02 10:59+0000\n"
 "PO-Revision-Date: 2026-10-25 12:00+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -2048,6 +2048,14 @@ msgstr "Rapatkan jendela ke kiri"
 #: src/pages/shortcuts/shortcutsmodel.cpp
 msgid "Snap the window to the right"
 msgstr "Rapatkan jendela ke kanan"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Snap the window up, or maximize it"
+msgstr "Tempelkan jendela ke atas, atau maksimalkan"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Snap the window down, or minimize it"
+msgstr "Tempelkan jendela ke bawah, atau minimalkan"
 
 #: src/pages/shortcuts/shortcutsmodel.cpp
 msgid "Close the window"

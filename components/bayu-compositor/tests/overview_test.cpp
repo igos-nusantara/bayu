@@ -279,6 +279,39 @@ TEST_F(OverviewTest, TheShortcutBringsItInAndTakesItAway)
     EXPECT_EQ(second, active());
 }
 
+TEST_F(OverviewTest, SnapAssistOffersTheOtherWindowsForTheOtherHalf)
+{
+    Window *first = makeWindow(base::Rect(100, 100, 300, 300));
+    Window *second = makeWindow(base::Rect(500, 300, 300, 300));
+    Window *window = makeWindow(base::Rect(300, 200, 400, 300));
+    window->snapPrimary();
+
+    ASSERT_TRUE(overview->enterSnapAssist(window));
+    settle();
+    ASSERT_EQ(State::Shown, overview->state());
+    // The others, on the right half, without the desks.
+    ASSERT_EQ(2u, overview->items().size());
+    EXPECT_EQ(-1, indexOf(window));
+    EXPECT_TRUE(overview->bars().empty());
+    for (const Window *other : {first, second})
+        EXPECT_GE(placeOf(other).left(), kOutput.width() / 2);
+
+    click(placeOf(first).center());
+    EXPECT_EQ(WindowStateType::SecondarySnapped, first->stateType());
+    EXPECT_EQ(first, active());
+    settle();
+    EXPECT_EQ(State::Hidden, overview->state());
+    EXPECT_FALSE(overview->isSnapAssist());
+
+    // With the right half taken, there is nothing to assist with.
+    window->restore();
+    window->snapPrimary();
+    EXPECT_FALSE(overview->enterSnapAssist(window));
+    // Nor for a window that is not snapped to a half.
+    window->restore();
+    EXPECT_FALSE(overview->enterSnapAssist(window));
+}
+
 TEST_F(OverviewTest, TheShortcutDoesNothingWhileAWindowIsDragged)
 {
     Window *window = makeWindow(base::Rect(100, 100, 500, 400));

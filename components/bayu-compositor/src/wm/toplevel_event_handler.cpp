@@ -14,6 +14,7 @@
 #include "core/logging.h"
 #include "input/seat.h"
 #include "scene/window_animation.h"
+#include "wm/overview/overview_controller.h"
 #include "wm/resize_cursor.h"
 #include "wm/snap_drag_controller.h"
 #include "wm/window.h"
@@ -442,6 +443,7 @@ void ToplevelEventHandler::completeDrag(DragResult result)
     CF_DEBUG(cfInputTransitions) << "drag capture cleared";
     const SnapType snapped = m_snapController->end();
     endPartners(result == DragResult::Revert);
+    Window *assist = nullptr;
 
     if (result != DragResult::WindowDestroyed) {
         Window *window = resizer->window();
@@ -456,6 +458,10 @@ void ToplevelEventHandler::completeDrag(DragResult result)
         } else {
             resizer->completeDrag();
             settleDrag(resizer.get(), snapped, initialRestoreBounds);
+            if ((snapped == SnapType::Primary || snapped == SnapType::Secondary)
+                && window->stateType() != m_initialStateType
+                && window->stateType() == snapStateType(snapped))
+                assist = window;
         }
         // Cleared after the state change, so the window is never drawn tiled
         // at the bounds the pointer left it at.
@@ -469,6 +475,8 @@ void ToplevelEventHandler::completeDrag(DragResult result)
     if (!m_resizer) {
         if (auto *seat = m_manager->seat())
             seat->setCursorOverride(std::nullopt);
+        if (assist && m_manager->hasWindow(assist) && m_manager->overview())
+            m_manager->overview()->enterSnapAssist(assist);
     }
 }
 

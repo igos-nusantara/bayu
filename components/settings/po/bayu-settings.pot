@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bayu-settings\n"
 "Report-Msgid-Bugs-To: https://github.com/bayuos\n"
-"POT-Creation-Date: 2026-10-31 00:20+0000\n"
+"POT-Creation-Date: 2026-11-02 10:59+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -2055,6 +2055,14 @@ msgstr ""
 
 #: src/pages/shortcuts/shortcutsmodel.cpp
 msgid "Snap the window to the right"
+msgstr ""
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Snap the window up, or maximize it"
+msgstr ""
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Snap the window down, or minimize it"
 msgstr ""
 
 #: src/pages/shortcuts/shortcutsmodel.cpp

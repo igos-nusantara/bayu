@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bayu-settings\n"
 "Report-Msgid-Bugs-To: https://github.com/bayuos\n"
-"POT-Creation-Date: 2026-10-31 00:20+0000\n"
+"POT-Creation-Date: 2026-11-02 10:59+0000\n"
 "PO-Revision-Date: 2026-10-25 00:00+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -2055,6 +2055,14 @@ msgstr "Fenster links einrasten"
 #: src/pages/shortcuts/shortcutsmodel.cpp
 msgid "Snap the window to the right"
 msgstr "Fenster rechts einrasten"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Snap the window up, or maximize it"
+msgstr "Fenster oben andocken oder maximieren"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Snap the window down, or minimize it"
+msgstr "Fenster unten andocken oder minimieren"
 
 #: src/pages/shortcuts/shortcutsmodel.cpp
 msgid "Close the window"

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bayu-settings\n"
 "Report-Msgid-Bugs-To: https://github.com/bayuos\n"
-"POT-Creation-Date: 2026-10-31 00:20+0000\n"
+"POT-Creation-Date: 2026-11-02 10:59+0000\n"
 "PO-Revision-Date: 2026-10-25 12:00+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -2048,6 +2048,14 @@ msgstr "将窗口贴靠到左侧"
 #: src/pages/shortcuts/shortcutsmodel.cpp
 msgid "Snap the window to the right"
 msgstr "将窗口贴靠到右侧"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Snap the window up, or maximize it"
+msgstr "将窗口贴靠到上方，或将其最大化"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Snap the window down, or minimize it"
+msgstr "将窗口贴靠到下方，或将其最小化"
 
 #: src/pages/shortcuts/shortcutsmodel.cpp
 msgid "Close the window"
