@@ -4,6 +4,7 @@
 #include "archives.h"
 #include "testutil.h"
 
+#include "core/launcher.h"
 #include "core/preferences.h"
 #include "model/foldermodel.h"
 #include "ops/operations.h"
@@ -284,6 +285,68 @@ TEST(FolderModelTest, BackForwardAndUpRestoreTheSelection)
     folder.up();
     EXPECT_TRUE(runUntil(loop(), [&] { return folder.resolvedUrl() == a; }));
     EXPECT_TRUE(runUntil(loop(), [&] { return folder.selectedUrls() == Urls {b}; }));
+}
+
+// An APK offers to install it on Android; other files do not (#145).
+TEST(FolderModelTest, AnApkOffersToInstallItOnAndroid)
+{
+    TemporaryDir directory;
+    ASSERT_TRUE(directory.isValid());
+    ASSERT_TRUE(writeFile(directory.filePath("app.apk")));
+    ASSERT_TRUE(writeFile(directory.filePath("notes.txt")));
+
+    FolderModel folder;
+    folder.setUrl(directory.path());
+    ASSERT_TRUE(runUntil(loop(), [&] { return ready(folder) && folder.count() == 2; }));
+
+    folder.setSelected(folder.rowForUrl(url(directory.filePath("app.apk"))));
+    folder.prepareContextMenu();
+    EXPECT_TRUE(folder.action("installApk").visible);
+    EXPECT_EQ(folder.action("installApk").text, "Install on Android");
+
+    folder.clearSelection();
+    folder.setSelected(folder.rowForUrl(url(directory.filePath("notes.txt"))));
+    folder.prepareContextMenu();
+    EXPECT_FALSE(folder.action("installApk").visible);
+}
+
+namespace {
+
+class OpenWithHost : public fm::FolderModelHost
+{
+public:
+    void openFolders(const std::vector<std::string>&) override {}
+    void showProperties(const fm::FileItemList&) override {}
+    void showOpenWith(const std::string& url) override { openWith.push_back(url); }
+    void confirmDelete(const std::vector<std::string>&) override {}
+    void confirmEmptyTrash() override {}
+    void confirmLaunch(const std::string&) override {}
+    void notify(const std::string&) override {}
+
+    std::vector<std::string> openWith;
+};
+
+} // namespace
+
+// A file nothing opens asks which application to use, instead of nothing.
+TEST(FolderModelTest, AFileNothingOpensAsksWhatToOpenItWith)
+{
+    TemporaryDir directory;
+    ASSERT_TRUE(directory.isValid());
+    const std::string path = directory.filePath("data.bayu-unknown-type");
+    ASSERT_TRUE(writeFile(path));
+
+    FolderModel folder;
+    OpenWithHost host;
+    folder.setHost(&host);
+    folder.setUrl(directory.path());
+    ASSERT_TRUE(runUntil(loop(), [&] { return ready(folder) && folder.count() == 1; }));
+    folder.setSelected(0);
+    if (!fm::launcher::defaultApplication(folder.item(0)->mimeType).empty()
+        || !fm::launcher::recommendedApplications(folder.item(0)->mimeType).empty())
+        GTEST_SKIP() << "an application here opens " << folder.item(0)->mimeType;
+    folder.openSelected();
+    EXPECT_EQ(host.openWith, (std::vector<std::string>{url(path)}));
 }
 
 // The menus follow the selection: a file, a folder, and the folder itself.

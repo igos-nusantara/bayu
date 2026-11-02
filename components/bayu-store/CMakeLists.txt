@@ -16,6 +16,7 @@ pkg_check_modules(CURL REQUIRED IMPORTED_TARGET libcurl)
 pkg_check_modules(FLATPAK REQUIRED IMPORTED_TARGET flatpak)
 
 add_library(store-ui OBJECT
+    src/android_install.cpp
     src/android_setup.cpp
     src/cache.cpp
     src/catalog.cpp
@@ -52,6 +53,10 @@ target_link_libraries(bayu-welcome PRIVATE store-ui Bayu::AppearanceClient)
 add_executable(android-launch src/launch/main.cpp)
 target_link_libraries(android-launch PRIVATE store-ui)
 
+# Installs an APK into Android, as opening one in the file manager does.
+add_executable(android-install src/install/main.cpp)
+target_link_libraries(android-install PRIVATE store-ui)
+
 add_executable(store-fdroid-test tests/fdroid_test.cpp)
 target_link_libraries(store-fdroid-test PRIVATE store-ui)
 
@@ -59,16 +64,21 @@ add_executable(store-android-setup-test tests/android_setup_test.cpp)
 target_link_libraries(store-android-setup-test PRIVATE store-ui)
 enable_testing()
 add_test(NAME store-android-setup-test COMMAND store-android-setup-test)
+add_executable(store-android-install-test tests/android_install_test.cpp)
+target_link_libraries(store-android-install-test PRIVATE store-ui)
+add_test(NAME store-android-install-test COMMAND store-android-install-test)
 
 install(TARGETS ${PROJECT_NAME} bayu-welcome RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
 install(PROGRAMS data/android-setup DESTINATION ${CMAKE_INSTALL_LIBEXECDIR}/bayu-store)
-install(TARGETS android-launch RUNTIME DESTINATION ${CMAKE_INSTALL_LIBEXECDIR}/bayu-store)
+install(TARGETS android-launch android-install RUNTIME DESTINATION ${CMAKE_INSTALL_LIBEXECDIR}/bayu-store)
 install(FILES data/lapis-session-off.conf DESTINATION ${CMAKE_INSTALL_PREFIX}/lib/systemd/user/lapis-session.service.d
     RENAME bayu-store.conf)
 install(FILES data/flathub.flatpakrepo DESTINATION ${CMAKE_INSTALL_DATADIR}/bayu-store)
 install(FILES data/org.bayu.store.policy DESTINATION ${CMAKE_INSTALL_DATADIR}/polkit-1/actions)
-bayu_add_translations(bayu-store SOURCES src DESKTOP_FILES data/bayu-store.desktop data/bayu-welcome.desktop)
+bayu_add_translations(bayu-store SOURCES src DESKTOP_FILES data/bayu-store.desktop data/bayu-welcome.desktop
+    data/bayu-android-install.desktop)
 install(FILES ${CMAKE_CURRENT_BINARY_DIR}/bayu-store.desktop ${CMAKE_CURRENT_BINARY_DIR}/bayu-welcome.desktop
+    ${CMAKE_CURRENT_BINARY_DIR}/bayu-android-install.desktop
     DESTINATION ${CMAKE_INSTALL_DATADIR}/applications)
 install(FILES data/bayu-welcome-autostart.desktop DESTINATION ${CMAKE_INSTALL_FULL_SYSCONFDIR}/xdg/autostart
     RENAME bayu-welcome.desktop)

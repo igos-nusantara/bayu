@@ -20,6 +20,10 @@ class Process;
 
 namespace store {
 
+// What a setup that is busy does, in words: "Downloading Android",
+// "620 MB of 1 GB · 61%".
+void describeSetup(const AndroidSetup& setup, std::string* title, std::string* detail);
+
 // One line of android-setup's output into `state`: "Downloading
 // lineage-…-system.zip (1003 MiB)", "  620 / 1003 MiB (61%)", "Resuming at
 // 120 MiB", "Extracting system.img". Others leave it as it is.
