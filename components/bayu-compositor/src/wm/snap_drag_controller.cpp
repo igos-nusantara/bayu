@@ -86,11 +86,17 @@ SnapType SnapDragController::constrained(SnapType type) const
     switch (type) {
     case SnapType::Primary:
     case SnapType::Secondary:
-    case SnapType::TopLeft:
-    case SnapType::TopRight:
-    case SnapType::BottomLeft:
-    case SnapType::BottomRight:
         return m_window->state()->canSnap(type) ? type : SnapType::None;
+    case SnapType::TopLeft:
+    case SnapType::BottomLeft:
+    case SnapType::TopRight:
+    case SnapType::BottomRight:
+        // A window too tall for a quarter takes the half on that side.
+        if (m_window->state()->canSnap(type))
+            return type;
+        return constrained(type == SnapType::TopLeft || type == SnapType::BottomLeft
+                                   ? SnapType::Primary
+                                   : SnapType::Secondary);
     case SnapType::Maximize:
         return m_window->isResizable() ? type : SnapType::None;
     case SnapType::None:

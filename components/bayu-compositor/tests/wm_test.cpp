@@ -1486,6 +1486,13 @@ TEST_F(WmTest, DraggingToACornerSnapsTheWindowToThatQuarter)
     window->restore();
     EXPECT_EQ(WindowStateType::Normal, window->stateType());
     EXPECT_EQ(base::Size(300, 200), window->bounds().size());
+    // Too tall for a quarter, it takes the half on that side.
+    window->setMinimumSize(base::Size(100, 500));
+    ASSERT_TRUE(manager.eventHandler()->beginMove(window, base::PointF(350, 320)));
+    manager.eventHandler()->onPointerMotion(base::PointF(4, 2));
+    EXPECT_EQ(SnapType::Primary, manager.eventHandler()->snapController()->snapType());
+    manager.eventHandler()->onPointerButtonReleased();
+    EXPECT_EQ(WindowStateType::PrimarySnapped, window->stateType());
 }
 
 TEST_F(WmTest, AQuarterFollowsTheWorkAreaAndStaysSnappedWhenResizedInward)
