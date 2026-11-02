@@ -1211,6 +1211,12 @@ void FolderModel::openSelected()
             continue;
         }
 
+        // Nothing opens the type: the user picks, rather than xdg-open failing
+        // without a word, as it did for APKs (#145).
+        if (file->isLocalFile() && m_host) {
+            m_host->showOpenWith(file->url);
+            continue;
+        }
         launcher::startCommand({"xdg-open", file->url});
     }
 }
@@ -1640,6 +1646,7 @@ void FolderModel::createActions()
     const std::vector<std::pair<std::string, std::string>> actions = {
         {"open", tr("Open")},
         {"openWith", tr("Open with")},
+        {"installApk", tr("Install on Android")},
         {"showInFolder", tr("Show in Enclosing Folder")},
         {"compress", tr("Compress")},
         {"copyLocation", tr("Copy Location")},
@@ -1714,6 +1721,11 @@ void FolderModel::updateActions()
     set("cut", !trash, !rows.empty() && canMoveItems && !hasStandardFolder);
     set("restore", items.size() >= 1 && trash, true);
     set("openWith", items.size() == 1 && !trash && !hasDir, true);
+    // An APK goes into Android (lapis), through bayu-store's android-install (#145).
+    set("installApk",
+        items.size() == 1 && !trash && items.front()->isLocalFile()
+                && items.front()->mimeType == "application/vnd.android.package-archive",
+        true);
     set("showInFolder", searching && rows.size() == 1, true);
 
     const bool canCompress = !rows.empty() && !trash && !hasRemoteFiles && !searching && rootItem().isWritable;

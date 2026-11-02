@@ -8,10 +8,42 @@
 #include "base/i18n.h"
 #include "base/process.h"
 #include "lapis.h"
+#include "ui/style.h"
 
 using bayu::i18n::tr;
 
 namespace store {
+
+void describeSetup(const AndroidSetup& setup, std::string* title, std::string* detail)
+{
+    using bayu::i18n::format;
+    switch (setup.stage) {
+    case AndroidSetup::Stage::Authorizing:
+        *title = tr("Waiting for your password");
+        *detail = tr("Setting Android up needs administrator rights, once.");
+        break;
+    case AndroidSetup::Stage::Downloading:
+        *title = setup.image == "vendor" ? tr("Downloading Android's vendor image") : tr("Downloading Android");
+        *detail = setup.bytesTotal ? format(tr("{done} of {total}"), {{"done", style::formatSize(setup.bytesDone)},
+                                                                     {"total", style::formatSize(setup.bytesTotal)}})
+                                   : style::formatSize(setup.bytesDone);
+        if (setup.progress >= 0)
+            *detail += " · " + std::to_string(int(setup.progress * 100)) + "%";
+        break;
+    case AndroidSetup::Stage::Extracting:
+        *title = tr("Unpacking Android");
+        *detail = tr("Almost there.");
+        break;
+    case AndroidSetup::Stage::Starting:
+        *title = tr("Starting Android");
+        *detail = tr("The first start takes a minute or two.");
+        break;
+    default:
+        *title = tr("Getting Android ready");
+        *detail = tr("Android is downloaded once, about 1.3 GB. You can keep using the store meanwhile.");
+        break;
+    }
+}
 
 namespace {
 

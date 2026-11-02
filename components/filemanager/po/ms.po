@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bayu-filemanager\n"
 "Report-Msgid-Bugs-To: https://github.com/bayuos\n"
-"POT-Creation-Date: 2026-11-02 06:45+0000\n"
+"POT-Creation-Date: 2026-11-02 08:27+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -945,6 +945,10 @@ msgstr "Pengekstrakan dibatalkan."
 #: src/model/foldermodel.cpp
 msgid "Open with"
 msgstr "Buka dengan"
+
+#: src/model/foldermodel.cpp
+msgid "Install on Android"
+msgstr "Pasang pada Android"
 
 #: src/model/foldermodel.cpp
 msgid "Show in Enclosing Folder"
