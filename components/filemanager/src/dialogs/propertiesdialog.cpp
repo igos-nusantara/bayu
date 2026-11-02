@@ -76,7 +76,7 @@ PropertiesDialog::PropertiesDialog(FileItemList items)
         m_mimeType = first.mimeType;
         m_bytes = first.size;
         m_size = formatSize(first.size);
-        m_location = parentPath(first.path);
+        m_location = parentPath(realPath(first.path));
         m_created = textDate(first.created);
         m_modified = textDate(first.modified);
         m_accessed = textDate(first.accessed);
@@ -88,7 +88,7 @@ PropertiesDialog::PropertiesDialog(FileItemList items)
         m_canChange = m_stat && (m_administrator || ::getuid() == 0 || m_stat->st_uid == ::getuid());
     } else {
         m_fileName = trn("{n} file", "{n} files", m_items.size());
-        m_location = parentPath(first.path);
+        m_location = parentPath(realPath(first.path));
         m_iconName = "unknown";
     }
 
