@@ -396,9 +396,6 @@ void OverviewController::updateNodes(bool animate)
         if (layerFor(window) == StackingLayer::Desktop && window->isVisible() && window->node())
             desktops.push_back(window->node());
     }
-    // The snapped window stays where it is, beside the windows on offer.
-    if (m_assist && m_assist->window->node())
-        wallpapers.push_back(m_assist->window->node());
     std::vector<const scene::Node *> backdrop = wallpapers;
     backdrop.insert(backdrop.end(), desktops.begin(), desktops.end());
 
@@ -418,6 +415,11 @@ void OverviewController::updateNodes(bool animate)
     }
     m_node->setBackdrop(wallpapers);
     m_node->setFadingBackdrop(desktops);
+    // The snapped window stays where it is, beside the windows on offer.
+    std::vector<const scene::Node *> kept;
+    if (m_assist && m_assist->window->node())
+        kept.push_back(m_assist->window->node());
+    m_node->setKept(std::move(kept));
     m_node->setItems(std::move(items), animate);
     int raised = -1;
     for (size_t index = 0; index < m_items.size(); ++index) {
@@ -617,6 +619,7 @@ void OverviewController::finish()
         m_node->setItems({}, false);
         m_node->setBackdrop({});
         m_node->setFadingBackdrop({});
+        m_node->setKept({});
     }
     if (m_bar) {
         m_bar->setBars({});
