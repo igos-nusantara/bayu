@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bayu-settings\n"
 "Report-Msgid-Bugs-To: https://github.com/bayuos\n"
-"POT-Creation-Date: 2026-11-02 10:59+0000\n"
+"POT-Creation-Date: 2026-11-02 13:25+0000\n"
 "PO-Revision-Date: 2026-10-25 12:00+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -699,7 +699,7 @@ msgstr "视频播放器"
 
 #: src/pages/defaultapps/defaultappspage.cpp src/pages/fonts/fontspage.cpp
 #: src/pages/hotcorners/hotcornerspage.cpp src/pages/keyboard/keyboardpage.cpp
-#: src/pages/shortcuts/shortcutspage.cpp
+#: src/pages/shortcuts/shortcutspage.cpp src/pages/tiling/tilingpage.cpp
 msgid "None"
 msgstr "无"
 
@@ -888,6 +888,11 @@ msgstr "更有色调"
 #: src/window/pagelist.cpp
 msgid "Hot Corners"
 msgstr "热角"
+
+#: src/pages/dock/dockpage.cpp src/pages/shortcuts/shortcutsmodel.cpp
+#: src/pages/tiling/tilingpage.cpp src/window/pagelist.cpp
+msgid "Tiling"
+msgstr "平铺"
 
 #: src/pages/dock/dockpage.cpp
 msgid "The panel has no top bar, so applications show their menus in their windows. Applications already open may need to be opened again."
@@ -1563,7 +1568,7 @@ msgstr "显示高级选项"
 msgid "Asked on connect"
 msgstr "连接时询问"
 
-#: src/pages/network/vpn/vpneditor.cpp
+#: src/pages/network/vpn/vpneditor.cpp src/pages/tiling/tilingpage.cpp
 msgid "Choose…"
 msgstr "选择…"
 
@@ -1625,6 +1630,7 @@ msgstr "对等体"
 
 #: src/pages/network/vpn/vpneditor.cpp src/pages/printers/printerspage.cpp
 #: src/pages/privacy/privacypage.cpp src/pages/shortcuts/shortcuteditdialog.cpp
+#: src/pages/tiling/tilingpage.cpp
 msgid "Remove"
 msgstr "移除"
 
@@ -2066,6 +2072,46 @@ msgid "Move the window to the next display"
 msgstr "将窗口移到下一个显示器"
 
 #: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Tile or untile the desk"
+msgstr "平铺或取消平铺桌面"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Float the window, or tile it again"
+msgstr "让窗口浮动，或重新平铺"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Swap the window with the one on the left"
+msgstr "与左边的窗口交换"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Swap the window with the one on the right"
+msgstr "与右边的窗口交换"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Swap the window with the one above"
+msgstr "与上方的窗口交换"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Swap the window with the one below"
+msgstr "与下方的窗口交换"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Move the edge of the window to the left"
+msgstr "将窗口边缘向左移动"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Move the edge of the window to the right"
+msgstr "将窗口边缘向右移动"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Move the edge of the window up"
+msgstr "将窗口边缘向上移动"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Move the edge of the window down"
+msgstr "将窗口边缘向下移动"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
 msgid "Switch to the desk on the left"
 msgstr "切换到左侧的桌面"
 
@@ -2437,6 +2483,39 @@ msgstr "无输入设备"
 #: src/pages/sound/soundpage.cpp
 msgid "No output devices"
 msgstr "无输出设备"
+
+#: src/pages/tiling/tilingpage.cpp
+msgid "Tiling is managed by the Bayu compositor, which is not running."
+msgstr "平铺由 Bayu 合成器管理，但它未在运行。"
+
+#: src/pages/tiling/tilingpage.cpp
+msgid "Tile windows on every desk"
+msgstr "在每个桌面上平铺窗口"
+
+#: src/pages/tiling/tilingpage.cpp
+msgid "Gap between windows"
+msgstr "窗口间距"
+
+#: src/pages/tiling/tilingpage.cpp
+#, python-brace-format
+msgid "{pixels} px"
+msgstr "{pixels} 像素"
+
+#: src/pages/tiling/tilingpage.cpp
+msgid "Meta+Y tiles or untiles the current desk, as does the tiling button in the status bar. On a tiled desk, Meta+arrow keys move between windows, Meta+Shift+arrow keys swap them, Meta+Alt+arrow keys resize them and Meta+G lets a window float. Drag a window onto another to swap them."
+msgstr "Meta+Y 可平铺或取消平铺当前桌面，状态栏中的平铺按钮也可以。在平铺桌面上，Meta+方向键在窗口间切换，Meta+Shift+方向键交换窗口，Meta+Alt+方向键调整大小，Meta+G 让窗口浮动。将一个窗口拖到另一个窗口上即可交换它们。"
+
+#: src/pages/tiling/tilingpage.cpp
+msgid "Always float"
+msgstr "始终浮动"
+
+#: src/pages/tiling/tilingpage.cpp
+msgid "Add an app"
+msgstr "添加应用"
+
+#: src/pages/tiling/tilingpage.cpp
+msgid "Windows of these apps never tile, nor do dialogs and windows too large for a tile."
+msgstr "这些应用的窗口永不平铺，对话框和对单个图块来说太大的窗口也不平铺。"
 
 #: src/pages/touchpad/touchpadpage.cpp src/window/pagelist.cpp
 msgid "Touchpad"
@@ -2826,6 +2905,10 @@ msgstr "输入源"
 #: src/window/pagelist.cpp
 msgid "screen corners, show desktop, show all windows"
 msgstr "screen corners, show desktop, show all windows, 屏幕角落, 热角, 显示桌面, 显示所有窗口"
+
+#: src/window/pagelist.cpp
+msgid "tile, tiling, split, windows, gaps, float"
+msgstr "平铺, 分割, 窗口, 间距, 浮动"
 
 #: src/window/pagelist.cpp
 msgid "hotkeys, key bindings"

@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bayu-settings\n"
 "Report-Msgid-Bugs-To: https://github.com/bayuos\n"
-"POT-Creation-Date: 2026-11-02 10:59+0000\n"
+"POT-Creation-Date: 2026-11-02 13:25+0000\n"
 "PO-Revision-Date: 2026-10-25 00:00+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -700,7 +700,7 @@ msgstr "ビデオプレーヤー"
 
 #: src/pages/defaultapps/defaultappspage.cpp src/pages/fonts/fontspage.cpp
 #: src/pages/hotcorners/hotcornerspage.cpp src/pages/keyboard/keyboardpage.cpp
-#: src/pages/shortcuts/shortcutspage.cpp
+#: src/pages/shortcuts/shortcutspage.cpp src/pages/tiling/tilingpage.cpp
 msgid "None"
 msgstr "なし"
 
@@ -889,6 +889,11 @@ msgstr "より色付き"
 #: src/window/pagelist.cpp
 msgid "Hot Corners"
 msgstr "ホットコーナー"
+
+#: src/pages/dock/dockpage.cpp src/pages/shortcuts/shortcutsmodel.cpp
+#: src/pages/tiling/tilingpage.cpp src/window/pagelist.cpp
+msgid "Tiling"
+msgstr "タイル表示"
 
 #: src/pages/dock/dockpage.cpp
 msgid "The panel has no top bar, so applications show their menus in their windows. Applications already open may need to be opened again."
@@ -1564,7 +1569,7 @@ msgstr "詳細オプションを表示"
 msgid "Asked on connect"
 msgstr "接続時に確認"
 
-#: src/pages/network/vpn/vpneditor.cpp
+#: src/pages/network/vpn/vpneditor.cpp src/pages/tiling/tilingpage.cpp
 msgid "Choose…"
 msgstr "選択…"
 
@@ -1626,6 +1631,7 @@ msgstr "ピア"
 
 #: src/pages/network/vpn/vpneditor.cpp src/pages/printers/printerspage.cpp
 #: src/pages/privacy/privacypage.cpp src/pages/shortcuts/shortcuteditdialog.cpp
+#: src/pages/tiling/tilingpage.cpp
 msgid "Remove"
 msgstr "削除"
 
@@ -2067,6 +2073,46 @@ msgid "Move the window to the next display"
 msgstr "ウィンドウを次のディスプレイに移動"
 
 #: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Tile or untile the desk"
+msgstr "デスクのタイル表示を切り替える"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Float the window, or tile it again"
+msgstr "ウィンドウをフローティングにする、またはタイルに戻す"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Swap the window with the one on the left"
+msgstr "左のウィンドウと入れ替える"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Swap the window with the one on the right"
+msgstr "右のウィンドウと入れ替える"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Swap the window with the one above"
+msgstr "上のウィンドウと入れ替える"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Swap the window with the one below"
+msgstr "下のウィンドウと入れ替える"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Move the edge of the window to the left"
+msgstr "ウィンドウの端を左へ動かす"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Move the edge of the window to the right"
+msgstr "ウィンドウの端を右へ動かす"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Move the edge of the window up"
+msgstr "ウィンドウの端を上へ動かす"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Move the edge of the window down"
+msgstr "ウィンドウの端を下へ動かす"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
 msgid "Switch to the desk on the left"
 msgstr "左のデスクに切り替え"
 
@@ -2438,6 +2484,39 @@ msgstr "入力デバイスなし"
 #: src/pages/sound/soundpage.cpp
 msgid "No output devices"
 msgstr "出力デバイスなし"
+
+#: src/pages/tiling/tilingpage.cpp
+msgid "Tiling is managed by the Bayu compositor, which is not running."
+msgstr "タイル表示は Bayu コンポジタが管理していますが、実行されていません。"
+
+#: src/pages/tiling/tilingpage.cpp
+msgid "Tile windows on every desk"
+msgstr "すべてのデスクでウィンドウをタイル表示"
+
+#: src/pages/tiling/tilingpage.cpp
+msgid "Gap between windows"
+msgstr "ウィンドウの間隔"
+
+#: src/pages/tiling/tilingpage.cpp
+#, python-brace-format
+msgid "{pixels} px"
+msgstr "{pixels} px"
+
+#: src/pages/tiling/tilingpage.cpp
+msgid "Meta+Y tiles or untiles the current desk, as does the tiling button in the status bar. On a tiled desk, Meta+arrow keys move between windows, Meta+Shift+arrow keys swap them, Meta+Alt+arrow keys resize them and Meta+G lets a window float. Drag a window onto another to swap them."
+msgstr "Meta+Y で現在のデスクをタイル表示にしたり解除したりできます（ステータスバーのタイルボタンも同じです）。タイル表示のデスクでは、Meta+矢印キーでウィンドウ間を移動し、Meta+Shift+矢印キーで入れ替え、Meta+Alt+矢印キーでサイズを変更し、Meta+G でウィンドウをフローティングにします。ウィンドウを別のウィンドウにドラッグすると入れ替わります。"
+
+#: src/pages/tiling/tilingpage.cpp
+msgid "Always float"
+msgstr "常にフローティング"
+
+#: src/pages/tiling/tilingpage.cpp
+msgid "Add an app"
+msgstr "アプリを追加"
+
+#: src/pages/tiling/tilingpage.cpp
+msgid "Windows of these apps never tile, nor do dialogs and windows too large for a tile."
+msgstr "これらのアプリのウィンドウはタイル表示されません。ダイアログやタイルに収まらない大きなウィンドウも同様です。"
 
 #: src/pages/touchpad/touchpadpage.cpp src/window/pagelist.cpp
 msgid "Touchpad"
@@ -2827,6 +2906,10 @@ msgstr "入力ソース"
 #: src/window/pagelist.cpp
 msgid "screen corners, show desktop, show all windows"
 msgstr "画面の隅, デスクトップを表示, すべてのウィンドウを表示, screen corners, show desktop, show all windows"
+
+#: src/window/pagelist.cpp
+msgid "tile, tiling, split, windows, gaps, float"
+msgstr "タイル, タイル表示, 分割, ウィンドウ, 間隔, フローティング"
 
 #: src/window/pagelist.cpp
 msgid "hotkeys, key bindings"

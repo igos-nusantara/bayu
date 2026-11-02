@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bayu-settings\n"
 "Report-Msgid-Bugs-To: https://github.com/bayuos\n"
-"POT-Creation-Date: 2026-11-02 10:59+0000\n"
+"POT-Creation-Date: 2026-11-02 13:25+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -704,7 +704,7 @@ msgstr ""
 
 #: src/pages/defaultapps/defaultappspage.cpp src/pages/fonts/fontspage.cpp
 #: src/pages/hotcorners/hotcornerspage.cpp src/pages/keyboard/keyboardpage.cpp
-#: src/pages/shortcuts/shortcutspage.cpp
+#: src/pages/shortcuts/shortcutspage.cpp src/pages/tiling/tilingpage.cpp
 msgid "None"
 msgstr ""
 
@@ -893,6 +893,11 @@ msgstr ""
 #: src/pages/dock/dockpage.cpp src/pages/hotcorners/hotcornerspage.cpp
 #: src/window/pagelist.cpp
 msgid "Hot Corners"
+msgstr ""
+
+#: src/pages/dock/dockpage.cpp src/pages/shortcuts/shortcutsmodel.cpp
+#: src/pages/tiling/tilingpage.cpp src/window/pagelist.cpp
+msgid "Tiling"
 msgstr ""
 
 #: src/pages/dock/dockpage.cpp
@@ -1569,7 +1574,7 @@ msgstr ""
 msgid "Asked on connect"
 msgstr ""
 
-#: src/pages/network/vpn/vpneditor.cpp
+#: src/pages/network/vpn/vpneditor.cpp src/pages/tiling/tilingpage.cpp
 msgid "Choose…"
 msgstr ""
 
@@ -1631,6 +1636,7 @@ msgstr ""
 
 #: src/pages/network/vpn/vpneditor.cpp src/pages/printers/printerspage.cpp
 #: src/pages/privacy/privacypage.cpp src/pages/shortcuts/shortcuteditdialog.cpp
+#: src/pages/tiling/tilingpage.cpp
 msgid "Remove"
 msgstr ""
 
@@ -2074,6 +2080,46 @@ msgid "Move the window to the next display"
 msgstr ""
 
 #: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Tile or untile the desk"
+msgstr ""
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Float the window, or tile it again"
+msgstr ""
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Swap the window with the one on the left"
+msgstr ""
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Swap the window with the one on the right"
+msgstr ""
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Swap the window with the one above"
+msgstr ""
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Swap the window with the one below"
+msgstr ""
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Move the edge of the window to the left"
+msgstr ""
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Move the edge of the window to the right"
+msgstr ""
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Move the edge of the window up"
+msgstr ""
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Move the edge of the window down"
+msgstr ""
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
 msgid "Switch to the desk on the left"
 msgstr ""
 
@@ -2444,6 +2490,39 @@ msgstr ""
 
 #: src/pages/sound/soundpage.cpp
 msgid "No output devices"
+msgstr ""
+
+#: src/pages/tiling/tilingpage.cpp
+msgid "Tiling is managed by the Bayu compositor, which is not running."
+msgstr ""
+
+#: src/pages/tiling/tilingpage.cpp
+msgid "Tile windows on every desk"
+msgstr ""
+
+#: src/pages/tiling/tilingpage.cpp
+msgid "Gap between windows"
+msgstr ""
+
+#: src/pages/tiling/tilingpage.cpp
+#, python-brace-format
+msgid "{pixels} px"
+msgstr ""
+
+#: src/pages/tiling/tilingpage.cpp
+msgid "Meta+Y tiles or untiles the current desk, as does the tiling button in the status bar. On a tiled desk, Meta+arrow keys move between windows, Meta+Shift+arrow keys swap them, Meta+Alt+arrow keys resize them and Meta+G lets a window float. Drag a window onto another to swap them."
+msgstr ""
+
+#: src/pages/tiling/tilingpage.cpp
+msgid "Always float"
+msgstr ""
+
+#: src/pages/tiling/tilingpage.cpp
+msgid "Add an app"
+msgstr ""
+
+#: src/pages/tiling/tilingpage.cpp
+msgid "Windows of these apps never tile, nor do dialogs and windows too large for a tile."
 msgstr ""
 
 #: src/pages/touchpad/touchpadpage.cpp src/window/pagelist.cpp
@@ -2837,6 +2916,10 @@ msgstr ""
 
 #: src/window/pagelist.cpp
 msgid "screen corners, show desktop, show all windows"
+msgstr ""
+
+#: src/window/pagelist.cpp
+msgid "tile, tiling, split, windows, gaps, float"
 msgstr ""
 
 #: src/window/pagelist.cpp

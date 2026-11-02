@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bayu-settings\n"
 "Report-Msgid-Bugs-To: https://github.com/bayuos\n"
-"POT-Creation-Date: 2026-11-02 10:59+0000\n"
+"POT-Creation-Date: 2026-11-02 13:25+0000\n"
 "PO-Revision-Date: 2026-10-25 12:00+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -703,7 +703,7 @@ msgstr "Lecteur vidéo"
 
 #: src/pages/defaultapps/defaultappspage.cpp src/pages/fonts/fontspage.cpp
 #: src/pages/hotcorners/hotcornerspage.cpp src/pages/keyboard/keyboardpage.cpp
-#: src/pages/shortcuts/shortcutspage.cpp
+#: src/pages/shortcuts/shortcutspage.cpp src/pages/tiling/tilingpage.cpp
 msgid "None"
 msgstr "Aucun"
 
@@ -893,6 +893,11 @@ msgstr "Plus teinté"
 #: src/window/pagelist.cpp
 msgid "Hot Corners"
 msgstr "Coins actifs"
+
+#: src/pages/dock/dockpage.cpp src/pages/shortcuts/shortcutsmodel.cpp
+#: src/pages/tiling/tilingpage.cpp src/window/pagelist.cpp
+msgid "Tiling"
+msgstr "Mosaïque"
 
 #: src/pages/dock/dockpage.cpp
 msgid "The panel has no top bar, so applications show their menus in their windows. Applications already open may need to be opened again."
@@ -1568,7 +1573,7 @@ msgstr "Afficher les options avancées"
 msgid "Asked on connect"
 msgstr "Demandé à la connexion"
 
-#: src/pages/network/vpn/vpneditor.cpp
+#: src/pages/network/vpn/vpneditor.cpp src/pages/tiling/tilingpage.cpp
 msgid "Choose…"
 msgstr "Choisir…"
 
@@ -1630,6 +1635,7 @@ msgstr "Pair"
 
 #: src/pages/network/vpn/vpneditor.cpp src/pages/printers/printerspage.cpp
 #: src/pages/privacy/privacypage.cpp src/pages/shortcuts/shortcuteditdialog.cpp
+#: src/pages/tiling/tilingpage.cpp
 msgid "Remove"
 msgstr "Supprimer"
 
@@ -2073,6 +2079,46 @@ msgid "Move the window to the next display"
 msgstr "Déplacer la fenêtre vers l’écran suivant"
 
 #: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Tile or untile the desk"
+msgstr "Mettre le bureau en mosaïque ou l’en retirer"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Float the window, or tile it again"
+msgstr "Rendre la fenêtre flottante, ou la remettre en mosaïque"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Swap the window with the one on the left"
+msgstr "Échanger la fenêtre avec celle de gauche"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Swap the window with the one on the right"
+msgstr "Échanger la fenêtre avec celle de droite"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Swap the window with the one above"
+msgstr "Échanger la fenêtre avec celle du dessus"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Swap the window with the one below"
+msgstr "Échanger la fenêtre avec celle du dessous"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Move the edge of the window to the left"
+msgstr "Déplacer le bord de la fenêtre vers la gauche"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Move the edge of the window to the right"
+msgstr "Déplacer le bord de la fenêtre vers la droite"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Move the edge of the window up"
+msgstr "Déplacer le bord de la fenêtre vers le haut"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Move the edge of the window down"
+msgstr "Déplacer le bord de la fenêtre vers le bas"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
 msgid "Switch to the desk on the left"
 msgstr "Passer au bureau de gauche"
 
@@ -2444,6 +2490,39 @@ msgstr "Aucun périphérique d’entrée"
 #: src/pages/sound/soundpage.cpp
 msgid "No output devices"
 msgstr "Aucun périphérique de sortie"
+
+#: src/pages/tiling/tilingpage.cpp
+msgid "Tiling is managed by the Bayu compositor, which is not running."
+msgstr "La mosaïque est gérée par le compositeur Bayu, qui n’est pas en cours d’exécution."
+
+#: src/pages/tiling/tilingpage.cpp
+msgid "Tile windows on every desk"
+msgstr "Disposer les fenêtres en mosaïque sur chaque bureau"
+
+#: src/pages/tiling/tilingpage.cpp
+msgid "Gap between windows"
+msgstr "Espace entre les fenêtres"
+
+#: src/pages/tiling/tilingpage.cpp
+#, python-brace-format
+msgid "{pixels} px"
+msgstr "{pixels} px"
+
+#: src/pages/tiling/tilingpage.cpp
+msgid "Meta+Y tiles or untiles the current desk, as does the tiling button in the status bar. On a tiled desk, Meta+arrow keys move between windows, Meta+Shift+arrow keys swap them, Meta+Alt+arrow keys resize them and Meta+G lets a window float. Drag a window onto another to swap them."
+msgstr "Meta+Y dispose le bureau actuel en mosaïque ou l’en retire, comme le bouton de mosaïque de la barre d’état. Sur un bureau en mosaïque, Meta+flèches passent d’une fenêtre à l’autre, Meta+Maj+flèches les échangent, Meta+Alt+flèches les redimensionnent et Meta+G rend une fenêtre flottante. Faites glisser une fenêtre sur une autre pour les échanger."
+
+#: src/pages/tiling/tilingpage.cpp
+msgid "Always float"
+msgstr "Toujours flottantes"
+
+#: src/pages/tiling/tilingpage.cpp
+msgid "Add an app"
+msgstr "Ajouter une app"
+
+#: src/pages/tiling/tilingpage.cpp
+msgid "Windows of these apps never tile, nor do dialogs and windows too large for a tile."
+msgstr "Les fenêtres de ces apps ne sont jamais en mosaïque, pas plus que les dialogues et les fenêtres trop grandes pour une tuile."
 
 #: src/pages/touchpad/touchpadpage.cpp src/window/pagelist.cpp
 msgid "Touchpad"
@@ -2837,6 +2916,10 @@ msgstr "source de saisie"
 #: src/window/pagelist.cpp
 msgid "screen corners, show desktop, show all windows"
 msgstr "coins de l’écran, afficher le bureau, afficher toutes les fenêtres"
+
+#: src/window/pagelist.cpp
+msgid "tile, tiling, split, windows, gaps, float"
+msgstr "mosaïque, tuile, diviser, fenêtres, espace, flottante"
 
 #: src/window/pagelist.cpp
 msgid "hotkeys, key bindings"

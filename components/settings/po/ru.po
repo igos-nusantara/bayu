@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bayu-settings\n"
 "Report-Msgid-Bugs-To: https://github.com/bayuos\n"
-"POT-Creation-Date: 2026-11-02 10:59+0000\n"
+"POT-Creation-Date: 2026-11-02 13:25+0000\n"
 "PO-Revision-Date: 2026-10-25 00:00+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -707,7 +707,7 @@ msgstr "Видеоплеер"
 
 #: src/pages/defaultapps/defaultappspage.cpp src/pages/fonts/fontspage.cpp
 #: src/pages/hotcorners/hotcornerspage.cpp src/pages/keyboard/keyboardpage.cpp
-#: src/pages/shortcuts/shortcutspage.cpp
+#: src/pages/shortcuts/shortcutspage.cpp src/pages/tiling/tilingpage.cpp
 msgid "None"
 msgstr "Нет"
 
@@ -898,6 +898,11 @@ msgstr "Темнее"
 #: src/window/pagelist.cpp
 msgid "Hot Corners"
 msgstr "Активные углы"
+
+#: src/pages/dock/dockpage.cpp src/pages/shortcuts/shortcutsmodel.cpp
+#: src/pages/tiling/tilingpage.cpp src/window/pagelist.cpp
+msgid "Tiling"
+msgstr "Мозаика"
 
 #: src/pages/dock/dockpage.cpp
 msgid "The panel has no top bar, so applications show their menus in their windows. Applications already open may need to be opened again."
@@ -1573,7 +1578,7 @@ msgstr "Показать дополнительные параметры"
 msgid "Asked on connect"
 msgstr "Запрашивается при подключении"
 
-#: src/pages/network/vpn/vpneditor.cpp
+#: src/pages/network/vpn/vpneditor.cpp src/pages/tiling/tilingpage.cpp
 msgid "Choose…"
 msgstr "Выбрать…"
 
@@ -1635,6 +1640,7 @@ msgstr "Пир"
 
 #: src/pages/network/vpn/vpneditor.cpp src/pages/printers/printerspage.cpp
 #: src/pages/privacy/privacypage.cpp src/pages/shortcuts/shortcuteditdialog.cpp
+#: src/pages/tiling/tilingpage.cpp
 msgid "Remove"
 msgstr "Удалить"
 
@@ -2080,6 +2086,46 @@ msgid "Move the window to the next display"
 msgstr "Переместить окно на следующий дисплей"
 
 #: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Tile or untile the desk"
+msgstr "Включить или выключить мозаику стола"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Float the window, or tile it again"
+msgstr "Сделать окно плавающим или вернуть в мозаику"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Swap the window with the one on the left"
+msgstr "Поменять окно местами с левым"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Swap the window with the one on the right"
+msgstr "Поменять окно местами с правым"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Swap the window with the one above"
+msgstr "Поменять окно местами с верхним"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Swap the window with the one below"
+msgstr "Поменять окно местами с нижним"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Move the edge of the window to the left"
+msgstr "Сдвинуть край окна влево"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Move the edge of the window to the right"
+msgstr "Сдвинуть край окна вправо"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Move the edge of the window up"
+msgstr "Сдвинуть край окна вверх"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Move the edge of the window down"
+msgstr "Сдвинуть край окна вниз"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
 msgid "Switch to the desk on the left"
 msgstr "Перейти на рабочее пространство слева"
 
@@ -2451,6 +2497,39 @@ msgstr "Нет устройств ввода"
 #: src/pages/sound/soundpage.cpp
 msgid "No output devices"
 msgstr "Нет устройств вывода"
+
+#: src/pages/tiling/tilingpage.cpp
+msgid "Tiling is managed by the Bayu compositor, which is not running."
+msgstr "Мозаикой управляет композитор Bayu, который не запущен."
+
+#: src/pages/tiling/tilingpage.cpp
+msgid "Tile windows on every desk"
+msgstr "Мозаика окон на каждом столе"
+
+#: src/pages/tiling/tilingpage.cpp
+msgid "Gap between windows"
+msgstr "Промежуток между окнами"
+
+#: src/pages/tiling/tilingpage.cpp
+#, python-brace-format
+msgid "{pixels} px"
+msgstr "{pixels} пкс"
+
+#: src/pages/tiling/tilingpage.cpp
+msgid "Meta+Y tiles or untiles the current desk, as does the tiling button in the status bar. On a tiled desk, Meta+arrow keys move between windows, Meta+Shift+arrow keys swap them, Meta+Alt+arrow keys resize them and Meta+G lets a window float. Drag a window onto another to swap them."
+msgstr "Meta+Y включает или выключает мозаику на текущем столе, как и кнопка мозаики в строке состояния. На столе с мозаикой Meta+стрелки переключают окна, Meta+Shift+стрелки меняют их местами, Meta+Alt+стрелки меняют размер, а Meta+G делает окно плавающим. Перетащите окно на другое, чтобы поменять их местами."
+
+#: src/pages/tiling/tilingpage.cpp
+msgid "Always float"
+msgstr "Всегда плавающие"
+
+#: src/pages/tiling/tilingpage.cpp
+msgid "Add an app"
+msgstr "Добавить приложение"
+
+#: src/pages/tiling/tilingpage.cpp
+msgid "Windows of these apps never tile, nor do dialogs and windows too large for a tile."
+msgstr "Окна этих приложений никогда не встают в мозаику, как и диалоги и окна, слишком большие для плитки."
 
 #: src/pages/touchpad/touchpadpage.cpp src/window/pagelist.cpp
 msgid "Touchpad"
@@ -2848,6 +2927,10 @@ msgstr "источник ввода, input source"
 #: src/window/pagelist.cpp
 msgid "screen corners, show desktop, show all windows"
 msgstr "углы экрана, показать рабочий стол, показать все окна, screen corners, show desktop, show all windows"
+
+#: src/window/pagelist.cpp
+msgid "tile, tiling, split, windows, gaps, float"
+msgstr "мозаика, плитка, разделить, окна, промежуток, плавающее"
 
 #: src/window/pagelist.cpp
 msgid "hotkeys, key bindings"

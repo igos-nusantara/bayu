@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bayu-settings\n"
 "Report-Msgid-Bugs-To: https://github.com/bayuos\n"
-"POT-Creation-Date: 2026-11-02 10:59+0000\n"
+"POT-Creation-Date: 2026-11-02 13:25+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -699,7 +699,7 @@ msgstr "Pemain video"
 
 #: src/pages/defaultapps/defaultappspage.cpp src/pages/fonts/fontspage.cpp
 #: src/pages/hotcorners/hotcornerspage.cpp src/pages/keyboard/keyboardpage.cpp
-#: src/pages/shortcuts/shortcutspage.cpp
+#: src/pages/shortcuts/shortcutspage.cpp src/pages/tiling/tilingpage.cpp
 msgid "None"
 msgstr "Tiada"
 
@@ -888,6 +888,11 @@ msgstr "Lebih berwarna"
 #: src/window/pagelist.cpp
 msgid "Hot Corners"
 msgstr "Sudut Panas"
+
+#: src/pages/dock/dockpage.cpp src/pages/shortcuts/shortcutsmodel.cpp
+#: src/pages/tiling/tilingpage.cpp src/window/pagelist.cpp
+msgid "Tiling"
+msgstr "Penjubinan"
 
 #: src/pages/dock/dockpage.cpp
 msgid "The panel has no top bar, so applications show their menus in their windows. Applications already open may need to be opened again."
@@ -1563,7 +1568,7 @@ msgstr "Tunjukkan pilihan lanjutan"
 msgid "Asked on connect"
 msgstr "Ditanya semasa menyambung"
 
-#: src/pages/network/vpn/vpneditor.cpp
+#: src/pages/network/vpn/vpneditor.cpp src/pages/tiling/tilingpage.cpp
 msgid "Choose…"
 msgstr "Pilih…"
 
@@ -1625,6 +1630,7 @@ msgstr "Rakan sebaya"
 
 #: src/pages/network/vpn/vpneditor.cpp src/pages/printers/printerspage.cpp
 #: src/pages/privacy/privacypage.cpp src/pages/shortcuts/shortcuteditdialog.cpp
+#: src/pages/tiling/tilingpage.cpp
 msgid "Remove"
 msgstr "Alih keluar"
 
@@ -2066,6 +2072,46 @@ msgid "Move the window to the next display"
 msgstr "Alihkan tetingkap ke paparan seterusnya"
 
 #: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Tile or untile the desk"
+msgstr "Jubin atau nyahjubin desk"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Float the window, or tile it again"
+msgstr "Apungkan tetingkap, atau jubin semula"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Swap the window with the one on the left"
+msgstr "Tukar tetingkap dengan yang di kiri"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Swap the window with the one on the right"
+msgstr "Tukar tetingkap dengan yang di kanan"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Swap the window with the one above"
+msgstr "Tukar tetingkap dengan yang di atas"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Swap the window with the one below"
+msgstr "Tukar tetingkap dengan yang di bawah"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Move the edge of the window to the left"
+msgstr "Alihkan tepi tetingkap ke kiri"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Move the edge of the window to the right"
+msgstr "Alihkan tepi tetingkap ke kanan"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Move the edge of the window up"
+msgstr "Alihkan tepi tetingkap ke atas"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Move the edge of the window down"
+msgstr "Alihkan tepi tetingkap ke bawah"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
 msgid "Switch to the desk on the left"
 msgstr "Tukar ke desktop maya di sebelah kiri"
 
@@ -2437,6 +2483,39 @@ msgstr "Tiada peranti input"
 #: src/pages/sound/soundpage.cpp
 msgid "No output devices"
 msgstr "Tiada peranti output"
+
+#: src/pages/tiling/tilingpage.cpp
+msgid "Tiling is managed by the Bayu compositor, which is not running."
+msgstr "Penjubinan diurus oleh compositor Bayu, yang tidak berjalan."
+
+#: src/pages/tiling/tilingpage.cpp
+msgid "Tile windows on every desk"
+msgstr "Jubin tetingkap pada setiap desk"
+
+#: src/pages/tiling/tilingpage.cpp
+msgid "Gap between windows"
+msgstr "Jarak antara tetingkap"
+
+#: src/pages/tiling/tilingpage.cpp
+#, python-brace-format
+msgid "{pixels} px"
+msgstr "{pixels} px"
+
+#: src/pages/tiling/tilingpage.cpp
+msgid "Meta+Y tiles or untiles the current desk, as does the tiling button in the status bar. On a tiled desk, Meta+arrow keys move between windows, Meta+Shift+arrow keys swap them, Meta+Alt+arrow keys resize them and Meta+G lets a window float. Drag a window onto another to swap them."
+msgstr "Meta+Y menjubin atau menyahjubin desk semasa, sama seperti butang penjubinan dalam bar status. Pada desk berjubin, Meta+anak panah beralih antara tetingkap, Meta+Shift+anak panah menukar tetingkap, Meta+Alt+anak panah mengubah saiznya dan Meta+G menjadikan tetingkap terapung. Seret tetingkap ke tetingkap lain untuk menukarnya."
+
+#: src/pages/tiling/tilingpage.cpp
+msgid "Always float"
+msgstr "Sentiasa terapung"
+
+#: src/pages/tiling/tilingpage.cpp
+msgid "Add an app"
+msgstr "Tambah aplikasi"
+
+#: src/pages/tiling/tilingpage.cpp
+msgid "Windows of these apps never tile, nor do dialogs and windows too large for a tile."
+msgstr "Tetingkap aplikasi ini tidak pernah dijubin, begitu juga dialog dan tetingkap yang terlalu besar untuk satu jubin."
 
 #: src/pages/touchpad/touchpadpage.cpp src/window/pagelist.cpp
 msgid "Touchpad"
@@ -2826,6 +2905,10 @@ msgstr "sumber input"
 #: src/window/pagelist.cpp
 msgid "screen corners, show desktop, show all windows"
 msgstr "sudut skrin, tunjuk desktop, tunjuk semua tetingkap"
+
+#: src/window/pagelist.cpp
+msgid "tile, tiling, split, windows, gaps, float"
+msgstr "jubin, penjubinan, bahagi, tetingkap, jarak, terapung"
 
 #: src/window/pagelist.cpp
 msgid "hotkeys, key bindings"

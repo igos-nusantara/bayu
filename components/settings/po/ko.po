@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bayu-settings\n"
 "Report-Msgid-Bugs-To: https://github.com/bayuos\n"
-"POT-Creation-Date: 2026-11-02 10:59+0000\n"
+"POT-Creation-Date: 2026-11-02 13:25+0000\n"
 "PO-Revision-Date: 2026-10-25 12:00+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -699,7 +699,7 @@ msgstr "비디오 플레이어"
 
 #: src/pages/defaultapps/defaultappspage.cpp src/pages/fonts/fontspage.cpp
 #: src/pages/hotcorners/hotcornerspage.cpp src/pages/keyboard/keyboardpage.cpp
-#: src/pages/shortcuts/shortcutspage.cpp
+#: src/pages/shortcuts/shortcutspage.cpp src/pages/tiling/tilingpage.cpp
 msgid "None"
 msgstr "없음"
 
@@ -888,6 +888,11 @@ msgstr "더 짙게"
 #: src/window/pagelist.cpp
 msgid "Hot Corners"
 msgstr "핫 코너"
+
+#: src/pages/dock/dockpage.cpp src/pages/shortcuts/shortcutsmodel.cpp
+#: src/pages/tiling/tilingpage.cpp src/window/pagelist.cpp
+msgid "Tiling"
+msgstr "타일링"
 
 #: src/pages/dock/dockpage.cpp
 msgid "The panel has no top bar, so applications show their menus in their windows. Applications already open may need to be opened again."
@@ -1563,7 +1568,7 @@ msgstr "고급 옵션 표시"
 msgid "Asked on connect"
 msgstr "연결 시 묻기"
 
-#: src/pages/network/vpn/vpneditor.cpp
+#: src/pages/network/vpn/vpneditor.cpp src/pages/tiling/tilingpage.cpp
 msgid "Choose…"
 msgstr "선택…"
 
@@ -1625,6 +1630,7 @@ msgstr "피어"
 
 #: src/pages/network/vpn/vpneditor.cpp src/pages/printers/printerspage.cpp
 #: src/pages/privacy/privacypage.cpp src/pages/shortcuts/shortcuteditdialog.cpp
+#: src/pages/tiling/tilingpage.cpp
 msgid "Remove"
 msgstr "제거"
 
@@ -2066,6 +2072,46 @@ msgid "Move the window to the next display"
 msgstr "창을 다음 디스플레이로 이동"
 
 #: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Tile or untile the desk"
+msgstr "데스크 타일링 켜기 또는 끄기"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Float the window, or tile it again"
+msgstr "창을 띄우거나 다시 타일링"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Swap the window with the one on the left"
+msgstr "왼쪽 창과 바꾸기"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Swap the window with the one on the right"
+msgstr "오른쪽 창과 바꾸기"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Swap the window with the one above"
+msgstr "위쪽 창과 바꾸기"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Swap the window with the one below"
+msgstr "아래쪽 창과 바꾸기"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Move the edge of the window to the left"
+msgstr "창 가장자리를 왼쪽으로 이동"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Move the edge of the window to the right"
+msgstr "창 가장자리를 오른쪽으로 이동"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Move the edge of the window up"
+msgstr "창 가장자리를 위로 이동"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Move the edge of the window down"
+msgstr "창 가장자리를 아래로 이동"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
 msgid "Switch to the desk on the left"
 msgstr "왼쪽 데스크로 전환"
 
@@ -2437,6 +2483,39 @@ msgstr "입력 장치 없음"
 #: src/pages/sound/soundpage.cpp
 msgid "No output devices"
 msgstr "출력 장치 없음"
+
+#: src/pages/tiling/tilingpage.cpp
+msgid "Tiling is managed by the Bayu compositor, which is not running."
+msgstr "타일링은 Bayu 컴포지터가 관리하지만 실행 중이 아닙니다."
+
+#: src/pages/tiling/tilingpage.cpp
+msgid "Tile windows on every desk"
+msgstr "모든 데스크에서 창 타일링"
+
+#: src/pages/tiling/tilingpage.cpp
+msgid "Gap between windows"
+msgstr "창 사이 간격"
+
+#: src/pages/tiling/tilingpage.cpp
+#, python-brace-format
+msgid "{pixels} px"
+msgstr "{pixels}px"
+
+#: src/pages/tiling/tilingpage.cpp
+msgid "Meta+Y tiles or untiles the current desk, as does the tiling button in the status bar. On a tiled desk, Meta+arrow keys move between windows, Meta+Shift+arrow keys swap them, Meta+Alt+arrow keys resize them and Meta+G lets a window float. Drag a window onto another to swap them."
+msgstr "Meta+Y로 현재 데스크의 타일링을 켜거나 끕니다. 상태 표시줄의 타일링 버튼도 같습니다. 타일링된 데스크에서 Meta+화살표 키는 창 사이를 이동하고, Meta+Shift+화살표 키는 창을 바꾸며, Meta+Alt+화살표 키는 크기를 조절하고, Meta+G는 창을 띄웁니다. 창을 다른 창 위로 끌어 놓으면 서로 바뀝니다."
+
+#: src/pages/tiling/tilingpage.cpp
+msgid "Always float"
+msgstr "항상 띄우기"
+
+#: src/pages/tiling/tilingpage.cpp
+msgid "Add an app"
+msgstr "앱 추가"
+
+#: src/pages/tiling/tilingpage.cpp
+msgid "Windows of these apps never tile, nor do dialogs and windows too large for a tile."
+msgstr "이 앱의 창은 타일링되지 않으며, 대화 상자와 타일에 비해 너무 큰 창도 마찬가지입니다."
 
 #: src/pages/touchpad/touchpadpage.cpp src/window/pagelist.cpp
 msgid "Touchpad"
@@ -2826,6 +2905,10 @@ msgstr "입력 소스"
 #: src/window/pagelist.cpp
 msgid "screen corners, show desktop, show all windows"
 msgstr "화면 모서리, 바탕 화면 보기, 모든 창 보기"
+
+#: src/window/pagelist.cpp
+msgid "tile, tiling, split, windows, gaps, float"
+msgstr "타일, 타일링, 분할, 창, 간격, 띄우기"
 
 #: src/window/pagelist.cpp
 msgid "hotkeys, key bindings"
