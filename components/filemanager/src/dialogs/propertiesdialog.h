@@ -16,10 +16,6 @@
 #include <optional>
 #include <string>
 
-namespace bayu::base {
-class Process;
-}
-
 namespace bayu::ui {
 class GridLayout;
 class Label;
@@ -30,8 +26,7 @@ namespace fm {
 // The item's icon and
 // name, then type, location, size (counted on a worker for folders and
 // several items), and its times. For one item, its owner, group and who may
-// read and write it, changed where it is shown (#146), and a file's SHA-256
-// when asked for.
+// read and write it, changed where it is shown (#146).
 class PropertiesDialog : public FramelessDialog
 {
 public:
@@ -49,7 +44,6 @@ private:
     void changeMode(mode_t mode);
     void changeOwner(uid_t uid, gid_t gid);
     void applyToContents();
-    void computeChecksum();
     void reread();
 
     FileItemList m_items;
@@ -71,9 +65,6 @@ private:
     bool m_canChange = false;
     bool m_administrator = false;
     std::string m_permissionNote;
-    // Empty until asked for.
-    std::string m_checksum;
-    std::unique_ptr<base::Process> m_checksumProcess;
     base::Job m_contentsJob;
     base::Job m_sizeJob;
     std::shared_ptr<std::atomic_bool> m_cancelled = std::make_shared<std::atomic_bool>(false);

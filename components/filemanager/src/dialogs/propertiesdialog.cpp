@@ -7,7 +7,6 @@
 
 #include "base/i18n.h"
 #include "base/locale.h"
-#include "base/process.h"
 #include "ui/button.h"
 #include "ui/check_box.h"
 #include "ui/combo_box.h"
@@ -168,23 +167,6 @@ void PropertiesDialog::applyToContents()
                                                    });
 }
 
-void PropertiesDialog::computeChecksum()
-{
-    m_checksum = tr("Calculating...");
-    rebuildContent();
-    m_checksumProcess = std::make_unique<base::Process>();
-    m_checksumProcess->onFinished = [this](int exitCode, bool crashed) {
-        const std::string output = m_checksumProcess->standardOutput();
-        m_checksum = exitCode == 0 && !crashed ? output.substr(0, output.find(' ')) : std::string(tr("Not available"));
-        rebuildContent();
-        fit();
-    };
-    if (!m_checksumProcess->start("sha256sum", {"--", m_path})) {
-        m_checksum = tr("Not available");
-        rebuildContent();
-    }
-}
-
 void PropertiesDialog::addPermissions(ui::GridLayout* form, double labelWidth)
 {
     using permissions::Access;
@@ -278,18 +260,6 @@ void PropertiesDialog::addPermissions(ui::GridLayout* form, double labelWidth)
         hint->setLayoutHints({.fillWidth = true});
     }
 
-    if (!folder && S_ISREG(st.st_mode)) {
-        label(trNoop("SHA-256:"));
-        if (m_checksum.empty()) {
-            auto* calculate = form->addChild<ui::Button>(tr("Calculate"));
-            calculate->onClicked = [this] { computeChecksum(); };
-        } else {
-            auto* value = form->addChild<ui::Label>(m_checksum);
-            value->setWrapAnywhere(true);
-            value->setWrap(true);
-            value->setLayoutHints({.fillWidth = true});
-        }
-    }
 }
 
 void PropertiesDialog::retranslate()
@@ -324,7 +294,7 @@ std::unique_ptr<ui::View> PropertiesDialog::createContent()
     };
     // The Permissions rows' labels share the column.
     const std::vector<std::string> permissionLabels = m_stat
-            ? std::vector<std::string>{"Owner:", "Group:", "Owner access:", "Group access:", "Others access:", "SHA-256:"}
+            ? std::vector<std::string>{"Owner:", "Group:", "Owner access:", "Group access:", "Others access:"}
             : std::vector<std::string>{};
 
     // Hidden rows leave the grid, so the label column is measured over all.

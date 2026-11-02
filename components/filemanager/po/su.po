@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bayu-filemanager\n"
 "Report-Msgid-Bugs-To: https://github.com/bayuos\n"
-"POT-Creation-Date: 2026-11-02 08:27+0000\n"
+"POT-Creation-Date: 2026-11-02 08:35+0000\n"
 "PO-Revision-Date: 2026-10-25 12:00+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -735,14 +735,6 @@ msgid "The folder's contents were changed."
 msgstr "Eusi folder parantos dirobih."
 
 #: src/dialogs/propertiesdialog.cpp
-msgid "Calculating..."
-msgstr "Nuju ngitung..."
-
-#: src/dialogs/propertiesdialog.cpp
-msgid "Not available"
-msgstr "Teu sayogi"
-
-#: src/dialogs/propertiesdialog.cpp
 msgid "Owner:"
 msgstr "Nu gaduh:"
 
@@ -787,14 +779,6 @@ msgid "Only the owner can change these. Open the folder as an administrator to c
 msgstr "Ngan nu gaduh anu tiasa ngarobih ieu. Buka folder salaku administrator pikeun ngarobihna."
 
 #: src/dialogs/propertiesdialog.cpp
-msgid "SHA-256:"
-msgstr "SHA-256:"
-
-#: src/dialogs/propertiesdialog.cpp
-msgid "Calculate"
-msgstr "Itung"
-
-#: src/dialogs/propertiesdialog.cpp
 msgid "Type:"
 msgstr "Jenis:"
 
@@ -805,6 +789,10 @@ msgstr "Lokasi:"
 #: src/dialogs/propertiesdialog.cpp
 msgid "Size:"
 msgstr "Ukuran:"
+
+#: src/dialogs/propertiesdialog.cpp
+msgid "Calculating..."
+msgstr "Nuju ngitung..."
 
 #: src/dialogs/propertiesdialog.cpp
 msgid "Created:"

@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bayu-filemanager\n"
 "Report-Msgid-Bugs-To: https://github.com/bayuos\n"
-"POT-Creation-Date: 2026-11-02 08:27+0000\n"
+"POT-Creation-Date: 2026-11-02 08:35+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -749,14 +749,6 @@ msgid "The folder's contents were changed."
 msgstr ""
 
 #: src/dialogs/propertiesdialog.cpp
-msgid "Calculating..."
-msgstr ""
-
-#: src/dialogs/propertiesdialog.cpp
-msgid "Not available"
-msgstr ""
-
-#: src/dialogs/propertiesdialog.cpp
 msgid "Owner:"
 msgstr ""
 
@@ -801,14 +793,6 @@ msgid "Only the owner can change these. Open the folder as an administrator to c
 msgstr ""
 
 #: src/dialogs/propertiesdialog.cpp
-msgid "SHA-256:"
-msgstr ""
-
-#: src/dialogs/propertiesdialog.cpp
-msgid "Calculate"
-msgstr ""
-
-#: src/dialogs/propertiesdialog.cpp
 msgid "Type:"
 msgstr ""
 
@@ -818,6 +802,10 @@ msgstr ""
 
 #: src/dialogs/propertiesdialog.cpp
 msgid "Size:"
+msgstr ""
+
+#: src/dialogs/propertiesdialog.cpp
+msgid "Calculating..."
 msgstr ""
 
 #: src/dialogs/propertiesdialog.cpp

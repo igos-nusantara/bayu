@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bayu-filemanager\n"
 "Report-Msgid-Bugs-To: https://github.com/bayuos\n"
-"POT-Creation-Date: 2026-11-02 08:27+0000\n"
+"POT-Creation-Date: 2026-11-02 08:35+0000\n"
 "PO-Revision-Date: 2026-10-25 00:00+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -736,14 +736,6 @@ msgid "The folder's contents were changed."
 msgstr "フォルダーの中身を変更しました。"
 
 #: src/dialogs/propertiesdialog.cpp
-msgid "Calculating..."
-msgstr "計算中..."
-
-#: src/dialogs/propertiesdialog.cpp
-msgid "Not available"
-msgstr "利用できません"
-
-#: src/dialogs/propertiesdialog.cpp
 msgid "Owner:"
 msgstr "所有者:"
 
@@ -788,14 +780,6 @@ msgid "Only the owner can change these. Open the folder as an administrator to c
 msgstr "これを変更できるのは所有者だけです。変更するには管理者としてフォルダーを開いてください。"
 
 #: src/dialogs/propertiesdialog.cpp
-msgid "SHA-256:"
-msgstr "SHA-256:"
-
-#: src/dialogs/propertiesdialog.cpp
-msgid "Calculate"
-msgstr "計算"
-
-#: src/dialogs/propertiesdialog.cpp
 msgid "Type:"
 msgstr "種類:"
 
@@ -806,6 +790,10 @@ msgstr "場所:"
 #: src/dialogs/propertiesdialog.cpp
 msgid "Size:"
 msgstr "サイズ:"
+
+#: src/dialogs/propertiesdialog.cpp
+msgid "Calculating..."
+msgstr "計算中..."
 
 #: src/dialogs/propertiesdialog.cpp
 msgid "Created:"
