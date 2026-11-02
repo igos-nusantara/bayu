@@ -250,27 +250,34 @@ void TilingController::insert(Window *window)
         tree->root = std::move(leaf);
     } else {
         // Next to the active window, or, tiling a desk, the window before;
-        // failing either, in the largest tile.
-        Tile *target = nullptr;
+        // where both halves would not fit, in the largest tile.
+        Tile *preferred = nullptr;
         const Window *after = m_bulk ? m_lastInserted : m_manager->activation()->activeWindow();
         if (const auto it = m_leaves.find(after); it != m_leaves.end() && it->second.tree == tree)
-            target = it->second.tile;
-        if (!target) {
-            for (const auto &[other, entry] : m_leaves) {
-                if (entry.tree == tree
-                    && (!target
-                        || int64_t(entry.tile->rect.width()) * entry.tile->rect.height()
-                                > int64_t(target->rect.width()) * target->rect.height()))
-                    target = entry.tile;
+            preferred = it->second.tile;
+        Tile *largest = nullptr;
+        for (const auto &[other, entry] : m_leaves) {
+            if (entry.tree == tree
+                && (!largest
+                    || int64_t(entry.tile->rect.width()) * entry.tile->rect.height()
+                            > int64_t(largest->rect.width()) * largest->rect.height()))
+                largest = entry.tile;
+        }
+        Tile *target = nullptr;
+        bool vertical = false;
+        base::Rect first, second;
+        for (Tile *candidate : {preferred, largest}) {
+            if (!candidate)
+                continue;
+            // Along the longer side, as the tile is now.
+            vertical = candidate->rect.height() > candidate->rect.width();
+            splitRect(candidate->rect, vertical, 0.5, m_gap, &first, &second);
+            if (fits(candidate->window, first) && fits(window, second)) {
+                target = candidate;
+                break;
             }
         }
-        if (!target)
-            return;
-        // Along the longer side, as the tile is now.
-        const bool vertical = target->rect.height() > target->rect.width();
-        base::Rect first, second;
-        splitRect(target->rect, vertical, 0.5, m_gap, &first, &second);
-        if (!fits(target->window, first) || !fits(window, second)) {
+        if (!target) {
             m_tooLarge.insert(window);
             return;
         }

@@ -3001,3 +3001,24 @@ TEST_F(WmTest, DraggingTilesResizesTheSplitAndSwapsOnDrop)
     EXPECT_EQ(base::Rect(8, 8, 588, 784), right->bounds());
     EXPECT_EQ(base::Rect(604, 8, 388, 784), left->bounds());
 }
+
+TEST_F(WmTest, AWindowTooLargeForTheActiveTileTakesTheLargestOne)
+{
+    manager.tiling()->toggleActiveDesk();
+    Window *first = mapManagedWindow(base::Size(300, 200));
+    Window *second = mapManagedWindow(base::Size(300, 200));
+    manager.activation()->activate(second);
+    Window *third = mapManagedWindow(base::Size(300, 200));
+    manager.activation()->activate(third);
+    ASSERT_EQ(base::Rect(504, 404, 488, 388), third->bounds());
+
+    // Half of the active tile is 240 wide; half of the largest is wide enough.
+    Window *wide = manager.createWindow(makeSurface(base::Size(300, 300)),
+                                        {.requestedSize = base::Size(300, 300),
+                                         .minimumSize = base::Size(300, 300),
+                                         .positionManaged = true});
+    EXPECT_TRUE(wide->isTiled());
+    EXPECT_EQ(base::Rect(8, 8, 488, 388), first->bounds());
+    EXPECT_EQ(base::Rect(8, 404, 488, 388), wide->bounds());
+    EXPECT_EQ(base::Rect(504, 404, 488, 388), third->bounds());
+}
