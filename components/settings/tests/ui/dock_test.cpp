@@ -54,7 +54,8 @@ TEST(DockPage, HasEveryControl)
     EXPECT_EQ(page.count("settings::ImageSelectionItem"), 3);
     EXPECT_EQ(page.count("settings::SliderRow"), 2);
     EXPECT_EQ(page.count("SegmentedControl"), 1);
-    EXPECT_EQ(page.count("settings::NavigationItem"), 1);
+    // Hot Corners and Tiling (#149).
+    EXPECT_EQ(page.count("settings::NavigationItem"), 2);
     EXPECT_EQ(page.count("settings::SwitchRow"), 1);
 }
 

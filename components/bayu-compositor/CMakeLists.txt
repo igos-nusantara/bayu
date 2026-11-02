@@ -665,6 +665,8 @@ add_library(bayu-accelerators STATIC
     src/accelerators/hot_corner_controller.h
     src/accelerators/hot_corner_settings.cpp
     src/accelerators/hot_corner_settings.h
+    src/accelerators/tiling_settings.cpp
+    src/accelerators/tiling_settings.h
 )
 target_include_directories(bayu-accelerators PUBLIC src)
 target_link_libraries(bayu-accelerators PUBLIC bayu-wm bayu-session bayu-input-dbus PkgConfig::Xkbcommon)

@@ -103,6 +103,9 @@ public:
 
     // The stop buttons, shown while a recording or an agent's control runs.
     void setRecording(bool recording);
+    // The active desk's auto-tiling (#149); a click toggles it.
+    void setTiling(bool tiled);
+    std::function<void()> onToggleTiling;
     std::function<void()> onStopRecording;
     void setAgentControl(bool active);
     std::function<void()> onStopAgentControl;
@@ -173,6 +176,7 @@ private:
     StopItem *m_recording = nullptr;
     StopItem *m_agentControl = nullptr;
     SystemTrayView *m_tray = nullptr;
+    StatusIcon *m_tiling = nullptr;
     StatusIcon *m_volume = nullptr;
     StatusIcon *m_network = nullptr;
     StatusIcon *m_battery = nullptr;

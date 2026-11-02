@@ -90,6 +90,7 @@ class AcceleratorService;
 class DBusAcceleratorDelegate;
 class HotCornerController;
 class HotCornerSettings;
+class TilingSettings;
 } // namespace accelerators
 
 namespace shell {
@@ -309,6 +310,7 @@ private:
     // The settings go first, and with them the connections feeding the corners.
     std::unique_ptr<accelerators::HotCornerController> m_hotCorners;
     std::unique_ptr<accelerators::HotCornerSettings> m_hotCornerSettings;
+    std::unique_ptr<accelerators::TilingSettings> m_tilingSettings;
     std::vector<base::Subscription> m_windowManagerSignals;
     base::Subscription m_hotCornerBindings;
     base::Subscription m_hotCornerPointer;

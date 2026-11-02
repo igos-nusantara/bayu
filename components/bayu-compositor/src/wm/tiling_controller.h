@@ -48,6 +48,8 @@ public:
     TilingController &operator=(const TilingController &) = delete;
     ~TilingController() override;
 
+    WindowManager *manager() const { return m_manager; }
+
     bool isDeskTiled(const Desk *desk) const;
     void setDeskTiled(Desk *desk, bool tiled);
     bool isActiveDeskTiled() const;

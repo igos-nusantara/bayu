@@ -36,6 +36,7 @@ static constexpr const char* kGeneral = trNoop("General");
 // TRANSLATORS: the group of keyboard shortcuts that act on windows.
 static constexpr const char* kWindows = trNoop("Windows");
 static constexpr const char* kDesks = trNoop("Desks");
+static constexpr const char* kTiling = trNoop("Tiling");
 static constexpr const char* kScreenshots = trNoop("Screenshots and Recording");
 static const Layout kLayouts[] = {
         {"toggle-app-list", kGeneral, trNoop("Open the launcher")},
@@ -58,6 +59,17 @@ static const Layout kLayouts[] = {
         {"window-snap-down", kWindows, trNoop("Snap the window down, or minimize it")},
         {"close-window", kWindows, trNoop("Close the window")},
         {"move-active-window-between-displays", kWindows, trNoop("Move the window to the next display")},
+
+        {"tiling-toggle", kTiling, trNoop("Tile or untile the desk")},
+        {"tiling-toggle-floating", kTiling, trNoop("Float the window, or tile it again")},
+        {"tiling-swap-left", kTiling, trNoop("Swap the window with the one on the left")},
+        {"tiling-swap-right", kTiling, trNoop("Swap the window with the one on the right")},
+        {"tiling-swap-up", kTiling, trNoop("Swap the window with the one above")},
+        {"tiling-swap-down", kTiling, trNoop("Swap the window with the one below")},
+        {"tiling-resize-left", kTiling, trNoop("Move the edge of the window to the left")},
+        {"tiling-resize-right", kTiling, trNoop("Move the edge of the window to the right")},
+        {"tiling-resize-up", kTiling, trNoop("Move the edge of the window up")},
+        {"tiling-resize-down", kTiling, trNoop("Move the edge of the window down")},
 
         {"desks-activate-desk-left", kDesks, trNoop("Switch to the desk on the left")},
         {"desks-activate-desk-right", kDesks, trNoop("Switch to the desk on the right")},
@@ -116,7 +128,7 @@ ShortcutsModel::~ShortcutsModel()
 
 std::vector<std::string> ShortcutsModel::categories()
 {
-    return {kGeneral, kWindows};
+    return {kGeneral, kWindows, kTiling};
 }
 
 void ShortcutsModel::reload()

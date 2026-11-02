@@ -182,6 +182,15 @@ StatusBarWindow::StatusBarWindow(Shell *shell, std::unique_ptr<StatusBar> status
     m_updates->onClicked = [this](const ui::PointerEvent &) { showUpdatesMenu(); };
     m_updates->onPreferredWidthChanged = [this] { layoutRow(); };
 
+    m_tiling = m_root->addChild<StatusIcon>(this);
+    m_tiling->setName("tiling");
+    m_tiling->setIconName("tiling-off");
+    m_tiling->onClicked = [this](const ui::PointerEvent &) {
+        if (onToggleTiling)
+            onToggleTiling();
+    };
+    m_tiling->onPreferredWidthChanged = [this] { layoutRow(); };
+
     const auto statusIcon = [this](const char *name, Panel panel) {
         StatusIcon *icon = m_root->addChild<StatusIcon>(this);
         icon->setName(name);
@@ -551,7 +560,7 @@ void StatusBarWindow::updateLook()
     if (m_menuBar)
         m_menuBar->barChanged();
     m_tray->barChanged();
-    for (StatusIcon *icon : {m_updates, m_volume, m_network, m_battery, m_control})
+    for (StatusIcon *icon : {m_updates, m_tiling, m_volume, m_network, m_battery, m_control})
         icon->updateLook();
     m_clock->updateLook();
     m_recording->updateLook();
@@ -662,6 +671,11 @@ void StatusBarWindow::setDeviceUsage(std::unique_ptr<DeviceUsage> usage)
     update();
 }
 
+void StatusBarWindow::setTiling(bool tiled)
+{
+    m_tiling->setIconName(tiled ? "tiling" : "tiling-off");
+}
+
 void StatusBarWindow::setRecording(bool recording)
 {
     m_recording->setVisible(recording);
@@ -691,7 +705,7 @@ void StatusBarWindow::layoutRow()
     m_tray->setVisible(m_tray->count() > 0);
     preferred(m_tray, m_tray->preferredWidth());
     preferred(m_updates, m_updates->preferredWidth());
-    for (StatusIcon *icon : {m_volume, m_network, m_battery, m_control})
+    for (StatusIcon *icon : {m_tiling, m_volume, m_network, m_battery, m_control})
         preferred(icon, icon->preferredWidth());
     preferred(m_clock, m_clock->preferredWidth());
     m_root->requestLayout();
