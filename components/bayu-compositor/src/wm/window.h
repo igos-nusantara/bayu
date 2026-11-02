@@ -16,6 +16,7 @@
 #include "compositor/surface_observer.h"
 #include "ui/bitmap.h"
 #include "wm/types.h"
+#include "wm/window_snap.h"
 #include "wm/window_frame.h"
 
 namespace bayu::compositor {
@@ -349,6 +350,8 @@ public:
     void maximize();
     void snapPrimary();
     void snapSecondary();
+    // Any snap: a half, a quarter, or the maximized state for Maximize.
+    void snap(SnapType type);
     void minimize();
     void restore();
     void setFullscreen(bool fullscreen);

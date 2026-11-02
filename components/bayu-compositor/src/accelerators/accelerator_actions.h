@@ -42,6 +42,10 @@ enum class AcceleratorAction : uint32_t {
     ToggleFullscreen,
     WindowCycleSnapLeft,
     WindowCycleSnapRight,
+    // Super+Up and Down: a snapped half to its top or bottom quarter and back;
+    // otherwise maximize and minimize (#149).
+    WindowSnapUp,
+    WindowSnapDown,
     CloseWindow,
     MoveActiveWindowBetweenDisplays,
     ToggleOverview,

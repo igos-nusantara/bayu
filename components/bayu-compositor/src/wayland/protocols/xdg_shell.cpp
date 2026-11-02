@@ -391,14 +391,22 @@ public:
                 if (isSnappedStateType(state.stateType)
                     && wl_resource_get_version(toplevel)
                             >= XDG_TOPLEVEL_STATE_TILED_LEFT_SINCE_VERSION) {
-                    // Half the work area: flush against three of its edges,
-                    // free along the one the other half is on.
-                    addToplevelState(&states, XDG_TOPLEVEL_STATE_TILED_TOP);
-                    addToplevelState(&states, XDG_TOPLEVEL_STATE_TILED_BOTTOM);
-                    addToplevelState(&states,
-                                     state.stateType == WindowStateType::PrimarySnapped
-                                             ? XDG_TOPLEVEL_STATE_TILED_LEFT
-                                             : XDG_TOPLEVEL_STATE_TILED_RIGHT);
+                    // Flush against the work area's edges it touches: a half
+                    // against three, a quarter against two.
+                    const WindowStateType type = state.stateType;
+                    const bool left = type == WindowStateType::PrimarySnapped
+                            || type == WindowStateType::TopLeftSnapped
+                            || type == WindowStateType::BottomLeftSnapped;
+                    const bool quarter = isQuarterSnappedStateType(type);
+                    const bool top = !quarter || type == WindowStateType::TopLeftSnapped
+                            || type == WindowStateType::TopRightSnapped;
+                    const bool bottom = !quarter || type == WindowStateType::BottomLeftSnapped
+                            || type == WindowStateType::BottomRightSnapped;
+                    if (top)
+                        addToplevelState(&states, XDG_TOPLEVEL_STATE_TILED_TOP);
+                    if (bottom)
+                        addToplevelState(&states, XDG_TOPLEVEL_STATE_TILED_BOTTOM);
+                    addToplevelState(&states, left ? XDG_TOPLEVEL_STATE_TILED_LEFT : XDG_TOPLEVEL_STATE_TILED_RIGHT);
                 }
                 if (state.resizing)
                     addToplevelState(&states, XDG_TOPLEVEL_STATE_RESIZING);

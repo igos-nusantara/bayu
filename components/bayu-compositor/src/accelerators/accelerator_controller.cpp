@@ -166,6 +166,10 @@ bool AcceleratorController::canPerformAction(AcceleratorAction action,
     case AcceleratorAction::WindowCycleSnapLeft:
     case AcceleratorAction::WindowCycleSnapRight:
         return commands::canWindowSnap(m_context);
+    // Always enabled, as maximize and minimize, which they fall back to.
+    case AcceleratorAction::WindowSnapUp:
+    case AcceleratorAction::WindowSnapDown:
+        return true;
     case AcceleratorAction::CloseWindow:
         return commands::canCloseWindow(m_context);
     case AcceleratorAction::ToggleOverview:
@@ -248,6 +252,10 @@ void AcceleratorController::performAction(AcceleratorAction action, const Accele
     case AcceleratorAction::WindowCycleSnapLeft:
     case AcceleratorAction::WindowCycleSnapRight:
         commands::windowSnap(m_context, action);
+        break;
+    case AcceleratorAction::WindowSnapUp:
+    case AcceleratorAction::WindowSnapDown:
+        commands::windowSnapVertical(m_context, action == AcceleratorAction::WindowSnapUp);
         break;
     case AcceleratorAction::WindowMinimize:
         commands::windowMinimize(m_context);

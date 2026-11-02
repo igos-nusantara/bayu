@@ -36,6 +36,10 @@ int restoreLayer(WindowStateType type)
         return 0;
     case WindowStateType::PrimarySnapped:
     case WindowStateType::SecondarySnapped:
+    case WindowStateType::TopLeftSnapped:
+    case WindowStateType::TopRightSnapped:
+    case WindowStateType::BottomLeftSnapped:
+    case WindowStateType::BottomRightSnapped:
         return 1;
     case WindowStateType::Maximized:
         return 2;
@@ -71,11 +75,10 @@ void WindowState::saveCurrentBoundsForRestore()
     m_restoreBounds = m_window->bounds();
 }
 
-bool WindowState::canSnap() const
+bool WindowState::canSnap(SnapType type) const
 {
     return m_window->isResizable()
-            && canSnapSize(m_window->minimumOuterSize(),
-                           m_window->manager()->workAreaFor(m_window));
+            && canSnapSize(m_window->minimumOuterSize(), m_window->manager()->workAreaFor(m_window), type);
 }
 
 WindowStateType WindowState::restoreStateType() const
@@ -105,6 +108,18 @@ void WindowState::onEvent(const WMEvent &event)
         break;
     case WMEventType::SnapSecondary:
         enterState(WindowStateType::SecondarySnapped);
+        break;
+    case WMEventType::SnapTopLeft:
+        enterState(WindowStateType::TopLeftSnapped);
+        break;
+    case WMEventType::SnapTopRight:
+        enterState(WindowStateType::TopRightSnapped);
+        break;
+    case WMEventType::SnapBottomLeft:
+        enterState(WindowStateType::BottomLeftSnapped);
+        break;
+    case WMEventType::SnapBottomRight:
+        enterState(WindowStateType::BottomRightSnapped);
         break;
     case WMEventType::Restore:
         enterState(restoreStateType());
@@ -141,7 +156,7 @@ void WindowState::enterState(WindowStateType next)
 {
     if (next == WindowStateType::Maximized && !m_window->isResizable())
         return;
-    if (isSnappedStateType(next) && !canSnap())
+    if (isSnappedStateType(next) && !canSnap(snapTypeOf(next)))
         return;
     if (next == m_type)
         return;
@@ -293,9 +308,11 @@ void WindowState::updateBoundsFromState(WindowStateType previous)
     }
     case WindowStateType::PrimarySnapped:
     case WindowStateType::SecondarySnapped:
-        setBoundsDirect(snapBounds(m_type == WindowStateType::PrimarySnapped ? SnapType::Primary
-                                                                             : SnapType::Secondary,
-                                   workArea));
+    case WindowStateType::TopLeftSnapped:
+    case WindowStateType::TopRightSnapped:
+    case WindowStateType::BottomLeftSnapped:
+    case WindowStateType::BottomRightSnapped:
+        setBoundsDirect(snapBounds(snapTypeOf(m_type), workArea));
         break;
     case WindowStateType::Maximized:
         setBoundsDirect(workArea);

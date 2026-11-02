@@ -768,6 +768,37 @@ void Window::snapSecondary()
     m_state->onEvent(event);
 }
 
+void Window::snap(SnapType type)
+{
+    WMEventType event = WMEventType::Normal;
+    switch (type) {
+    case SnapType::Primary:
+        event = WMEventType::SnapPrimary;
+        break;
+    case SnapType::Secondary:
+        event = WMEventType::SnapSecondary;
+        break;
+    case SnapType::Maximize:
+        event = WMEventType::Maximize;
+        break;
+    case SnapType::TopLeft:
+        event = WMEventType::SnapTopLeft;
+        break;
+    case SnapType::TopRight:
+        event = WMEventType::SnapTopRight;
+        break;
+    case SnapType::BottomLeft:
+        event = WMEventType::SnapBottomLeft;
+        break;
+    case SnapType::BottomRight:
+        event = WMEventType::SnapBottomRight;
+        break;
+    case SnapType::None:
+        return;
+    }
+    m_state->onEvent(WMEvent(event));
+}
+
 void Window::minimize()
 {
     const WMEvent event(WMEventType::Minimize);

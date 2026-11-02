@@ -146,10 +146,23 @@ void windowSnap(const CommandContext &context, AcceleratorAction action)
         return;
     // ash::BaseState::CycleSnap: snap unless already snapped to that side, in
     // which case restore. Rotated displays are not distinguished; Bayu
-    // snaps in logical coordinates.
-    const wm::WindowStateType desired = action == AcceleratorAction::WindowCycleSnapLeft
-            ? wm::WindowStateType::PrimarySnapped
-            : wm::WindowStateType::SecondarySnapped;
+    // snaps in logical coordinates. A quarter moves across, to the same row
+    // on the other side (#149).
+    const bool left = action == AcceleratorAction::WindowCycleSnapLeft;
+    switch (window->stateType()) {
+    case wm::WindowStateType::TopLeftSnapped:
+    case wm::WindowStateType::TopRightSnapped:
+        window->snap(left ? wm::SnapType::TopLeft : wm::SnapType::TopRight);
+        return;
+    case wm::WindowStateType::BottomLeftSnapped:
+    case wm::WindowStateType::BottomRightSnapped:
+        window->snap(left ? wm::SnapType::BottomLeft : wm::SnapType::BottomRight);
+        return;
+    default:
+        break;
+    }
+    const wm::WindowStateType desired = left ? wm::WindowStateType::PrimarySnapped
+                                             : wm::WindowStateType::SecondarySnapped;
     if (window->isResizable() && window->stateType() != desired) {
         if (desired == wm::WindowStateType::PrimarySnapped)
             window->snapPrimary();
@@ -159,6 +172,54 @@ void windowSnap(const CommandContext &context, AcceleratorAction action)
     }
     if (window->state()->isSnapped())
         window->restore();
+}
+
+void windowSnapVertical(const CommandContext &context, bool up)
+{
+    wm::Window *window = targetWindow(context);
+    if (!window)
+        return;
+    using wm::SnapType;
+    using wm::WindowStateType;
+    SnapType target = SnapType::None;
+    switch (window->stateType()) {
+    case WindowStateType::PrimarySnapped:
+        target = up ? SnapType::TopLeft : SnapType::BottomLeft;
+        break;
+    case WindowStateType::SecondarySnapped:
+        target = up ? SnapType::TopRight : SnapType::BottomRight;
+        break;
+    // A quarter goes back to its half the other way, and on past the edge as
+    // an unsnapped window would.
+    case WindowStateType::TopLeftSnapped:
+        target = up ? SnapType::Maximize : SnapType::Primary;
+        break;
+    case WindowStateType::TopRightSnapped:
+        target = up ? SnapType::Maximize : SnapType::Secondary;
+        break;
+    case WindowStateType::BottomLeftSnapped:
+        if (!up) {
+            window->minimize();
+            return;
+        }
+        target = SnapType::Primary;
+        break;
+    case WindowStateType::BottomRightSnapped:
+        if (!up) {
+            window->minimize();
+            return;
+        }
+        target = SnapType::Secondary;
+        break;
+    default:
+        if (up)
+            toggleMaximized(context);
+        else
+            windowMinimize(context);
+        return;
+    }
+    if (target == SnapType::Maximize ? window->isResizable() : window->state()->canSnap(target))
+        window->snap(target);
 }
 
 void closeWindow(const CommandContext &context)

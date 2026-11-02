@@ -1451,8 +1451,55 @@ TEST_F(WmTest, TheEdgeTolerancesFollowTheWorkArea)
     EXPECT_EQ(SnapType::Secondary, snapTypeAt(base::PointF(980, 400), kOutput, kOutput));
     EXPECT_EQ(SnapType::Maximize, snapTypeAt(base::PointF(500, 4), kOutput, kOutput));
     EXPECT_EQ(SnapType::None, snapTypeAt(base::PointF(500, 400), kOutput, kOutput));
-    // A corner belongs to the side, as it does in Ash.
-    EXPECT_EQ(SnapType::Primary, snapTypeAt(base::PointF(4, 2), kOutput, kOutput));
+    // The corners are quarters (#149): on a side within an eighth of the
+    // height (at least 64) of the top or the bottom, and on the top within an
+    // eighth of the width of either end.
+    EXPECT_EQ(SnapType::TopLeft, snapTypeAt(base::PointF(4, 2), kOutput, kOutput));
+    EXPECT_EQ(SnapType::TopLeft, snapTypeAt(base::PointF(20, 90), kOutput, kOutput));
+    EXPECT_EQ(SnapType::Primary, snapTypeAt(base::PointF(20, 110), kOutput, kOutput));
+    EXPECT_EQ(SnapType::BottomLeft, snapTypeAt(base::PointF(20, 750), kOutput, kOutput));
+    EXPECT_EQ(SnapType::TopRight, snapTypeAt(base::PointF(990, 40), kOutput, kOutput));
+    EXPECT_EQ(SnapType::BottomRight, snapTypeAt(base::PointF(990, 790), kOutput, kOutput));
+    EXPECT_EQ(SnapType::TopLeft, snapTypeAt(base::PointF(100, 4), kOutput, kOutput));
+    EXPECT_EQ(SnapType::TopRight, snapTypeAt(base::PointF(900, 4), kOutput, kOutput));
+    EXPECT_EQ(SnapType::Maximize, snapTypeAt(base::PointF(200, 4), kOutput, kOutput));
+
+    EXPECT_EQ(base::Rect(0, 0, 500, 400), snapBounds(SnapType::TopLeft, kOutput));
+    EXPECT_EQ(base::Rect(500, 400, 500, 400), snapBounds(SnapType::BottomRight, kOutput));
+    // A quarter needs a window that fits in half the height too.
+    EXPECT_TRUE(canSnapSize(base::Size(400, 700), kOutput, SnapType::Primary));
+    EXPECT_FALSE(canSnapSize(base::Size(400, 700), kOutput, SnapType::TopLeft));
+}
+
+TEST_F(WmTest, DraggingToACornerSnapsTheWindowToThatQuarter)
+{
+    Window *window = makeWindow(base::Rect(300, 300, 300, 200));
+
+    ASSERT_TRUE(manager.eventHandler()->beginMove(window, base::PointF(350, 320)));
+    manager.eventHandler()->onPointerMotion(base::PointF(990, 790));
+    EXPECT_EQ(SnapType::BottomRight, manager.eventHandler()->snapController()->snapType());
+    manager.eventHandler()->onPointerButtonReleased();
+
+    EXPECT_EQ(WindowStateType::BottomRightSnapped, window->stateType());
+    EXPECT_EQ(base::Rect(500, 400, 500, 400), window->bounds());
+
+    window->restore();
+    EXPECT_EQ(WindowStateType::Normal, window->stateType());
+    EXPECT_EQ(base::Size(300, 200), window->bounds().size());
+}
+
+TEST_F(WmTest, AQuarterFollowsTheWorkAreaAndStaysSnappedWhenResizedInward)
+{
+    Window *window = makeWindow(base::Rect(200, 100, 400, 300));
+    window->snap(SnapType::TopLeft);
+    EXPECT_EQ(WindowStateType::TopLeftSnapped, window->stateType());
+    EXPECT_EQ(base::Rect(0, 0, 500, 400), window->bounds());
+
+    ASSERT_TRUE(manager.eventHandler()->beginResize(window, ResizeEdge::Bottom, base::PointF(250, 400)));
+    manager.eventHandler()->onPointerMotion(base::PointF(250, 500));
+    manager.eventHandler()->onPointerButtonReleased();
+    EXPECT_EQ(WindowStateType::TopLeftSnapped, window->stateType());
+    EXPECT_EQ(base::Rect(0, 0, 500, 500), window->bounds());
 }
 
 TEST_F(WmTest, DraggingToTheLeftEdgeSnapsTheWindowToThatHalf)
@@ -1653,6 +1700,61 @@ TEST_F(WmTest, ASnappedWindowKeepsItsStateWhileItsSharedEdgeIsResized)
 
     EXPECT_EQ(WindowStateType::PrimarySnapped, window->stateType());
     EXPECT_EQ(base::Rect(0, 0, 650, 800), window->bounds());
+}
+
+TEST_F(WmTest, ResizingTheSharedEdgeOfSnappedWindowsResizesBoth)
+{
+    Window *left = makeWindow(base::Rect(200, 100, 400, 300));
+    left->snapPrimary();
+    Window *right = makeWindow(base::Rect(300, 100, 400, 300));
+    right->snapSecondary();
+    // On another desk's or an unsnapped window, nothing follows.
+    Window *floating = makeWindow(base::Rect(500, 100, 300, 300));
+
+    ASSERT_TRUE(manager.eventHandler()->beginResize(left, ResizeEdge::Right, base::PointF(500, 400)));
+    manager.eventHandler()->onPointerMotion(base::PointF(650, 400));
+    EXPECT_EQ(base::Rect(650, 0, 350, 800), right->bounds());
+    manager.eventHandler()->onPointerButtonReleased();
+
+    EXPECT_EQ(WindowStateType::PrimarySnapped, left->stateType());
+    EXPECT_EQ(WindowStateType::SecondarySnapped, right->stateType());
+    EXPECT_EQ(base::Rect(0, 0, 650, 800), left->bounds());
+    EXPECT_EQ(base::Rect(650, 0, 350, 800), right->bounds());
+    EXPECT_EQ(base::Rect(500, 100, 300, 300), floating->bounds());
+
+    // The edge stops at the partner's minimum size, and Esc puts both back.
+    right->setMinimumSize(base::Size(300, 100));
+    ASSERT_TRUE(manager.eventHandler()->beginResize(right, ResizeEdge::Left, base::PointF(650, 400)));
+    manager.eventHandler()->onPointerMotion(base::PointF(900, 400));
+    EXPECT_EQ(base::Rect(0, 0, 700, 800), left->bounds());
+    EXPECT_EQ(base::Rect(700, 0, 300, 800), right->bounds());
+    compositor.frameStarted(16);
+    manager.eventHandler()->onPointerMotion(base::PointF(200, 400));
+    compositor.frameStarted(32);
+    EXPECT_EQ(base::Rect(0, 0, 200, 800), left->bounds());
+    EXPECT_EQ(base::Rect(200, 0, 800, 800), right->bounds());
+    manager.eventHandler()->onKeyPressed(KEY_ESC);
+    EXPECT_EQ(base::Rect(0, 0, 650, 800), left->bounds());
+    EXPECT_EQ(base::Rect(650, 0, 350, 800), right->bounds());
+}
+
+TEST_F(WmTest, ResizingTheSharedEdgeOfQuartersResizesTheNeighbourOnly)
+{
+    Window *topLeft = makeWindow(base::Rect(100, 100, 300, 200));
+    topLeft->snap(SnapType::TopLeft);
+    Window *topRight = makeWindow(base::Rect(100, 100, 300, 200));
+    topRight->snap(SnapType::TopRight);
+    Window *bottomRight = makeWindow(base::Rect(100, 100, 300, 200));
+    bottomRight->snap(SnapType::BottomRight);
+
+    ASSERT_TRUE(manager.eventHandler()->beginResize(topRight, ResizeEdge::Bottom, base::PointF(700, 400)));
+    manager.eventHandler()->onPointerMotion(base::PointF(700, 300));
+    manager.eventHandler()->onPointerButtonReleased();
+
+    EXPECT_EQ(base::Rect(500, 0, 500, 300), topRight->bounds());
+    EXPECT_EQ(base::Rect(500, 300, 500, 500), bottomRight->bounds());
+    EXPECT_EQ(base::Rect(0, 0, 500, 400), topLeft->bounds());
+    EXPECT_EQ(WindowStateType::BottomRightSnapped, bottomRight->stateType());
 }
 
 TEST_F(WmTest, ASnappedWindowResizedOffItsEdgeBecomesNormal)

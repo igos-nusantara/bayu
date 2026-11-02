@@ -64,6 +64,9 @@ void hideOtherApplications(const CommandContext &context);
 void toggleFullscreen(const CommandContext &context);
 // Snaps to the requested side, or restores when already snapped there.
 void windowSnap(const CommandContext &context, AcceleratorAction action);
+// A snapped half to its top or bottom quarter and a quarter back to its half;
+// any other window maximizes (up) or minimizes (down).
+void windowSnapVertical(const CommandContext &context, bool up);
 void closeWindow(const CommandContext &context);
 void moveActiveWindowBetweenDisplays(const CommandContext &context);
 void toggleOverview(const CommandContext &context);

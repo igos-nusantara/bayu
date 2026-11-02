@@ -25,6 +25,11 @@ enum class WMEventType {
     // whose minimum size does not fit there.
     SnapPrimary,
     SnapSecondary,
+    // A quarter of the work area, in one of its corners; refused as the halves are.
+    SnapTopLeft,
+    SnapTopRight,
+    SnapBottomLeft,
+    SnapBottomRight,
 
     // Return to the state the window was in before the current one.
     Restore,

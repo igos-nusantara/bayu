@@ -86,7 +86,11 @@ SnapType SnapDragController::constrained(SnapType type) const
     switch (type) {
     case SnapType::Primary:
     case SnapType::Secondary:
-        return m_window->state()->canSnap() ? type : SnapType::None;
+    case SnapType::TopLeft:
+    case SnapType::TopRight:
+    case SnapType::BottomLeft:
+    case SnapType::BottomRight:
+        return m_window->state()->canSnap(type) ? type : SnapType::None;
     case SnapType::Maximize:
         return m_window->isResizable() ? type : SnapType::None;
     case SnapType::None:

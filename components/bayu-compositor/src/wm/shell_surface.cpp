@@ -908,6 +908,10 @@ void ShellSurface::mapToplevel()
     case WindowStateType::Normal:
     case WindowStateType::PrimarySnapped:
     case WindowStateType::SecondarySnapped:
+    case WindowStateType::TopLeftSnapped:
+    case WindowStateType::TopRightSnapped:
+    case WindowStateType::BottomLeftSnapped:
+    case WindowStateType::BottomRightSnapped:
         // A client cannot ask to be mapped snapped; only a drag or the shell
         // puts a window there.
         break;
@@ -1220,6 +1224,10 @@ base::Size ShellSurface::initialSizeForState(WindowStateType stateType) const
     case WindowStateType::Minimized:
     case WindowStateType::PrimarySnapped:
     case WindowStateType::SecondarySnapped:
+    case WindowStateType::TopLeftSnapped:
+    case WindowStateType::TopRightSnapped:
+    case WindowStateType::BottomLeftSnapped:
+    case WindowStateType::BottomRightSnapped:
         // Zero lets the client pick its own size, which is what xdg-shell asks
         // a compositor with no opinion to do.
         return base::Size(0, 0);

@@ -8,7 +8,8 @@
 // ash::GetSnappedWindowBounds computes.
 //
 // Only Ash's landscape layout is ported: left and right snap to half the work
-// area, the top maximizes. Ash's portrait orientation, where the top and the
+// area, the top maximizes. Bayu adds the corners, which snap to a quarter
+// (#149). Ash's portrait orientation, where the top and the
 // bottom snap instead, has no Bayu equivalent and is left out. The snap
 // ratio is always a half; Ash carries a per-window ratio for its resizable
 // split view.
@@ -27,6 +28,10 @@ enum class SnapType {
     Primary, // Left half.
     Secondary, // Right half.
     Maximize,
+    TopLeft, // Quarters.
+    TopRight,
+    BottomLeft,
+    BottomRight,
 };
 
 // The area a drag can move through without asking for anything. Outside it, on
@@ -43,12 +48,17 @@ SnapType snapTypeAt(const base::PointF &location, const base::Rect &workArea, co
 base::Rect snapBounds(SnapType type, const base::Rect &workArea);
 
 WindowStateType snapStateType(SnapType type);
+// The snap a snapped state is; None for the others.
+SnapType snapTypeOf(WindowStateType type);
 
-// A window narrower than half the work area cannot be snapped into it.
-bool canSnapSize(const base::Size &minimumOuterSize, const base::Rect &workArea);
+// A window larger than half the work area (than a quarter, for a corner)
+// cannot be snapped into it.
+bool canSnapSize(const base::Size &minimumOuterSize, const base::Rect &workArea,
+                 SnapType type = SnapType::Primary);
 
 // Whether `bounds` still look snapped: full work-area height, against one of
-// its vertical edges. Ash's WorkspaceWindowResizer::AreBoundsValidSnappedBounds.
+// its vertical edges (a quarter: in its corner). Ash's
+// WorkspaceWindowResizer::AreBoundsValidSnappedBounds.
 bool areBoundsValidSnappedBounds(WindowStateType type, const base::Rect &bounds, const base::Rect &workArea);
 
 const char *toString(SnapType type);

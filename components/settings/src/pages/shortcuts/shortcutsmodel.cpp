@@ -54,6 +54,8 @@ static const Layout kLayouts[] = {
         {"toggle-fullscreen", kWindows, trNoop("Toggle full screen")},
         {"window-cycle-snap-left", kWindows, trNoop("Snap the window to the left")},
         {"window-cycle-snap-right", kWindows, trNoop("Snap the window to the right")},
+        {"window-snap-up", kWindows, trNoop("Snap the window up, or maximize it")},
+        {"window-snap-down", kWindows, trNoop("Snap the window down, or minimize it")},
         {"close-window", kWindows, trNoop("Close the window")},
         {"move-active-window-between-displays", kWindows, trNoop("Move the window to the next display")},
 
