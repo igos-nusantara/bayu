@@ -92,6 +92,14 @@ public:
         (void)mode;
         return 0;
     }
+    // A remote end without owners refuses.
+    virtual int setOwner(const std::string &path, uid_t uid, gid_t gid)
+    {
+        (void)path;
+        (void)uid;
+        (void)gid;
+        return -EPERM;
+    }
     virtual int setTimes(const std::string &path, const struct timespec times[2])
     {
         (void)path;

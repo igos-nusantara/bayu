@@ -5,6 +5,7 @@
 #include "testutil.h"
 
 #include "core/preferences.h"
+#include "core/standardfolders.h"
 #include "model/foldermodel.h"
 #include "ops/operations.h"
 
@@ -461,6 +462,66 @@ TEST(FolderModelTest, CutFollowsWhatTheMoveLeft)
 
     daemon.terminate();
     EXPECT_TRUE(daemon.waitForFinished(std::chrono::seconds(3)));
+}
+
+// Duplicate and Make Link put a copy and a link beside the item; Copy Location
+// puts its path on the clipboard (#146).
+TEST(FolderModelTest, DuplicatesLinksAndCopiesTheLocation)
+{
+    fm::OperationsClient::instance();
+    base::Process daemon;
+    ASSERT_TRUE(daemon.start(FILEMANAGER_DAEMON));
+    auto bus = base::dbus::Connection::open(base::dbus::Connection::Bus::Session, &loop());
+    ASSERT_TRUE(bus);
+    const base::dbus::Proxy manager(bus.get(), "org.bayu.FileOperations", "/org/bayu/FileOperations",
+                                    "org.bayu.FileOperations.Manager1");
+    ASSERT_TRUE(runUntil(loop(), [&] { return manager.call("CanUndo").value<bool>().has_value(); }));
+
+    TemporaryDir directory;
+    ASSERT_TRUE(writeFile(directory.filePath("notes.txt")));
+    FolderModel folder;
+    folder.setUrl(directory.path());
+    ASSERT_TRUE(runUntil(loop(), [&] { return ready(folder) && folder.count() == 1; }));
+    folder.setSelected(0);
+    folder.prepareContextMenu();
+    EXPECT_TRUE(folder.action("duplicate").enabled);
+    EXPECT_TRUE(folder.action("makeLink").enabled);
+    EXPECT_TRUE(folder.action("copyLocation").visible);
+
+    folder.duplicateSelected();
+    ASSERT_TRUE(runUntil(loop(), [&] { return std::filesystem::exists(directory.filePath("notes (1).txt")); }, 5000));
+    EXPECT_FALSE(std::filesystem::is_symlink(directory.filePath("notes (1).txt")));
+
+    folder.clearSelection();
+    folder.setSelected(folder.rowForUrl(url(directory.filePath("notes.txt"))));
+    folder.prepareContextMenu();
+    folder.makeLinkToSelected();
+    ASSERT_TRUE(runUntil(loop(), [&] {
+        for (const auto& entry : std::filesystem::directory_iterator(directory.path())) {
+            if (entry.is_symlink())
+                return true;
+        }
+        return false;
+    }, 5000));
+
+    folder.copyLocation();
+    EXPECT_TRUE(runUntil(loop(), [&] {
+        std::optional<std::string> text;
+        ui::Clipboard::requestData("text/plain;charset=utf-8", [&](std::optional<std::string> data) { text = data; });
+        runUntil(loop(), [&] { return text.has_value(); }, 500);
+        return text && *text == directory.filePath("notes.txt");
+    }, 3000));
+
+    daemon.terminate();
+    EXPECT_TRUE(daemon.waitForFinished(std::chrono::seconds(3)));
+}
+
+// The path an administrator window shows is the one outside its mount.
+TEST(FolderModelTest, AnAdministratorPathIsCopiedAsTheRealOne)
+{
+    EXPECT_EQ(fm::realPath(fm::administratorPath("/etc/fstab")), "/etc/fstab");
+    EXPECT_EQ(fm::realPath(fm::administratorRoot()), "/");
+    EXPECT_EQ(fm::realPath("/home/a/b"), "/home/a/b");
 }
 
 // Opening any part of a split archive extracts the whole of it, named without

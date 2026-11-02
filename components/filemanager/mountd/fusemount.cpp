@@ -169,6 +169,13 @@ static int fuseChmod(const char *path, mode_t mode, struct fuse_file_info *)
     });
 }
 
+static int fuseChown(const char *path, uid_t uid, gid_t gid, struct fuse_file_info *)
+{
+    return call([&](Backend *backend) {
+        return backend->setOwner(path, uid, gid);
+    });
+}
+
 static int fuseUtimens(const char *path, const struct timespec times[2], struct fuse_file_info *)
 {
     return call([&](Backend *backend) {
@@ -227,6 +234,7 @@ static const struct fuse_operations *operations()
         o.rmdir = fuseRmdir;
         o.rename = fuseRename;
         o.chmod = fuseChmod;
+        o.chown = fuseChown;
         o.utimens = fuseUtimens;
         o.readlink = fuseReadlink;
         o.symlink = fuseSymlink;

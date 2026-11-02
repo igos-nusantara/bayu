@@ -103,6 +103,7 @@ add_library(fm-core STATIC
     src/core/launcher.cpp
     src/core/lister.cpp
     src/core/notifications.cpp
+    src/core/permissions.cpp
     src/core/preferences.cpp
     src/core/previewkeys.cpp
     src/core/standardfolders.cpp

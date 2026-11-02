@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bayu-filemanager\n"
 "Report-Msgid-Bugs-To: https://github.com/bayuos\n"
-"POT-Creation-Date: 2026-10-29 09:15+0000\n"
+"POT-Creation-Date: 2026-11-02 06:45+0000\n"
 "PO-Revision-Date: 2026-10-25 00:00+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -713,6 +713,89 @@ msgid_plural "{n} files"
 msgstr[0] "{n} 個のファイル"
 
 #: src/dialogs/propertiesdialog.cpp
+#, python-brace-format
+msgid "The permissions could not be changed: {error}"
+msgstr "アクセス権を変更できません: {error}"
+
+#: src/dialogs/propertiesdialog.cpp
+#, python-brace-format
+msgid "The owner could not be changed: {error}"
+msgstr "所有者を変更できません: {error}"
+
+#: src/dialogs/propertiesdialog.cpp
+msgid "Changing the folder's contents…"
+msgstr "フォルダーの中身を変更しています…"
+
+#: src/dialogs/propertiesdialog.cpp
+#, python-brace-format
+msgid "Some items could not be changed: {error}"
+msgstr "一部の項目を変更できません: {error}"
+
+#: src/dialogs/propertiesdialog.cpp
+msgid "The folder's contents were changed."
+msgstr "フォルダーの中身を変更しました。"
+
+#: src/dialogs/propertiesdialog.cpp
+msgid "Calculating..."
+msgstr "計算中..."
+
+#: src/dialogs/propertiesdialog.cpp
+msgid "Not available"
+msgstr "利用できません"
+
+#: src/dialogs/propertiesdialog.cpp
+msgid "Owner:"
+msgstr "所有者:"
+
+#: src/dialogs/propertiesdialog.cpp
+msgid "Group:"
+msgstr "グループ:"
+
+#: src/dialogs/propertiesdialog.cpp
+msgid "None"
+msgstr "なし"
+
+#: src/dialogs/propertiesdialog.cpp
+msgid "Read only"
+msgstr "読み取りのみ"
+
+#: src/dialogs/propertiesdialog.cpp
+msgid "Read and write"
+msgstr "読み取りと書き込み"
+
+#: src/dialogs/propertiesdialog.cpp
+msgid "Owner access:"
+msgstr "所有者のアクセス:"
+
+#: src/dialogs/propertiesdialog.cpp
+msgid "Group access:"
+msgstr "グループのアクセス:"
+
+#: src/dialogs/propertiesdialog.cpp
+msgid "Others access:"
+msgstr "その他のアクセス:"
+
+#: src/dialogs/propertiesdialog.cpp
+msgid "Allow executing as a program"
+msgstr "プログラムとして実行を許可"
+
+#: src/dialogs/propertiesdialog.cpp
+msgid "Apply to the Folder's Contents"
+msgstr "フォルダーの中身に適用"
+
+#: src/dialogs/propertiesdialog.cpp
+msgid "Only the owner can change these. Open the folder as an administrator to change them."
+msgstr "これを変更できるのは所有者だけです。変更するには管理者としてフォルダーを開いてください。"
+
+#: src/dialogs/propertiesdialog.cpp
+msgid "SHA-256:"
+msgstr "SHA-256:"
+
+#: src/dialogs/propertiesdialog.cpp
+msgid "Calculate"
+msgstr "計算"
+
+#: src/dialogs/propertiesdialog.cpp
 msgid "Type:"
 msgstr "種類:"
 
@@ -723,10 +806,6 @@ msgstr "場所:"
 #: src/dialogs/propertiesdialog.cpp
 msgid "Size:"
 msgstr "サイズ:"
-
-#: src/dialogs/propertiesdialog.cpp
-msgid "Calculating..."
-msgstr "計算中..."
 
 #: src/dialogs/propertiesdialog.cpp
 msgid "Created:"
@@ -875,6 +954,18 @@ msgstr "含まれているフォルダを表示"
 #: src/model/foldermodel.cpp
 msgid "Compress"
 msgstr "圧縮"
+
+#: src/model/foldermodel.cpp
+msgid "Copy Location"
+msgstr "場所をコピー"
+
+#: src/model/foldermodel.cpp
+msgid "Duplicate"
+msgstr "複製"
+
+#: src/model/foldermodel.cpp
+msgid "Make Link"
+msgstr "リンクを作成"
 
 #: src/model/foldermodel.cpp
 msgid "Cut"

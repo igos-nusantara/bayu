@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bayu-filemanager\n"
 "Report-Msgid-Bugs-To: https://github.com/bayuos\n"
-"POT-Creation-Date: 2026-10-29 09:15+0000\n"
+"POT-Creation-Date: 2026-11-02 06:45+0000\n"
 "PO-Revision-Date: 2026-10-25 12:00+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -712,6 +712,89 @@ msgid_plural "{n} files"
 msgstr[0] "{n} 个文件"
 
 #: src/dialogs/propertiesdialog.cpp
+#, python-brace-format
+msgid "The permissions could not be changed: {error}"
+msgstr "无法更改权限：{error}"
+
+#: src/dialogs/propertiesdialog.cpp
+#, python-brace-format
+msgid "The owner could not be changed: {error}"
+msgstr "无法更改所有者：{error}"
+
+#: src/dialogs/propertiesdialog.cpp
+msgid "Changing the folder's contents…"
+msgstr "正在更改文件夹内容…"
+
+#: src/dialogs/propertiesdialog.cpp
+#, python-brace-format
+msgid "Some items could not be changed: {error}"
+msgstr "部分项目无法更改：{error}"
+
+#: src/dialogs/propertiesdialog.cpp
+msgid "The folder's contents were changed."
+msgstr "文件夹内容已更改。"
+
+#: src/dialogs/propertiesdialog.cpp
+msgid "Calculating..."
+msgstr "正在计算..."
+
+#: src/dialogs/propertiesdialog.cpp
+msgid "Not available"
+msgstr "不可用"
+
+#: src/dialogs/propertiesdialog.cpp
+msgid "Owner:"
+msgstr "所有者："
+
+#: src/dialogs/propertiesdialog.cpp
+msgid "Group:"
+msgstr "组："
+
+#: src/dialogs/propertiesdialog.cpp
+msgid "None"
+msgstr "无"
+
+#: src/dialogs/propertiesdialog.cpp
+msgid "Read only"
+msgstr "只读"
+
+#: src/dialogs/propertiesdialog.cpp
+msgid "Read and write"
+msgstr "读写"
+
+#: src/dialogs/propertiesdialog.cpp
+msgid "Owner access:"
+msgstr "所有者权限："
+
+#: src/dialogs/propertiesdialog.cpp
+msgid "Group access:"
+msgstr "组权限："
+
+#: src/dialogs/propertiesdialog.cpp
+msgid "Others access:"
+msgstr "其他人权限："
+
+#: src/dialogs/propertiesdialog.cpp
+msgid "Allow executing as a program"
+msgstr "允许作为程序执行"
+
+#: src/dialogs/propertiesdialog.cpp
+msgid "Apply to the Folder's Contents"
+msgstr "应用到文件夹内容"
+
+#: src/dialogs/propertiesdialog.cpp
+msgid "Only the owner can change these. Open the folder as an administrator to change them."
+msgstr "只有所有者可以更改这些。请以管理员身份打开文件夹进行更改。"
+
+#: src/dialogs/propertiesdialog.cpp
+msgid "SHA-256:"
+msgstr "SHA-256："
+
+#: src/dialogs/propertiesdialog.cpp
+msgid "Calculate"
+msgstr "计算"
+
+#: src/dialogs/propertiesdialog.cpp
 msgid "Type:"
 msgstr "类型："
 
@@ -722,10 +805,6 @@ msgstr "位置："
 #: src/dialogs/propertiesdialog.cpp
 msgid "Size:"
 msgstr "大小："
-
-#: src/dialogs/propertiesdialog.cpp
-msgid "Calculating..."
-msgstr "正在计算..."
 
 #: src/dialogs/propertiesdialog.cpp
 msgid "Created:"
@@ -874,6 +953,18 @@ msgstr "在所在文件夹中显示"
 #: src/model/foldermodel.cpp
 msgid "Compress"
 msgstr "压缩"
+
+#: src/model/foldermodel.cpp
+msgid "Copy Location"
+msgstr "复制位置"
+
+#: src/model/foldermodel.cpp
+msgid "Duplicate"
+msgstr "创建副本"
+
+#: src/model/foldermodel.cpp
+msgid "Make Link"
+msgstr "创建链接"
 
 #: src/model/foldermodel.cpp
 msgid "Cut"

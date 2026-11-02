@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bayu-filemanager\n"
 "Report-Msgid-Bugs-To: https://github.com/bayuos\n"
-"POT-Creation-Date: 2026-10-29 09:15+0000\n"
+"POT-Creation-Date: 2026-11-02 06:45+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -712,6 +712,89 @@ msgid_plural "{n} files"
 msgstr[0] "{n} fail"
 
 #: src/dialogs/propertiesdialog.cpp
+#, python-brace-format
+msgid "The permissions could not be changed: {error}"
+msgstr "Kebenaran tidak dapat diubah: {error}"
+
+#: src/dialogs/propertiesdialog.cpp
+#, python-brace-format
+msgid "The owner could not be changed: {error}"
+msgstr "Pemilik tidak dapat diubah: {error}"
+
+#: src/dialogs/propertiesdialog.cpp
+msgid "Changing the folder's contents…"
+msgstr "Mengubah kandungan folder…"
+
+#: src/dialogs/propertiesdialog.cpp
+#, python-brace-format
+msgid "Some items could not be changed: {error}"
+msgstr "Sesetengah item tidak dapat diubah: {error}"
+
+#: src/dialogs/propertiesdialog.cpp
+msgid "The folder's contents were changed."
+msgstr "Kandungan folder telah diubah."
+
+#: src/dialogs/propertiesdialog.cpp
+msgid "Calculating..."
+msgstr "Mengira..."
+
+#: src/dialogs/propertiesdialog.cpp
+msgid "Not available"
+msgstr "Tidak tersedia"
+
+#: src/dialogs/propertiesdialog.cpp
+msgid "Owner:"
+msgstr "Pemilik:"
+
+#: src/dialogs/propertiesdialog.cpp
+msgid "Group:"
+msgstr "Kumpulan:"
+
+#: src/dialogs/propertiesdialog.cpp
+msgid "None"
+msgstr "Tiada"
+
+#: src/dialogs/propertiesdialog.cpp
+msgid "Read only"
+msgstr "Baca sahaja"
+
+#: src/dialogs/propertiesdialog.cpp
+msgid "Read and write"
+msgstr "Baca dan tulis"
+
+#: src/dialogs/propertiesdialog.cpp
+msgid "Owner access:"
+msgstr "Akses pemilik:"
+
+#: src/dialogs/propertiesdialog.cpp
+msgid "Group access:"
+msgstr "Akses kumpulan:"
+
+#: src/dialogs/propertiesdialog.cpp
+msgid "Others access:"
+msgstr "Akses lain:"
+
+#: src/dialogs/propertiesdialog.cpp
+msgid "Allow executing as a program"
+msgstr "Benarkan dijalankan sebagai program"
+
+#: src/dialogs/propertiesdialog.cpp
+msgid "Apply to the Folder's Contents"
+msgstr "Guna pada Kandungan Folder"
+
+#: src/dialogs/propertiesdialog.cpp
+msgid "Only the owner can change these. Open the folder as an administrator to change them."
+msgstr "Hanya pemilik boleh mengubah ini. Buka folder sebagai pentadbir untuk mengubahnya."
+
+#: src/dialogs/propertiesdialog.cpp
+msgid "SHA-256:"
+msgstr "SHA-256:"
+
+#: src/dialogs/propertiesdialog.cpp
+msgid "Calculate"
+msgstr "Kira"
+
+#: src/dialogs/propertiesdialog.cpp
 msgid "Type:"
 msgstr "Jenis:"
 
@@ -722,10 +805,6 @@ msgstr "Lokasi:"
 #: src/dialogs/propertiesdialog.cpp
 msgid "Size:"
 msgstr "Saiz:"
-
-#: src/dialogs/propertiesdialog.cpp
-msgid "Calculating..."
-msgstr "Mengira..."
 
 #: src/dialogs/propertiesdialog.cpp
 msgid "Created:"
@@ -874,6 +953,18 @@ msgstr "Tunjukkan dalam Folder Penutup"
 #: src/model/foldermodel.cpp
 msgid "Compress"
 msgstr "Mampat"
+
+#: src/model/foldermodel.cpp
+msgid "Copy Location"
+msgstr "Salin Lokasi"
+
+#: src/model/foldermodel.cpp
+msgid "Duplicate"
+msgstr "Pendua"
+
+#: src/model/foldermodel.cpp
+msgid "Make Link"
+msgstr "Buat Pautan"
 
 #: src/model/foldermodel.cpp
 msgid "Cut"

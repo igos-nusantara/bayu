@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bayu-filemanager\n"
 "Report-Msgid-Bugs-To: https://github.com/bayuos\n"
-"POT-Creation-Date: 2026-10-29 09:15+0000\n"
+"POT-Creation-Date: 2026-11-02 06:45+0000\n"
 "PO-Revision-Date: 2026-10-25 12:00+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -712,6 +712,89 @@ msgid_plural "{n} files"
 msgstr[0] "파일 {n}개"
 
 #: src/dialogs/propertiesdialog.cpp
+#, python-brace-format
+msgid "The permissions could not be changed: {error}"
+msgstr "권한을 변경할 수 없습니다: {error}"
+
+#: src/dialogs/propertiesdialog.cpp
+#, python-brace-format
+msgid "The owner could not be changed: {error}"
+msgstr "소유자를 변경할 수 없습니다: {error}"
+
+#: src/dialogs/propertiesdialog.cpp
+msgid "Changing the folder's contents…"
+msgstr "폴더 내용을 변경하는 중…"
+
+#: src/dialogs/propertiesdialog.cpp
+#, python-brace-format
+msgid "Some items could not be changed: {error}"
+msgstr "일부 항목을 변경할 수 없습니다: {error}"
+
+#: src/dialogs/propertiesdialog.cpp
+msgid "The folder's contents were changed."
+msgstr "폴더 내용을 변경했습니다."
+
+#: src/dialogs/propertiesdialog.cpp
+msgid "Calculating..."
+msgstr "계산 중..."
+
+#: src/dialogs/propertiesdialog.cpp
+msgid "Not available"
+msgstr "사용할 수 없음"
+
+#: src/dialogs/propertiesdialog.cpp
+msgid "Owner:"
+msgstr "소유자:"
+
+#: src/dialogs/propertiesdialog.cpp
+msgid "Group:"
+msgstr "그룹:"
+
+#: src/dialogs/propertiesdialog.cpp
+msgid "None"
+msgstr "없음"
+
+#: src/dialogs/propertiesdialog.cpp
+msgid "Read only"
+msgstr "읽기 전용"
+
+#: src/dialogs/propertiesdialog.cpp
+msgid "Read and write"
+msgstr "읽기 및 쓰기"
+
+#: src/dialogs/propertiesdialog.cpp
+msgid "Owner access:"
+msgstr "소유자 접근:"
+
+#: src/dialogs/propertiesdialog.cpp
+msgid "Group access:"
+msgstr "그룹 접근:"
+
+#: src/dialogs/propertiesdialog.cpp
+msgid "Others access:"
+msgstr "기타 접근:"
+
+#: src/dialogs/propertiesdialog.cpp
+msgid "Allow executing as a program"
+msgstr "프로그램으로 실행 허용"
+
+#: src/dialogs/propertiesdialog.cpp
+msgid "Apply to the Folder's Contents"
+msgstr "폴더 내용에 적용"
+
+#: src/dialogs/propertiesdialog.cpp
+msgid "Only the owner can change these. Open the folder as an administrator to change them."
+msgstr "소유자만 변경할 수 있습니다. 변경하려면 관리자로 폴더를 여십시오."
+
+#: src/dialogs/propertiesdialog.cpp
+msgid "SHA-256:"
+msgstr "SHA-256:"
+
+#: src/dialogs/propertiesdialog.cpp
+msgid "Calculate"
+msgstr "계산"
+
+#: src/dialogs/propertiesdialog.cpp
 msgid "Type:"
 msgstr "유형:"
 
@@ -722,10 +805,6 @@ msgstr "위치:"
 #: src/dialogs/propertiesdialog.cpp
 msgid "Size:"
 msgstr "크기:"
-
-#: src/dialogs/propertiesdialog.cpp
-msgid "Calculating..."
-msgstr "계산 중..."
 
 #: src/dialogs/propertiesdialog.cpp
 msgid "Created:"
@@ -874,6 +953,18 @@ msgstr "상위 폴더에서 보기"
 #: src/model/foldermodel.cpp
 msgid "Compress"
 msgstr "압축"
+
+#: src/model/foldermodel.cpp
+msgid "Copy Location"
+msgstr "위치 복사"
+
+#: src/model/foldermodel.cpp
+msgid "Duplicate"
+msgstr "복제"
+
+#: src/model/foldermodel.cpp
+msgid "Make Link"
+msgstr "링크 만들기"
 
 #: src/model/foldermodel.cpp
 msgid "Cut"
