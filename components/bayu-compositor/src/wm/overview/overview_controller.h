@@ -16,6 +16,7 @@
 #include "scene/overview_node.h"
 #include "wm/activation.h"
 #include "wm/desks/desks_controller.h"
+#include "wm/window_snap.h"
 
 namespace bayu::wm {
 
@@ -100,6 +101,11 @@ public:
     bool enter();
     // Leaves, activating `window` first when given; it lands last, on top.
     void exit(Window *window = nullptr);
+    // Snap Assist (#149): with `window` just snapped to half the screen, the
+    // other windows come up on the other half, and the one picked is snapped
+    // there. Not when that half is taken already or nothing could go there.
+    bool enterSnapAssist(Window *window);
+    bool isSnapAssist() const { return m_assist.has_value(); }
     // Gone at once, with no animation.
     void exitImmediately();
     // Names the desks again after the session language changed.
@@ -226,6 +232,12 @@ private:
     void activateItem(int index);
     void moveSelection(int dx, int dy);
     void setHover(const Hit &hit);
+
+    struct Assist {
+        Window *window = nullptr;
+        SnapType target = SnapType::None;
+    };
+    std::optional<Assist> m_assist;
 
     WindowManager *m_manager = nullptr;
     scene::OverviewNode *m_node = nullptr;

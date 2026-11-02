@@ -16,6 +16,7 @@
 #include "compositor/surface_observer.h"
 #include "ui/bitmap.h"
 #include "wm/types.h"
+#include "wm/window_snap.h"
 #include "wm/window_frame.h"
 
 namespace bayu::compositor {
@@ -333,6 +334,8 @@ public:
     // True between beginMove/beginResize and the end of the drag. ShellSurface
     // maps this onto the xdg_toplevel resizing state.
     bool isResizing() const { return m_resizing; }
+    // Tiled by the TilingController: its bounds belong to the tree.
+    bool isTiled() const { return m_tiled; }
 
     // True for an interactive move as well, which the xdg_toplevel resizing
     // state deliberately does not cover.
@@ -349,6 +352,8 @@ public:
     void maximize();
     void snapPrimary();
     void snapSecondary();
+    // Any snap: a half, a quarter, or the maximized state for Maximize.
+    void snap(SnapType type);
     void minimize();
     void restore();
     void setFullscreen(bool fullscreen);
@@ -449,9 +454,11 @@ private:
     friend class TransientManager;
     friend class WindowState;
     friend class ToplevelEventHandler;
+    friend class TilingController;
 
     void setActiveInternal(bool active);
     void setResizingInternal(bool resizing);
+    void setTiledInternal(bool tiled);
     void setDraggedInternal(bool dragged);
     void setRestoringFromDragInternal(bool restoring);
     void updateSurfacePlacement();
@@ -508,6 +515,7 @@ private:
     bool m_deskHidden = false;
     bool m_active = false;
     bool m_resizing = false;
+    bool m_tiled = false;
     bool m_dragged = false;
     bool m_dragPreview = false;
     bool m_restoringFromDrag = false;

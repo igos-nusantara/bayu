@@ -491,6 +491,8 @@ add_library(bayu-wm STATIC
     src/wm/shell_surface.h
     src/wm/show_desktop_controller.cpp
     src/wm/show_desktop_controller.h
+    src/wm/tiling_controller.cpp
+    src/wm/tiling_controller.h
     src/wm/mru_window_tracker.cpp
     src/wm/mru_window_tracker.h
     src/wm/window_cycle_controller.cpp
@@ -663,6 +665,8 @@ add_library(bayu-accelerators STATIC
     src/accelerators/hot_corner_controller.h
     src/accelerators/hot_corner_settings.cpp
     src/accelerators/hot_corner_settings.h
+    src/accelerators/tiling_settings.cpp
+    src/accelerators/tiling_settings.h
 )
 target_include_directories(bayu-accelerators PUBLIC src)
 target_link_libraries(bayu-accelerators PUBLIC bayu-wm bayu-session bayu-input-dbus PkgConfig::Xkbcommon)

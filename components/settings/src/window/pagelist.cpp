@@ -120,6 +120,9 @@ static std::vector<PageInfo> makePages()
     add({.id = "hotcorners", .name = "hotcorners", .title = trNoop("Hot Corners"), .icon = "dock.svg",
          .iconColor = Color::rgb(0x8585FC), .keywords = trNoop("screen corners, show desktop, show all windows"),
          .parentId = "dock"});
+    add({.id = "tiling", .name = "tiling", .title = trNoop("Tiling"), .icon = "dock.svg",
+         .iconColor = Color::rgb(0x8585FC), .keywords = trNoop("tile, tiling, split, windows, gaps, float"),
+         .parentId = "dock"});
     add({.id = "shortcuts", .title = trNoop("Keyboard Shortcuts"), .icon = "keyboard.svg",
          .iconColor = Color::rgb(0x5E6AD2), .keywords = trNoop("hotkeys, key bindings"), .parentId = "keyboard"});
     return pages;

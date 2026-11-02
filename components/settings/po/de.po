@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bayu-settings\n"
 "Report-Msgid-Bugs-To: https://github.com/bayuos\n"
-"POT-Creation-Date: 2026-10-31 00:20+0000\n"
+"POT-Creation-Date: 2026-11-02 13:25+0000\n"
 "PO-Revision-Date: 2026-10-25 00:00+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -703,7 +703,7 @@ msgstr "Videoplayer"
 
 #: src/pages/defaultapps/defaultappspage.cpp src/pages/fonts/fontspage.cpp
 #: src/pages/hotcorners/hotcornerspage.cpp src/pages/keyboard/keyboardpage.cpp
-#: src/pages/shortcuts/shortcutspage.cpp
+#: src/pages/shortcuts/shortcutspage.cpp src/pages/tiling/tilingpage.cpp
 msgid "None"
 msgstr "Keine"
 
@@ -893,6 +893,11 @@ msgstr "Stärker getönt"
 #: src/window/pagelist.cpp
 msgid "Hot Corners"
 msgstr "Aktive Ecken"
+
+#: src/pages/dock/dockpage.cpp src/pages/shortcuts/shortcutsmodel.cpp
+#: src/pages/tiling/tilingpage.cpp src/window/pagelist.cpp
+msgid "Tiling"
+msgstr "Kacheln"
 
 #: src/pages/dock/dockpage.cpp
 msgid "The panel has no top bar, so applications show their menus in their windows. Applications already open may need to be opened again."
@@ -1568,7 +1573,7 @@ msgstr "Erweiterte Optionen anzeigen"
 msgid "Asked on connect"
 msgstr "Wird beim Verbinden abgefragt"
 
-#: src/pages/network/vpn/vpneditor.cpp
+#: src/pages/network/vpn/vpneditor.cpp src/pages/tiling/tilingpage.cpp
 msgid "Choose…"
 msgstr "Auswählen …"
 
@@ -1630,6 +1635,7 @@ msgstr "Peer"
 
 #: src/pages/network/vpn/vpneditor.cpp src/pages/printers/printerspage.cpp
 #: src/pages/privacy/privacypage.cpp src/pages/shortcuts/shortcuteditdialog.cpp
+#: src/pages/tiling/tilingpage.cpp
 msgid "Remove"
 msgstr "Entfernen"
 
@@ -2057,12 +2063,60 @@ msgid "Snap the window to the right"
 msgstr "Fenster rechts einrasten"
 
 #: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Snap the window up, or maximize it"
+msgstr "Fenster oben andocken oder maximieren"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Snap the window down, or minimize it"
+msgstr "Fenster unten andocken oder minimieren"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
 msgid "Close the window"
 msgstr "Fenster schließen"
 
 #: src/pages/shortcuts/shortcutsmodel.cpp
 msgid "Move the window to the next display"
 msgstr "Fenster auf die nächste Anzeige verschieben"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Tile or untile the desk"
+msgstr "Desk kacheln oder Kacheln aufheben"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Float the window, or tile it again"
+msgstr "Fenster schweben lassen oder wieder kacheln"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Swap the window with the one on the left"
+msgstr "Fenster mit dem linken tauschen"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Swap the window with the one on the right"
+msgstr "Fenster mit dem rechten tauschen"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Swap the window with the one above"
+msgstr "Fenster mit dem oberen tauschen"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Swap the window with the one below"
+msgstr "Fenster mit dem unteren tauschen"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Move the edge of the window to the left"
+msgstr "Fensterrand nach links verschieben"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Move the edge of the window to the right"
+msgstr "Fensterrand nach rechts verschieben"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Move the edge of the window up"
+msgstr "Fensterrand nach oben verschieben"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Move the edge of the window down"
+msgstr "Fensterrand nach unten verschieben"
 
 #: src/pages/shortcuts/shortcutsmodel.cpp
 msgid "Switch to the desk on the left"
@@ -2436,6 +2490,39 @@ msgstr "Keine Eingabegeräte"
 #: src/pages/sound/soundpage.cpp
 msgid "No output devices"
 msgstr "Keine Ausgabegeräte"
+
+#: src/pages/tiling/tilingpage.cpp
+msgid "Tiling is managed by the Bayu compositor, which is not running."
+msgstr "Das Kacheln wird vom Bayu-Compositor verwaltet, der nicht läuft."
+
+#: src/pages/tiling/tilingpage.cpp
+msgid "Tile windows on every desk"
+msgstr "Fenster auf jedem Desk kacheln"
+
+#: src/pages/tiling/tilingpage.cpp
+msgid "Gap between windows"
+msgstr "Abstand zwischen Fenstern"
+
+#: src/pages/tiling/tilingpage.cpp
+#, python-brace-format
+msgid "{pixels} px"
+msgstr "{pixels} px"
+
+#: src/pages/tiling/tilingpage.cpp
+msgid "Meta+Y tiles or untiles the current desk, as does the tiling button in the status bar. On a tiled desk, Meta+arrow keys move between windows, Meta+Shift+arrow keys swap them, Meta+Alt+arrow keys resize them and Meta+G lets a window float. Drag a window onto another to swap them."
+msgstr "Meta+Y kachelt den aktuellen Desk oder hebt das Kacheln auf, ebenso die Kachel-Schaltfläche in der Statusleiste. Auf einem gekachelten Desk wechseln Meta+Pfeiltasten zwischen Fenstern, Meta+Umschalt+Pfeiltasten tauschen sie, Meta+Alt+Pfeiltasten ändern ihre Größe und Meta+G lässt ein Fenster schweben. Ziehen Sie ein Fenster auf ein anderes, um beide zu tauschen."
+
+#: src/pages/tiling/tilingpage.cpp
+msgid "Always float"
+msgstr "Immer schwebend"
+
+#: src/pages/tiling/tilingpage.cpp
+msgid "Add an app"
+msgstr "App hinzufügen"
+
+#: src/pages/tiling/tilingpage.cpp
+msgid "Windows of these apps never tile, nor do dialogs and windows too large for a tile."
+msgstr "Fenster dieser Apps werden nie gekachelt, ebenso wenig Dialoge und Fenster, die für eine Kachel zu groß sind."
 
 #: src/pages/touchpad/touchpadpage.cpp src/window/pagelist.cpp
 msgid "Touchpad"
@@ -2829,6 +2916,10 @@ msgstr "Eingabequelle"
 #: src/window/pagelist.cpp
 msgid "screen corners, show desktop, show all windows"
 msgstr "Bildschirmecken, Arbeitsfläche anzeigen, alle Fenster anzeigen, hot corners"
+
+#: src/window/pagelist.cpp
+msgid "tile, tiling, split, windows, gaps, float"
+msgstr "Kachel, Kacheln, teilen, Fenster, Abstand, schwebend"
 
 #: src/window/pagelist.cpp
 msgid "hotkeys, key bindings"

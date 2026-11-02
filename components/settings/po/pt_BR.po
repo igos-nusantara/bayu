@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bayu-settings\n"
 "Report-Msgid-Bugs-To: https://github.com/bayuos\n"
-"POT-Creation-Date: 2026-10-31 00:20+0000\n"
+"POT-Creation-Date: 2026-11-02 13:25+0000\n"
 "PO-Revision-Date: 2026-10-25 12:00+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -703,7 +703,7 @@ msgstr "Reprodutor de vídeo"
 
 #: src/pages/defaultapps/defaultappspage.cpp src/pages/fonts/fontspage.cpp
 #: src/pages/hotcorners/hotcornerspage.cpp src/pages/keyboard/keyboardpage.cpp
-#: src/pages/shortcuts/shortcutspage.cpp
+#: src/pages/shortcuts/shortcutspage.cpp src/pages/tiling/tilingpage.cpp
 msgid "None"
 msgstr "Nenhum"
 
@@ -893,6 +893,11 @@ msgstr "Mais colorido"
 #: src/window/pagelist.cpp
 msgid "Hot Corners"
 msgstr "Cantos ativos"
+
+#: src/pages/dock/dockpage.cpp src/pages/shortcuts/shortcutsmodel.cpp
+#: src/pages/tiling/tilingpage.cpp src/window/pagelist.cpp
+msgid "Tiling"
+msgstr "Lado a lado"
 
 #: src/pages/dock/dockpage.cpp
 msgid "The panel has no top bar, so applications show their menus in their windows. Applications already open may need to be opened again."
@@ -1568,7 +1573,7 @@ msgstr "Mostrar opções avançadas"
 msgid "Asked on connect"
 msgstr "Solicitado ao conectar"
 
-#: src/pages/network/vpn/vpneditor.cpp
+#: src/pages/network/vpn/vpneditor.cpp src/pages/tiling/tilingpage.cpp
 msgid "Choose…"
 msgstr "Escolher…"
 
@@ -1630,6 +1635,7 @@ msgstr "Peer"
 
 #: src/pages/network/vpn/vpneditor.cpp src/pages/printers/printerspage.cpp
 #: src/pages/privacy/privacypage.cpp src/pages/shortcuts/shortcuteditdialog.cpp
+#: src/pages/tiling/tilingpage.cpp
 msgid "Remove"
 msgstr "Remover"
 
@@ -2057,12 +2063,60 @@ msgid "Snap the window to the right"
 msgstr "Encaixar a janela à direita"
 
 #: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Snap the window up, or maximize it"
+msgstr "Encaixar a janela em cima, ou maximizá-la"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Snap the window down, or minimize it"
+msgstr "Encaixar a janela embaixo, ou minimizá-la"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
 msgid "Close the window"
 msgstr "Fechar a janela"
 
 #: src/pages/shortcuts/shortcutsmodel.cpp
 msgid "Move the window to the next display"
 msgstr "Mover a janela para a próxima tela"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Tile or untile the desk"
+msgstr "Organizar a área lado a lado ou desfazer"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Float the window, or tile it again"
+msgstr "Deixar a janela flutuar, ou colocá-la lado a lado de novo"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Swap the window with the one on the left"
+msgstr "Trocar a janela com a da esquerda"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Swap the window with the one on the right"
+msgstr "Trocar a janela com a da direita"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Swap the window with the one above"
+msgstr "Trocar a janela com a de cima"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Swap the window with the one below"
+msgstr "Trocar a janela com a de baixo"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Move the edge of the window to the left"
+msgstr "Mover a borda da janela para a esquerda"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Move the edge of the window to the right"
+msgstr "Mover a borda da janela para a direita"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Move the edge of the window up"
+msgstr "Mover a borda da janela para cima"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Move the edge of the window down"
+msgstr "Mover a borda da janela para baixo"
 
 #: src/pages/shortcuts/shortcutsmodel.cpp
 msgid "Switch to the desk on the left"
@@ -2436,6 +2490,39 @@ msgstr "Nenhum dispositivo de entrada"
 #: src/pages/sound/soundpage.cpp
 msgid "No output devices"
 msgstr "Nenhum dispositivo de saída"
+
+#: src/pages/tiling/tilingpage.cpp
+msgid "Tiling is managed by the Bayu compositor, which is not running."
+msgstr "O lado a lado é gerenciado pelo compositor do Bayu, que não está em execução."
+
+#: src/pages/tiling/tilingpage.cpp
+msgid "Tile windows on every desk"
+msgstr "Janelas lado a lado em todas as áreas"
+
+#: src/pages/tiling/tilingpage.cpp
+msgid "Gap between windows"
+msgstr "Espaço entre as janelas"
+
+#: src/pages/tiling/tilingpage.cpp
+#, python-brace-format
+msgid "{pixels} px"
+msgstr "{pixels} px"
+
+#: src/pages/tiling/tilingpage.cpp
+msgid "Meta+Y tiles or untiles the current desk, as does the tiling button in the status bar. On a tiled desk, Meta+arrow keys move between windows, Meta+Shift+arrow keys swap them, Meta+Alt+arrow keys resize them and Meta+G lets a window float. Drag a window onto another to swap them."
+msgstr "Meta+Y organiza a área atual lado a lado ou desfaz isso, assim como o botão lado a lado na barra de status. Em uma área lado a lado, Meta+setas alternam entre as janelas, Meta+Shift+setas as trocam, Meta+Alt+setas as redimensionam e Meta+G deixa uma janela flutuar. Arraste uma janela sobre outra para trocá-las."
+
+#: src/pages/tiling/tilingpage.cpp
+msgid "Always float"
+msgstr "Sempre flutuantes"
+
+#: src/pages/tiling/tilingpage.cpp
+msgid "Add an app"
+msgstr "Adicionar um app"
+
+#: src/pages/tiling/tilingpage.cpp
+msgid "Windows of these apps never tile, nor do dialogs and windows too large for a tile."
+msgstr "As janelas destes apps nunca ficam lado a lado, nem os diálogos e as janelas grandes demais para um bloco."
 
 #: src/pages/touchpad/touchpadpage.cpp src/window/pagelist.cpp
 msgid "Touchpad"
@@ -2829,6 +2916,10 @@ msgstr "fonte de entrada"
 #: src/window/pagelist.cpp
 msgid "screen corners, show desktop, show all windows"
 msgstr "cantos da tela, mostrar área de trabalho, mostrar todas as janelas"
+
+#: src/window/pagelist.cpp
+msgid "tile, tiling, split, windows, gaps, float"
+msgstr "lado a lado, mosaico, dividir, janelas, espaço, flutuante"
 
 #: src/window/pagelist.cpp
 msgid "hotkeys, key bindings"

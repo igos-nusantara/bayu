@@ -6,6 +6,7 @@
 
 #include <linux/input-event-codes.h>
 
+#include <algorithm>
 #include <cmath>
 #include <utility>
 
@@ -13,8 +14,10 @@
 #include "core/logging.h"
 #include "input/seat.h"
 #include "scene/window_animation.h"
+#include "wm/overview/overview_controller.h"
 #include "wm/resize_cursor.h"
 #include "wm/snap_drag_controller.h"
+#include "wm/tiling_controller.h"
 #include "wm/window.h"
 #include "wm/window_manager.h"
 #include "wm/window_resizer.h"
@@ -107,6 +110,7 @@ bool ToplevelEventHandler::beginDrag(Window *window, ResizeEdge edge,
 
     m_initialStateType = state->stateType();
     m_initialRestoreBounds = state->restoreBounds();
+    m_dragLocation = pointerPosition;
 
     m_resizer = std::make_unique<WindowResizer>(window, pointerPosition, edge,
                                                 m_manager->workAreaFor(window), restoreBounds,
@@ -116,7 +120,9 @@ bool ToplevelEventHandler::beginDrag(Window *window, ResizeEdge edge,
                                 << (touchId ? "touch point" : "pointer") << touchId.value_or(-1);
     window->setDraggedInternal(true);
     window->setResizingInternal(edge != ResizeEdge::None);
-    if (edge == ResizeEdge::None)
+    if (edge != ResizeEdge::None && state->isSnapped())
+        collectPartners(window, edge);
+    if (edge == ResizeEdge::None && !window->isTiled())
         m_snapController->begin(window, pointerPosition);
     CF_DEBUG(cfCompositor) << "drag started:" << toString(edge) << "from"
                           << window->bounds();
@@ -210,6 +216,7 @@ void ToplevelEventHandler::applyMotion(const base::PointF &location)
 {
     const bool hadMoved = m_resizer->hasMovedOrResized();
     Window *window = m_resizer->window();
+    m_dragLocation = location;
     const base::Rect previousBounds = window->bounds();
     if (!m_resizer->isResize()) {
         // A move is bounded by the display under the pointer, so a window can
@@ -224,6 +231,14 @@ void ToplevelEventHandler::applyMotion(const base::PointF &location)
     // drag or destroy the window from inside that call.
     if (!m_resizer)
         return;
+    followPartners();
+    if (!m_resizer)
+        return;
+    if (m_resizer->isResize() && window->isTiled()) {
+        m_manager->tiling()->resizeTo(window, m_resizer->edge(), window->bounds());
+        if (!m_resizer)
+            return;
+    }
 
     // Crossing the threshold is what actually takes the window out of its
     // tiled state, as far as everything the user can see is concerned: the
@@ -246,6 +261,94 @@ void ToplevelEventHandler::applyMotion(const base::PointF &location)
 
     if (!m_resizer->isResize() && m_resizer->hasMovedOrResized())
         m_snapController->update(location);
+}
+
+void ToplevelEventHandler::collectPartners(Window *window, ResizeEdge edge)
+{
+    // Only the windows sharing the edge exactly: on this desk and output, and
+    // tiled against it, as the other half or quarter of the screen.
+    const base::Rect bounds = window->bounds();
+    const base::Rect workArea = m_manager->workAreaFor(window);
+    for (Window *other : m_manager->windows()) {
+        if (other == window || other->isPopup() || !other->isVisible() || !other->isResizable()
+            || !other->state()->isSnapped() || !(m_manager->workAreaFor(other) == workArea))
+            continue;
+        const base::Rect b = other->bounds();
+        const bool rows = b.y() < bounds.bottom() && bounds.y() < b.bottom();
+        const bool columns = b.x() < bounds.right() && bounds.x() < b.right();
+        Partner partner {other, b};
+        partner.left = isRightEdge(edge) && rows && b.x() == bounds.right();
+        partner.right = isLeftEdge(edge) && rows && b.right() == bounds.x();
+        partner.top = isBottomEdge(edge) && columns && b.y() == bounds.bottom();
+        partner.bottom = isTopEdge(edge) && columns && b.bottom() == bounds.y();
+        if (partner.left || partner.right || partner.top || partner.bottom) {
+            other->setResizingInternal(true);
+            m_partners.push_back(partner);
+        }
+    }
+}
+
+void ToplevelEventHandler::followPartners()
+{
+    if (m_partners.empty())
+        return;
+    Window *window = m_resizer->window();
+    // The edge stops where a partner would go below its minimum size.
+    base::Rect bounds = window->bounds();
+    int left = bounds.x(), top = bounds.y(), right = bounds.right(), bottom = bounds.bottom();
+    for (const Partner &partner : m_partners) {
+        if (!partner.window)
+            continue;
+        const base::Rect &b = partner.initialBounds;
+        const base::Size min = partner.window->minimumSize();
+        if (partner.left)
+            right = std::min(right, b.right() - min.width());
+        if (partner.right)
+            left = std::max(left, b.x() + min.width());
+        if (partner.top)
+            bottom = std::min(bottom, b.bottom() - min.height());
+        if (partner.bottom)
+            top = std::max(top, b.y() + min.height());
+    }
+    const base::Rect clamped(left, top, right - left, bottom - top);
+    if (!(clamped == bounds)) {
+        bounds = clamped;
+        window->setBounds(bounds);
+        if (!m_resizer)
+            return;
+    }
+
+    for (size_t i = 0; i < m_partners.size(); ++i) {
+        const Partner partner = m_partners[i];
+        if (!partner.window || !partner.window->state()->isSnapped())
+            continue;
+        const base::Rect &b = partner.initialBounds;
+        int pl = b.x(), pt = b.y(), pr = b.right(), pb = b.bottom();
+        if (partner.left)
+            pl = bounds.right();
+        if (partner.right)
+            pr = bounds.x();
+        if (partner.top)
+            pt = bounds.bottom();
+        if (partner.bottom)
+            pb = bounds.y();
+        const base::Rect next(pl, pt, pr - pl, pb - pt);
+        if (!(next == partner.window->bounds()))
+            partner.window->setBounds(next);
+        if (!m_resizer)
+            return;
+    }
+}
+
+void ToplevelEventHandler::endPartners(bool revert)
+{
+    for (const Partner &partner : std::exchange(m_partners, {})) {
+        if (!partner.window)
+            continue;
+        if (revert)
+            partner.window->setBounds(partner.initialBounds);
+        partner.window->setResizingInternal(false);
+    }
 }
 
 bool ToplevelEventHandler::onPointerButtonReleased()
@@ -292,19 +395,7 @@ void ToplevelEventHandler::settleDrag(WindowResizer *resizer, SnapType snapped,
             state->setRestoreBounds(initialRestoreBounds.isEmpty() ? resizer->initialBounds()
                                                                    : initialRestoreBounds);
         }
-        switch (snapped) {
-        case SnapType::Primary:
-            window->snapPrimary();
-            break;
-        case SnapType::Secondary:
-            window->snapSecondary();
-            break;
-        case SnapType::Maximize:
-            window->maximize();
-            break;
-        case SnapType::None:
-            break;
-        }
+        window->snap(snapped);
         // Dropping a window back on the edge it already belongs to is not a
         // state change, so nothing has put it back where that state says it
         // goes; the drag left it under the pointer.
@@ -359,6 +450,8 @@ void ToplevelEventHandler::completeDrag(DragResult result)
     const base::Rect initialRestoreBounds = std::exchange(m_initialRestoreBounds, base::Rect());
     CF_DEBUG(cfInputTransitions) << "drag capture cleared";
     const SnapType snapped = m_snapController->end();
+    endPartners(result == DragResult::Revert);
+    Window *assist = nullptr;
 
     if (result != DragResult::WindowDestroyed) {
         Window *window = resizer->window();
@@ -373,6 +466,12 @@ void ToplevelEventHandler::completeDrag(DragResult result)
         } else {
             resizer->completeDrag();
             settleDrag(resizer.get(), snapped, initialRestoreBounds);
+            if (window->isTiled() && !resizer->isResize() && resizer->hasMovedOrResized())
+                m_manager->tiling()->drop(window, m_dragLocation);
+            if ((snapped == SnapType::Primary || snapped == SnapType::Secondary)
+                && window->stateType() != m_initialStateType
+                && window->stateType() == snapStateType(snapped))
+                assist = window;
         }
         // Cleared after the state change, so the window is never drawn tiled
         // at the bounds the pointer left it at.
@@ -386,11 +485,17 @@ void ToplevelEventHandler::completeDrag(DragResult result)
     if (!m_resizer) {
         if (auto *seat = m_manager->seat())
             seat->setCursorOverride(std::nullopt);
+        if (assist && m_manager->hasWindow(assist) && m_manager->overview())
+            m_manager->overview()->enterSnapAssist(assist);
     }
 }
 
 void ToplevelEventHandler::onWindowRemoving(Window *window)
 {
+    for (Partner &partner : m_partners) {
+        if (partner.window == window)
+            partner.window = nullptr;
+    }
     if (m_resizer && m_resizer->window() == window)
         completeDrag(DragResult::WindowDestroyed);
 }

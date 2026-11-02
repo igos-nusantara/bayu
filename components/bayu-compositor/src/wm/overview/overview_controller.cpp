@@ -24,6 +24,7 @@
 #include "wm/toplevel_event_handler.h"
 #include "wm/window.h"
 #include "wm/window_manager.h"
+#include "wm/window_snap.h"
 #include "wm/window_state.h"
 
 using bayu::i18n::format;
@@ -77,6 +78,12 @@ OverviewController::OverviewController(WindowManager *manager)
             return;
         if (window == m_swipeTarget)
             m_swipeTarget = nullptr;
+        // The window Snap Assist was for is gone, and so is the assist.
+        if (m_assist && window == m_assist->window) {
+            m_assist.reset();
+            exit();
+            return;
+        }
         rebuild(true);
     });
     m_outputsChanged = m_manager->outputsChanged.connect([this] {
@@ -113,6 +120,8 @@ bool OverviewController::isOverviewWindow(const Window *window) const
         || !canIncludeWindowInMruList(window) || window->state()->isMinimized()
         || window->isHidden() || window->isDragPreview()
         || !animationOf(window) || window->bounds().isEmpty())
+        return false;
+    if (m_assist && window == m_assist->window)
         return false;
     return m_manager->desks()->belongsToActiveDesk(window);
 }
@@ -278,6 +287,11 @@ void OverviewController::rebuild(bool animate, bool keepPlaces)
     }
 
     buildBars();
+    // Snap Assist is about the free half only: no desks.
+    if (m_assist) {
+        m_bars.clear();
+        m_barDesks.clear();
+    }
     if (pressedDesk) {
         int index = -1;
         if (m_press->hit.bar < int(m_barDesks.size())) {
@@ -315,8 +329,15 @@ void OverviewController::rebuild(bool animate, bool keepPlaces)
         const base::Rect work = output.workArea.isEmpty() ? output.bounds : output.workArea;
         const int top = index < m_bars.size() ? int(std::ceil(m_bars[index].bounds.bottom()))
                                               : work.top();
-        const base::Rect area = base::Rect::fromEdges(work.left() + kMargin, top + kMargin / 2,
-                                                      work.right() - kMargin, work.bottom() - kMargin);
+        base::Rect area = base::Rect::fromEdges(work.left() + kMargin, top + kMargin / 2,
+                                                work.right() - kMargin, work.bottom() - kMargin);
+        if (m_assist) {
+            if (!(m_manager->outputBoundsFor(m_assist->window) == output.bounds))
+                continue;
+            const base::Rect half = snapBounds(m_assist->target, work);
+            area = base::Rect::fromEdges(half.left() + kMargin, half.top() + kMargin,
+                                         half.right() - kMargin, half.bottom() - kMargin);
+        }
         const auto spread = overview::spreadLayout(rects, area, kWindowGap, output.scale);
         for (size_t i = 0; i < onOutput.size() && i < spread.size(); ++i) {
             const auto it = kept.find(onOutput[i]);
@@ -394,6 +415,11 @@ void OverviewController::updateNodes(bool animate)
     }
     m_node->setBackdrop(wallpapers);
     m_node->setFadingBackdrop(desktops);
+    // The snapped window stays where it is, beside the windows on offer.
+    std::vector<const scene::Node *> kept;
+    if (m_assist && m_assist->window->node())
+        kept.push_back(m_assist->window->node());
+    m_node->setKept(std::move(kept));
     m_node->setItems(std::move(items), animate);
     int raised = -1;
     for (size_t index = 0; index < m_items.size(); ++index) {
@@ -572,6 +598,7 @@ void OverviewController::begin()
 void OverviewController::finish()
 {
     m_state = State::Hidden;
+    m_assist.reset();
     m_items.clear();
     m_bars.clear();
     m_barDesks.clear();
@@ -592,6 +619,7 @@ void OverviewController::finish()
         m_node->setItems({}, false);
         m_node->setBackdrop({});
         m_node->setFadingBackdrop({});
+        m_node->setKept({});
     }
     if (m_bar) {
         m_bar->setBars({});
@@ -639,6 +667,36 @@ bool OverviewController::enter()
     takePointer();
     m_state = State::Entering;
     m_node->animateTo(1);
+    return true;
+}
+
+bool OverviewController::enterSnapAssist(Window *window)
+{
+    if (m_state != State::Hidden || !window)
+        return false;
+    SnapType target = SnapType::None;
+    if (window->stateType() == WindowStateType::PrimarySnapped)
+        target = SnapType::Secondary;
+    else if (window->stateType() == WindowStateType::SecondarySnapped)
+        target = SnapType::Primary;
+    if (target == SnapType::None)
+        return false;
+    m_assist = Assist {window, target};
+    const base::Rect output = m_manager->outputBoundsFor(window);
+    bool offer = false;
+    for (Window *other : m_manager->windows()) {
+        if (!isOverviewWindow(other) || !(m_manager->outputBoundsFor(other) == output))
+            continue;
+        if (other->stateType() == snapStateType(target)) {
+            offer = false;
+            break;
+        }
+        offer = offer || other->state()->canSnap(target);
+    }
+    if (!offer || !enter()) {
+        m_assist.reset();
+        return false;
+    }
     return true;
 }
 
@@ -990,7 +1048,10 @@ void OverviewController::activateItem(int index)
 {
     if (index < 0 || index >= int(m_items.size()))
         return;
-    exit(m_items[index].window);
+    Window *window = m_items[index].window;
+    if (m_assist && window->state()->canSnap(m_assist->target))
+        window->snap(m_assist->target);
+    exit(window);
 }
 
 void OverviewController::moveSelection(int dx, int dy)
