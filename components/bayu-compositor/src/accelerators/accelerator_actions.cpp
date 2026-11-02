@@ -14,7 +14,7 @@ namespace bayu::accelerators {
 
 namespace {
 
-constexpr std::array<std::pair<AcceleratorAction, const char *>, 48> kActionNames = {{
+constexpr std::array<std::pair<AcceleratorAction, const char *>, 58> kActionNames = {{
         {AcceleratorAction::ToggleAppList, "toggle-app-list"},
         {AcceleratorAction::LockScreen, "lock-screen"},
         {AcceleratorAction::CycleForwardMru, "cycle-forward-mru"},
@@ -29,6 +29,16 @@ constexpr std::array<std::pair<AcceleratorAction, const char *>, 48> kActionName
         {AcceleratorAction::WindowCycleSnapRight, "window-cycle-snap-right"},
         {AcceleratorAction::WindowSnapUp, "window-snap-up"},
         {AcceleratorAction::WindowSnapDown, "window-snap-down"},
+        {AcceleratorAction::TilingToggle, "tiling-toggle"},
+        {AcceleratorAction::TilingToggleFloating, "tiling-toggle-floating"},
+        {AcceleratorAction::TilingSwapLeft, "tiling-swap-left"},
+        {AcceleratorAction::TilingSwapRight, "tiling-swap-right"},
+        {AcceleratorAction::TilingSwapUp, "tiling-swap-up"},
+        {AcceleratorAction::TilingSwapDown, "tiling-swap-down"},
+        {AcceleratorAction::TilingResizeLeft, "tiling-resize-left"},
+        {AcceleratorAction::TilingResizeRight, "tiling-resize-right"},
+        {AcceleratorAction::TilingResizeUp, "tiling-resize-up"},
+        {AcceleratorAction::TilingResizeDown, "tiling-resize-down"},
         {AcceleratorAction::CloseWindow, "close-window"},
         {AcceleratorAction::MoveActiveWindowBetweenDisplays, "move-active-window-between-displays"},
         {AcceleratorAction::ToggleOverview, "toggle-overview"},

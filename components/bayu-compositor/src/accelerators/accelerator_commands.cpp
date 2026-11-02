@@ -24,6 +24,7 @@
 #include "wm/overview/overview_controller.h"
 #include "wm/show_desktop_controller.h"
 #include "wm/toplevel_event_handler.h"
+#include "wm/tiling_controller.h"
 #include "wm/window.h"
 #include "wm/window_cycle_controller.h"
 #include "wm/window_manager.h"
@@ -139,11 +140,75 @@ void toggleFullscreen(const CommandContext &context)
     }
 }
 
+bool canTile(const CommandContext &context)
+{
+    const wm::Window *window = targetWindow(context);
+    wm::TilingController *tiling = context.windowManager->tiling();
+    return window && tiling && tiling->isActiveDeskTiled();
+}
+
+void tilingToggle(const CommandContext &context)
+{
+    if (wm::TilingController *tiling = context.windowManager->tiling())
+        tiling->toggleActiveDesk();
+}
+
+void tilingToggleFloating(const CommandContext &context)
+{
+    if (wm::Window *window = targetWindow(context))
+        context.windowManager->tiling()->toggleFloating(window);
+}
+
+void tilingMove(const CommandContext &context, AcceleratorAction action)
+{
+    wm::Window *window = targetWindow(context);
+    if (!window)
+        return;
+    using Direction = wm::TilingController::Direction;
+    wm::TilingController *tiling = context.windowManager->tiling();
+    switch (action) {
+    case AcceleratorAction::TilingSwapLeft:
+        tiling->swap(window, Direction::Left);
+        break;
+    case AcceleratorAction::TilingSwapRight:
+        tiling->swap(window, Direction::Right);
+        break;
+    case AcceleratorAction::TilingSwapUp:
+        tiling->swap(window, Direction::Up);
+        break;
+    case AcceleratorAction::TilingSwapDown:
+        tiling->swap(window, Direction::Down);
+        break;
+    case AcceleratorAction::TilingResizeLeft:
+        tiling->resize(window, Direction::Left);
+        break;
+    case AcceleratorAction::TilingResizeRight:
+        tiling->resize(window, Direction::Right);
+        break;
+    case AcceleratorAction::TilingResizeUp:
+        tiling->resize(window, Direction::Up);
+        break;
+    case AcceleratorAction::TilingResizeDown:
+        tiling->resize(window, Direction::Down);
+        break;
+    default:
+        break;
+    }
+}
+
 void windowSnap(const CommandContext &context, AcceleratorAction action)
 {
     wm::Window *window = targetWindow(context);
     if (!window)
         return;
+    // On a tiled desk the arrows move the focus between the tiles.
+    if (window->isTiled()) {
+        context.windowManager->tiling()->focus(window,
+                                               action == AcceleratorAction::WindowCycleSnapLeft
+                                                       ? wm::TilingController::Direction::Left
+                                                       : wm::TilingController::Direction::Right);
+        return;
+    }
     // ash::BaseState::CycleSnap: snap unless already snapped to that side, in
     // which case restore. Rotated displays are not distinguished; Bayu
     // snaps in logical coordinates. A quarter moves across, to the same row
@@ -179,6 +244,11 @@ void windowSnapVertical(const CommandContext &context, bool up)
     wm::Window *window = targetWindow(context);
     if (!window)
         return;
+    if (window->isTiled()) {
+        context.windowManager->tiling()->focus(window, up ? wm::TilingController::Direction::Up
+                                                          : wm::TilingController::Direction::Down);
+        return;
+    }
     using wm::SnapType;
     using wm::WindowStateType;
     SnapType target = SnapType::None;

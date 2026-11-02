@@ -46,6 +46,8 @@ wm::Window *targetWindow(const CommandContext &context);
 bool canCycleMru(const CommandContext &context);
 bool canLock(const CommandContext &context);
 bool canWindowSnap(const CommandContext &context);
+// A window to tile, float or move in its tiles.
+bool canTile(const CommandContext &context);
 bool canMoveActiveWindowBetweenDisplays(const CommandContext &context);
 bool canCloseWindow(const CommandContext &context);
 bool canToggleOverview(const CommandContext &context);
@@ -66,6 +68,11 @@ void toggleFullscreen(const CommandContext &context);
 void windowSnap(const CommandContext &context, AcceleratorAction action);
 // A snapped half to its top or bottom quarter and a quarter back to its half;
 // any other window maximizes (up) or minimizes (down).
+// Auto-tiling (#149): the active desk's tiling, the active window floating,
+// and its place in the tiles.
+void tilingToggle(const CommandContext &context);
+void tilingToggleFloating(const CommandContext &context);
+void tilingMove(const CommandContext &context, AcceleratorAction action);
 void windowSnapVertical(const CommandContext &context, bool up);
 void closeWindow(const CommandContext &context);
 void moveActiveWindowBetweenDisplays(const CommandContext &context);

@@ -747,6 +747,13 @@ void ShellSurface::onWindowResizingChanged(Window *window, bool)
     configure();
 }
 
+void ShellSurface::onWindowTiledChanged(Window *window)
+{
+    if (window != m_window)
+        return;
+    configure();
+}
+
 void ShellSurface::onWindowDestroying(Window *window)
 {
     if (window != m_window)
@@ -782,6 +789,7 @@ void ShellSurface::configure()
         state.stateType = m_window->presentedStateType();
         state.restoreStateType = m_window->state()->restoreStateType();
         state.resizing = m_window->isResizing();
+        state.tiled = m_window->isTiled();
         state.activated = m_window->isActive();
         state.maximizable = m_window->isResizable();
         state.suspended = m_window->stateType() == WindowStateType::Minimized
@@ -1133,9 +1141,9 @@ void ShellSurface::updateWindowBoundsFromClient()
         if (animation->isWaitingForBoundsContent())
             return;
     }
-    // Maximized, fullscreen and interactively resized bounds belong to the
-    // window manager.
-    if (!m_window->state()->isNormal() || m_window->isResizing())
+    // Maximized, fullscreen, tiled and interactively resized bounds belong to
+    // the window manager.
+    if (!m_window->state()->isNormal() || m_window->isResizing() || m_window->isTiled())
         return;
 
     const base::Size size = visibleBounds().size();

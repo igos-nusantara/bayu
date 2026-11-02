@@ -54,6 +54,7 @@ namespace bayu::wm {
 class DesksController;
 class MruWindowTracker;
 class OverviewController;
+class TilingController;
 class ShowDesktopController;
 class ShellSurface;
 class ToplevelEventHandler;
@@ -176,6 +177,7 @@ public:
     OverviewController *overview() const { return m_overview.get(); }
 
     ShowDesktopController *showDesktop() const { return m_showDesktop.get(); }
+    TilingController *tiling() const { return m_tiling.get(); }
 
     ToplevelEventHandler *eventHandler() { return m_eventHandler.get(); }
 
@@ -539,6 +541,7 @@ private:
     std::unique_ptr<DesksController> m_desks;
     std::unique_ptr<OverviewController> m_overview;
     std::unique_ptr<ShowDesktopController> m_showDesktop;
+    std::unique_ptr<TilingController> m_tiling;
     std::vector<scene::Node *> m_deskOverlays;
     bool m_dockTransitionsAbovePanels = true;
     std::unique_ptr<ToplevelEventHandler> m_eventHandler;

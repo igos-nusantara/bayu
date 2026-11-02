@@ -17,6 +17,7 @@
 #include "wm/overview/overview_controller.h"
 #include "wm/resize_cursor.h"
 #include "wm/snap_drag_controller.h"
+#include "wm/tiling_controller.h"
 #include "wm/window.h"
 #include "wm/window_manager.h"
 #include "wm/window_resizer.h"
@@ -109,6 +110,7 @@ bool ToplevelEventHandler::beginDrag(Window *window, ResizeEdge edge,
 
     m_initialStateType = state->stateType();
     m_initialRestoreBounds = state->restoreBounds();
+    m_dragLocation = pointerPosition;
 
     m_resizer = std::make_unique<WindowResizer>(window, pointerPosition, edge,
                                                 m_manager->workAreaFor(window), restoreBounds,
@@ -120,7 +122,7 @@ bool ToplevelEventHandler::beginDrag(Window *window, ResizeEdge edge,
     window->setResizingInternal(edge != ResizeEdge::None);
     if (edge != ResizeEdge::None && state->isSnapped())
         collectPartners(window, edge);
-    if (edge == ResizeEdge::None)
+    if (edge == ResizeEdge::None && !window->isTiled())
         m_snapController->begin(window, pointerPosition);
     CF_DEBUG(cfCompositor) << "drag started:" << toString(edge) << "from"
                           << window->bounds();
@@ -214,6 +216,7 @@ void ToplevelEventHandler::applyMotion(const base::PointF &location)
 {
     const bool hadMoved = m_resizer->hasMovedOrResized();
     Window *window = m_resizer->window();
+    m_dragLocation = location;
     const base::Rect previousBounds = window->bounds();
     if (!m_resizer->isResize()) {
         // A move is bounded by the display under the pointer, so a window can
@@ -231,6 +234,11 @@ void ToplevelEventHandler::applyMotion(const base::PointF &location)
     followPartners();
     if (!m_resizer)
         return;
+    if (m_resizer->isResize() && window->isTiled()) {
+        m_manager->tiling()->resizeTo(window, m_resizer->edge(), window->bounds());
+        if (!m_resizer)
+            return;
+    }
 
     // Crossing the threshold is what actually takes the window out of its
     // tiled state, as far as everything the user can see is concerned: the
@@ -458,6 +466,8 @@ void ToplevelEventHandler::completeDrag(DragResult result)
         } else {
             resizer->completeDrag();
             settleDrag(resizer.get(), snapped, initialRestoreBounds);
+            if (window->isTiled() && !resizer->isResize() && resizer->hasMovedOrResized())
+                m_manager->tiling()->drop(window, m_dragLocation);
             if ((snapped == SnapType::Primary || snapped == SnapType::Secondary)
                 && window->stateType() != m_initialStateType
                 && window->stateType() == snapStateType(snapped))

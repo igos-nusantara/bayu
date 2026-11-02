@@ -36,6 +36,7 @@
 #include "wm/resize_cursor.h"
 #include "wm/resize_handles.h"
 #include "wm/shell_surface.h"
+#include "wm/tiling_controller.h"
 #include "wm/show_desktop_controller.h"
 #include "wm/stacking.h"
 #include "wm/toplevel_event_handler.h"
@@ -140,11 +141,13 @@ WindowManager::WindowManager(compositor::Compositor *compositor, input::Seat *se
     m_desks = std::make_unique<DesksController>(this);
     m_overview = std::make_unique<OverviewController>(this);
     m_showDesktop = std::make_unique<ShowDesktopController>(this);
+    m_tiling = std::make_unique<TilingController>(this);
 }
 
 WindowManager::~WindowManager()
 {
     m_activation.removeObserver(this);
+    m_tiling.reset();
     m_showDesktop.reset();
     m_overview.reset();
     // Tear down through destroyWindow so activation and drags unwind cleanly.

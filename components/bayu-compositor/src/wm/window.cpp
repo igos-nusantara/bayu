@@ -527,6 +527,16 @@ void Window::setResizingInternal(bool resizing)
     });
 }
 
+void Window::setTiledInternal(bool tiled)
+{
+    if (tiled == m_tiled)
+        return;
+    m_tiled = tiled;
+    forEachObserver(this, m_observers, [this](WindowObserver *observer) {
+        observer->onWindowTiledChanged(this);
+    });
+}
+
 void Window::setRestoringFromDragInternal(bool restoring)
 {
     if (restoring == m_restoringFromDrag)

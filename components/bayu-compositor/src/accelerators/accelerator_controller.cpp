@@ -170,6 +170,18 @@ bool AcceleratorController::canPerformAction(AcceleratorAction action,
     case AcceleratorAction::WindowSnapUp:
     case AcceleratorAction::WindowSnapDown:
         return true;
+    case AcceleratorAction::TilingToggle:
+        return true;
+    case AcceleratorAction::TilingToggleFloating:
+    case AcceleratorAction::TilingSwapLeft:
+    case AcceleratorAction::TilingSwapRight:
+    case AcceleratorAction::TilingSwapUp:
+    case AcceleratorAction::TilingSwapDown:
+    case AcceleratorAction::TilingResizeLeft:
+    case AcceleratorAction::TilingResizeRight:
+    case AcceleratorAction::TilingResizeUp:
+    case AcceleratorAction::TilingResizeDown:
+        return commands::canTile(m_context);
     case AcceleratorAction::CloseWindow:
         return commands::canCloseWindow(m_context);
     case AcceleratorAction::ToggleOverview:
@@ -256,6 +268,22 @@ void AcceleratorController::performAction(AcceleratorAction action, const Accele
     case AcceleratorAction::WindowSnapUp:
     case AcceleratorAction::WindowSnapDown:
         commands::windowSnapVertical(m_context, action == AcceleratorAction::WindowSnapUp);
+        break;
+    case AcceleratorAction::TilingToggle:
+        commands::tilingToggle(m_context);
+        break;
+    case AcceleratorAction::TilingToggleFloating:
+        commands::tilingToggleFloating(m_context);
+        break;
+    case AcceleratorAction::TilingSwapLeft:
+    case AcceleratorAction::TilingSwapRight:
+    case AcceleratorAction::TilingSwapUp:
+    case AcceleratorAction::TilingSwapDown:
+    case AcceleratorAction::TilingResizeLeft:
+    case AcceleratorAction::TilingResizeRight:
+    case AcceleratorAction::TilingResizeUp:
+    case AcceleratorAction::TilingResizeDown:
+        commands::tilingMove(m_context, action);
         break;
     case AcceleratorAction::WindowMinimize:
         commands::windowMinimize(m_context);

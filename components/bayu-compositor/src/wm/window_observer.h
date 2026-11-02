@@ -22,6 +22,7 @@ public:
     virtual void onWindowStateTypeChanged(Window* window, WindowStateType oldType) { }
     virtual void onWindowActivationChanged(Window* window, bool active) { }
     virtual void onWindowResizingChanged(Window* window, bool resizing) { }
+    virtual void onWindowTiledChanged(Window* window) { }
     // The window is being moved or resized interactively. Wider than
     // onWindowResizingChanged, which is only the resize half of it because it
     // is what the xdg_toplevel resizing state means.

@@ -491,6 +491,8 @@ add_library(bayu-wm STATIC
     src/wm/shell_surface.h
     src/wm/show_desktop_controller.cpp
     src/wm/show_desktop_controller.h
+    src/wm/tiling_controller.cpp
+    src/wm/tiling_controller.h
     src/wm/mru_window_tracker.cpp
     src/wm/mru_window_tracker.h
     src/wm/window_cycle_controller.cpp

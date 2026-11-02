@@ -408,6 +408,14 @@ public:
                         addToplevelState(&states, XDG_TOPLEVEL_STATE_TILED_BOTTOM);
                     addToplevelState(&states, left ? XDG_TOPLEVEL_STATE_TILED_LEFT : XDG_TOPLEVEL_STATE_TILED_RIGHT);
                 }
+                if (state.tiled
+                    && wl_resource_get_version(toplevel)
+                            >= XDG_TOPLEVEL_STATE_TILED_LEFT_SINCE_VERSION) {
+                    addToplevelState(&states, XDG_TOPLEVEL_STATE_TILED_LEFT);
+                    addToplevelState(&states, XDG_TOPLEVEL_STATE_TILED_RIGHT);
+                    addToplevelState(&states, XDG_TOPLEVEL_STATE_TILED_TOP);
+                    addToplevelState(&states, XDG_TOPLEVEL_STATE_TILED_BOTTOM);
+                }
                 if (state.resizing)
                     addToplevelState(&states, XDG_TOPLEVEL_STATE_RESIZING);
                 if (state.activated)

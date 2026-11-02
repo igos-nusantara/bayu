@@ -123,6 +123,9 @@ private:
     // cleared it. Empty unless the drag started from a tiled state.
     base::Rect m_initialRestoreBounds;
     WindowStateType m_initialStateType = WindowStateType::Normal;
+    // Where the pointer or touch point last was, which a tiled window is
+    // dropped at.
+    base::PointF m_dragLocation;
     // Snapped windows across the edge a snapped window is resized by, and the
     // sides of theirs that follow it (#149). Null once destroyed mid-drag.
     struct Partner {

@@ -72,6 +72,8 @@ public:
         WindowStateType stateType = WindowStateType::Normal;
         WindowStateType restoreStateType = WindowStateType::Normal;
         bool resizing = false;
+        // Tiled: flush against its neighbours on every side.
+        bool tiled = false;
         bool activated = false;
         // xdg_toplevel.configure_bounds: the largest window the work area of
         // its output holds, in client-area terms. 0x0 when unknown.
@@ -267,6 +269,7 @@ public:
     void onWindowStateTypeChanged(Window *window, WindowStateType oldType) override;
     void onWindowActivationChanged(Window *window, bool active) override;
     void onWindowResizingChanged(Window *window, bool resizing) override;
+    void onWindowTiledChanged(Window *window) override;
     void onWindowFrameChanged(Window *window) override;
     void onWindowHiddenChanged(Window *window) override;
     void onWindowDeskHiddenChanged(Window *window) override;
