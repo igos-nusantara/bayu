@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bayu-filemanager\n"
 "Report-Msgid-Bugs-To: https://github.com/bayuos\n"
-"POT-Creation-Date: 2026-11-02 06:37+0000\n"
+"POT-Creation-Date: 2026-11-02 08:35+0000\n"
 "PO-Revision-Date: 2026-10-25 00:00+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -725,6 +725,73 @@ msgstr[0] "{n} Datei"
 msgstr[1] "{n} Dateien"
 
 #: src/dialogs/propertiesdialog.cpp
+#, python-brace-format
+msgid "The permissions could not be changed: {error}"
+msgstr "Die Berechtigungen konnten nicht geändert werden: {error}"
+
+#: src/dialogs/propertiesdialog.cpp
+#, python-brace-format
+msgid "The owner could not be changed: {error}"
+msgstr "Der Besitzer konnte nicht geändert werden: {error}"
+
+#: src/dialogs/propertiesdialog.cpp
+msgid "Changing the folder's contents…"
+msgstr "Inhalt des Ordners wird geändert…"
+
+#: src/dialogs/propertiesdialog.cpp
+#, python-brace-format
+msgid "Some items could not be changed: {error}"
+msgstr "Einige Objekte konnten nicht geändert werden: {error}"
+
+#: src/dialogs/propertiesdialog.cpp
+msgid "The folder's contents were changed."
+msgstr "Der Inhalt des Ordners wurde geändert."
+
+#: src/dialogs/propertiesdialog.cpp
+msgid "Owner:"
+msgstr "Besitzer:"
+
+#: src/dialogs/propertiesdialog.cpp
+msgid "Group:"
+msgstr "Gruppe:"
+
+#: src/dialogs/propertiesdialog.cpp
+msgid "None"
+msgstr "Keine"
+
+#: src/dialogs/propertiesdialog.cpp
+msgid "Read only"
+msgstr "Nur lesen"
+
+#: src/dialogs/propertiesdialog.cpp
+msgid "Read and write"
+msgstr "Lesen und schreiben"
+
+#: src/dialogs/propertiesdialog.cpp
+msgid "Owner access:"
+msgstr "Zugriff Besitzer:"
+
+#: src/dialogs/propertiesdialog.cpp
+msgid "Group access:"
+msgstr "Zugriff Gruppe:"
+
+#: src/dialogs/propertiesdialog.cpp
+msgid "Others access:"
+msgstr "Zugriff andere:"
+
+#: src/dialogs/propertiesdialog.cpp
+msgid "Allow executing as a program"
+msgstr "Ausführen als Programm erlauben"
+
+#: src/dialogs/propertiesdialog.cpp
+msgid "Apply to the Folder's Contents"
+msgstr "Auf den Inhalt des Ordners anwenden"
+
+#: src/dialogs/propertiesdialog.cpp
+msgid "Only the owner can change these. Open the folder as an administrator to change them."
+msgstr "Nur der Besitzer kann dies ändern. Öffnen Sie den Ordner als Administrator, um es zu ändern."
+
+#: src/dialogs/propertiesdialog.cpp
 msgid "Type:"
 msgstr "Typ:"
 
@@ -892,6 +959,18 @@ msgstr "Im übergeordneten Ordner anzeigen"
 #: src/model/foldermodel.cpp
 msgid "Compress"
 msgstr "Komprimieren"
+
+#: src/model/foldermodel.cpp
+msgid "Copy Location"
+msgstr "Ort kopieren"
+
+#: src/model/foldermodel.cpp
+msgid "Duplicate"
+msgstr "Duplizieren"
+
+#: src/model/foldermodel.cpp
+msgid "Make Link"
+msgstr "Verknüpfung erstellen"
 
 #: src/model/foldermodel.cpp
 msgid "Cut"

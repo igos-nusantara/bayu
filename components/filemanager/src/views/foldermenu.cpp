@@ -24,6 +24,9 @@ void triggerAction(FolderModel& model, const std::string& name)
         {"installApk", [](FolderModel& m) { m.openWithApplication("bayu-android-install.desktop"); }},
         {"showInFolder", [](FolderModel& m) { m.showInFolder(); }},
         {"compress", [](FolderModel& m) { m.compressSelected(); }},
+        {"copyLocation", [](FolderModel& m) { m.copyLocation(); }},
+        {"duplicate", [](FolderModel& m) { m.duplicateSelected(); }},
+        {"makeLink", [](FolderModel& m) { m.makeLinkToSelected(); }},
         {"cut", [](FolderModel& m) { m.cut(); }},
         {"copy", [](FolderModel& m) { m.copy(); }},
         {"paste", [](FolderModel& m) { m.paste(); }},
@@ -159,7 +162,10 @@ std::unique_ptr<ui::Menu> createFolderMenu(FolderModel& model)
                   || model.action("del").visible || model.action("rename").visible));
     item("cut", selection);
     item("copy", selection);
+    item("copyLocation", selection);
     item("pasteInto", selection);
+    item("duplicate", selection);
+    item("makeLink", selection);
     item("trash", selection);
     item("del", selection);
     item("rename", selection);

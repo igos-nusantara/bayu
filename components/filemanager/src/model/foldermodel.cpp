@@ -1085,6 +1085,30 @@ void FolderModel::cut()
     ui::Clipboard::setMimeData(data);
 }
 
+void FolderModel::copyLocation()
+{
+    std::string text;
+    for (const int row : selectedRows())
+        text += (text.empty() ? "" : "\n") + realPath(item(row)->path);
+    if (!text.empty())
+        ui::Clipboard::setText(text);
+}
+
+void FolderModel::duplicateSelected()
+{
+    if (m_selection.empty() || !action("duplicate").enabled)
+        return;
+    // Into their own folder, where the copies are kept beside them as "name (1)".
+    OperationsClient::instance().submit(Operation::Copy, selectedUrls(), resolvedUrl(), ConflictPolicy::KeepBoth);
+}
+
+void FolderModel::makeLinkToSelected()
+{
+    if (m_selection.empty() || !action("makeLink").enabled)
+        return;
+    OperationsClient::instance().submit(Operation::Link, selectedUrls(), resolvedUrl(), ConflictPolicy::KeepBoth);
+}
+
 void FolderModel::paste()
 {
     if (rootItem().path.empty() || !rootItem().isWritable)
@@ -1625,6 +1649,9 @@ void FolderModel::createActions()
         {"installApk", tr("Install on Android")},
         {"showInFolder", tr("Show in Enclosing Folder")},
         {"compress", tr("Compress")},
+        {"copyLocation", tr("Copy Location")},
+        {"duplicate", tr("Duplicate")},
+        {"makeLink", tr("Make Link")},
         {"cut", tr("Cut")},
         {"copy", tr("Copy")},
         {"paste", tr("Paste")},
@@ -1706,6 +1733,12 @@ void FolderModel::updateActions()
     m_actions["compress"].text = rows.size() == 1 && !items.empty()
                                          ? format(tr("Compress “{name}”"), {{"name", items.front()->name}})
                                          : std::string(tr("Compress Items"));
+
+    const bool localItems = !items.empty() && !trash && !hasRemoteFiles;
+    set("copyLocation", localItems, true);
+    // Beside themselves: the folder they are in takes them.
+    set("duplicate", localItems && !searching && !hasStandardFolder, rootItem().isWritable);
+    set("makeLink", localItems && !searching, rootItem().isWritable);
 
     set("newFolder", !trash && !searching, rootItem().isWritable);
     set("newTextFile", !trash && !searching, rootItem().isWritable);

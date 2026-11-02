@@ -30,6 +30,7 @@ public:
     int removeDirectory(const std::string &path) override;
     int rename(const std::string &from, const std::string &to, unsigned flags) override;
     int setMode(const std::string &path, mode_t mode) override;
+    int setOwner(const std::string &path, uid_t uid, gid_t gid) override;
     int setTimes(const std::string &path, const struct timespec times[2]) override;
     int readLink(const std::string &path, std::string *target) override;
     int makeLink(const std::string &target, const std::string &path) override;

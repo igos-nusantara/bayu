@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bayu-filemanager\n"
 "Report-Msgid-Bugs-To: https://github.com/bayuos\n"
-"POT-Creation-Date: 2026-11-02 06:37+0000\n"
+"POT-Creation-Date: 2026-11-02 08:35+0000\n"
 "PO-Revision-Date: 2026-10-25 12:00+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -712,6 +712,73 @@ msgid_plural "{n} files"
 msgstr[0] "{n} berkas"
 
 #: src/dialogs/propertiesdialog.cpp
+#, python-brace-format
+msgid "The permissions could not be changed: {error}"
+msgstr "Izin tidak dapat diubah: {error}"
+
+#: src/dialogs/propertiesdialog.cpp
+#, python-brace-format
+msgid "The owner could not be changed: {error}"
+msgstr "Pemilik tidak dapat diubah: {error}"
+
+#: src/dialogs/propertiesdialog.cpp
+msgid "Changing the folder's contents…"
+msgstr "Mengubah isi folder…"
+
+#: src/dialogs/propertiesdialog.cpp
+#, python-brace-format
+msgid "Some items could not be changed: {error}"
+msgstr "Beberapa item tidak dapat diubah: {error}"
+
+#: src/dialogs/propertiesdialog.cpp
+msgid "The folder's contents were changed."
+msgstr "Isi folder sudah diubah."
+
+#: src/dialogs/propertiesdialog.cpp
+msgid "Owner:"
+msgstr "Pemilik:"
+
+#: src/dialogs/propertiesdialog.cpp
+msgid "Group:"
+msgstr "Grup:"
+
+#: src/dialogs/propertiesdialog.cpp
+msgid "None"
+msgstr "Tidak ada"
+
+#: src/dialogs/propertiesdialog.cpp
+msgid "Read only"
+msgstr "Hanya baca"
+
+#: src/dialogs/propertiesdialog.cpp
+msgid "Read and write"
+msgstr "Baca dan tulis"
+
+#: src/dialogs/propertiesdialog.cpp
+msgid "Owner access:"
+msgstr "Akses pemilik:"
+
+#: src/dialogs/propertiesdialog.cpp
+msgid "Group access:"
+msgstr "Akses grup:"
+
+#: src/dialogs/propertiesdialog.cpp
+msgid "Others access:"
+msgstr "Akses lainnya:"
+
+#: src/dialogs/propertiesdialog.cpp
+msgid "Allow executing as a program"
+msgstr "Izinkan dijalankan sebagai program"
+
+#: src/dialogs/propertiesdialog.cpp
+msgid "Apply to the Folder's Contents"
+msgstr "Terapkan ke Isi Folder"
+
+#: src/dialogs/propertiesdialog.cpp
+msgid "Only the owner can change these. Open the folder as an administrator to change them."
+msgstr "Hanya pemilik yang dapat mengubah ini. Buka folder sebagai administrator untuk mengubahnya."
+
+#: src/dialogs/propertiesdialog.cpp
 msgid "Type:"
 msgstr "Jenis:"
 
@@ -878,6 +945,18 @@ msgstr "Tampilkan di Folder Induk"
 #: src/model/foldermodel.cpp
 msgid "Compress"
 msgstr "Kompres"
+
+#: src/model/foldermodel.cpp
+msgid "Copy Location"
+msgstr "Salin Lokasi"
+
+#: src/model/foldermodel.cpp
+msgid "Duplicate"
+msgstr "Duplikat"
+
+#: src/model/foldermodel.cpp
+msgid "Make Link"
+msgstr "Buat Tautan"
 
 #: src/model/foldermodel.cpp
 msgid "Cut"

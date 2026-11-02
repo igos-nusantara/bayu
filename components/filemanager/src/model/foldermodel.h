@@ -179,6 +179,13 @@ public:
     void pasteIntoSelection();
     void openSelected();
     void showOpenWithDialog();
+    // The selection's paths, a line each, to the clipboard; an administrator
+    // window's as they are outside its mount.
+    void copyLocation();
+    // Copies beside the originals, "name (1)".
+    void duplicateSelected();
+    // Symbolic links to the selection, beside it.
+    void makeLinkToSelected();
     void deleteSelected();
     void moveSelectedToTrash();
     void emptyTrash();

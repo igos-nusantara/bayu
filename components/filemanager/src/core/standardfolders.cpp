@@ -9,6 +9,7 @@
 #include <memory>
 #include <mutex>
 #include <vector>
+#include <unistd.h>
 
 using bayu::base::paths::UserDirectory;
 using bayu::i18n::tr;
@@ -154,6 +155,30 @@ std::string homePath()
 {
     static const std::string home = cleanPath(bayu::base::paths::home());
     return home;
+}
+
+std::string administratorRoot()
+{
+    return "/run/user/" + std::to_string(::getuid()) + "/bayu-admin";
+}
+
+bool isAdministratorPath(const std::string& path)
+{
+    const std::string root = administratorRoot();
+    return path == root || path.starts_with(root + "/");
+}
+
+std::string administratorPath(const std::string& path)
+{
+    return isAdministratorPath(path) ? path : administratorRoot() + (path == "/" ? std::string() : path);
+}
+
+std::string realPath(const std::string& path)
+{
+    if (!isAdministratorPath(path))
+        return path;
+    const std::string inside = path.substr(administratorRoot().size());
+    return inside.empty() ? "/" : inside;
 }
 
 } // namespace fm
