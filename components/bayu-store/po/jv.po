@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bayu-store\n"
 "Report-Msgid-Bugs-To: https://github.com/bayuos\n"
-"POT-Creation-Date: 2026-10-28 05:19+0000\n"
+"POT-Creation-Date: 2026-11-02 06:37+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -11,6 +11,51 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+
+#: src/android_setup.cpp
+msgid "Waiting for your password"
+msgstr "Ngenteni tembung sandhi panjenengan"
+
+#: src/android_setup.cpp
+msgid "Setting Android up needs administrator rights, once."
+msgstr "Nyiapake Android butuh hak administrator, sepisan wae."
+
+#: src/android_setup.cpp
+msgid "Downloading Android's vendor image"
+msgstr "Ngundhuh gambar vendor Android"
+
+#: src/android_setup.cpp src/welcome/main.cpp
+msgid "Downloading Android"
+msgstr "Ngundhuh Android"
+
+#: src/android_setup.cpp
+#, python-brace-format
+msgid "{done} of {total}"
+msgstr "{done} saka {total}"
+
+#: src/android_setup.cpp src/welcome/main.cpp
+msgid "Unpacking Android"
+msgstr "Mbongkar Android"
+
+#: src/android_setup.cpp
+msgid "Almost there."
+msgstr "Sedhela maneh."
+
+#: src/android_setup.cpp src/launch/main.cpp src/welcome/main.cpp
+msgid "Starting Android"
+msgstr "Mlakokake Android"
+
+#: src/android_setup.cpp
+msgid "The first start takes a minute or two."
+msgstr "Wiwitan kapisan butuh siji utawa rong menit."
+
+#: src/android_setup.cpp src/welcome/main.cpp
+msgid "Getting Android ready"
+msgstr "Nyiapake Android"
+
+#: src/android_setup.cpp
+msgid "Android is downloaded once, about 1.3 GB. You can keep using the store meanwhile."
+msgstr "Android diundhuh sepisan, kira-kira 1,3 GB. Panjenengan tetep bisa nganggo toko sajrone iku."
 
 #: src/android_setup.cpp
 msgid "Android could not be set up: pkexec is missing."
@@ -108,6 +153,71 @@ msgstr "Swara"
 msgid "Play & record"
 msgstr "Muter & ngrekam"
 
+#: src/install/main.cpp
+#, python-brace-format
+msgid "The APK could not be read: {error}"
+msgstr "APK ora bisa diwaca: {error}"
+
+#: src/install/main.cpp data/bayu-android-install.desktop
+msgid "Install on Android"
+msgstr "Pasang ing Android"
+
+#: src/install/main.cpp
+msgid "Cancel"
+msgstr "Batal"
+
+#: src/install/main.cpp src/ui/store_widgets.cpp
+msgid "Install"
+msgstr "Pasang"
+
+#: src/install/main.cpp
+#, python-brace-format
+msgid "Install {name} on Android?"
+msgstr "Pasang {name} ing Android?"
+
+#: src/install/main.cpp
+msgid "Install only apps you trust: an app from outside F-Droid can read what you give it."
+msgstr "Pasang mung aplikasi sing sampeyan pitados: aplikasi saka njaba F-Droid bisa maca apa sing sampeyan wènèhaké."
+
+#: src/install/main.cpp
+#, python-brace-format
+msgid "Installing {name}"
+msgstr "Masang {name}"
+
+#: src/install/main.cpp
+msgid "Android checks and installs the app."
+msgstr "Android mriksa lan masang aplikasi."
+
+#: src/install/main.cpp src/ui/pages.cpp src/ui/store_window.cpp
+msgid "Installed"
+msgstr "Dipasang"
+
+#: src/install/main.cpp
+#, python-brace-format
+msgid "{name} is installed on Android."
+msgstr "{name} wis kapasang ing Android."
+
+#: src/install/main.cpp
+msgid "It is in the app menu with your other apps."
+msgstr "Aplikasi ana ing menu aplikasi bareng aplikasi liyané."
+
+#: src/install/main.cpp
+msgid "Close"
+msgstr "Tutup"
+
+#: src/install/main.cpp src/ui/pages.cpp
+msgid "Open"
+msgstr "Bukak"
+
+#: src/install/main.cpp
+msgid "Not installed"
+msgstr "Ora kapasang"
+
+#: src/install/main.cpp
+#, python-brace-format
+msgid "{name} could not be installed."
+msgstr "{name} ora bisa dipasang."
+
 #: src/lapis.cpp
 msgid "Android started but did not finish booting. It needs graphics with 3D acceleration (OpenGL; in a virtual machine, virgl), which this computer may not have."
 msgstr "Android wis mlaku nanging ora rampung miwiti. Android butuh grafis kanthi akselerasi 3D (OpenGL; ing mesin virtual, virgl), sing bisa uga ora diduweni komputer iki."
@@ -127,10 +237,6 @@ msgstr "Android ora mlaku ing wektune."
 #: src/lapis.cpp
 msgid "lapis-session could not be stopped."
 msgstr "lapis-session ora bisa dimandhegake."
-
-#: src/launch/main.cpp src/ui/pages.cpp src/welcome/main.cpp
-msgid "Starting Android"
-msgstr "Mlakokake Android"
 
 #: src/launch/main.cpp
 #, python-brace-format
@@ -482,10 +588,6 @@ msgstr "ANTRIAN"
 msgid "UPDATE"
 msgstr "NYANYARI"
 
-#: src/ui/pages.cpp
-msgid "Open"
-msgstr "Bukak"
-
 #: src/ui/pages.cpp src/ui/store_window.cpp
 msgid "Uninstall"
 msgstr "Copot"
@@ -493,10 +595,6 @@ msgstr "Copot"
 #: src/ui/pages.cpp src/ui/store_window.cpp
 msgid "Updates"
 msgstr "Nganyari"
-
-#: src/ui/pages.cpp src/ui/store_window.cpp
-msgid "Installed"
-msgstr "Dipasang"
 
 #: src/ui/pages.cpp src/ui/store_window.cpp
 msgid "Recent"
@@ -712,47 +810,6 @@ msgid "Settings"
 msgstr "Setelan"
 
 #: src/ui/pages.cpp
-msgid "Waiting for your password"
-msgstr "Ngenteni tembung sandhi panjenengan"
-
-#: src/ui/pages.cpp
-msgid "Setting Android up needs administrator rights, once."
-msgstr "Nyiapake Android butuh hak administrator, sepisan wae."
-
-#: src/ui/pages.cpp
-msgid "Downloading Android's vendor image"
-msgstr "Ngundhuh gambar vendor Android"
-
-#: src/ui/pages.cpp src/welcome/main.cpp
-msgid "Downloading Android"
-msgstr "Ngundhuh Android"
-
-#: src/ui/pages.cpp
-#, python-brace-format
-msgid "{done} of {total}"
-msgstr "{done} saka {total}"
-
-#: src/ui/pages.cpp src/welcome/main.cpp
-msgid "Unpacking Android"
-msgstr "Mbongkar Android"
-
-#: src/ui/pages.cpp
-msgid "Almost there."
-msgstr "Sedhela maneh."
-
-#: src/ui/pages.cpp
-msgid "The first start takes a minute or two."
-msgstr "Wiwitan kapisan butuh siji utawa rong menit."
-
-#: src/ui/pages.cpp src/welcome/main.cpp
-msgid "Getting Android ready"
-msgstr "Nyiapake Android"
-
-#: src/ui/pages.cpp
-msgid "Android is downloaded once, about 1.3 GB. You can keep using the store meanwhile."
-msgstr "Android diundhuh sepisan, kira-kira 1,3 GB. Panjenengan tetep bisa nganggo toko sajrone iku."
-
-#: src/ui/pages.cpp
 msgid "Android could not be turned on"
 msgstr "Android ora bisa diuripake"
 
@@ -804,10 +861,6 @@ msgstr "PASANG"
 #: src/ui/store_widgets.cpp
 msgid "APP OF THE DAY"
 msgstr "APLIKASI SAKA DINA IKI"
-
-#: src/ui/store_widgets.cpp
-msgid "Install"
-msgstr "Pasang"
 
 #: src/ui/store_window.cpp
 msgid "BROWSE"
@@ -1106,6 +1159,10 @@ msgstr "Tur cekak IGN 26 lan aplikasiné"
 #: data/bayu-welcome.desktop
 msgid "tour;welcome;help;getting started;"
 msgstr "tur;sugeng rawuh;pitulung;miwiti;tour;welcome;help;getting started;"
+
+#: data/bayu-android-install.desktop
+msgid "Install an APK into Android"
+msgstr "Pasang APK menyang Android"
 
 #~ msgid "App updates are in Bayu Store, under Updates. For the system, run \"sudo dnf upgrade\" in Terminal."
 #~ msgstr "Nganyari aplikasi ana ing Bayu Store, ing Nganyari. Kanggo sistem, jalanake \"sudo dnf upgrade\" ing Terminal."

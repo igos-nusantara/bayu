@@ -21,6 +21,7 @@ void triggerAction(FolderModel& model, const std::string& name)
     static const std::map<std::string, std::function<void(FolderModel&)>> actions = {
         {"open", [](FolderModel& m) { m.openSelected(); }},
         {"openWith", [](FolderModel& m) { m.showOpenWithDialog(); }},
+        {"installApk", [](FolderModel& m) { m.openWithApplication("bayu-android-install.desktop"); }},
         {"showInFolder", [](FolderModel& m) { m.showInFolder(); }},
         {"compress", [](FolderModel& m) { m.compressSelected(); }},
         {"cut", [](FolderModel& m) { m.cut(); }},
@@ -116,6 +117,7 @@ std::unique_ptr<ui::Menu> createFolderMenu(FolderModel& model)
     // With one: the selection.
     item("restore", selection);
     item("open", selection);
+    item("installApk", selection);
     item("openInNewTab", selection);
     item("openInNewWindow", selection);
     item("showInFolder", selection);
