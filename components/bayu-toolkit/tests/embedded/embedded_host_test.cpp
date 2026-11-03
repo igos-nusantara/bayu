@@ -872,6 +872,35 @@ TEST(EmbeddedHostTest, ThemeIconsInstalledLaterAreFoundAfterAReload)
     reloadThemeIcons();
 }
 
+// Flatpak exports its applications' icons under a directory of
+// $XDG_DATA_DIRS (issue #163): the theme lookup searches them.
+TEST(EmbeddedHostTest, ThemeIconsComeFromTheXdgDataDirectories)
+{
+    namespace fs = std::filesystem;
+    if (!fs::exists("/usr/share/icons/hicolor/index.theme"))
+        GTEST_SKIP() << "no hicolor theme";
+    const fs::path exports = fs::temp_directory_path() / ("bayu-exports-" + std::to_string(getpid()));
+    const std::string name = "org.bayu.Exported" + std::to_string(getpid());
+    const fs::path icon = exports / "icons/hicolor/48x48/apps" / (name + ".png");
+    std::error_code error;
+    fs::create_directories(icon.parent_path(), error);
+    ASSERT_FALSE(error);
+    ASSERT_TRUE(bayu::base::file::writeAtomically(icon.string(), "png"));
+    const char* saved = std::getenv("XDG_DATA_DIRS");
+    const std::string previous = saved ? saved : "";
+    setenv("XDG_DATA_DIRS", (exports.string() + ":/usr/local/share:/usr/share").c_str(), 1);
+    reloadThemeIcons();
+
+    EXPECT_EQ(themeIconPath(name, 48, 1), icon.string());
+
+    if (saved)
+        setenv("XDG_DATA_DIRS", previous.c_str(), 1);
+    else
+        unsetenv("XDG_DATA_DIRS");
+    fs::remove_all(exports, error);
+    reloadThemeIcons();
+}
+
 TEST(EmbeddedHostTest, PopupAtAsksAboutToShowOnce)
 {
     Host host;
