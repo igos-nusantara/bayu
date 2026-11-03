@@ -346,7 +346,8 @@ void StatusBarWindow::showUpdatesMenu()
                     if (monitor->openAppUpdates)
                         monitor->openAppUpdates();
                 });
-        m_updatesMenu->setItemIcon(index, "bayu-store");
+        // Bayu Store's own icon (bayu-store.desktop); the theme has no "bayu-store".
+        m_updatesMenu->setItemIcon(index, "system-software-install");
     }
     m_updatesMenu->addSeparator();
     m_updatesMenu->addItem(tr("Check for Updates"), [monitor] { monitor->check(); });
