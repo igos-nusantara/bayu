@@ -51,10 +51,27 @@ bool throughIppUsb(const Printer& usb, const std::vector<Printer>& printers);
 // `name`, or with "_2", "_3"... after it while a queue has it.
 std::string uniqueName(const std::string& name, const std::set<std::string>& taken);
 
-// Sets the printer up as a new queue: driverless when it prints so, on the
-// network or through ipp-usb; otherwise, a USB printer, with the driver its
-// device ID matches best. Nothing when it worked, else why not. Blocks.
-std::optional<std::string> add(const Printer& printer);
+struct Driver
+{
+    // What lpadmin -m takes.
+    std::string name;
+    std::string description;
+};
+
+// The driver a printer is set up with: none for one printing without a
+// driver, on the network or through ipp-usb ("everywhere"); for a USB
+// printer, the one its device ID matches best, or empty when none does.
+// Blocks.
+std::string matchingDriver(const Printer& printer);
+// The drivers to choose from for a printer none matches: those of its maker,
+// or all when CUPS has none of its maker, "raw" first. Blocks.
+std::vector<Driver> drivers(const Printer& printer);
+// A field of an IEEE 1284 device ID, such as "MFG" or "MANUFACTURER".
+std::string deviceIdField(const std::string& deviceId, const std::vector<std::string>& keys);
+
+// Sets the printer up as a new queue with `driver`, or with its matching one
+// when empty. Nothing when it worked, else why not. Blocks.
+std::optional<std::string> add(const Printer& printer, std::string driver = {});
 
 // Runs a CUPS command (lpadmin, lp, lpoptions, cancel): nothing when it
 // succeeded, else what it said. Blocks, so off the UI thread.

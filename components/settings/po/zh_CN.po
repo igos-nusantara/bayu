@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bayu-settings\n"
 "Report-Msgid-Bugs-To: https://github.com/bayuos\n"
-"POT-Creation-Date: 2026-11-03 05:11+0000\n"
+"POT-Creation-Date: 2026-11-03 11:52+0000\n"
 "PO-Revision-Date: 2026-10-25 12:00+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -1860,6 +1860,10 @@ msgid "Prevent automatic sleeping when the display is off"
 msgstr "显示器关闭时，阻止自动睡眠"
 
 #: src/pages/printers/printers.cpp
+msgid "Raw (the application sends the printer's own commands)"
+msgstr "Raw（应用程序直接发送打印机命令）"
+
+#: src/pages/printers/printers.cpp
 msgid "No driver for this printer was found."
 msgstr "未找到此打印机的驱动程序。"
 
@@ -1929,6 +1933,15 @@ msgstr "无法更改打印机：{error}"
 #: src/pages/printers/printerspage.cpp
 msgid "No other printers found"
 msgstr "未找到其他打印机"
+
+#: src/pages/printers/printerspage.cpp
+msgid "Choose a Driver"
+msgstr "选择驱动程序"
+
+#: src/pages/printers/printerspage.cpp
+#, python-brace-format
+msgid "No driver is known for {printer}. Choose one: that of a model of the same series usually works, such as Epson LQ-850 for an Epson LQ dot-matrix printer. Raw is for applications that send the printer's own commands, such as point of sale ones."
+msgstr "没有找到适用于 {printer} 的驱动程序。请选择一个：同一系列型号的驱动程序通常可用，例如 Epson LQ 针式打印机可用 Epson LQ-850。Raw 适用于直接发送打印机命令的应用程序，例如收银应用。"
 
 #: src/pages/printers/printerspage.cpp
 msgid "The printer's host name or IP address, such as 192.168.1.20, or its IPP address. It has to print without a driver (IPP Everywhere or AirPrint), as most printers made since 2012 do."

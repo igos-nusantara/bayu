@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bayu-settings\n"
 "Report-Msgid-Bugs-To: https://github.com/bayuos\n"
-"POT-Creation-Date: 2026-11-03 05:11+0000\n"
+"POT-Creation-Date: 2026-11-03 11:52+0000\n"
 "PO-Revision-Date: 2026-10-25 00:00+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -1866,6 +1866,10 @@ msgid "Prevent automatic sleeping when the display is off"
 msgstr "Automatisches Standby verhindern, wenn der Bildschirm aus ist"
 
 #: src/pages/printers/printers.cpp
+msgid "Raw (the application sends the printer's own commands)"
+msgstr "Raw (die Anwendung sendet die eigenen Befehle des Druckers)"
+
+#: src/pages/printers/printers.cpp
 msgid "No driver for this printer was found."
 msgstr "Für diesen Drucker wurde kein Treiber gefunden."
 
@@ -1936,6 +1940,15 @@ msgstr "Die Drucker konnten nicht geändert werden: {error}"
 #: src/pages/printers/printerspage.cpp
 msgid "No other printers found"
 msgstr "Keine weiteren Drucker gefunden"
+
+#: src/pages/printers/printerspage.cpp
+msgid "Choose a Driver"
+msgstr "Treiber wählen"
+
+#: src/pages/printers/printerspage.cpp
+#, python-brace-format
+msgid "No driver is known for {printer}. Choose one: that of a model of the same series usually works, such as Epson LQ-850 for an Epson LQ dot-matrix printer. Raw is for applications that send the printer's own commands, such as point of sale ones."
+msgstr "Für {printer} ist kein Treiber bekannt. Wählen Sie einen: Der eines Modells derselben Serie funktioniert meist, etwa Epson LQ-850 für einen Epson-LQ-Nadeldrucker. Raw ist für Anwendungen, die die eigenen Befehle des Druckers senden, etwa Kassenanwendungen."
 
 #: src/pages/printers/printerspage.cpp
 msgid "The printer's host name or IP address, such as 192.168.1.20, or its IPP address. It has to print without a driver (IPP Everywhere or AirPrint), as most printers made since 2012 do."

@@ -259,17 +259,76 @@ std::string uniqueName(const std::string& name, const std::set<std::string>& tak
     return unique;
 }
 
-std::optional<std::string> add(const Printer& printer)
+std::string matchingDriver(const Printer& printer)
+{
+    return printer.uri.starts_with("usb://") ? driverFor(printer.deviceId) : std::string("everywhere");
+}
+
+std::string deviceIdField(const std::string& deviceId, const std::vector<std::string>& keys)
+{
+    for (const std::string& key : keys) {
+        for (size_t at = 0; at < deviceId.size();) {
+            const size_t end = std::min(deviceId.find(';', at), deviceId.size());
+            const std::string_view field(deviceId.data() + at, end - at);
+            if (const size_t colon = field.find(':');
+                colon != std::string_view::npos && field.substr(0, colon) == key)
+                return std::string(field.substr(colon + 1));
+            at = end + 1;
+        }
+    }
+    return {};
+}
+
+std::vector<Driver> drivers(const Printer& printer)
+{
+    const auto list = [](const std::string& make) {
+        std::vector<Driver> found;
+        ipp_t* request = ippNewRequest(IPP_OP_CUPS_GET_PPDS);
+        if (!make.empty())
+            ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_TEXT, "ppd-make", nullptr, make.c_str());
+        static const char* const attributes[] = {"ppd-name", "ppd-make-and-model"};
+        ippAddStrings(request, IPP_TAG_OPERATION, IPP_TAG_KEYWORD, "requested-attributes",
+                      int(std::size(attributes)), nullptr, attributes);
+        ipp_t* response = cupsDoRequest(CUPS_HTTP_DEFAULT, request, "/");
+        Driver driver;
+        for (ipp_attribute_t* attribute = ippFirstAttribute(response);; attribute = ippNextAttribute(response)) {
+            if (!attribute || !ippGetName(attribute)) {
+                // Driverless ones print only on printers that need no driver.
+                if (!driver.name.empty() && driver.name != "everywhere" && !driver.name.starts_with("driverless")
+                    && driver.name != "raw")
+                    found.push_back(std::move(driver));
+                driver = {};
+                if (!attribute)
+                    break;
+                continue;
+            }
+            const std::string name = ippGetName(attribute);
+            const char* text = ippGetString(attribute, 0, nullptr);
+            if (name == "ppd-name" && text)
+                driver.name = text;
+            else if (name == "ppd-make-and-model" && text)
+                driver.description = text;
+        }
+        ippDelete(response);
+        return found;
+    };
+    std::vector<Driver> found = list(deviceIdField(printer.deviceId, {"MFG", "MANUFACTURER"}));
+    if (found.empty())
+        found = list({});
+    std::ranges::sort(found, {}, &Driver::description);
+    found.insert(found.begin(), {"raw", bayu::i18n::tr("Raw (the application sends the printer's own commands)")});
+    return found;
+}
+
+std::optional<std::string> add(const Printer& printer, std::string driver)
 {
     std::set<std::string> taken;
     for (const Printer& queue : queues())
         taken.insert(queue.name);
-    std::string driver = "everywhere";
-    if (printer.uri.starts_with("usb://")) {
-        driver = driverFor(printer.deviceId);
-        if (driver.empty())
-            return std::string(bayu::i18n::tr("No driver for this printer was found."));
-    }
+    if (driver.empty())
+        driver = matchingDriver(printer);
+    if (driver.empty())
+        return std::string(bayu::i18n::tr("No driver for this printer was found."));
     // A second queue of the same printer is told apart by its number, in its
     // name and in what it is called.
     const std::string base = queueName(printer.name);

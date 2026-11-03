@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: BSD-3-Clause
 
+#include <algorithm>
 #include <chrono>
 #include <map>
 #include <set>
@@ -13,6 +14,7 @@
 #include "base/timer.h"
 #include "pages/printers/printers.h"
 #include "ui/button.h"
+#include "ui/combo_box.h"
 #include "ui/cell_layout.h"
 #include "ui/dialog_window.h"
 #include "ui/icon.h"
@@ -275,7 +277,7 @@ private:
     void connect(PrinterRow* row)
     {
         if (Button* add = row->addButton()) {
-            add->onClicked = [this, row] { change(row, [printer = row->printer()] { return printers::add(printer); }); };
+            add->onClicked = [this, row] { addFound(row); };
             return;
         }
         row->testButton()->onClicked = [this, row] { command(row, {"lp", "-d", row->printer().name, kTestPage}); };
@@ -283,6 +285,77 @@ private:
         row->defaultButton()->onClicked = [this, row] { command(row, {"lpoptions", "-d", row->printer().name}); };
         row->cancelButton()->onClicked = [this, row] { command(row, {"cancel", "-a", row->printer().name}); };
         row->removeButton()->onClicked = [this, row] { command(row, {"lpadmin", "-x", row->printer().name}); };
+    }
+
+    // A found printer: with its matching driver, or one chosen when none matches.
+    void addFound(PrinterRow* row)
+    {
+        struct Choice
+        {
+            std::string driver;
+            std::vector<printers::Driver> drivers;
+        };
+        row->setBusy(true);
+        const Printer printer = row->printer();
+        m_busy.insert(printer.name);
+        background<Choice>(
+                [printer](std::shared_ptr<Choice> choice) {
+                    choice->driver = printers::matchingDriver(printer);
+                    if (choice->driver.empty())
+                        choice->drivers = printers::drivers(printer);
+                },
+                [this, printer](const Choice& choice) {
+                    m_busy.erase(printer.name);
+                    if (const auto it = m_foundRows.find(printer.name); it != m_foundRows.end())
+                        it->second->setBusy(false);
+                    if (choice.driver.empty()) {
+                        showDriverDialog(printer, choice.drivers);
+                        return;
+                    }
+                    PrinterRow* row = m_foundRows.contains(printer.name) ? m_foundRows[printer.name] : nullptr;
+                    change(row, [printer, driver = choice.driver] { return printers::add(printer, driver); });
+                });
+    }
+
+    void showDriverDialog(const Printer& printer, const std::vector<printers::Driver>& drivers)
+    {
+        m_dialog = std::make_unique<FormDialog>(m_window, tr("Choose a Driver"), 440);
+        ColumnLayout* content = m_dialog->content();
+        Label* note = content->addChild<Label>(format(
+                tr("No driver is known for {printer}. Choose one: that of a model of the same series usually "
+                   "works, such as Epson LQ-850 for an Epson LQ dot-matrix printer. Raw is for applications "
+                   "that send the printer's own commands, such as point of sale ones."),
+                {{"printer", printer.info}}));
+        note->setWrap(true);
+        note->setLayoutHints({.fillWidth = true});
+        std::vector<std::string> names;
+        for (const printers::Driver& driver : drivers)
+            names.push_back(driver.description.empty() ? driver.name : driver.description);
+        ComboBox* box = content->addChild<ComboBox>(names);
+        box->setEditable(true);
+        box->setCurrentIndex(0);
+        box->setLayoutHints({.fillWidth = true});
+        RowLayout* buttons = m_dialog->addButtonRow();
+        DialogButton* cancel = buttons->addChild<DialogButton>(tr("Cancel"));
+        cancel->onClicked = [this] { m_dialog->close(); };
+        DialogButton* add = buttons->addChild<DialogButton>(tr("Add"), true);
+        // Typed in, the driver is the one named so.
+        const auto chosen = [box, names] {
+            const auto it = std::ranges::find(names, box->editText());
+            return it == names.end() ? -1 : int(it - names.begin());
+        };
+        const auto accept = [this, chosen, printer, drivers] {
+            const int index = chosen();
+            if (index < 0)
+                return;
+            PrinterRow* row = m_foundRows.contains(printer.name) ? m_foundRows[printer.name] : nullptr;
+            change(row, [printer, driver = drivers[size_t(index)].name] { return printers::add(printer, driver); });
+            m_dialog->close();
+        };
+        box->onEditTextChanged = [add, chosen] { add->setEnabled(chosen() >= 0); };
+        box->onAccepted = accept;
+        add->onClicked = accept;
+        m_dialog->show();
     }
 
     void showAddressDialog()

@@ -55,3 +55,14 @@ TEST(PrintersPage, MakesQueueNames)
     EXPECT_EQ(queueName("printer-2_b"), "printer-2_b");
     EXPECT_EQ(queueName("///"), "Printer");
 }
+
+TEST(PrintersPage, ReadsDeviceIdFields)
+{
+    using settings::printers::deviceIdField;
+    const std::string id = "MFG:EPSON;CMD:ESCPL2,BDC;MDL:LQ-2190;CLS:PRINTER;";
+    EXPECT_EQ(deviceIdField(id, {"MFG", "MANUFACTURER"}), "EPSON");
+    EXPECT_EQ(deviceIdField("MANUFACTURER:Hewlett-Packard;MODEL:LaserJet", {"MFG", "MANUFACTURER"}), "Hewlett-Packard");
+    EXPECT_EQ(deviceIdField(id, {"MDL"}), "LQ-2190");
+    EXPECT_EQ(deviceIdField(id, {"SN"}), "");
+    EXPECT_EQ(deviceIdField("", {"MFG"}), "");
+}
