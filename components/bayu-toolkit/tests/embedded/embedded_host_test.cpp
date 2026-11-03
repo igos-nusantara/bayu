@@ -5,6 +5,7 @@
 
 #include <algorithm>
 #include <cstdlib>
+#include <filesystem>
 #include <chrono>
 #include <memory>
 #include <optional>
@@ -15,6 +16,7 @@
 #include <xkbcommon/xkbcommon-keysyms.h>
 
 #include "base/event_loop.h"
+#include "base/file.h"
 #include "ui/application.h"
 #include "ui/blurred_copy.h"
 #include "ui/bubble_shape.h"
@@ -838,6 +840,36 @@ TEST(EmbeddedHostTest, ThemeIconsTakeAnAbsoluteFile)
     const Bitmap bitmap = themeIconBitmap(path, 48, 2);
     ASSERT_FALSE(bitmap.isNull());
     EXPECT_EQ(bitmap.width(), 96);
+}
+
+// An application installed while the shell runs: its icon, in hicolor under
+// ~/.local/share/icons, missed before it came, is found after a reload.
+TEST(EmbeddedHostTest, ThemeIconsInstalledLaterAreFoundAfterAReload)
+{
+    namespace fs = std::filesystem;
+    const char* home = std::getenv("HOME");
+    if (!home || !fs::exists("/usr/share/icons/hicolor/index.theme"))
+        GTEST_SKIP() << "no hicolor theme";
+    const std::string name = "org.bayu.InstalledLater" + std::to_string(getpid());
+    EXPECT_EQ(themeIconPath(name, 48, 1), "");
+
+    const fs::path directory = fs::path(home) / ".local/share/icons/hicolor/48x48/apps";
+    std::error_code error;
+    const bool created = !fs::exists(fs::path(home) / ".local/share/icons/hicolor");
+    fs::create_directories(directory, error);
+    ASSERT_FALSE(error);
+    const fs::path icon = directory / (name + ".png");
+    // The lookup only asks whether the file is there.
+    ASSERT_TRUE(bayu::base::file::writeAtomically(icon.string(), "png"));
+
+    EXPECT_EQ(themeIconPath(name, 48, 1), "");
+    reloadThemeIcons();
+    EXPECT_EQ(themeIconPath(name, 48, 1), icon.string());
+
+    fs::remove(icon, error);
+    if (created)
+        fs::remove_all(fs::path(home) / ".local/share/icons/hicolor", error);
+    reloadThemeIcons();
 }
 
 TEST(EmbeddedHostTest, PopupAtAsksAboutToShowOnce)
