@@ -68,14 +68,13 @@ jobs:
           generate_release_notes: true
 
       # AlmaLinux's kernel with binder, akmod-wl that builds for it, and
-      # usb_modeswitch and Epson's eplq-cups, into out/repo: the ISO boots them,
-      # and a tag publishes them with the other RPMs.
+      # usb_modeswitch, into out/repo: the ISO boots them, and a tag publishes
+      # them with the other RPMs.
       - name: Build kernel
         run: |
           packaging/kernel/build-kernel.sh
           packaging/wl/build-wl.sh
           packaging/usb-modeswitch/build-usb-modeswitch.sh
-          packaging/eplq-cups/build-eplq-cups.sh
 
       # Binder, PSI, the Wi-Fi drivers and wl, before an ISO boots the kernel.
       # A pass is kept with the build, so a kernel is tested once.

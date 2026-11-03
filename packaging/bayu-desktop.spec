@@ -63,11 +63,11 @@ Requires:       xdg-utils wl-clipboard
 # Hardware (issue #73): USB Wi-Fi adapters that first show up as a CD with
 # their driver (usb_modeswitch, from packaging/usb-modeswitch), printers found
 # on USB and on the network and set up with their driver (Settings > Printers),
-# foomatic for those no other driver knows, Epson's for its LQ-2190 and other
-# LQ dot-matrix printers (eplq-cups, from packaging/eplq-cups; issue #165), scanners, and the tools that show what hardware is there (lsusb, lspci...).
+# foomatic for those no other driver knows, such as Epson dot-matrix printers
+# (issue #165), scanners, and the tools that show what hardware is there (lsusb, lspci...).
 Requires:       usb_modeswitch usb_modeswitch-data
 Requires:       cups cups-filters cups-browsed ipp-usb system-config-printer-udev avahi nss-mdns
-Requires:       hplip gutenprint-cups splix foomatic foomatic-db-ppds eplq-cups
+Requires:       hplip gutenprint-cups splix foomatic foomatic-db-ppds
 Requires:       sane-backends sane-airscan
 Requires:       usbutils pciutils lshw dmidecode hwinfo lm_sensors smartmontools nvme-cli iw ethtool hdparm
 # Default UI and fixed-width fonts.
