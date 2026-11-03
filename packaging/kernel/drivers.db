@@ -1,4 +1,4 @@
-# Bayu driver database, from kernel-core-7.3.1-200.2.bayu.el10_2.x86_64
+# Bayu driver database, from kernel-core-7.3.1-200.3.bayu.el10_2.x86_64
 # Written by packaging/kernel/driver-db.sh; see there.
 alias	block-major-2-*	floppy
 alias	char-major-10-203	cuse

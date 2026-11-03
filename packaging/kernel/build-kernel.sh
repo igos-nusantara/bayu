@@ -13,6 +13,8 @@
 #   KERNEL=7.3.1-200.fc44    Fedora kernel version-release to rebuild
 #   BUILD=3                  raised with every change to kernel-local or the patch
 #   SRPM_URL=...             where to fetch its source RPM
+#   HEADERS=7.3.0-65.fc46    Fedora kernel-headers version-release to rebuild
+#   HEADERS_URL=...          where to fetch its source RPM
 #   KERNEL_CACHE=~/.cache/bayu-kernel
 set -Eeuo pipefail
 ROOT=$(realpath "$(dirname "$0")/../..")
@@ -42,6 +44,27 @@ if ! compgen -G "$CACHE/kernel-core-*.rpm" >/dev/null; then
   cp "$work"/kernel*.x86_64.rpm "$CACHE/"
 fi
 cp "$CACHE"/kernel*.x86_64.rpm "$ROOT/out/repo/"
+
+# Its userspace headers (/usr/include/linux), from Fedora's kernel-headers
+# source RPM: Fedora's kernel spec leaves them out. EL10's 6.12 ones keep
+# working, the kernel API only grows; these let programs use what 7.x adds.
+# Fedora names them after the 7.3 series, not its point releases.
+HEADERS=${HEADERS:-7.3.0-65.fc46}
+HEADERS_URL=${HEADERS_URL:-https://kojipkgs.fedoraproject.org/packages/kernel-headers/${HEADERS%-*}/${HEADERS##*-}/src/kernel-headers-$HEADERS.src.rpm}
+HEADERS_CACHE=${KERNEL_CACHE:-$HOME/.cache/bayu-kernel}/headers-$HEADERS.$BUILD
+mkdir -p "$HEADERS_CACHE"
+if ! compgen -G "$HEADERS_CACHE/kernel-headers-*.rpm" >/dev/null; then
+  hwork=$(mktemp -d)
+  curl -fL -o "$hwork/kernel-headers.src.rpm" "$HEADERS_URL"
+  podman run --rm -v "$hwork":/work:Z -e BUILD="$BUILD" bayu-builder bash -euc '
+    rpm -i --define "_topdir /tmp/top" /work/kernel-headers.src.rpm
+    dnf -y -q builddep /tmp/top/SPECS/kernel-headers.spec
+    rpmbuild -bb /tmp/top/SPECS/kernel-headers.spec --define "_topdir /tmp/top" --define "buildid .$BUILD.bayu" --define "dist .el10_2"
+    cp /tmp/top/RPMS/*/*.rpm /work/'
+  cp "$hwork"/kernel-*headers-*.rpm "$HEADERS_CACHE/"
+  rm -rf "$hwork"
+fi
+cp "$HEADERS_CACHE"/kernel-*headers-*.rpm "$ROOT/out/repo/"
 # Its whole config, kept in the repository next to kernel-local: what changes
 # from one kernel to the next shows in git.
 podman run --rm -v "$CACHE":/kernel:ro,Z bayu-builder bash -c \
@@ -51,4 +74,4 @@ podman run --rm -v "$CACHE":/kernel:ro,Z bayu-builder bash -c \
 # Hardware (driver-db.sh), kept beside it too; bayu-desktop installs it.
 "$ROOT/packaging/kernel/driver-db.sh" "$CACHE" > "$ROOT/packaging/kernel/drivers.db"
 podman run --rm -v "$ROOT/out/repo":/repo:Z bayu-builder createrepo_c -q --update /repo
-ls -l "$CACHE"
+ls -l "$CACHE" "$HEADERS_CACHE"
