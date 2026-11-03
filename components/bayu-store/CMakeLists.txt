@@ -23,6 +23,7 @@ add_library(store-ui OBJECT
     src/fdroid.cpp
     src/flathub.cpp
     src/flatpak_client.cpp
+    src/igos.cpp
     src/lapis.cpp
     src/net.cpp
     src/mock_backend.cpp
@@ -57,6 +58,10 @@ target_link_libraries(android-launch PRIVATE store-ui)
 add_executable(android-install src/install/main.cpp)
 target_link_libraries(android-install PRIVATE store-ui)
 
+add_executable(store-igos-test tests/igos_test.cpp)
+target_link_libraries(store-igos-test PRIVATE store-ui)
+add_test(NAME store-igos-test COMMAND store-igos-test ${CMAKE_CURRENT_SOURCE_DIR}/tests/data)
+
 add_executable(store-fdroid-test tests/fdroid_test.cpp)
 target_link_libraries(store-fdroid-test PRIVATE store-ui)
 
@@ -73,7 +78,7 @@ install(PROGRAMS data/android-setup DESTINATION ${CMAKE_INSTALL_LIBEXECDIR}/bayu
 install(TARGETS android-launch android-install RUNTIME DESTINATION ${CMAKE_INSTALL_LIBEXECDIR}/bayu-store)
 install(FILES data/lapis-session-off.conf DESTINATION ${CMAKE_INSTALL_PREFIX}/lib/systemd/user/lapis-session.service.d
     RENAME bayu-store.conf)
-install(FILES data/flathub.flatpakrepo DESTINATION ${CMAKE_INSTALL_DATADIR}/bayu-store)
+install(FILES data/flathub.flatpakrepo data/igos.flatpakrepo DESTINATION ${CMAKE_INSTALL_DATADIR}/bayu-store)
 install(FILES data/org.bayu.store.policy DESTINATION ${CMAKE_INSTALL_DATADIR}/polkit-1/actions)
 bayu_add_translations(bayu-store SOURCES src DESKTOP_FILES data/bayu-store.desktop data/bayu-welcome.desktop
     data/bayu-android-install.desktop)

@@ -12,7 +12,10 @@
 #ifndef BAYU_ACCELERATORS_ACCELERATOR_COMMANDS_H_
 #define BAYU_ACCELERATORS_ACCELERATOR_COMMANDS_H_
 
+#include <vector>
+
 #include "accelerators/accelerator_actions.h"
+#include "base/geometry.h"
 
 namespace bayu::session {
 class ScreenSaverService;
@@ -76,6 +79,11 @@ void tilingMove(const CommandContext &context, AcceleratorAction action);
 void windowSnapVertical(const CommandContext &context, bool up);
 void closeWindow(const CommandContext &context);
 void moveActiveWindowBetweenDisplays(const CommandContext &context);
+// Shift+Meta+Left/Right (issue #141): the active window to the display on
+// that side, when its tiles have nothing to swap with that way.
+void moveActiveWindowToDisplay(const CommandContext &context, bool toLeft);
+// The display beside `current` on that side, the nearest by centre, or -1.
+int displayToward(const std::vector<base::Rect> &displays, const base::Rect &current, bool toLeft);
 void toggleOverview(const CommandContext &context);
 // Slides the application windows aside to show the desktop, or back.
 void toggleShowDesktop(const CommandContext &context);

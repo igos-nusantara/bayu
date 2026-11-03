@@ -184,6 +184,10 @@ void FileChooser::open()
 {
     close();
     base::dbus::Connection* bus = Application::instance() ? Application::instance()->sessionBus() : nullptr;
+    // An embedded application, as the compositor's shell, has no bus of its
+    // own: the loop's (issue #142, Other Location for screenshots).
+    if (!bus)
+        bus = base::dbus::Connection::session(base::EventLoop::current());
     if (!bus) {
         // Answered from the loop, as the portal's answer would be.
         base::EventLoop::current()->post([callback = onRejected] {

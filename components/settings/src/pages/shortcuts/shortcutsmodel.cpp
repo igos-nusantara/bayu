@@ -62,8 +62,8 @@ static const Layout kLayouts[] = {
 
         {"tiling-toggle", kTiling, trNoop("Tile or untile the desk")},
         {"tiling-toggle-floating", kTiling, trNoop("Float the window, or tile it again")},
-        {"tiling-swap-left", kTiling, trNoop("Swap the window with the one on the left")},
-        {"tiling-swap-right", kTiling, trNoop("Swap the window with the one on the right")},
+        {"tiling-swap-left", kTiling, trNoop("Swap the window with the one on the left, or move it to the display on the left")},
+        {"tiling-swap-right", kTiling, trNoop("Swap the window with the one on the right, or move it to the display on the right")},
         {"tiling-swap-up", kTiling, trNoop("Swap the window with the one above")},
         {"tiling-swap-down", kTiling, trNoop("Swap the window with the one below")},
         {"tiling-resize-left", kTiling, trNoop("Move the edge of the window to the left")},

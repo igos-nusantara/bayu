@@ -172,9 +172,11 @@ bool AcceleratorController::canPerformAction(AcceleratorAction action,
         return true;
     case AcceleratorAction::TilingToggle:
         return true;
-    case AcceleratorAction::TilingToggleFloating:
+    // Or to the display on that side (issue #141).
     case AcceleratorAction::TilingSwapLeft:
     case AcceleratorAction::TilingSwapRight:
+        return commands::canTile(m_context) || commands::canMoveActiveWindowBetweenDisplays(m_context);
+    case AcceleratorAction::TilingToggleFloating:
     case AcceleratorAction::TilingSwapUp:
     case AcceleratorAction::TilingSwapDown:
     case AcceleratorAction::TilingResizeLeft:

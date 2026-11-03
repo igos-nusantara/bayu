@@ -80,6 +80,8 @@ Value toJson(const App& app)
     v.insert("anti", list(app.antiFeatures));
     v.insert("homepage", app.homepage);
     v.insert("ref", app.ref);
+    v.insert("remote", app.remote);
+    v.insert("iconPath", app.iconPath);
     v.insert("apk", app.apkUrl);
     v.insert("sha256", app.apkSha256);
     v.insert("code", app.versionCode);
@@ -124,6 +126,8 @@ App fromJson(const Value& v)
     app.antiFeatures = strings(v["anti"]);
     app.homepage = v["homepage"].toString();
     app.ref = v["ref"].toString();
+    app.remote = v["remote"].toString();
+    app.iconPath = v["iconPath"].toString();
     app.apkUrl = v["apk"].toString();
     app.apkSha256 = v["sha256"].toString();
     app.versionCode = v["code"].toInt();

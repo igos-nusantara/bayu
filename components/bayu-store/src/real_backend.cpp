@@ -34,6 +34,7 @@
 #include "catalog.h"
 #include "fdroid.h"
 #include "flathub.h"
+#include "igos.h"
 #include "flatpak_client.h"
 #include "lapis.h"
 #include "net.h"
@@ -155,12 +156,16 @@ public:
     {
         m_flathubFile = cache::directory() + "/flathub.jsonl";
         m_fdroidFile = cache::directory() + "/fdroid.jsonl";
+        m_igosFile = cache::directory() + "/igos.jsonl";
         m_loading = !exists(m_flathubFile) && !exists(m_fdroidFile);
         // The catalog on disk first: the store opens at once, offline too.
         async(
             [this] {
                 auto apps = std::make_shared<std::pair<std::vector<App>, std::vector<App>>>();
                 apps->first = cache::load(m_flathubFile);
+                // IGOS Nusantara's Flatpak apps sit with Flathub's.
+                for (App& app : cache::load(m_igosFile))
+                    apps->first.push_back(std::move(app));
                 apps->second = cache::load(m_fdroidFile);
                 return apps;
             },
@@ -172,7 +177,9 @@ public:
                 if (m_loading || fileAge(m_flathubFile) > kSyncAge || fileAge(m_fdroidFile) > kSyncAge)
                     sync();
             });
-        refreshLibrary();
+        // The updates the panel and Settings told about, at once: with a
+        // fresh catalogue no sync comes to check them (Check found them).
+        checkUpdates(false);
         m_poll.start(std::chrono::seconds(60));
     }
     bool isLoading() const override { return m_loading; }
@@ -254,7 +261,7 @@ public:
     void details(const App& app, std::function<void(const App&)> done) override
     {
         const auto key = std::make_pair(app.id, int(app.source));
-        if (app.source != Source::Flathub || m_detailed.count(key))
+        if (app.source != Source::Flathub || app.remote == igos::kRemote || m_detailed.count(key))
             return;
         m_detailed.insert(key);
         App copy = app;
@@ -340,7 +347,10 @@ public:
         return out;
     }
 
-    void checkUpdates() override
+    // The Check button: it only looks for updates (issue #154); installing
+    // them by itself is for the check after each catalogue sync.
+    void checkUpdates() override { checkUpdates(false); }
+    void checkUpdates(bool install)
     {
         async(
             [] {
@@ -351,13 +361,13 @@ public:
                     out.insert(update.id);
                 return out;
             },
-            [this](std::set<std::string> ids) {
+            [this, install](std::set<std::string> ids) {
                 m_flatpakUpdates = std::move(ids);
                 m_lastChecked = now();
                 m_settings.setValue("Updates/lastChecked", m_lastChecked);
                 m_settings.sync();
                 changed();
-                if (m_automatic)
+                if (install && m_automatic)
                     updateAll();
             });
         refreshLibrary();
@@ -495,6 +505,7 @@ public:
         m_syncError.clear();
         const std::string flathubFile = m_flathubFile;
         const std::string fdroidFile = m_fdroidFile;
+        const std::string igosFile = m_igosFile;
         const std::string locale = fdroidLocale();
         struct Result
         {
@@ -504,7 +515,7 @@ public:
             std::string error;
         };
         async(
-            [flathubFile, fdroidFile, locale] {
+            [flathubFile, fdroidFile, igosFile, locale] {
                 auto result = std::make_shared<Result>();
                 std::string error;
                 auto featured = std::async(std::launch::async, [] { return flathub::fetchFeatured(); });
@@ -541,6 +552,22 @@ public:
                 }
                 if (!result->flathub.empty())
                     cache::save(flathubFile, result->flathub);
+                // IGOS Nusantara's apps join Flathub's, each from its cache
+                // when its own fetch failed.
+                std::string igosError;
+                std::vector<App> igosApps = igos::fetchCatalog(&igosError);
+                if (!igosApps.empty())
+                    cache::save(igosFile, igosApps);
+                else if (result->error.empty())
+                    result->error = igosError;
+                if (!result->flathub.empty() || !igosApps.empty()) {
+                    if (result->flathub.empty())
+                        result->flathub = cache::load(flathubFile);
+                    if (igosApps.empty())
+                        igosApps = cache::load(igosFile);
+                    for (App& app : igosApps)
+                        result->flathub.push_back(std::move(app));
+                }
                 if (!result->fdroid.empty())
                     cache::save(fdroidFile, result->fdroid);
                 result->featured = featured.get();
@@ -561,7 +588,7 @@ public:
                     fprintf(stderr, "bayu-store: %s\n", m_syncError.c_str());
                 m_loading = false;
                 changed();
-                checkUpdates();
+                checkUpdates(true);
             });
     }
 
@@ -812,7 +839,7 @@ private:
                                                                                        : flatpak::Operation::Remove;
             auto started = std::chrono::steady_clock::now();
             return flatpak::run(
-                operation, app.id,
+                operation, app.id, app.remote,
                 [&](uint64_t done, uint64_t, int percent) {
                     const double seconds =
                         std::chrono::duration<double>(std::chrono::steady_clock::now() - started).count();
@@ -902,6 +929,7 @@ private:
     Catalog m_catalog;
     std::string m_flathubFile;
     std::string m_fdroidFile;
+    std::string m_igosFile;
     bool m_loading = true;
     bool m_syncing = false;
     std::string m_syncError;

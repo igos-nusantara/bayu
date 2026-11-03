@@ -19,6 +19,7 @@
 
 #include "base/geometry.h"
 #include "accelerators/accelerator.h"
+#include "accelerators/accelerator_commands.h"
 #include "accelerators/accelerator_configuration.h"
 #include "accelerators/accelerator_controller.h"
 #include "accelerators/accelerator_delegate.h"
@@ -256,6 +257,20 @@ base::json::Value parse(const std::string &json)
 
 ////////////////////////////////////////////////////////////////////////////////
 // Accelerator and AcceleratorMap
+
+// Shift+Meta+Left/Right (issue #141): the display beside the window's, the
+// nearest on that side, none past the last.
+TEST(AcceleratorCommands, DisplayTowardPicksTheNearestOnThatSide)
+{
+    using bayu::accelerators::commands::displayToward;
+    const std::vector<bayu::base::Rect> displays = {{0, 0, 1920, 1080}, {1920, 0, 1280, 1024}, {-1280, 0, 1280, 800}};
+    EXPECT_EQ(displayToward(displays, displays[0], false), 1);
+    EXPECT_EQ(displayToward(displays, displays[0], true), 2);
+    EXPECT_EQ(displayToward(displays, displays[1], true), 0);
+    EXPECT_EQ(displayToward(displays, displays[1], false), -1);
+    EXPECT_EQ(displayToward(displays, displays[2], true), -1);
+    EXPECT_EQ(displayToward({displays[0]}, displays[0], false), -1);
+}
 
 TEST(Accelerator, IdentityIgnoresTheEvdevCodeAndTextNamesTheKey)
 {
