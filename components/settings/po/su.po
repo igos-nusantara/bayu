@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bayu-settings\n"
 "Report-Msgid-Bugs-To: https://github.com/bayuos\n"
-"POT-Creation-Date: 2026-11-03 05:11+0000\n"
+"POT-Creation-Date: 2026-11-03 11:52+0000\n"
 "PO-Revision-Date: 2026-10-25 12:00+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -1860,6 +1860,10 @@ msgid "Prevent automatic sleeping when the display is off"
 msgstr "Cegah anteng otomatis nalika layar pareum"
 
 #: src/pages/printers/printers.cpp
+msgid "Raw (the application sends the printer's own commands)"
+msgstr "Raw (aplikasi ngirim paréntah printer nyalira)"
+
+#: src/pages/printers/printers.cpp
 msgid "No driver for this printer was found."
 msgstr "Driver kanggo printer ieu teu kapendak."
 
@@ -1929,6 +1933,15 @@ msgstr "Teu tiasa ngarobih printer: {error}"
 #: src/pages/printers/printerspage.cpp
 msgid "No other printers found"
 msgstr "Teu aya printer sanés anu kapendak"
+
+#: src/pages/printers/printerspage.cpp
+msgid "Choose a Driver"
+msgstr "Pilih Driver"
+
+#: src/pages/printers/printerspage.cpp
+#, python-brace-format
+msgid "No driver is known for {printer}. Choose one: that of a model of the same series usually works, such as Epson LQ-850 for an Epson LQ dot-matrix printer. Raw is for applications that send the printer's own commands, such as point of sale ones."
+msgstr "Teu acan aya driver anu dikenal pikeun {printer}. Pilih hiji: driver model tina séri anu sami biasana tiasa, contona Epson LQ-850 pikeun printer dot-matrix Epson LQ. Raw pikeun aplikasi anu ngirim paréntah printer nyalira, sapertos aplikasi kasir."
 
 #: src/pages/printers/printerspage.cpp
 msgid "The printer's host name or IP address, such as 192.168.1.20, or its IPP address. It has to print without a driver (IPP Everywhere or AirPrint), as most printers made since 2012 do."

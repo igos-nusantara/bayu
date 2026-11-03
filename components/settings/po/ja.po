@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bayu-settings\n"
 "Report-Msgid-Bugs-To: https://github.com/bayuos\n"
-"POT-Creation-Date: 2026-11-03 05:11+0000\n"
+"POT-Creation-Date: 2026-11-03 11:52+0000\n"
 "PO-Revision-Date: 2026-10-25 00:00+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -1861,6 +1861,10 @@ msgid "Prevent automatic sleeping when the display is off"
 msgstr "ディスプレイがオフのときの自動スリープを防止"
 
 #: src/pages/printers/printers.cpp
+msgid "Raw (the application sends the printer's own commands)"
+msgstr "Raw (アプリがプリンター独自のコマンドを送信)"
+
+#: src/pages/printers/printers.cpp
 msgid "No driver for this printer was found."
 msgstr "このプリンターのドライバーが見つかりませんでした。"
 
@@ -1930,6 +1934,15 @@ msgstr "プリンターを変更できませんでした: {error}"
 #: src/pages/printers/printerspage.cpp
 msgid "No other printers found"
 msgstr "ほかのプリンターは見つかりません"
+
+#: src/pages/printers/printerspage.cpp
+msgid "Choose a Driver"
+msgstr "ドライバーを選択"
+
+#: src/pages/printers/printerspage.cpp
+#, python-brace-format
+msgid "No driver is known for {printer}. Choose one: that of a model of the same series usually works, such as Epson LQ-850 for an Epson LQ dot-matrix printer. Raw is for applications that send the printer's own commands, such as point of sale ones."
+msgstr "{printer} に対応するドライバーが見つかりません。ドライバーを選んでください。同じシリーズのモデルのドライバーで通常は動作します。たとえば Epson LQ ドットマトリクスプリンターには Epson LQ-850 です。Raw は、POS アプリなどプリンター独自のコマンドを送るアプリ向けです。"
 
 #: src/pages/printers/printerspage.cpp
 msgid "The printer's host name or IP address, such as 192.168.1.20, or its IPP address. It has to print without a driver (IPP Everywhere or AirPrint), as most printers made since 2012 do."
