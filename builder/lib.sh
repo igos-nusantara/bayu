@@ -38,8 +38,16 @@ install_root() {
   # out/repo, built here, is trusted unsigned; the installed system checks
   # Bayu's published packages against the IGOS key. With their documentation:
   # without it `man` has nothing to show (issue #87).
+  # The published Bayu repository too, signed: the installed system updates
+  # from it, with every earlier release, and the image has to get what it
+  # would pick, or a package Bayu stopped building comes back as an update.
+  local published=()
+  if [[ -n ${BAYU_REPO_URL:-} ]]; then
+    published=(--repofrompath="bayu-published,$BAYU_REPO_URL" --setopt=bayu-published.gpgcheck=1
+               --setopt=bayu-published.gpgkey="$(sed -n 's/^gpgkey=//p' /repos.d/bayu.repo)")
+  fi
   # shellcheck disable=SC2086
-  dnf -y --installroot="$dir" --releasever="$RELEASEVER" --setopt=reposdir=/repos.d \
+  dnf -y --installroot="$dir" --releasever="$RELEASEVER" --setopt=reposdir=/repos.d "${published[@]}" \
     --setopt=install_weak_deps=False --setopt=bayu.gpgcheck=0 install $PACKAGES "$@"
   # The system updates from the repositories it was built from. A file:///repo
   # source only exists at build time: it points at BAYU_REPO_URL when one is
