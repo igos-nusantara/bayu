@@ -164,6 +164,8 @@ if [ ! -e /var/lib/bayu-desktop/printing ]; then
 fi
 # The store installs Flathub apps system-wide.
 flatpak remote-add --system --if-not-exists flathub %{_datadir}/bayu-store/flathub.flatpakrepo >/dev/null 2>&1 || :
+# And IGOS Nusantara's own (github.com/igos-nusantara/flathub), the ArtCraft apps among them.
+flatpak remote-add --system --if-not-exists igos %{_datadir}/bayu-store/igos.flatpakrepo >/dev/null 2>&1 || :
 # The Bayu GTK themes, which bayu-services copies to ~/.themes, for every Flatpak application.
 flatpak override --system --filesystem=~/.themes:ro >/dev/null 2>&1 || :
 gtk-update-icon-cache -q -f /usr/share/icons/* 2>/dev/null || :

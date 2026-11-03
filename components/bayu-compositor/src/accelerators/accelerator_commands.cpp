@@ -167,11 +167,14 @@ void tilingMove(const CommandContext &context, AcceleratorAction action)
     using Direction = wm::TilingController::Direction;
     wm::TilingController *tiling = context.windowManager->tiling();
     switch (action) {
+    // Nothing to swap with that way, or not tiled: the display on that side.
     case AcceleratorAction::TilingSwapLeft:
-        tiling->swap(window, Direction::Left);
+        if (!canTile(context) || !tiling->swap(window, Direction::Left))
+            moveActiveWindowToDisplay(context, true);
         break;
     case AcceleratorAction::TilingSwapRight:
-        tiling->swap(window, Direction::Right);
+        if (!canTile(context) || !tiling->swap(window, Direction::Right))
+            moveActiveWindowToDisplay(context, false);
         break;
     case AcceleratorAction::TilingSwapUp:
         tiling->swap(window, Direction::Up);
@@ -308,29 +311,12 @@ void toggleShowDesktop(const CommandContext &context)
     context.windowManager->showDesktop()->toggle();
 }
 
-void moveActiveWindowBetweenDisplays(const CommandContext &context)
+// ash::display_move_window_util: the window goes to the display, keeping its
+// position relative to the display's origin, then is fitted into that
+// display's work area.
+static void moveWindowToDisplay(const CommandContext &context, wm::Window *window, const base::Rect &current,
+                                const display::LogicalDisplay &target)
 {
-    wm::Window *window = targetWindow(context);
-    display::DisplayManager *displays = context.windowManager->displayManager();
-    if (!window || !displays || !displays->applied())
-        return;
-    const std::vector<display::LogicalDisplay> &logical = displays->applied()->logicalDisplays;
-    if (logical.size() < 2)
-        return;
-
-    // ash::display_move_window_util: the window goes to the next display in
-    // the list, keeping its position relative to the display's origin, then
-    // is fitted into that display's work area.
-    const base::Rect current = context.windowManager->outputBoundsFor(window);
-    int index = 0;
-    for (int i = 0; i < logical.size(); ++i) {
-        if (logical[i].bounds == current) {
-            index = i;
-            break;
-        }
-    }
-    const display::LogicalDisplay &target = logical[(index + 1) % logical.size()];
-
     const base::Rect targetBounds = target.bounds;
     const base::Rect workArea = context.windowManager->workAreaForOutput(targetBounds);
     base::Rect bounds = window->bounds();
@@ -351,6 +337,59 @@ void moveActiveWindowBetweenDisplays(const CommandContext &context)
         window->requestBounds(bounds);
     else
         window->state()->onEvent(wm::WMEvent(wm::WMEventType::WorkAreaChanged));
+}
+
+void moveActiveWindowBetweenDisplays(const CommandContext &context)
+{
+    wm::Window *window = targetWindow(context);
+    display::DisplayManager *displays = context.windowManager->displayManager();
+    if (!window || !displays || !displays->applied())
+        return;
+    const std::vector<display::LogicalDisplay> &logical = displays->applied()->logicalDisplays;
+    if (logical.size() < 2)
+        return;
+
+    // The next display in the list.
+    const base::Rect current = context.windowManager->outputBoundsFor(window);
+    int index = 0;
+    for (int i = 0; i < logical.size(); ++i) {
+        if (logical[i].bounds == current) {
+            index = i;
+            break;
+        }
+    }
+    moveWindowToDisplay(context, window, current, logical[(index + 1) % logical.size()]);
+}
+
+int displayToward(const std::vector<base::Rect> &displays, const base::Rect &current, bool toLeft)
+{
+    const int centre = current.x() + current.width() / 2;
+    int best = -1;
+    int bestDistance = 0;
+    for (int i = 0; i < int(displays.size()); ++i) {
+        const int distance = toLeft ? centre - (displays[i].x() + displays[i].width() / 2)
+                                    : displays[i].x() + displays[i].width() / 2 - centre;
+        if (distance > 0 && (best < 0 || distance < bestDistance)) {
+            best = i;
+            bestDistance = distance;
+        }
+    }
+    return best;
+}
+
+void moveActiveWindowToDisplay(const CommandContext &context, bool toLeft)
+{
+    wm::Window *window = targetWindow(context);
+    display::DisplayManager *displays = context.windowManager->displayManager();
+    if (!window || !displays || !displays->applied())
+        return;
+    const std::vector<display::LogicalDisplay> &logical = displays->applied()->logicalDisplays;
+    std::vector<base::Rect> bounds;
+    for (const display::LogicalDisplay &display : logical)
+        bounds.push_back(display.bounds);
+    const base::Rect current = context.windowManager->outputBoundsFor(window);
+    if (const int index = displayToward(bounds, current, toLeft); index >= 0)
+        moveWindowToDisplay(context, window, current, logical[size_t(index)]);
 }
 
 void lockScreen(const CommandContext &context)

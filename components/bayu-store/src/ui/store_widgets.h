@@ -22,6 +22,8 @@ class ProgressBar;
 namespace store {
 
 std::string sourceName(Source source);
+// Where the app comes from: its source, or "IGOS Nusantara" for that remote.
+std::string sourceName(const App& app);
 // "package" for Flathub, "shield-check" for F-Droid.
 std::string sourceGlyph(Source source);
 // The display name of a store category id.
@@ -102,7 +104,7 @@ struct AppAction
 class SourceLabel : public Row
 {
 public:
-    explicit SourceLabel(Source source, double size = 13);
+    explicit SourceLabel(Source source, double size = 13, const std::string& name = {});
 };
 
 // The grid's tile: icon, name, summary, source and button.

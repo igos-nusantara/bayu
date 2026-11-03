@@ -1409,16 +1409,15 @@ AuthScreen::AuthScreen(ui::Window *window, AuthController *controller)
     m_sessions = m_pod->addChild<ChoiceMenu>("session-menu", popups);
     m_sessions->setLayoutHints(centred(false));
 
-    // Suspend, Restart and Shut Down at the greeter (issue #91), through
-    // logind, as no session bus is there; each as logind allows it. Not at
-    // the lock screen, where they would end the locked user's session.
+    // Suspend, Restart and Shut Down at the greeter (issue #91) and at the
+    // lock screen (issue #140), through logind, as no session bus is at the
+    // greeter; each as logind allows it, which also asks when other users
+    // are logged in. No Log Out: that would end the locked session unasked.
     m_power = addChild<ChoiceMenu>("power-menu", popups);
     m_power->setIcon("system-shutdown-symbolic");
     m_powerConfirm = addChild<PowerConfirm>();
     m_powerConfirm->setVisible(false);
-    if (base::dbus::Connection *bus = controller->mode() == AuthController::Login
-                ? base::dbus::Connection::system(core::mainLoop())
-                : nullptr) {
+    if (base::dbus::Connection *bus = base::dbus::Connection::system(core::mainLoop())) {
         const base::dbus::Proxy logind(bus, "org.freedesktop.login1", "/org/freedesktop/login1",
                                        "org.freedesktop.login1.Manager");
         for (PowerAction action : {PowerAction::Suspend, PowerAction::Reboot, PowerAction::PowerOff}) {

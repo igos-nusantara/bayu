@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bayu-settings\n"
 "Report-Msgid-Bugs-To: https://github.com/bayuos\n"
-"POT-Creation-Date: 2026-11-02 13:25+0000\n"
+"POT-Creation-Date: 2026-11-03 05:11+0000\n"
 "PO-Revision-Date: 2026-10-25 12:00+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -2087,12 +2087,12 @@ msgid "Float the window, or tile it again"
 msgstr "Rendre la fenêtre flottante, ou la remettre en mosaïque"
 
 #: src/pages/shortcuts/shortcutsmodel.cpp
-msgid "Swap the window with the one on the left"
-msgstr "Échanger la fenêtre avec celle de gauche"
+msgid "Swap the window with the one on the left, or move it to the display on the left"
+msgstr "Échanger la fenêtre avec celle de gauche ou la déplacer vers l’écran de gauche"
 
 #: src/pages/shortcuts/shortcutsmodel.cpp
-msgid "Swap the window with the one on the right"
-msgstr "Échanger la fenêtre avec celle de droite"
+msgid "Swap the window with the one on the right, or move it to the display on the right"
+msgstr "Échanger la fenêtre avec celle de droite ou la déplacer vers l’écran de droite"
 
 #: src/pages/shortcuts/shortcutsmodel.cpp
 msgid "Swap the window with the one above"
