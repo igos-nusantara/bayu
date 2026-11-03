@@ -720,7 +720,7 @@ public:
         }
 
         std::vector<StatStrip::Stat> stats;
-        stats.push_back({sourceName(app.source), sourceGlyph(app.source),
+        stats.push_back({sourceName(app), sourceGlyph(app.source),
                          app.verified ? tr("verified publisher") : app.source == Source::FDroid ? tr("free software")
                                                                                                  : tr("community")});
         stats.push_back({app.license.empty() ? tr("Unknown") : app.license, "scale",
@@ -818,7 +818,7 @@ public:
         source->addChild<SourceTile>(app.source);
         Column* sourceText = source->addChild<Column>();
         sourceText->setLayoutHints({.fillWidth = true});
-        addText(sourceText, sourceName(app.source), 16, 600);
+        addText(sourceText, sourceName(app), 16, 600);
         addText(sourceText, app.id, 14, 400, Role::SecondaryText);
         if (app.permissions.empty())
             addText(permissions, tr("Asks for no special access."), 15, 400, Role::SecondaryText);

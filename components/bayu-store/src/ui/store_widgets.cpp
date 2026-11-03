@@ -49,6 +49,11 @@ std::string sourceName(Source source)
     return source == Source::Flathub ? "Flathub" : "F-Droid";
 }
 
+std::string sourceName(const App& app)
+{
+    return app.remote == "igos" ? "IGOS Nusantara" : sourceName(app.source);
+}
+
 std::string sourceGlyph(Source source)
 {
     return source == Source::Flathub ? "package" : "shield-check";
@@ -211,12 +216,12 @@ void PillButton::paint(Painter& painter)
 
 // --- SourceLabel --------------------------------------------------------
 
-SourceLabel::SourceLabel(Source source, double size)
+SourceLabel::SourceLabel(Source source, double size, const std::string& name)
 {
     setSpacing(5);
     Icon* icon = addChild<Icon>(sourceGlyph(source), size);
     icon->setColor(style::color(Role::TertiaryText));
-    addText(this, sourceName(source), size, 400, Role::SecondaryText);
+    addText(this, name.empty() ? sourceName(source) : name, size, 400, Role::SecondaryText);
 }
 
 // --- AppCard ------------------------------------------------------------
@@ -242,7 +247,7 @@ void AppCard::setApp(const App& app, const AppAction& action)
     m_summary->setText(app.summary);
     if (m_source)
         takeChild(m_source);
-    m_source = addChild<SourceLabel>(app.source);
+    m_source = addChild<SourceLabel>(app.source, 13, sourceName(app));
     m_button->setText(action.text);
     m_button->setKind(action.kind);
     m_button->setProgress(action.progress);
@@ -325,7 +330,7 @@ void AppRow::setApp(const App& app, const AppAction& action)
         add(app.developer);
     else if (!app.categories.empty())
         add(categoryName(app.categories.front()));
-    add(sourceName(app.source));
+    add(sourceName(app));
     if (m_options.license)
         add(app.license);
     if (app.downloadSize)
@@ -550,7 +555,7 @@ void HeroBanner::show(size_t index)
     const App& app = m_apps[index];
     m_title->setText(app.name);
     m_summary->setText(app.summary);
-    std::string meta = sourceName(app.source);
+    std::string meta = sourceName(app);
     if (app.downloadSize)
         meta += " · " + style::formatSize(app.downloadSize);
     m_meta->setText(meta);

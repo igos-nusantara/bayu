@@ -170,11 +170,20 @@ bool FileChooser::isOpen() const
     return m_request != nullptr;
 }
 
+// The application's bus. An embedded application, as the compositor's shell,
+// has none of its own: the loop's (issue #142, Other Location for screenshots).
+static base::dbus::Connection* sessionBus()
+{
+    if (Application* application = Application::instance(); application && application->sessionBus())
+        return application->sessionBus();
+    return base::dbus::Connection::session(base::EventLoop::current());
+}
+
 void FileChooser::close()
 {
     if (!m_request)
         return;
-    base::dbus::Connection* bus = Application::instance() ? Application::instance()->sessionBus() : nullptr;
+    base::dbus::Connection* bus = sessionBus();
     if (bus && !m_request->path.empty())
         bus->send(bus->newMethodCall(kPortalService, m_request->path, kRequestInterface, "Close"));
     m_request.reset();
@@ -183,11 +192,7 @@ void FileChooser::close()
 void FileChooser::open()
 {
     close();
-    base::dbus::Connection* bus = Application::instance() ? Application::instance()->sessionBus() : nullptr;
-    // An embedded application, as the compositor's shell, has no bus of its
-    // own: the loop's (issue #142, Other Location for screenshots).
-    if (!bus)
-        bus = base::dbus::Connection::session(base::EventLoop::current());
+    base::dbus::Connection* bus = sessionBus();
     if (!bus) {
         // Answered from the loop, as the portal's answer would be.
         base::EventLoop::current()->post([callback = onRejected] {
@@ -253,7 +258,7 @@ void FileChooser::open()
 
 void FileChooser::call(Request* current, const std::string& parentWindow)
 {
-    base::dbus::Connection* bus = Application::instance() ? Application::instance()->sessionBus() : nullptr;
+    base::dbus::Connection* bus = sessionBus();
     if (!bus)
         return;
     // The request's path follows from the token, so its answer is listened for
