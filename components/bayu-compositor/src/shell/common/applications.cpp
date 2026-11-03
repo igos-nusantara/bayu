@@ -5,13 +5,18 @@
 #include "shell/common/applications.h"
 
 #include "base/application_registry.h"
+#include "ui/icon.h"
 
 namespace bayu::shell {
 
 RegistryApplications::RegistryApplications()
     : m_registry(base::ApplicationRegistry::instance())
 {
-    m_changed = m_registry.changed.connect([this] { changed(); });
+    // A new application's icon arrived with it.
+    m_changed = m_registry.changed.connect([this] {
+        ui::reloadThemeIcons();
+        changed();
+    });
 }
 
 bool RegistryApplications::isLoading() const

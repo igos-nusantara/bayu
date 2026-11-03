@@ -96,6 +96,9 @@ std::string distributorLogo();
 // images into the icon cache on this thread, then `done` here. Icons cached
 // already are skipped; up to 512 icons stay cached.
 void preloadThemeIcons(std::vector<std::string> names, int size, double scale, std::function<void()> done = {});
+// Looks the theme icons up again, missed ones included: for icons installed
+// since, as an application installed while the shell runs brings.
+void reloadThemeIcons();
 // A theme icon as a ThemeIcon of the size draws it at the scale, as
 // `icon.grabToImage()`: round(size * scale) square, premultiplied RGBA,
 // from the cache when it is there; null when the theme has none.

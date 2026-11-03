@@ -881,6 +881,12 @@ void IconLoader::registerGlyph(const std::string& name, std::string svg)
     }
 }
 
+void IconLoader::reload()
+{
+    m_themes.clear();
+    m_paths.clear();
+}
+
 sk_sp<SkImage> IconLoader::renderSvgFile(const std::string& path, int width, int height)
 {
     // The codecs for data URIs register with the loader.
