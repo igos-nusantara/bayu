@@ -6,7 +6,8 @@
 #include <cmath>
 #include <cstdio>
 #include <utility>
-#include <filesystem>
+#include <fstream>
+#include <sstream>
 
 #include "base/desktop_entry.h"
 #include "base/event_loop.h"
@@ -33,8 +34,12 @@ std::optional<base::DesktopEntry> findApplet(const std::string &id)
         directories.push_back(directory);
     for (const std::string &directory : directories) {
         const std::string path = directory + "/applications/" + id + ".desktop";
-        if (std::filesystem::exists(path))
-            return base::DesktopEntry::parse(id, path, {});
+        std::ifstream file(path);
+        if (!file)
+            continue;
+        std::stringstream contents;
+        contents << file.rdbuf();
+        return base::DesktopEntry::parse(id, path, contents.str(), {});
     }
     return std::nullopt;
 }
@@ -49,6 +54,19 @@ std::string hex(const ui::Color &color)
 std::string configHome()
 {
     return base::paths::configHome() + "/bayu/applets";
+}
+
+// The compositor's environment with `variables`, NAME=value entries, in
+// place of its own of the same names.
+std::vector<std::string> environmentWith(const std::vector<std::string> &variables)
+{
+    std::vector<std::string> environment = childEnvironment();
+    for (const std::string &variable : variables) {
+        const std::string prefix = variable.substr(0, variable.find('=') + 1);
+        std::erase_if(environment, [&](const std::string &entry) { return entry.starts_with(prefix); });
+        environment.push_back(variable);
+    }
+    return environment;
 }
 
 } // namespace
@@ -229,10 +247,8 @@ void BarApplets::refresh()
         return;
     }
     m_themeArguments = std::move(arguments);
-    std::vector<std::string> environment = childEnvironment();
-    environment.push_back("XDG_CONFIG_HOME=" + configHome());
     m_themeWriter = std::make_unique<base::Process>();
-    m_themeWriter->setEnvironment(std::move(environment));
+    m_themeWriter->setEnvironment(environmentWith({"XDG_CONFIG_HOME=" + configHome()}));
     m_themeWriter->onFinished = [this](int code, bool) {
         if (code != 0)
             CF_WARNING(cfCompositor) << "bayu-applets-theme exited with" << code;
@@ -255,9 +271,9 @@ void BarApplets::refresh()
 
 void BarApplets::startAll()
 {
-    std::vector<std::string> environment = childEnvironment();
-    environment.push_back("XDG_CONFIG_HOME=" + configHome());
-    environment.insert(environment.end(), m_variables.begin(), m_variables.end());
+    std::vector<std::string> variables = m_variables;
+    variables.push_back("XDG_CONFIG_HOME=" + configHome());
+    const std::vector<std::string> environment = environmentWith(variables);
     for (const auto &applet : m_applets) {
         applet->launcher->setEnvironment(environment);
         if (applet->launcher->isRunning())
