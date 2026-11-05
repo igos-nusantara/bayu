@@ -792,3 +792,19 @@ msgstr "captura de tela;gravação de tela;capturar;gravar;screenshot;"
 
 #~ msgid "Start"
 #~ msgstr "Iniciar"
+
+#: src/shell/controlcenter/status_panel.cpp
+msgid "Network"
+msgstr "Rede"
+
+#: src/shell/controlcenter/status_panel.cpp
+msgid "Network Settings"
+msgstr "Configurações de rede"
+
+#: src/shell/controlcenter/status_panel.cpp
+msgid "Connected"
+msgstr "Conectado"
+
+#: src/shell/controlcenter/status_panel.cpp
+msgid "VPN"
+msgstr "VPN"

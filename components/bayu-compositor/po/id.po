@@ -780,3 +780,19 @@ msgstr "tangkapan layar;perekaman layar;tangkap;rekam;screenshot;screen recordin
 
 #~ msgid "Start"
 #~ msgstr "Mulai"
+
+#: src/shell/controlcenter/status_panel.cpp
+msgid "Network"
+msgstr "Jaringan"
+
+#: src/shell/controlcenter/status_panel.cpp
+msgid "Network Settings"
+msgstr "Pengaturan Jaringan"
+
+#: src/shell/controlcenter/status_panel.cpp
+msgid "Connected"
+msgstr "Tersambung"
+
+#: src/shell/controlcenter/status_panel.cpp
+msgid "VPN"
+msgstr "VPN"

@@ -780,3 +780,19 @@ msgstr "potrét layar;rékaman layar;candak;rékam;screenshot;screen recording;c
 
 #~ msgid "Start"
 #~ msgstr "Mimiti"
+
+#: src/shell/controlcenter/status_panel.cpp
+msgid "Network"
+msgstr "Jaringan"
+
+#: src/shell/controlcenter/status_panel.cpp
+msgid "Network Settings"
+msgstr "Setélan Jaringan"
+
+#: src/shell/controlcenter/status_panel.cpp
+msgid "Connected"
+msgstr "Nyambung"
+
+#: src/shell/controlcenter/status_panel.cpp
+msgid "VPN"
+msgstr "VPN"

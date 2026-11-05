@@ -791,3 +791,19 @@ msgstr "Bildschirmfoto;Bildschirmaufzeichnung;Aufnahme;Aufzeichnen;screenshot;sc
 
 #~ msgid "Start"
 #~ msgstr "Start"
+
+#: src/shell/controlcenter/status_panel.cpp
+msgid "Network"
+msgstr "Netzwerk"
+
+#: src/shell/controlcenter/status_panel.cpp
+msgid "Network Settings"
+msgstr "Netzwerkeinstellungen"
+
+#: src/shell/controlcenter/status_panel.cpp
+msgid "Connected"
+msgstr "Verbunden"
+
+#: src/shell/controlcenter/status_panel.cpp
+msgid "VPN"
+msgstr "VPN"

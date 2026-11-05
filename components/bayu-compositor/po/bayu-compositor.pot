@@ -789,3 +789,19 @@ msgstr ""
 #: data/bayu-screenshot.desktop
 msgid "screenshot;screen recording;capture;record;"
 msgstr ""
+
+#: src/shell/controlcenter/status_panel.cpp
+msgid "Network"
+msgstr ""
+
+#: src/shell/controlcenter/status_panel.cpp
+msgid "Network Settings"
+msgstr ""
+
+#: src/shell/controlcenter/status_panel.cpp
+msgid "Connected"
+msgstr ""
+
+#: src/shell/controlcenter/status_panel.cpp
+msgid "VPN"
+msgstr ""

@@ -802,3 +802,19 @@ msgstr "снимок экрана;запись экрана;захват;зап�
 
 #~ msgid "Start"
 #~ msgstr "Пуск"
+
+#: src/shell/controlcenter/status_panel.cpp
+msgid "Network"
+msgstr "Сеть"
+
+#: src/shell/controlcenter/status_panel.cpp
+msgid "Network Settings"
+msgstr "Настройки сети"
+
+#: src/shell/controlcenter/status_panel.cpp
+msgid "Connected"
+msgstr "Подключено"
+
+#: src/shell/controlcenter/status_panel.cpp
+msgid "VPN"
+msgstr "VPN"
