@@ -211,6 +211,14 @@ void ControlCenter::openPanel(Panel panel, ShellWindow *bar, const base::Rect &a
         auto view = std::make_unique<ControlCenterView>(*m_services);
         open.controlCenter = view.get();
         view->onHideRequested = [this] { close(Panel::ControlCenter); };
+        view->onNetworkRequested = [this] {
+            if (!m_open[0].bar)
+                return;
+            ShellWindow *bar = m_open[0].bar;
+            const base::Rect anchor = m_open[0].anchor;
+            close(Panel::ControlCenter);
+            openPanel(Panel::Network, bar, anchor);
+        };
         view->onHeightChanged = [this] { resizeControlCenter(); };
         content = std::move(view);
         break;
@@ -365,6 +373,7 @@ void ControlCenter::close(Panel panel)
     }
     if (open.controlCenter) {
         open.controlCenter->onHideRequested = nullptr;
+        open.controlCenter->onNetworkRequested = nullptr;
         open.controlCenter->onHeightChanged = nullptr;
     }
     std::shared_ptr<ui::Window> doomed(std::move(open.window));

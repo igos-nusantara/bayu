@@ -131,11 +131,11 @@ void StatusIcon::showNetwork(const StatusBarIndicators::Network &network)
             && (network.wiredPrimary || network.wirelessName.empty());
 
     if (wired) {
-        setGlyph(network.wiredIcon.empty() ? "network-wired" : network.wiredIcon);
+        setGlyph("network-upload-download");
     } else if (network.hotspotActive) {
         setGlyph("network-wireless-hotspot");
     } else if (network.wirelessEnabled) {
-        setGlyph(network.wirelessName.empty() ? "network-wireless-connected-00" : network.wirelessIcon);
+        setGlyph(network.wirelessName.empty() ? "network-wireless-connected-00" : "network-upload-download");
     } else if (network.wiredHwEnabled) {
         setGlyph(network.wiredIcon.empty() ? "network-wired-unavailable" : network.wiredIcon);
     } else if (network.wirelessHwEnabled) {

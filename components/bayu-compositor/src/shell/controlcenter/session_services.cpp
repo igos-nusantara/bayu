@@ -165,6 +165,65 @@ public:
     std::string wiredName() const override { return m_wireless->network().wiredName; }
     std::string wiredIcon() const override { return m_wireless->network().wiredIcon; }
 
+    std::vector<NetworkConnection> networkConnections() const override
+    {
+        std::vector<NetworkConnection> connections;
+        for (const nm::NetworkItem &item : m_networks->items()) {
+            if (item.type != nm::ConnectionType::Wired && item.type != nm::ConnectionType::Vpn)
+                continue;
+
+            NetworkConnection connection;
+            connection.key = item.key;
+            connection.type = item.type == nm::ConnectionType::Wired ? NetworkConnection::Type::Wired
+                                                                      : NetworkConnection::Type::Vpn;
+            connection.name = item.uniqueName.empty() ? item.name : item.uniqueName;
+            connection.icon = item.icon;
+            switch (item.connectionState) {
+            case nm::ConnectionStatus::Activating:
+                connection.state = NetworkConnection::State::Activating;
+                break;
+            case nm::ConnectionStatus::Activated:
+                connection.state = NetworkConnection::State::Activated;
+                break;
+            case nm::ConnectionStatus::Deactivating:
+                connection.state = NetworkConnection::State::Deactivating;
+                break;
+            default:
+                connection.state = NetworkConnection::State::Deactivated;
+                break;
+            }
+            connection.primary = connection.type == NetworkConnection::Type::Wired
+                    && connection.state == NetworkConnection::State::Activated
+                    && m_wireless->network().wiredPrimary;
+            connection.canActivate = item.canActivate;
+            connection.statusMessage = item.statusMessage;
+            connection.connectionPath = item.connectionPath;
+            connection.devicePath = item.devicePath;
+            connection.specificPath = item.specificPath;
+            if (connection.type == NetworkConnection::Type::Wired) {
+                connection.detail = item.deviceName;
+                if (!item.ipV4Address.empty())
+                    connection.detail += (connection.detail.empty() ? "" : " · ") + item.ipV4Address;
+            } else {
+                connection.detail = item.vpnType;
+            }
+            connections.push_back(std::move(connection));
+        }
+        return connections;
+    }
+
+    void toggleConnection(const NetworkConnection &connection) override
+    {
+        if (connection.type != NetworkConnection::Type::Vpn)
+            return;
+        if (connection.state == NetworkConnection::State::Activated
+            || connection.state == NetworkConnection::State::Activating) {
+            m_handler->deactivateConnection(connection.connectionPath, connection.devicePath);
+        } else if (connection.canActivate && !connection.connectionPath.empty()) {
+            m_handler->activateConnection(connection.connectionPath, connection.devicePath, connection.specificPath);
+        }
+    }
+
     std::vector<WirelessNetwork> wirelessNetworks() const override
     {
         std::vector<WirelessNetwork> networks;

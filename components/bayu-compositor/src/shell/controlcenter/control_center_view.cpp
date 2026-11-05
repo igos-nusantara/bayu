@@ -39,14 +39,17 @@ ControlCenterView::ControlCenterView(ControlCenterServices &services)
     m_title->setElide(ui::Label::Elide::Right);
     m_users = addChild<DeviceUsersTile>();
 
-    m_wireless = addChild<CardItem>();
-    m_wireless->setGlyph("network-wireless-connected-100");
-    m_wireless->setTitle(tr("Wi-Fi"));
-    m_wireless->onClicked = [this] { m_services.enableWireless(!m_wireless->isChecked()); };
-    m_wireless->onPressAndHold = [this] {
+    m_network = addChild<CardItem>();
+    m_network->setGlyph("network-upload-download");
+    m_network->setTitle(tr("Network"));
+    m_network->onClicked = [this] {
+        if (onNetworkRequested)
+            onNetworkRequested();
+    };
+    m_network->onPressAndHold = [this] {
         if (onHideRequested)
             onHideRequested();
-        m_services.openSettings({"-m", "wlan"});
+        m_services.openSettings({"-m", "network"});
     };
 
     m_bluetooth = addChild<CardItem>();
@@ -121,7 +124,7 @@ ControlCenterView::~ControlCenterView() = default;
 void ControlCenterView::retranslate()
 {
     m_title->setText(tr("Control Center"));
-    m_wireless->setTitle(tr("Wi-Fi"));
+    m_network->setTitle(tr("Network"));
     m_bluetooth->setTitle(tr("Bluetooth"));
     m_darkMode->setTitle(tr("Dark Mode"));
     m_doNotDisturb->setTitle(tr("Do Not Disturb"));
@@ -142,10 +145,14 @@ void ControlCenterView::refresh()
     m_users->setUsers(m_services.deviceUsers());
     m_users->setVisible(!m_users->users().empty());
 
-    m_wireless->setVisible(m_services.wirelessHardwareEnabled());
-    m_wireless->setChecked(m_services.wirelessEnabled());
-    const std::string network = m_services.wirelessName();
-    m_wireless->setStatus(!m_wireless->isChecked() ? tr("Off") : !network.empty() ? network : tr("On"));
+    m_network->setVisible(m_services.wiredHardwareEnabled() || m_services.wirelessHardwareEnabled());
+    const bool wired = m_services.wiredConnected()
+            && (m_services.wiredPrimary() || m_services.wirelessName().empty());
+    const std::string network = wired ? m_services.wiredName() : m_services.wirelessName();
+    m_network->setChecked(wired || !network.empty());
+    m_network->setStatus(!m_services.wirelessEnabled() && !wired ? tr("Off")
+                         : !network.empty()                         ? network
+                                                                   : tr("On"));
 
     m_bluetooth->setVisible(m_services.bluetoothAvailable());
     m_bluetooth->setChecked(m_services.bluetoothEnabled());
@@ -192,7 +199,7 @@ double ControlCenterView::layoutHeight() const
     if (m_users->isVisible())
         heights.push_back(m_users->heightForWidth(width));
     int cards = 0;
-    for (const CardItem *card : {m_wireless, m_bluetooth, m_darkMode, m_doNotDisturb, m_camera, m_microphone})
+    for (const CardItem *card : {m_network, m_bluetooth, m_darkMode, m_doNotDisturb, m_camera, m_microphone})
         cards += card->isVisible();
     const int rows = (cards + 1) / 2;
     if (rows > 0)
@@ -247,7 +254,7 @@ void ControlCenterView::layout()
 
     const double cellWidth = (width - kGap) / 2;
     int index = 0;
-    for (CardItem *card : {m_wireless, m_bluetooth, m_darkMode, m_doNotDisturb, m_camera, m_microphone}) {
+    for (CardItem *card : {m_network, m_bluetooth, m_darkMode, m_doNotDisturb, m_camera, m_microphone}) {
         if (!card->isVisible())
             continue;
         const int row = index / 2;

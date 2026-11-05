@@ -45,6 +45,39 @@ struct WirelessNetwork {
     bool operator==(const WirelessNetwork &) const = default;
 };
 
+// A wired or VPN row of the network panel.
+struct NetworkConnection {
+    enum class Type {
+        Wired,
+        Vpn,
+        Other,
+    };
+    enum class State {
+        Deactivated,
+        Activating,
+        Activated,
+        Deactivating,
+    };
+
+    std::string key;
+    Type type = Type::Other;
+    std::string name;
+    // The adapter and address for a wired connection, the kind for a VPN.
+    std::string detail;
+    std::string icon;
+    State state = State::Deactivated;
+    // The connection NetworkManager routes the machine through.
+    bool primary = false;
+    bool canActivate = true;
+    // Why a VPN can't be used, or why its last attempt failed.
+    std::string statusMessage;
+    std::string connectionPath;
+    std::string devicePath;
+    std::string specificPath;
+
+    bool operator==(const NetworkConnection &) const = default;
+};
+
 // An output of the sound panel.
 struct AudioOutput {
     uint32_t id = 0;
@@ -106,6 +139,10 @@ public:
     virtual bool wiredPrimary() const = 0;
     virtual std::string wiredName() const = 0;
     virtual std::string wiredIcon() const = 0;
+    // The wired and VPN connections, active or saved.
+    virtual std::vector<NetworkConnection> networkConnections() const = 0;
+    // Connects or disconnects a VPN; a wired connection opens Settings instead.
+    virtual void toggleConnection(const NetworkConnection &connection) = 0;
     // Connected first, as the panel lists them.
     virtual std::vector<WirelessNetwork> wirelessNetworks() const = 0;
     virtual void enableWireless(bool enable) = 0;

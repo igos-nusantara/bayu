@@ -267,7 +267,7 @@ TEST_F(StatusBarViewTest, IndicatorsPickTheIcons)
     frame();
     EXPECT_TRUE(bar->volumeIcon()->isVisible());
     EXPECT_EQ("audio-volume-medium-symbolic", bar->volumeIcon()->iconName());
-    EXPECT_EQ("network-wireless-connected-66", bar->networkIcon()->glyph());
+    EXPECT_EQ("network-upload-download", bar->networkIcon()->glyph());
 
     indicators.m_audio = {true, false, 0.2};
     indicators.m_network = {true, true, false, "", ""};
@@ -291,14 +291,14 @@ TEST_F(StatusBarViewTest, IndicatorsPickTheIcons)
     indicators.m_audio = {true, false, 0.5};
     indicators.m_network = {true, true, false, "", "", true, true, true, "Sambungan kabel 1", "network-wired"};
     indicators.changed();
-    EXPECT_EQ("network-wired", bar->networkIcon()->glyph());
+    EXPECT_EQ("network-upload-download", bar->networkIcon()->glyph());
     EXPECT_TRUE(bar->networkIcon()->isVisible());
 
-    // With both up and Wi-Fi primary, Wi-Fi keeps the icon.
+    // With both up, the primary connection still uses the activity arrows.
     indicators.m_network = {true, true, false, "Home", "network-wireless-connected-66",
                             true, true, false, "Sambungan kabel 1", "network-wired"};
     indicators.changed();
-    EXPECT_EQ("network-wireless-connected-66", bar->networkIcon()->glyph());
+    EXPECT_EQ("network-upload-download", bar->networkIcon()->glyph());
 
     // Wired hardware alone, disconnected: its icon stays, not Wi-Fi's.
     indicators.m_network = {false, false, false, "", "", true, false, false, "", "network-wired-unavailable"};

@@ -1064,7 +1064,7 @@ TEST(AuthUiTest, StatusIconsSitInTheTopRightCornerAndTakeNoInput)
     EXPECT_DOUBLE_EQ(battery->rightInset(), 9);
     EXPECT_DOUBLE_EQ(wifi->rightInset(), 3);
     EXPECT_DOUBLE_EQ(wifi->geometry().x + wifi->geometry().width, battery->geometry().x);
-    EXPECT_EQ(wifi->glyph(), "network-wireless-connected-75");
+    EXPECT_EQ(wifi->glyph(), "network-upload-download");
 
     // Covered, they show unscaled and at full strength.
     secure.finishTransition();
