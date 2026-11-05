@@ -430,6 +430,13 @@ public:
         m_protectedFromControl = protectedFromControl;
     }
 
+    // A window that never takes the keyboard, whose grabbing popups take it
+    // themselves instead of it borrowing it for them: a bar applet's, as
+    // libcosmic reads keys on the surface they are sent to (#167).
+    bool popupsTakeKeyboard() const { return m_popupsTakeKeyboard; }
+
+    void setPopupsTakeKeyboard(bool take) { m_popupsTakeKeyboard = take; }
+
     // Set by policy for floating clients, or asked for by the client itself
     // through bayu_window_hints_v1.
     bool isAlwaysOnTop() const;
@@ -523,6 +530,7 @@ private:
     bool m_responsive = true;
     bool m_systemDialog = false;
     bool m_protectedFromControl = false;
+    bool m_popupsTakeKeyboard = false;
     bool m_alwaysOnTop = false;
     bool m_surfaceAlwaysOnTop = false;
 

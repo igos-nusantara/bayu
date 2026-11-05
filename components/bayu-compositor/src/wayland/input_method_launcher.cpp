@@ -101,14 +101,14 @@ void InputMethodLauncher::start()
 
     int fds[2] {-1, -1};
     if (socketpair(AF_UNIX, SOCK_STREAM | SOCK_CLOEXEC, 0, fds)) {
-        CF_WARNING(cfWayland) << "Cannot create the input method connection";
+        CF_WARNING(cfWayland) << "Cannot create the connection of" << m_name;
         return;
     }
     m_client = wl_client_create(m_display, fds[0]);
     if (!m_client) {
         close(fds[0]);
         close(fds[1]);
-        CF_WARNING(cfWayland) << "Cannot adopt the input method connection";
+        CF_WARNING(cfWayland) << "Cannot adopt the connection of" << m_name;
         return;
     }
     m_destroy.owner = this;
@@ -131,7 +131,7 @@ void InputMethodLauncher::start()
         const auto it = std::find_if(m_children.begin(), m_children.end(), [&](const auto &c) {
             return &c->process == process;
         });
-        CF_INFO(cfWayland) << "Input method process" << (*it)->program << "exited with" << code;
+        CF_INFO(cfWayland) << m_name << "process" << (*it)->program << "exited with" << code;
         forget(process);
     };
     m_process = process;
@@ -143,10 +143,10 @@ void InputMethodLauncher::start()
     if (started) {
         m_children.push_back(std::move(child));
     } else {
-        CF_WARNING(cfWayland) << "Cannot start input method" << m_command.front();
+        CF_WARNING(cfWayland) << "Cannot start" << m_name << m_command.front();
         m_process = nullptr;
     }
-    CF_INFO(cfWayland) << "Started input method" << joined(m_command);
+    CF_INFO(cfWayland) << "Started" << m_name << joined(m_command);
     runningChanged();
 }
 
@@ -210,12 +210,12 @@ void InputMethodLauncher::connectionLost()
     if (m_uptime.isValid() && m_uptime.elapsedMs() >= kStableUptimeMs)
         m_failures = 0;
     if (++m_failures > kMaxFailures) {
-        CF_WARNING(cfWayland) << "Input method" << joined(m_command)
+        CF_WARNING(cfWayland) << m_name << joined(m_command)
                               << "keeps losing its connection; not restarting it";
         return;
     }
     const int delay = std::min(m_restartDelay << (m_failures - 1), m_restartDelay * 16);
-    CF_WARNING(cfWayland) << "Input method connection lost; restarting in" << delay << "ms";
+    CF_WARNING(cfWayland) << m_name << "connection lost; restarting in" << delay << "ms";
     m_restartTimer.start(std::chrono::milliseconds(delay));
 }
 

@@ -8,6 +8,7 @@
 
 #include <memory>
 #include <string>
+#include <utility>
 #include <vector>
 
 #include "base/elapsed_timer.h"
@@ -46,6 +47,9 @@ public:
     // Starts the current command again, with the current environment.
     void restart();
 
+    // What the logs call it; the bar's applets run on launchers of their own.
+    void setName(std::string name) { m_name = std::move(name); }
+
     void setRestartDelay(int milliseconds) { m_restartDelay = milliseconds; }
 
     bool isInputMethod(const wl_client *client) const { return client && client == m_client; }
@@ -71,6 +75,7 @@ private:
     wl_display *m_display;
     wl_client *m_client = nullptr;
     DestroyListener m_destroy {};
+    std::string m_name = "Input method";
     std::vector<std::string> m_command;
     std::vector<std::string> m_environment = childEnvironment();
     // Every process started and not yet ended, the current one among them.

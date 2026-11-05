@@ -95,6 +95,7 @@ BarApplets::BarApplets(wl_display *display, wm::WindowManager *windows, shell::S
         applet->id = id;
         applet->command = entry->command();
         applet->launcher = std::make_unique<wayland::InputMethodLauncher>(m_display);
+        applet->launcher->setName("Applet");
         m_applets.push_back(std::move(applet));
     }
     m_added = m_windows->windowAdded.connect([this](wm::Window *window) { windowAdded(window); });
@@ -136,6 +137,8 @@ std::optional<wm::ShellWindowMetadata> BarApplets::toplevelFor(wl_client *client
         wm::ShellWindowMetadata metadata;
         metadata.role = wm::WindowRole::Panel;
         metadata.focusPolicy = wm::FocusPolicy::NoFocus;
+        metadata.popupsTakeKeyboard = true;
+        metadata.popupsTakeKeyboard = true;
         // Off the screen until it has a slot of its width.
         metadata.hasPosition = true;
         metadata.position = base::Point(-10000, -10000);

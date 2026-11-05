@@ -77,6 +77,8 @@ struct ShellWindowMetadata {
     uint64_t parentWindow = 0;
     // See Window::isProtectedFromControl.
     bool protectedFromControl = false;
+    // See Window::popupsTakeKeyboard.
+    bool popupsTakeKeyboard = false;
 };
 
 // Everything a window is announced with. The application id and the process id
@@ -347,6 +349,8 @@ public:
     // chain belongs to one client, or to the shell: a grab from anyone else
     // dismisses it first.
     void pushPopupGrab(ShellSurface *popup);
+    // A grabbing popup has its window now; see Window::popupsTakeKeyboard.
+    void popupGrabMapped() { updatePopupKeyboard(); }
     void removePopupGrab(ShellSurface *popup);
 
     const std::vector<ShellSurface *> &popupGrabs() const { return m_popupGrabs; }
