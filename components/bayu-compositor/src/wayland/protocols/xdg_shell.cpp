@@ -763,6 +763,11 @@ void xdg_surface_get_toplevel(wl_client* client, wl_resource* xdgSurfaceResource
     }
 
     surfaceData->shellSurface->setToplevel();
+    if (const auto& policy = surfaceData->shell->toplevelPolicy()) {
+        compositor::Surface* surface = surfaceData->shellSurface->rootSurface();
+        if (const auto metadata = policy(client, surface))
+            surfaceData->shell->windowManager()->setShellMetadata(surface, *metadata);
+    }
 
     wl_resource* toplevelResource = wl_resource_create(
         client, &xdg_toplevel_interface, wl_resource_get_version(xdgSurfaceResource), id);

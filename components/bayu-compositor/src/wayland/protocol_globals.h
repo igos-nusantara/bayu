@@ -128,6 +128,8 @@ public:
 
     WaylandXdgActivation *xdgActivation() { return m_xdgActivation.get(); }
 
+    WaylandXdgShell *xdgShell() { return m_xdgShell.get(); }
+
 private:
     bool registerCoreGlobals();
     bool registerInputMethod();

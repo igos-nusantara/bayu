@@ -925,6 +925,8 @@ set_target_properties(bayu-wayland-globals PROPERTIES POSITION_INDEPENDENT_CODE 
 
 add_executable(bayu-compositor
     src/main.cpp
+    src/core/bar_applets.cpp
+    src/core/bar_applets.h
     src/core/compositor_options.cpp
     src/core/compositor_options.h
     src/core/computer_control_environment.cpp

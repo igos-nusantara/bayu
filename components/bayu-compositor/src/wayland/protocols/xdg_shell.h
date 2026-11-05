@@ -16,10 +16,15 @@
 #include <wayland-server-core.h>
 
 #include <cstdint>
+#include <functional>
+#include <optional>
 #include <vector>
+
+#include "wm/window_manager.h"
 
 namespace bayu::compositor {
 class Compositor;
+class Surface;
 }
 
 namespace bayu::input {
@@ -68,7 +73,16 @@ public:
     void removeXdgSurface(wl_resource* resource);
     bool hasXdgSurfaceForClient(wl_client* client) const;
 
+    // Asked for each new xdg_toplevel: shell metadata for it, applied before
+    // the window exists, or nothing for an ordinary window. The bar's applets
+    // become part of the bar this way.
+    using ToplevelPolicy =
+            std::function<std::optional<wm::ShellWindowMetadata>(wl_client*, compositor::Surface*)>;
+    void setToplevelPolicy(ToplevelPolicy policy) { m_toplevelPolicy = std::move(policy); }
+    const ToplevelPolicy& toplevelPolicy() const { return m_toplevelPolicy; }
+
 private:
+    ToplevelPolicy m_toplevelPolicy;
     wm::WindowManager* m_windowManager = nullptr;
     input::Seat* m_seat = nullptr;
     SerialTracker* m_serialTracker = nullptr;

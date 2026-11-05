@@ -30,6 +30,7 @@
 #include "computer_control/permission_consent.h"
 #include "computer_control/remembered_apps.h"
 #include "base/uuid.h"
+#include "core/bar_applets.h"
 #include "core/computer_control_environment.h"
 #include "core/logging.h"
 #include "core/main_loop.h"
@@ -89,6 +90,7 @@
 #include "wayland/protocols/wl_output.h"
 #include "wayland/protocols/wp_presentation.h"
 #include "wayland/protocols/xdg_activation.h"
+#include "wayland/protocols/xdg_shell.h"
 #include "wayland/security_delegate.h"
 #include "wayland/server.h"
 #include "wayland/shell_control_channel.h"
@@ -767,6 +769,14 @@ void CompositorShell::initShell()
         statusBarService->registerServices();
         m_updates->registerService();
         m_updates->start();
+        if (m_globals && m_globals->xdgShell()) {
+            m_barApplets = std::make_unique<BarApplets>(m_server->display(), &m_windowManager, bar,
+                                                        preferencesFile("shell"));
+            m_globals->xdgShell()->setToplevelPolicy(
+                    [applets = m_barApplets.get()](wl_client *client, compositor::Surface *surface) {
+                        return applets->toplevelFor(client, surface);
+                    });
+        }
     }
 }
 
@@ -1357,6 +1367,9 @@ CompositorShell::~CompositorShell()
     // textures before the renderer.
     m_secureScene.setPictureLoader({});
     m_wallpaper = nullptr;
+    if (m_globals && m_globals->xdgShell())
+        m_globals->xdgShell()->setToplevelPolicy({});
+    m_barApplets.reset();
     m_shell.reset();
     m_windowCycle.reset();
     m_inputManager.setGestureFilter(nullptr);

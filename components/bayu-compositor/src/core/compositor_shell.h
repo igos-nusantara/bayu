@@ -125,6 +125,7 @@ class XwaylandServer;
 }
 
 namespace core {
+class BarApplets;
 
 // Everything the compositor process owns, in one place. Modelled on ash::Shell:
 // members are constructed in declaration order and torn down in reverse, so the
@@ -300,6 +301,8 @@ private:
     // Outlives the shell, whose bar shows it.
     std::unique_ptr<shell::UpdateMonitor> m_updates;
     std::unique_ptr<shell::Shell> m_shell;
+    // The bar's applets, whose windows it holds; gone before the shell.
+    std::unique_ptr<BarApplets> m_barApplets;
     // The shell's desktop background; the startup cover waits for it.
     shell::Wallpaper *m_wallpaper = nullptr;
     std::unique_ptr<accelerators::AcceleratorConfiguration> m_acceleratorConfiguration;
