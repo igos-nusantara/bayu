@@ -125,11 +125,23 @@ void StatusIcon::showBattery(const Battery &battery, bool percentage)
 
 void StatusIcon::showNetwork(const StatusBarIndicators::Network &network)
 {
-    setVisible(network.wirelessHwEnabled);
-    setGlyph(!network.wirelessEnabled ? "network-wireless-disabled"
-             : network.hotspotActive  ? "network-wireless-hotspot"
-             : !network.wirelessName.empty() ? network.wirelessIcon
-                                             : "network-wireless-connected-00");
+    // The wired connection wins when it is the primary one, or when no Wi-Fi
+    // network is up; both connected and Wi-Fi primary keeps the Wi-Fi icon.
+    const bool wired = network.wiredConnected
+            && (network.wiredPrimary || network.wirelessName.empty());
+
+    if (wired) {
+        setGlyph(network.wiredIcon.empty() ? "network-wired" : network.wiredIcon);
+    } else if (network.hotspotActive) {
+        setGlyph("network-wireless-hotspot");
+    } else if (network.wirelessEnabled) {
+        setGlyph(network.wirelessName.empty() ? "network-wireless-connected-00" : network.wirelessIcon);
+    } else if (network.wiredHwEnabled) {
+        setGlyph(network.wiredIcon.empty() ? "network-wired-unavailable" : network.wiredIcon);
+    } else if (network.wirelessHwEnabled) {
+        setGlyph("network-wireless-disabled");
+    }
+    setVisible(network.wirelessHwEnabled || network.wiredHwEnabled || network.wiredConnected);
 }
 
 void StatusIcon::updateContent()

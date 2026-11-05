@@ -65,6 +65,16 @@ public:
         // A FishUI glyph name, network-wireless-connected-NN.
         std::string wirelessIcon;
 
+        // An Ethernet device is there, an Ethernet connection is up, and
+        // whether NetworkManager makes that wired connection primary.
+        bool wiredHwEnabled = false;
+        bool wiredConnected = false;
+        bool wiredPrimary = false;
+        // The active wired connection's, empty when there is none.
+        std::string wiredName;
+        // A FishUI glyph name, network-wired or network-wired-unavailable.
+        std::string wiredIcon;
+
         bool operator==(const Network &) const = default;
     };
 

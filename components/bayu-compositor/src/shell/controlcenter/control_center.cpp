@@ -429,6 +429,11 @@ StatusBarIndicators::Network ControlCenter::network() const
     network.hotspotActive = m_services->hotspotActive();
     network.wirelessName = m_services->wirelessName();
     network.wirelessIcon = m_services->wirelessIcon();
+    network.wiredHwEnabled = m_services->wiredHardwareEnabled();
+    network.wiredConnected = m_services->wiredConnected();
+    network.wiredPrimary = m_services->wiredPrimary();
+    network.wiredName = m_services->wiredName();
+    network.wiredIcon = m_services->wiredIcon();
     return network;
 }
 

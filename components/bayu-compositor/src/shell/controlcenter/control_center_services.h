@@ -99,6 +99,13 @@ public:
     // The Wi-Fi network this machine is on, and its strength glyph.
     virtual std::string wirelessName() const = 0;
     virtual std::string wirelessIcon() const = 0;
+    // An Ethernet device is there, an Ethernet connection is up, whether it is
+    // NetworkManager's primary connection, and its name.
+    virtual bool wiredHardwareEnabled() const = 0;
+    virtual bool wiredConnected() const = 0;
+    virtual bool wiredPrimary() const = 0;
+    virtual std::string wiredName() const = 0;
+    virtual std::string wiredIcon() const = 0;
     // Connected first, as the panel lists them.
     virtual std::vector<WirelessNetwork> wirelessNetworks() const = 0;
     virtual void enableWireless(bool enable) = 0;

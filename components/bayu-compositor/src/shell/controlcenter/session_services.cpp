@@ -159,6 +159,12 @@ public:
     std::string wirelessName() const override { return m_wireless->network().wirelessName; }
     std::string wirelessIcon() const override { return m_wireless->network().wirelessIcon; }
 
+    bool wiredHardwareEnabled() const override { return m_wireless->network().wiredHwEnabled; }
+    bool wiredConnected() const override { return m_wireless->network().wiredConnected; }
+    bool wiredPrimary() const override { return m_wireless->network().wiredPrimary; }
+    std::string wiredName() const override { return m_wireless->network().wiredName; }
+    std::string wiredIcon() const override { return m_wireless->network().wiredIcon; }
+
     std::vector<WirelessNetwork> wirelessNetworks() const override
     {
         std::vector<WirelessNetwork> networks;

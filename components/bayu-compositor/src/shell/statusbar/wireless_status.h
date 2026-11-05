@@ -19,8 +19,9 @@ class Handler;
 
 namespace bayu::shell {
 
-// What the bar's Wi-Fi icon shows, from NetworkManager on the system bus:
-// the switches, a hotspot, and the Wi-Fi network this machine is on.
+// What the bar's network icon shows, from NetworkManager on the system bus:
+// the Wi-Fi switches and hotspot, the Wi-Fi network this machine is on, and
+// the wired connection when one is up.
 class WirelessStatus
 {
 public:
@@ -45,6 +46,10 @@ private:
     std::unique_ptr<networkmanager::Handler> m_handler;
     std::string m_wirelessName;
     std::string m_wirelessIcon;
+    bool m_wiredHwEnabled = false;
+    bool m_wiredConnected = false;
+    bool m_wiredPrimary = false;
+    std::string m_wiredName;
     std::vector<base::Subscription> m_subscriptions;
 };
 

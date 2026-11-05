@@ -68,6 +68,11 @@ public:
     std::string hotspotName() const override { return "Laptop"; }
     std::string wirelessName() const override { return wireless ? "Office 5G" : ""; }
     std::string wirelessIcon() const override { return "network-wireless-connected-100"; }
+    bool wiredHardwareEnabled() const override { return wiredHardware; }
+    bool wiredConnected() const override { return wired; }
+    bool wiredPrimary() const override { return wired; }
+    std::string wiredName() const override { return wired ? "Sambungan kabel 1" : ""; }
+    std::string wiredIcon() const override { return wired ? "network-wired" : "network-wired-unavailable"; }
     std::vector<shell::WirelessNetwork> wirelessNetworks() const override { return wireless ? networks : decltype(networks)(); }
     void enableWireless(bool enable) override { wireless = enable; changed(); }
     void requestScan() override { ++scans; }
@@ -113,6 +118,8 @@ public:
 
     bool hardware = true;
     bool wireless = true;
+    bool wiredHardware = false;
+    bool wired = false;
     bool hotspot = false;
     bool bluetooth = true;
     bool dnd = false;
@@ -528,6 +535,7 @@ TEST_F(ControlCenterTest, TheBarIndicatorsFollowTheServices)
     EXPECT_TRUE(center->audio().hasSink);
     EXPECT_NEAR(0.36, center->audio().volume, 1e-9);
     EXPECT_EQ("Office 5G", center->network().wirelessName);
+    EXPECT_FALSE(center->network().wiredConnected);
     services->wireless = false;
     services->changed();
     test::runFor(std::chrono::milliseconds(5));
@@ -536,6 +544,16 @@ TEST_F(ControlCenterTest, TheBarIndicatorsFollowTheServices)
     services->changed();
     test::runFor(std::chrono::milliseconds(5));
     EXPECT_EQ(1, changes);
+
+    services->wiredHardware = true;
+    services->wired = true;
+    services->changed();
+    test::runFor(std::chrono::milliseconds(5));
+    EXPECT_EQ(2, changes);
+    EXPECT_TRUE(center->network().wiredConnected);
+    EXPECT_TRUE(center->network().wiredPrimary);
+    EXPECT_EQ("Sambungan kabel 1", center->network().wiredName);
+    EXPECT_EQ("network-wired", center->network().wiredIcon);
 }
 
 TEST_F(ControlCenterTest, ThePowerDialogConfirmsWithReturnAndCancelsWithEscape)

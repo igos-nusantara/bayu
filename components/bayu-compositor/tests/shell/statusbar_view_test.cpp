@@ -287,6 +287,30 @@ TEST_F(StatusBarViewTest, IndicatorsPickTheIcons)
     EXPECT_EQ("audio-volume-high-symbolic", bar->volumeIcon()->iconName());
     EXPECT_EQ("network-wireless-hotspot", bar->networkIcon()->glyph());
 
+    // A wired connection is what the bar shows while Wi-Fi is on but idle.
+    indicators.m_audio = {true, false, 0.5};
+    indicators.m_network = {true, true, false, "", "", true, true, true, "Sambungan kabel 1", "network-wired"};
+    indicators.changed();
+    EXPECT_EQ("network-wired", bar->networkIcon()->glyph());
+    EXPECT_TRUE(bar->networkIcon()->isVisible());
+
+    // With both up and Wi-Fi primary, Wi-Fi keeps the icon.
+    indicators.m_network = {true, true, false, "Home", "network-wireless-connected-66",
+                            true, true, false, "Sambungan kabel 1", "network-wired"};
+    indicators.changed();
+    EXPECT_EQ("network-wireless-connected-66", bar->networkIcon()->glyph());
+
+    // Wired hardware alone, disconnected: its icon stays, not Wi-Fi's.
+    indicators.m_network = {false, false, false, "", "", true, false, false, "", "network-wired-unavailable"};
+    indicators.changed();
+    EXPECT_EQ("network-wired-unavailable", bar->networkIcon()->glyph());
+    EXPECT_TRUE(bar->networkIcon()->isVisible());
+
+    // Wi-Fi on and disconnected keeps its own icon while the cable is out.
+    indicators.m_network = {true, true, false, "", "", true, false, false, "", "network-wired-unavailable"};
+    indicators.changed();
+    EXPECT_EQ("network-wireless-connected-00", bar->networkIcon()->glyph());
+
     // The privacy dot widens the control icon by the gap and the dot.
     bar->setDeviceUsage(std::make_unique<shell::DeviceUsage>(nullptr, nullptr, nullptr));
     bar->deviceUsage()->setUsesForTesting({{shell::DeviceUse::Microphone, 42, {}, "recorder"}});
@@ -296,7 +320,7 @@ TEST_F(StatusBarViewTest, IndicatorsPickTheIcons)
     EXPECT_EQ("recorder", bar->deviceUsage()->applications().front().name);
     EXPECT_TRUE(bar->deviceUsage()->applications().front().microphone);
 
-    indicators.m_network.wirelessHwEnabled = false;
+    indicators.m_network = {};
     indicators.m_audio.hasSink = false;
     indicators.changed();
     EXPECT_FALSE(bar->volumeIcon()->isVisible());
