@@ -66,6 +66,16 @@ public:
     void setText(std::string text);
     // A second line (the hotspot's "Hotspot"), 3 below the first.
     void setDetail(std::string detail);
+    std::string detailText() const;
+    // A trailing value on the detail line, such as the address of a wired
+    // connection. Empty hides it.
+    void setTrailing(std::string text);
+    std::string trailingText() const;
+    // A second label/value pair below the first, such as "IP address" and the
+    // address itself. Empty values hide the line.
+    void setDetail2(std::string label, std::string value);
+    std::string detail2Label() const;
+    std::string detail2Value() const;
     void setActive(bool active);
     bool isActive() const { return m_active; }
     void setBold(bool bold);
@@ -92,6 +102,9 @@ private:
     SvgIcon *m_artwork;
     ui::Label *m_label;
     ui::Label *m_detail;
+    ui::Label *m_trailing;
+    ui::Label *m_detail2;
+    ui::Label *m_trailing2;
     ui::BusyIndicator *m_busy;
     ui::Icon *m_lock;
     bool m_active = false;

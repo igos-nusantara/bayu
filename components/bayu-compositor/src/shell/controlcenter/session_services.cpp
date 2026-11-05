@@ -202,11 +202,10 @@ public:
             connection.specificPath = item.specificPath;
             if (connection.type == NetworkConnection::Type::Wired) {
                 connection.detail = item.deviceName;
-                if (!item.ipV4Address.empty())
-                    connection.detail += (connection.detail.empty() ? "" : " · ") + item.ipV4Address;
             } else {
                 connection.detail = item.vpnType;
             }
+            connection.address = item.ipV4Address.empty() ? item.ipV6Address : item.ipV4Address;
             connections.push_back(std::move(connection));
         }
         return connections;

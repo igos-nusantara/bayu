@@ -62,8 +62,10 @@ struct NetworkConnection {
     std::string key;
     Type type = Type::Other;
     std::string name;
-    // The adapter and address for a wired connection, the kind for a VPN.
+    // The adapter for a wired connection, the kind for a VPN.
     std::string detail;
+    // The connection's address, shown at the row's trailing edge.
+    std::string address;
     std::string icon;
     State state = State::Deactivated;
     // The connection NetworkManager routes the machine through.

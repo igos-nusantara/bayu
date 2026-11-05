@@ -94,6 +94,14 @@ PanelRow::PanelRow()
     m_label->setElide(ui::Label::Elide::Right);
     m_detail = addChild<ui::Label>();
     m_detail->setVisible(false);
+    m_trailing = addChild<ui::Label>();
+    m_trailing->setVisible(false);
+    m_trailing->setElide(ui::Label::Elide::Right);
+    m_detail2 = addChild<ui::Label>();
+    m_detail2->setVisible(false);
+    m_trailing2 = addChild<ui::Label>();
+    m_trailing2->setVisible(false);
+    m_trailing2->setElide(ui::Label::Elide::Right);
     m_busy = addChild<ui::BusyIndicator>();
     m_busy->setRunning(false);
     m_busy->setVisible(false);
@@ -131,6 +139,43 @@ void PanelRow::setDetail(std::string detail)
     m_detail->setVisible(!detail.empty());
     m_detail->setText(std::move(detail));
     requestLayout();
+}
+
+std::string PanelRow::detailText() const
+{
+    return m_detail->text();
+}
+
+void PanelRow::setTrailing(std::string text)
+{
+    m_trailing->setVisible(!text.empty());
+    m_trailing->setText(std::move(text));
+    requestLayout();
+}
+
+std::string PanelRow::trailingText() const
+{
+    return m_trailing->text();
+}
+
+void PanelRow::setDetail2(std::string label, std::string value)
+{
+    m_detail2->setText(std::move(label));
+    m_trailing2->setText(std::move(value));
+    const bool visible = !m_detail2->text().empty() || !m_trailing2->text().empty();
+    m_detail2->setVisible(visible);
+    m_trailing2->setVisible(!m_trailing2->text().empty());
+    requestLayout();
+}
+
+std::string PanelRow::detail2Label() const
+{
+    return m_detail2->text();
+}
+
+std::string PanelRow::detail2Value() const
+{
+    return m_trailing2->text();
 }
 
 void PanelRow::setActive(bool active)
@@ -172,6 +217,8 @@ void PanelRow::setRowEnabled(bool enabled)
     if (!enabled)
         m_pressed = false;
     m_label->setOpacity(enabled ? 1 : 0.6);
+    m_trailing->setOpacity(enabled ? 1 : 0.6);
+    m_trailing2->setOpacity(enabled ? 1 : 0.6);
     requestPaint();
 }
 
@@ -180,6 +227,8 @@ double PanelRow::contentHeight() const
     double text = m_label->sizeHint().height;
     if (m_detail->isVisible())
         text += 3 + m_detail->sizeHint().height;
+    if (m_detail2->isVisible())
+        text += 3 + m_detail2->sizeHint().height;
     return std::max(kBadgeSize, text);
 }
 
@@ -196,6 +245,9 @@ void PanelRow::layout()
     m_artwork->setTint(white ? kWhite : kLightArtwork);
     m_lock->setColor(panel::secondaryTextColor());
     m_detail->setColor(panel::secondaryTextColor());
+    m_trailing->setColor(panel::secondaryTextColor());
+    m_detail2->setColor(panel::secondaryTextColor());
+    m_trailing2->setColor(panel::secondaryTextColor());
 
     // The background reaches past the row's padding to kBackgroundMargin.
     const double inset = kRowMargin - kBackgroundMargin + kRowInset;
@@ -216,16 +268,33 @@ void PanelRow::layout()
         right -= 18 + kRowSpacing;
     }
     const double x = badge.x + kBadgeSize + kRowSpacing;
-    const double width = std::max(0.0, right - x);
     const double labelHeight = m_label->sizeHint().height;
-    if (m_detail->isVisible()) {
-        const double detailHeight = m_detail->sizeHint().height;
-        const double top = (height - labelHeight - 3 - detailHeight) / 2;
-        m_label->setGeometry({x, top, width, labelHeight});
-        m_detail->setGeometry({x, top + labelHeight + 3, width, detailHeight});
-    } else {
-        m_label->setGeometry({x, (height - labelHeight) / 2, width, labelHeight});
-    }
+    const double detailHeight = m_detail->isVisible() ? m_detail->sizeHint().height : 0;
+    const double detail2Height = m_detail2->isVisible() ? m_detail2->sizeHint().height : 0;
+    const double textHeight = labelHeight + (m_detail->isVisible() ? 3 + detailHeight : 0)
+            + (m_detail2->isVisible() ? 3 + detail2Height : 0);
+    const double top = (height - textHeight) / 2;
+    double y = top;
+
+    m_label->setGeometry({x, y, std::max(0.0, right - x), labelHeight});
+    y += labelHeight;
+
+    const auto line = [&](ui::Label *label, ui::Label *value, double lineHeight) {
+        y += 3;
+        double lineRight = right;
+        if (value->isVisible()) {
+            const double width = std::min(value->sizeHint().width, std::max(0.0, right - x - kRowSpacing));
+            value->setGeometry({right - width, y, width, value->sizeHint().height});
+            lineRight -= width + kRowSpacing;
+        }
+        label->setGeometry({x, y, std::max(0.0, lineRight - x), lineHeight});
+        y += lineHeight;
+    };
+
+    if (m_detail->isVisible())
+        line(m_detail, m_trailing, detailHeight);
+    if (m_detail2->isVisible())
+        line(m_detail2, m_trailing2, detail2Height);
 }
 
 void PanelRow::paint(ui::Painter &painter)
@@ -686,7 +755,12 @@ void NetworkPanel::rebuild()
         PanelRow *row = m_list->addChild<PanelRow>();
         row->setGlyph("network-wired");
         row->setText(connection.name);
-        row->setDetail(connection.detail);
+        if (!connection.detail.empty()) {
+            row->setDetail(tr("Interface"));
+            row->setTrailing(connection.detail);
+        }
+        if (!connection.address.empty())
+            row->setDetail2(tr("IP address"), connection.address);
         row->setActive(connection.primary);
         row->setBold(connection.state == NetworkConnection::State::Activated);
         row->setBusy(connection.state == NetworkConnection::State::Activating);
@@ -741,7 +815,14 @@ void NetworkPanel::rebuild()
         const bool active = vpn.state == NetworkConnection::State::Activated;
         row->setGlyph(vpn.icon.empty() ? "network-vpn" : vpn.icon);
         row->setText(vpn.name);
-        row->setDetail(vpn.statusMessage.empty() ? vpn.detail : vpn.statusMessage);
+        if (!vpn.statusMessage.empty()) {
+            row->setDetail(vpn.statusMessage);
+        } else if (!vpn.detail.empty()) {
+            row->setDetail(tr("Type"));
+            row->setTrailing(vpn.detail);
+        }
+        if (!vpn.address.empty())
+            row->setDetail2(tr("Address"), vpn.address);
         row->setActive(active);
         row->setBold(active);
         row->setBusy(vpn.state == NetworkConnection::State::Activating);

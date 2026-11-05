@@ -478,7 +478,8 @@ TEST_F(ControlCenterTest, TheNetworkPanelShowsWiredAndVpnConnections)
     wired.key = "wired";
     wired.type = shell::NetworkConnection::Type::Wired;
     wired.name = "Sambungan kabel 1";
-    wired.detail = "enp0s31f6 · 192.168.1.20";
+    wired.detail = "enp0s31f6";
+    wired.address = "192.168.1.20";
     wired.icon = "network-wired";
     wired.state = shell::NetworkConnection::State::Activated;
     wired.primary = true;
@@ -503,6 +504,10 @@ TEST_F(ControlCenterTest, TheNetworkPanelShowsWiredAndVpnConnections)
     ASSERT_EQ(1u, panel->connectedRows().size());
     ASSERT_EQ(1u, panel->vpnRows().size());
     EXPECT_TRUE(panel->connectedRows()[0]->isActive());
+    EXPECT_EQ("Interface", panel->connectedRows()[0]->detailText());
+    EXPECT_EQ("enp0s31f6", panel->connectedRows()[0]->trailingText());
+    EXPECT_EQ("IP address", panel->connectedRows()[0]->detail2Label());
+    EXPECT_EQ("192.168.1.20", panel->connectedRows()[0]->detail2Value());
     EXPECT_FALSE(panel->vpnRows()[0]->isActive());
 
     clickView(Panel::Network, panel->vpnRows()[0]);
