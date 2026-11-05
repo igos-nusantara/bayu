@@ -807,3 +807,19 @@ msgstr "Conectado"
 #: src/shell/controlcenter/status_panel.cpp
 msgid "VPN"
 msgstr "VPN"
+
+#: src/shell/controlcenter/status_panel.cpp
+msgid "Interface"
+msgstr "Interfaz"
+
+#: src/shell/controlcenter/status_panel.cpp
+msgid "IP address"
+msgstr "Dirección IP"
+
+#: src/shell/controlcenter/status_panel.cpp
+msgid "Type"
+msgstr "Tipo"
+
+#: src/shell/controlcenter/status_panel.cpp
+msgid "Address"
+msgstr "Dirección"

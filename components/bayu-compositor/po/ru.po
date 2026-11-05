@@ -818,3 +818,19 @@ msgstr "Подключено"
 #: src/shell/controlcenter/status_panel.cpp
 msgid "VPN"
 msgstr "VPN"
+
+#: src/shell/controlcenter/status_panel.cpp
+msgid "Interface"
+msgstr "Интерфейс"
+
+#: src/shell/controlcenter/status_panel.cpp
+msgid "IP address"
+msgstr "IP-адрес"
+
+#: src/shell/controlcenter/status_panel.cpp
+msgid "Type"
+msgstr "Тип"
+
+#: src/shell/controlcenter/status_panel.cpp
+msgid "Address"
+msgstr "Адрес"

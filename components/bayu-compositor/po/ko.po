@@ -796,3 +796,19 @@ msgstr "연결됨"
 #: src/shell/controlcenter/status_panel.cpp
 msgid "VPN"
 msgstr "VPN"
+
+#: src/shell/controlcenter/status_panel.cpp
+msgid "Interface"
+msgstr "인터페이스"
+
+#: src/shell/controlcenter/status_panel.cpp
+msgid "IP address"
+msgstr "IP 주소"
+
+#: src/shell/controlcenter/status_panel.cpp
+msgid "Type"
+msgstr "유형"
+
+#: src/shell/controlcenter/status_panel.cpp
+msgid "Address"
+msgstr "주소"

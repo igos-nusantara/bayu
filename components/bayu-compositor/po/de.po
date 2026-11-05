@@ -807,3 +807,19 @@ msgstr "Verbunden"
 #: src/shell/controlcenter/status_panel.cpp
 msgid "VPN"
 msgstr "VPN"
+
+#: src/shell/controlcenter/status_panel.cpp
+msgid "Interface"
+msgstr "Schnittstelle"
+
+#: src/shell/controlcenter/status_panel.cpp
+msgid "IP address"
+msgstr "IP-Adresse"
+
+#: src/shell/controlcenter/status_panel.cpp
+msgid "Type"
+msgstr "Typ"
+
+#: src/shell/controlcenter/status_panel.cpp
+msgid "Address"
+msgstr "Adresse"

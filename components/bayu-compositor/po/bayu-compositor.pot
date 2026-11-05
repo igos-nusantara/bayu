@@ -805,3 +805,19 @@ msgstr ""
 #: src/shell/controlcenter/status_panel.cpp
 msgid "VPN"
 msgstr ""
+
+#: src/shell/controlcenter/status_panel.cpp
+msgid "Interface"
+msgstr ""
+
+#: src/shell/controlcenter/status_panel.cpp
+msgid "IP address"
+msgstr ""
+
+#: src/shell/controlcenter/status_panel.cpp
+msgid "Type"
+msgstr ""
+
+#: src/shell/controlcenter/status_panel.cpp
+msgid "Address"
+msgstr ""
