@@ -34,6 +34,8 @@ struct Usage
 };
 
 // Adds Flathub when the installation lacks it.
+// Adds a system remote from its .flatpakrepo file when it is missing.
+std::string ensureRemote(const char* name, const char* repoFile);
 std::string ensureFlathub();
 std::vector<Installed> installed(std::string* error);
 std::vector<Update> updates(std::string* error);
@@ -48,7 +50,9 @@ enum class Operation {
     Remove,
 };
 // An error text, "stopped" when cancelled, empty on success.
-std::string run(Operation operation, const std::string& id, const Progress& progress, std::atomic<bool>& cancel);
+// Installs from `remote`, Flathub when empty; updates and removals find theirs.
+std::string run(Operation operation, const std::string& id, const std::string& remote, const Progress& progress,
+                std::atomic<bool>& cancel);
 std::string launch(const std::string& id);
 
 } // namespace store::flatpak

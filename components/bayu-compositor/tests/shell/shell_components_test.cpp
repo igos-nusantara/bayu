@@ -10,6 +10,8 @@
 
 #include <linux/input-event-codes.h>
 
+#include <algorithm>
+
 #include <gtest/gtest.h>
 
 #include "compositor/compositor.h"
@@ -32,6 +34,7 @@
 #include "shell/dock/minimized_windows.h"
 #include "shell/dock/dock_tooltip.h"
 #include "shell/dock/dock_window.h"
+#include "shell/statusbar/panel_tasks.h"
 #include "shell/osd/level_track.h"
 #include "shell/osd/osd.h"
 #include "shell/shell.h"
@@ -428,6 +431,40 @@ TEST_F(ShellComponentsTest, TheDockSitsAlongTheBottomOnItsGlassAndReservesItsStr
     // The divider after the pins: its line centred in the gap, 48 long, 19 down.
     EXPECT_EQ(19, dock->divider().y());
     EXPECT_EQ(48, dock->divider().height());
+}
+
+TEST_F(ShellComponentsTest, TheDockShowsADotForEachWindowUpToTwo)
+{
+    auto *dock = openDock("[Dock]\nPinned=files\n");
+    shell::TaskWindow terminal;
+    terminal.appId = "terminal";
+    terminal.pid = 4242;
+    for (int i = 1; i <= 4; ++i) {
+        terminal.title = "Terminal " + std::to_string(i);
+        windows->add(terminal);
+        const int expected = std::min(i, 2);
+        ASSERT_TRUE(test::runUntil([dock, expected] {
+            const shell::DockIcon *icon = dock->applicationIcon("terminal");
+            return icon && icon->dotCount() == expected;
+        })) << i << " windows";
+    }
+    EXPECT_EQ(0, dock->applicationIcon("files")->dotCount());
+}
+
+TEST_F(ShellComponentsTest, ThePanelShowsADotForEachWindowUpToTwoAsTheDock)
+{
+    auto *view = openDock("[Dock]\nPinned=files\n");
+    shell::PanelTasks panel(*windows, view->dock().applications());
+    EXPECT_EQ(panel.applicationDots("files"), 0);
+    shell::TaskWindow terminal;
+    terminal.appId = "terminal";
+    terminal.pid = 4242;
+    for (int i = 1; i <= 4; ++i) {
+        terminal.title = "Terminal " + std::to_string(i);
+        windows->add(terminal);
+        const int expected = std::min(i, 2);
+        ASSERT_TRUE(test::runUntil([&] { return panel.applicationDots("terminal") == expected; })) << i << " windows";
+    }
 }
 
 TEST_F(ShellComponentsTest, TheDockFollowsRunningApplicationsAndTakesClicks)

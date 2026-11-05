@@ -1,0 +1,36 @@
+# Deletes the nightly ISOs on R2 up to one, with their .sha256, and rebuilds
+# the index pages (builder/publish-nightly.sh --prune). Run by hand, from the
+# Actions tab or gh workflow run prune-nightly.yml -f until=<ISO>.
+# Secrets: R2_ACCESS_KEY_ID, R2_SECRET_ACCESS_KEY, R2_ENDPOINT.
+name: Prune nightly ISOs
+
+on:
+  workflow_dispatch:
+    inputs:
+      until:
+        description: The last ISO to delete, as ign26-bayu-harian-20261027-0853.iso
+        required: true
+
+permissions:
+  contents: read
+
+concurrency: release
+
+jobs:
+  prune:
+    runs-on: [self-hosted, bayu-builder]
+    timeout-minutes: 30
+    env:
+      RCLONE_CONFIG_R2_TYPE: s3
+      RCLONE_CONFIG_R2_PROVIDER: Cloudflare
+      RCLONE_CONFIG_R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+      RCLONE_CONFIG_R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+      RCLONE_CONFIG_R2_ENDPOINT: ${{ secrets.R2_ENDPOINT }}
+      RCLONE_CONFIG_R2_ACL: private
+      RCLONE_CONFIG_R2_NO_CHECK_BUCKET: 'true'
+    steps:
+      - uses: actions/checkout@v4
+      - name: Prune
+        env:
+          UNTIL: ${{ inputs.until }}
+        run: builder/publish-nightly.sh --prune "$UNTIL"

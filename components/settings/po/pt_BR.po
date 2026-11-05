@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bayu-settings\n"
 "Report-Msgid-Bugs-To: https://github.com/bayuos\n"
-"POT-Creation-Date: 2026-10-28 07:51+0000\n"
+"POT-Creation-Date: 2026-11-03 11:52+0000\n"
 "PO-Revision-Date: 2026-10-25 12:00+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -114,6 +114,19 @@ msgstr "Usuários"
 #: src/pages/accounts/accountspage.cpp
 msgid "Add user"
 msgstr "Adicionar usuário"
+
+#: src/pages/accounts/accountspage.cpp
+msgid "Log in automatically"
+msgstr "Entrar automaticamente"
+
+#: src/pages/accounts/accountspage.cpp
+msgid "This account starts without a password when the computer turns on. Anyone at the computer can use it, and the login keyring may ask for the password."
+msgstr "Esta conta é aberta sem senha quando o computador é ligado. Qualquer pessoa no computador pode usá-la, e o chaveiro de login pode pedir a senha."
+
+#: src/pages/accounts/accountspage.cpp
+#, python-brace-format
+msgid "“{name}” logs in automatically now; turning this on logs this account in instead."
+msgstr "“{name}” entra automaticamente agora; ativar esta opção faz esta conta entrar em seu lugar."
 
 #: src/pages/accounts/accountspage.cpp src/pages/wallpaper/wallpaperpage.cpp
 #, python-brace-format
@@ -690,7 +703,7 @@ msgstr "Reprodutor de vídeo"
 
 #: src/pages/defaultapps/defaultappspage.cpp src/pages/fonts/fontspage.cpp
 #: src/pages/hotcorners/hotcornerspage.cpp src/pages/keyboard/keyboardpage.cpp
-#: src/pages/shortcuts/shortcutspage.cpp
+#: src/pages/shortcuts/shortcutspage.cpp src/pages/tiling/tilingpage.cpp
 msgid "None"
 msgstr "Nenhum"
 
@@ -881,6 +894,11 @@ msgstr "Mais colorido"
 msgid "Hot Corners"
 msgstr "Cantos ativos"
 
+#: src/pages/dock/dockpage.cpp src/pages/shortcuts/shortcutsmodel.cpp
+#: src/pages/tiling/tilingpage.cpp src/window/pagelist.cpp
+msgid "Tiling"
+msgstr "Lado a lado"
+
 #: src/pages/dock/dockpage.cpp
 msgid "The panel has no top bar, so applications show their menus in their windows. Applications already open may need to be opened again."
 msgstr "O painel não tem barra superior, então os aplicativos mostram seus menus nas próprias janelas. Aplicativos já abertos podem precisar ser abertos de novo."
@@ -901,7 +919,7 @@ msgstr "Parte inferior"
 msgid "Right"
 msgstr "Direita"
 
-#: src/pages/dock/dockpage.cpp
+#: src/pages/dock/dockpage.cpp src/pages/memory/memorypage.cpp
 msgid "Size"
 msgstr "Tamanho"
 
@@ -975,6 +993,70 @@ msgstr "Total"
 #: src/pages/fonts/fontspage.cpp
 msgid "Anti-Aliasing"
 msgstr "Suavização"
+
+#: src/pages/hardware/hardware.cpp
+#, python-brace-format
+msgid "{driver} driver for {device}"
+msgstr "Driver {driver} para {device}"
+
+#: src/pages/hardware/hardware.cpp
+#, python-brace-format
+msgid "Driver for {device}"
+msgstr "Driver para {device}"
+
+#: src/pages/hardware/hardware.cpp
+#, python-brace-format
+msgid "Firmware for {device}"
+msgstr "Firmware para {device}"
+
+#: src/pages/hardware/hardwarepage.cpp src/window/pagelist.cpp
+msgid "Drivers & Hardware"
+msgstr "Drivers e hardware"
+
+#: src/pages/hardware/hardwarepage.cpp
+msgid "Recommended"
+msgstr "Recomendado"
+
+#: src/pages/hardware/hardwarepage.cpp src/window/pagelist.cpp
+msgid "Devices"
+msgstr "Dispositivos"
+
+#: src/pages/hardware/hardwarepage.cpp
+msgid "Copy Hardware Information"
+msgstr "Copiar informações do hardware"
+
+#: src/pages/hardware/hardwarepage.cpp
+msgid "Paste it into a bug report, so that others can see this hardware."
+msgstr "Cole em um relatório de erro, para que outras pessoas possam ver este hardware."
+
+#: src/pages/hardware/hardwarepage.cpp
+msgid "No driver"
+msgstr "Sem driver"
+
+#: src/pages/hardware/hardwarepage.cpp
+#, python-brace-format
+msgid "Driver: {driver}"
+msgstr "Driver: {driver}"
+
+#: src/pages/hardware/hardwarepage.cpp
+msgid "Proprietary"
+msgstr "Proprietário"
+
+#: src/pages/hardware/hardwarepage.cpp
+msgid "Install"
+msgstr "Instalar"
+
+#: src/pages/hardware/hardwarepage.cpp
+msgid "The driver is installed. Restart the computer to use it."
+msgstr "O driver está instalado. Reinicie o computador para usá-lo."
+
+#: src/pages/hardware/hardwarepage.cpp
+msgid "Drivers and firmware for the devices of this computer that are not installed yet. Without them, the devices may not work, or work only in part."
+msgstr "Drivers e firmware para os dispositivos deste computador que ainda não estão instalados. Sem eles, os dispositivos podem não funcionar ou funcionar apenas em parte."
+
+#: src/pages/hardware/hardwarepage.cpp
+msgid "Secure Boot is on: it keeps proprietary drivers built on this computer from loading. Turn it off in the computer's firmware settings to use them."
+msgstr "A Inicialização Segura está ativada: ela impede que drivers proprietários compilados neste computador sejam carregados. Desative-a nas configurações de firmware do computador para usá-los."
 
 #: src/pages/hotcorners/hotcorners.cpp src/pages/shortcuts/shortcutsmodel.cpp
 msgctxt "key"
@@ -1159,6 +1241,54 @@ msgstr "Idioma do sistema"
 #: src/pages/language/preferredlanguagelist.cpp
 msgid "Remove language"
 msgstr "Remover idioma"
+
+#: src/pages/memory/memorypage.cpp src/window/pagelist.cpp
+msgid "Memory"
+msgstr "Memória"
+
+#: src/pages/memory/memorypage.cpp
+msgid "Memory compression"
+msgstr "Compressão de memória"
+
+#: src/pages/memory/memorypage.cpp
+msgid "Compress memory"
+msgstr "Comprimir memória"
+
+#: src/pages/memory/memorypage.cpp src/pages/network/vpn/vpneditor.cpp
+msgid "Automatic"
+msgstr "Automático"
+
+#: src/pages/memory/memorypage.cpp
+msgid "25% of memory"
+msgstr "25% da memória"
+
+#: src/pages/memory/memorypage.cpp
+msgid "50% of memory"
+msgstr "50% da memória"
+
+#: src/pages/memory/memorypage.cpp
+msgid "Usage"
+msgstr "Uso"
+
+#: src/pages/memory/memorypage.cpp
+msgid "Compressed swap"
+msgstr "Swap comprimido"
+
+#: src/pages/memory/memorypage.cpp
+msgid "Swapped out"
+msgstr "Enviado para o swap"
+
+#: src/pages/memory/memorypage.cpp
+msgid "Memory it takes"
+msgstr "Memória ocupada"
+
+#: src/pages/memory/memorypage.cpp
+msgid "Compression ratio"
+msgstr "Taxa de compressão"
+
+#: src/pages/memory/memorypage.cpp
+msgid "Memory that is not in use is kept compressed in memory, so more applications and Android apps fit before the computer slows down, as on phones. Changes apply at once."
+msgstr "A memória que não está em uso é mantida comprimida na memória, para que caibam mais aplicativos e aplicativos Android antes que o computador fique lento, como nos celulares. As alterações valem imediatamente."
 
 #: src/pages/mouse/mousepage.cpp
 msgid "Left hand"
@@ -1443,7 +1573,7 @@ msgstr "Mostrar opções avançadas"
 msgid "Asked on connect"
 msgstr "Solicitado ao conectar"
 
-#: src/pages/network/vpn/vpneditor.cpp
+#: src/pages/network/vpn/vpneditor.cpp src/pages/tiling/tilingpage.cpp
 msgid "Choose…"
 msgstr "Escolher…"
 
@@ -1484,10 +1614,6 @@ msgid "Listen port"
 msgstr "Porta de escuta"
 
 #: src/pages/network/vpn/vpneditor.cpp
-msgid "Automatic"
-msgstr "Automático"
-
-#: src/pages/network/vpn/vpneditor.cpp
 msgid "Firewall mark"
 msgstr "Marca de firewall"
 
@@ -1509,6 +1635,7 @@ msgstr "Peer"
 
 #: src/pages/network/vpn/vpneditor.cpp src/pages/printers/printerspage.cpp
 #: src/pages/privacy/privacypage.cpp src/pages/shortcuts/shortcuteditdialog.cpp
+#: src/pages/tiling/tilingpage.cpp
 msgid "Remove"
 msgstr "Remover"
 
@@ -1739,6 +1866,10 @@ msgid "Prevent automatic sleeping when the display is off"
 msgstr "Impedir a suspensão automática quando a tela estiver desligada"
 
 #: src/pages/printers/printers.cpp
+msgid "Raw (the application sends the printer's own commands)"
+msgstr "Raw (o aplicativo envia os próprios comandos da impressora)"
+
+#: src/pages/printers/printers.cpp
 msgid "No driver for this printer was found."
 msgstr "Nenhum driver foi encontrado para esta impressora."
 
@@ -1809,6 +1940,15 @@ msgstr "Não foi possível alterar as impressoras: {error}"
 #: src/pages/printers/printerspage.cpp
 msgid "No other printers found"
 msgstr "Nenhuma outra impressora encontrada"
+
+#: src/pages/printers/printerspage.cpp
+msgid "Choose a Driver"
+msgstr "Escolher um driver"
+
+#: src/pages/printers/printerspage.cpp
+#, python-brace-format
+msgid "No driver is known for {printer}. Choose one: that of a model of the same series usually works, such as Epson LQ-850 for an Epson LQ dot-matrix printer. Raw is for applications that send the printer's own commands, such as point of sale ones."
+msgstr "Nenhum driver é conhecido para {printer}. Escolha um: o de um modelo da mesma série costuma funcionar, como Epson LQ-850 para uma impressora matricial Epson LQ. Raw é para aplicativos que enviam os próprios comandos da impressora, como os de ponto de venda."
 
 #: src/pages/printers/printerspage.cpp
 msgid "The printer's host name or IP address, such as 192.168.1.20, or its IPP address. It has to print without a driver (IPP Everywhere or AirPrint), as most printers made since 2012 do."
@@ -1936,12 +2076,60 @@ msgid "Snap the window to the right"
 msgstr "Encaixar a janela à direita"
 
 #: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Snap the window up, or maximize it"
+msgstr "Encaixar a janela em cima, ou maximizá-la"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Snap the window down, or minimize it"
+msgstr "Encaixar a janela embaixo, ou minimizá-la"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
 msgid "Close the window"
 msgstr "Fechar a janela"
 
 #: src/pages/shortcuts/shortcutsmodel.cpp
 msgid "Move the window to the next display"
 msgstr "Mover a janela para a próxima tela"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Tile or untile the desk"
+msgstr "Organizar a área lado a lado ou desfazer"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Float the window, or tile it again"
+msgstr "Deixar a janela flutuar, ou colocá-la lado a lado de novo"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Swap the window with the one on the left, or move it to the display on the left"
+msgstr "Trocar a janela com a da esquerda ou movê-la para a tela da esquerda"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Swap the window with the one on the right, or move it to the display on the right"
+msgstr "Trocar a janela com a da direita ou movê-la para a tela da direita"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Swap the window with the one above"
+msgstr "Trocar a janela com a de cima"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Swap the window with the one below"
+msgstr "Trocar a janela com a de baixo"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Move the edge of the window to the left"
+msgstr "Mover a borda da janela para a esquerda"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Move the edge of the window to the right"
+msgstr "Mover a borda da janela para a direita"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Move the edge of the window up"
+msgstr "Mover a borda da janela para cima"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Move the edge of the window down"
+msgstr "Mover a borda da janela para baixo"
 
 #: src/pages/shortcuts/shortcutsmodel.cpp
 msgid "Switch to the desk on the left"
@@ -2316,6 +2504,39 @@ msgstr "Nenhum dispositivo de entrada"
 msgid "No output devices"
 msgstr "Nenhum dispositivo de saída"
 
+#: src/pages/tiling/tilingpage.cpp
+msgid "Tiling is managed by the Bayu compositor, which is not running."
+msgstr "O lado a lado é gerenciado pelo compositor do Bayu, que não está em execução."
+
+#: src/pages/tiling/tilingpage.cpp
+msgid "Tile windows on every desk"
+msgstr "Janelas lado a lado em todas as áreas"
+
+#: src/pages/tiling/tilingpage.cpp
+msgid "Gap between windows"
+msgstr "Espaço entre as janelas"
+
+#: src/pages/tiling/tilingpage.cpp
+#, python-brace-format
+msgid "{pixels} px"
+msgstr "{pixels} px"
+
+#: src/pages/tiling/tilingpage.cpp
+msgid "Meta+Y tiles or untiles the current desk, as does the tiling button in the status bar. On a tiled desk, Meta+arrow keys move between windows, Meta+Shift+arrow keys swap them, Meta+Alt+arrow keys resize them and Meta+G lets a window float. Drag a window onto another to swap them."
+msgstr "Meta+Y organiza a área atual lado a lado ou desfaz isso, assim como o botão lado a lado na barra de status. Em uma área lado a lado, Meta+setas alternam entre as janelas, Meta+Shift+setas as trocam, Meta+Alt+setas as redimensionam e Meta+G deixa uma janela flutuar. Arraste uma janela sobre outra para trocá-las."
+
+#: src/pages/tiling/tilingpage.cpp
+msgid "Always float"
+msgstr "Sempre flutuantes"
+
+#: src/pages/tiling/tilingpage.cpp
+msgid "Add an app"
+msgstr "Adicionar um app"
+
+#: src/pages/tiling/tilingpage.cpp
+msgid "Windows of these apps never tile, nor do dialogs and windows too large for a tile."
+msgstr "As janelas destes apps nunca ficam lado a lado, nem os diálogos e as janelas grandes demais para um bloco."
+
 #: src/pages/touchpad/touchpadpage.cpp src/window/pagelist.cpp
 msgid "Touchpad"
 msgstr "Touchpad"
@@ -2561,6 +2782,10 @@ msgstr "Adicionar pasta de papéis de parede"
 msgid "Search"
 msgstr "Pesquisar"
 
+#: src/window/admin.cpp
+msgid "Only an administrator can change this."
+msgstr "Somente um administrador pode alterar isto."
+
 #: src/window/page.cpp
 msgid "This page is not ported yet."
 msgstr "Esta página ainda não foi portada."
@@ -2598,10 +2823,6 @@ msgid "do not disturb, banners, alerts"
 msgstr "não perturbe, banners, alertas"
 
 #: src/window/pagelist.cpp
-msgid "Devices"
-msgstr "Dispositivos"
-
-#: src/window/pagelist.cpp
 msgid "monitor, screen, resolution, refresh rate, scaling, brightness, rotation"
 msgstr "monitor, tela, resolução, taxa de atualização, escala, brilho, rotação"
 
@@ -2630,8 +2851,12 @@ msgid "printer, print, printing, scanner, CUPS, USB, network, default printer, t
 msgstr "impressora, imprimir, impressão, scanner, CUPS, USB, rede, impressora padrão, página de teste"
 
 #: src/window/pagelist.cpp
-msgid "accounts, password, login, administrator, avatar"
-msgstr "contas, senha, login, administrador, avatar"
+msgid "driver, firmware, hardware, device, PCI, USB, lspci, lsusb, Wi-Fi, graphics"
+msgstr "driver, firmware, hardware, dispositivo, PCI, USB, lspci, lsusb, Wi-Fi, gráficos"
+
+#: src/window/pagelist.cpp
+msgid "accounts, password, login, administrator, avatar, automatic login, autologin"
+msgstr "contas, senha, login, administrador, avatar, login automático, autologin"
 
 #: src/window/pagelist.cpp
 msgid "region, locale, system language"
@@ -2656,6 +2881,10 @@ msgstr "carga, limite de carga, saúde da bateria, capacidade, histórico, porce
 #: src/window/pagelist.cpp
 msgid "energy, performance, power saving, sleep, turn off display"
 msgstr "energia, desempenho, economia de energia, suspensão, desligar a tela"
+
+#: src/window/pagelist.cpp
+msgid "RAM, zram, swap, memory compression, Android"
+msgstr "RAM, zram, swap, compressão de memória, Android"
 
 #: src/window/pagelist.cpp
 msgid "update, upgrade, dnf, packages, security, download, restart"
@@ -2702,6 +2931,10 @@ msgid "screen corners, show desktop, show all windows"
 msgstr "cantos da tela, mostrar área de trabalho, mostrar todas as janelas"
 
 #: src/window/pagelist.cpp
+msgid "tile, tiling, split, windows, gaps, float"
+msgstr "lado a lado, mosaico, dividir, janelas, espaço, flutuante"
+
+#: src/window/pagelist.cpp
 msgid "hotkeys, key bindings"
 msgstr "teclas de atalho, atalhos"
 
@@ -2712,3 +2945,39 @@ msgstr "Configurações"
 #: src/window/sidebar.cpp
 msgid "No results"
 msgstr "Nenhum resultado"
+
+#~ msgid "Intel Wi-Fi"
+#~ msgstr "Wi-Fi Intel"
+
+#~ msgid "Realtek Wi-Fi"
+#~ msgstr "Wi-Fi Realtek"
+
+#~ msgid "Qualcomm Atheros Wi-Fi"
+#~ msgstr "Wi-Fi Qualcomm Atheros"
+
+#~ msgid "MediaTek Wi-Fi"
+#~ msgstr "Wi-Fi MediaTek"
+
+#~ msgid "Broadcom Wi-Fi"
+#~ msgstr "Wi-Fi Broadcom"
+
+#~ msgid "AMD graphics"
+#~ msgstr "Gráficos AMD"
+
+#~ msgid "Intel graphics"
+#~ msgstr "Gráficos Intel"
+
+#~ msgid "NVIDIA graphics"
+#~ msgstr "Gráficos NVIDIA"
+
+#~ msgid "Intel sound"
+#~ msgstr "Som Intel"
+
+#~ msgid "Realtek USB Wi-Fi or Bluetooth"
+#~ msgstr "Wi-Fi ou Bluetooth USB Realtek"
+
+#~ msgid "Qualcomm Atheros USB Wi-Fi or Bluetooth"
+#~ msgstr "Wi-Fi ou Bluetooth USB Qualcomm Atheros"
+
+#~ msgid "MediaTek USB Wi-Fi or Bluetooth"
+#~ msgstr "Wi-Fi ou Bluetooth USB MediaTek"

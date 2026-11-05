@@ -50,6 +50,7 @@ add_library(settings-ui OBJECT
     src/widgets/sliderrow.cpp
     src/widgets/standardbutton.cpp
     src/widgets/tilegrid.cpp
+    src/window/admin.cpp
     src/window/options.cpp
     src/window/page.cpp
     src/window/pagelist.cpp
@@ -58,7 +59,8 @@ add_library(settings-ui OBJECT
     ${SETTINGS_PAGE_SOURCES}
 )
 target_include_directories(settings-ui PUBLIC src)
-target_compile_definitions(settings-ui PUBLIC SETTINGS_DATA_DIR="${SETTINGS_DATA_DIR}")
+target_compile_definitions(settings-ui PUBLIC SETTINGS_DATA_DIR="${SETTINGS_DATA_DIR}"
+    SETTINGS_ADMIN_HELPER="${CMAKE_INSTALL_FULL_LIBEXECDIR}/bayu-settings-admin")
 find_package(BayuClients REQUIRED COMPONENTS packagekit)
 target_link_libraries(settings-ui PUBLIC Bayu::Toolkit Bayu::PackageKitClient)
 
@@ -87,6 +89,13 @@ install(FILES
     src/pages/updates/60-bayu-updates.rules
     DESTINATION ${CMAKE_INSTALL_DATADIR}/polkit-1/rules.d
 )
+
+# The system changes Settings makes as root (window/admin.h), and Bayu's
+# memory compression, which Settings > Memory changes.
+install(PROGRAMS admin/bayu-settings-admin DESTINATION ${CMAKE_INSTALL_LIBEXECDIR})
+install(FILES admin/org.bayu.settings.admin.policy DESTINATION ${CMAKE_INSTALL_DATADIR}/polkit-1/actions)
+install(FILES admin/zram-generator.conf DESTINATION ${CMAKE_INSTALL_PREFIX}/lib/systemd/zram-generator.conf.d
+        RENAME bayu.conf)
 
 if(BUILD_TESTING)
     add_subdirectory(tests/ui)

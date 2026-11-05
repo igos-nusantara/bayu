@@ -15,6 +15,7 @@
 #include "accelerators/accelerator_filter.h"
 #include "accelerators/accelerator_service.h"
 #include "accelerators/hot_corner_controller.h"
+#include "accelerators/tiling_settings.h"
 #include "accelerators/hot_corner_settings.h"
 #include "auth/login_sessions.h"
 #include "backend/drm/drm_backend.h"
@@ -91,6 +92,7 @@
 #include "wayland/security_delegate.h"
 #include "wayland/server.h"
 #include "wayland/shell_control_channel.h"
+#include "wm/tiling_controller.h"
 #include "wm/demo_controller.h"
 #include "wm/desks/desk_preferences.h"
 #include "wm/desks/desks_controller.h"
@@ -416,6 +418,8 @@ void CompositorShell::initAccelerators()
             return m_hotCorners->heldModifiers();
         });
         m_hotCornerSettings->registerService();
+        m_tilingSettings = std::make_unique<accelerators::TilingSettings>(m_windowManager.tiling());
+        m_tilingSettings->registerService();
         const auto applyBindings = [this] {
             for (const auto corner :
                  {accelerators::HotCorner::TopLeft, accelerators::HotCorner::TopRight,
@@ -707,6 +711,10 @@ void CompositorShell::initShell()
                 [bar](bool active) { bar->setAgentControl(active); });
     }
     bar->setMenuBar(std::make_unique<shell::MenuBarView>(m_shell.get(), bar->menuBarHost()));
+    bar->setTiling(m_windowManager.tiling()->isActiveDeskTiled());
+    bar->onToggleTiling = [this] { m_windowManager.tiling()->toggleActiveDesk(); };
+    m_shellSubscriptions.push_back(m_windowManager.tiling()->changed.connect(
+            [this, bar] { bar->setTiling(m_windowManager.tiling()->isActiveDeskTiled()); }));
     bar->setRecording(screenshot->isRecording());
     bar->onStopRecording = [screenshot] { screenshot->stopRecording(); };
     m_shellSubscriptions.push_back(screenshot->recordingChanged.connect(

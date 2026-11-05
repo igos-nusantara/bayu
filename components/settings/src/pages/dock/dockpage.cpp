@@ -93,6 +93,8 @@ public:
         m_panelViews.push_back(panelCorners);
         NavigationItem* panelHotCorners = panelCorners->addChild<NavigationItem>(tr("Hot Corners"));
         panelHotCorners->onClicked = [&window] { window.pushPage("hotcorners"); };
+        NavigationItem* panelTiling = panelCorners->addChild<NavigationItem>(tr("Tiling"));
+        panelTiling->onClicked = [&window] { window.pushPage("tiling"); };
         m_panelViews.push_back(content()->addChild<Footnote>(
                 tr("The panel has no top bar, so applications show their menus in their windows. Applications "
                    "already open may need to be opened again.")));
@@ -154,6 +156,8 @@ public:
         m_dockViews.push_back(corners);
         NavigationItem* hotCorners = corners->addChild<NavigationItem>(tr("Hot Corners"));
         hotCorners->onClicked = [&window] { window.pushPage("hotcorners"); };
+        NavigationItem* tiling = corners->addChild<NavigationItem>(tr("Tiling"));
+        tiling->onClicked = [&window] { window.pushPage("tiling"); };
 
         Card* minimized = content()->addChild<Card>(Card::Style::List);
         m_dockViews.push_back(minimized);

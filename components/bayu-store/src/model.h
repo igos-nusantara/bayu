@@ -73,8 +73,10 @@ struct App
     // F-Droid's anti-features: "Ads", "Tracking", "NonFreeDep"...
     std::vector<std::string> antiFeatures;
     std::string homepage;
-    // Flatpak: the ref. F-Droid: the APK and its checksum.
+    // Flatpak: the ref and the remote it comes from, "flathub" unless it is
+    // IGOS Nusantara's ("igos"). F-Droid: the APK and its checksum.
     std::string ref;
+    std::string remote;
     std::string apkUrl;
     std::string apkSha256;
     int64_t versionCode = 0;

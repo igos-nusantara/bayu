@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: nabau\n"
 "Report-Msgid-Bugs-To: https://github.com/bayuos\n"
-"POT-Creation-Date: 2026-10-27 15:23+0000\n"
+"POT-Creation-Date: 2026-11-01 00:31+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -126,6 +126,11 @@ msgstr "Tidak dapat menyambung ke bahagian belakang pemasangan di {address}."
 #: src/anaconda_backend.cpp
 msgid "Reading the disks"
 msgstr "Membaca cakera"
+
+#: src/anaconda_backend.cpp
+#, python-brace-format
+msgid "The EFI partition {device} has {free} MB free; the boot loader needs {needed} MB."
+msgstr "Partisyen EFI {device} hanya ada {free} MB ruang kosong; pemuat but memerlukan {needed} MB."
 
 #: src/anaconda_backend.cpp
 msgid "Lay out the disk first."
@@ -1243,6 +1248,18 @@ msgstr[0] "{n} item"
 #: src/ui/pages/review_page.cpp
 msgid "Begin installation"
 msgstr "Mulakan pemasangan"
+
+#: src/ui/pages/review_page.cpp
+msgid "Create a new EFI partition?"
+msgstr "Cipta partisyen EFI baharu?"
+
+#: src/ui/pages/review_page.cpp
+msgid "The EFI partition on this disk is too full for IGOS Nusantara's boot loader. The installer can create an EFI partition of its own, 600 MB, in the space for IGOS Nusantara. The existing one and the system that starts from it are left as they are. Nothing has been written yet."
+msgstr "Partisyen EFI pada cakera ini terlalu penuh untuk pemuat but IGOS Nusantara. Pemasang boleh mencipta partisyen EFI sendiri, 600 MB, dalam ruang untuk IGOS Nusantara. Partisyen sedia ada dan sistem yang bermula daripadanya dibiarkan seperti sedia kala. Belum ada apa-apa yang ditulis."
+
+#: src/ui/pages/review_page.cpp
+msgid "Create EFI partition"
+msgstr "Cipta partisyen EFI"
 
 #: src/ui/pages/review_page.cpp
 msgid "Keyboard"

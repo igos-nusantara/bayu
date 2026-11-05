@@ -125,6 +125,9 @@ public:
     // Drawn over the backdrop and faded out as the overview comes in: the
     // desktop's icons.
     void setFadingBackdrop(std::vector<const Node *> nodes);
+    // Drawn over the backdrop as they are, undimmed: the window Snap Assist
+    // was brought up for.
+    void setKept(std::vector<const Node *> nodes) { m_kept = std::move(nodes); }
 
     // `animate` moves windows already shown to their new places on a tween;
     // otherwise they are there at once.
@@ -217,6 +220,7 @@ private:
     OverviewTextPainter m_textPainter;
     OverviewWindowFrame m_frame;
     std::vector<const Node *> m_backdrop;
+    std::vector<const Node *> m_kept;
     std::vector<const Node *> m_fadingBackdrop;
     std::vector<Item> m_items;
     // Where each item was headed when the layout last changed.

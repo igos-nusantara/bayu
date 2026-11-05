@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: nabau\n"
 "Report-Msgid-Bugs-To: https://github.com/bayuos\n"
-"POT-Creation-Date: 2026-10-27 15:23+0000\n"
+"POT-Creation-Date: 2026-11-01 00:31+0000\n"
 "PO-Revision-Date: 2026-10-25 12:00+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -11,7 +11,6 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
 #: src/anaconda_backend.cpp
 msgid "Starting the installation backend"
@@ -127,6 +126,11 @@ msgstr "Não é possível conectar ao back-end de instalação em {address}."
 #: src/anaconda_backend.cpp
 msgid "Reading the disks"
 msgstr "Lendo os discos"
+
+#: src/anaconda_backend.cpp
+#, python-brace-format
+msgid "The EFI partition {device} has {free} MB free; the boot loader needs {needed} MB."
+msgstr "A partição EFI {device} tem {free} MB livres; o carregador de inicialização precisa de {needed} MB."
 
 #: src/anaconda_backend.cpp
 msgid "Lay out the disk first."
@@ -1247,6 +1251,18 @@ msgstr[1] "{n} itens"
 #: src/ui/pages/review_page.cpp
 msgid "Begin installation"
 msgstr "Iniciar instalação"
+
+#: src/ui/pages/review_page.cpp
+msgid "Create a new EFI partition?"
+msgstr "Criar uma nova partição EFI?"
+
+#: src/ui/pages/review_page.cpp
+msgid "The EFI partition on this disk is too full for IGOS Nusantara's boot loader. The installer can create an EFI partition of its own, 600 MB, in the space for IGOS Nusantara. The existing one and the system that starts from it are left as they are. Nothing has been written yet."
+msgstr "A partição EFI deste disco está cheia demais para o carregador de inicialização do IGOS Nusantara. O instalador pode criar uma partição EFI própria, de 600 MB, no espaço para o IGOS Nusantara. A existente e o sistema que inicia a partir dela são mantidos como estão. Nada foi gravado ainda."
+
+#: src/ui/pages/review_page.cpp
+msgid "Create EFI partition"
+msgstr "Criar partição EFI"
 
 #: src/ui/pages/review_page.cpp
 msgid "Keyboard"

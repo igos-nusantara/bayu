@@ -24,6 +24,11 @@ enum class WindowStateType {
     Normal,
     PrimarySnapped,
     SecondarySnapped,
+    // A quarter of the work area, in one of its corners (#149).
+    TopLeftSnapped,
+    TopRightSnapped,
+    BottomLeftSnapped,
+    BottomRightSnapped,
     Maximized,
     Fullscreen,
     Minimized,
@@ -31,7 +36,15 @@ enum class WindowStateType {
 
 constexpr bool isSnappedStateType(WindowStateType type)
 {
-    return type == WindowStateType::PrimarySnapped || type == WindowStateType::SecondarySnapped;
+    return type == WindowStateType::PrimarySnapped || type == WindowStateType::SecondarySnapped
+            || type == WindowStateType::TopLeftSnapped || type == WindowStateType::TopRightSnapped
+            || type == WindowStateType::BottomLeftSnapped || type == WindowStateType::BottomRightSnapped;
+}
+
+constexpr bool isQuarterSnappedStateType(WindowStateType type)
+{
+    return isSnappedStateType(type) && type != WindowStateType::PrimarySnapped
+            && type != WindowStateType::SecondarySnapped;
 }
 
 // A snapped window keeps the floating look: rounded corners, outline and

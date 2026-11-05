@@ -491,6 +491,8 @@ add_library(bayu-wm STATIC
     src/wm/shell_surface.h
     src/wm/show_desktop_controller.cpp
     src/wm/show_desktop_controller.h
+    src/wm/tiling_controller.cpp
+    src/wm/tiling_controller.h
     src/wm/mru_window_tracker.cpp
     src/wm/mru_window_tracker.h
     src/wm/window_cycle_controller.cpp
@@ -663,6 +665,8 @@ add_library(bayu-accelerators STATIC
     src/accelerators/hot_corner_controller.h
     src/accelerators/hot_corner_settings.cpp
     src/accelerators/hot_corner_settings.h
+    src/accelerators/tiling_settings.cpp
+    src/accelerators/tiling_settings.h
 )
 target_include_directories(bayu-accelerators PUBLIC src)
 target_link_libraries(bayu-accelerators PUBLIC bayu-wm bayu-session bayu-input-dbus PkgConfig::Xkbcommon)
@@ -953,7 +957,7 @@ target_link_libraries(bayu-displayctl PRIVATE bayu-display-ipc Bayu::ToolkitBase
 option(BAYU_ENABLE_XWAYLAND "Build the native Xwayland frontend" ON)
 if(BAYU_ENABLE_XWAYLAND)
     find_package(Threads REQUIRED)
-    pkg_check_modules(Xcb REQUIRED IMPORTED_TARGET xcb xcb-composite xcb-xfixes xcb-shape xcb-sync)
+    pkg_check_modules(Xcb REQUIRED IMPORTED_TARGET xcb xcb-composite xcb-xfixes xcb-shape xcb-sync xcb-render)
     bayu_wayland_protocol(xwayland-shell-v1
         ${WAYLAND_PROTOCOLS_DATADIR}/staging/xwayland-shell/xwayland-shell-v1.xml)
     bayu_wayland_protocol(xwayland-keyboard-grab-unstable-v1
@@ -970,7 +974,7 @@ if(BAYU_ENABLE_XWAYLAND)
         ${xwayland-keyboard-grab-unstable-v1_SOURCES})
     target_include_directories(bayu-xwayland PUBLIC src ${BAYU_PROTOCOL_DIR})
     target_link_libraries(bayu-xwayland PUBLIC bayu-wayland-private-shell PkgConfig::Xcb Threads::Threads
-        Bayu::ToolkitBase)
+        Bayu::ToolkitBase bayu-cursor bayu-core)
     target_link_libraries(bayu-compositor PRIVATE bayu-xwayland)
     target_compile_definitions(bayu-compositor PRIVATE BAYU_ENABLE_XWAYLAND)
     install(FILES ${WAYLAND_PROTOCOLS_DATADIR}/staging/xwayland-shell/xwayland-shell-v1.xml

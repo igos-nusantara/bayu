@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=Install on Android
+Comment=Install an APK into Android
+Exec=/usr/libexec/bayu-store/android-install %f
+Icon=system-software-install
+Terminal=false
+NoDisplay=true
+MimeType=application/vnd.android.package-archive;

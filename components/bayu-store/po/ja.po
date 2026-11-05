@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bayu-store\n"
 "Report-Msgid-Bugs-To: https://github.com/bayuos\n"
-"POT-Creation-Date: 2026-10-28 05:19+0000\n"
+"POT-Creation-Date: 2026-11-02 06:37+0000\n"
 "PO-Revision-Date: 2026-10-25 00:00+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -12,6 +12,51 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+
+#: src/android_setup.cpp
+msgid "Waiting for your password"
+msgstr "パスワードを待っています"
+
+#: src/android_setup.cpp
+msgid "Setting Android up needs administrator rights, once."
+msgstr "Android のセットアップには、一度だけ管理者権限が必要です。"
+
+#: src/android_setup.cpp
+msgid "Downloading Android's vendor image"
+msgstr "Android の vendor イメージをダウンロード中"
+
+#: src/android_setup.cpp src/welcome/main.cpp
+msgid "Downloading Android"
+msgstr "Android をダウンロード中"
+
+#: src/android_setup.cpp
+#, python-brace-format
+msgid "{done} of {total}"
+msgstr "{done} / {total}"
+
+#: src/android_setup.cpp src/welcome/main.cpp
+msgid "Unpacking Android"
+msgstr "Android を展開しています"
+
+#: src/android_setup.cpp
+msgid "Almost there."
+msgstr "もう少しです。"
+
+#: src/android_setup.cpp src/launch/main.cpp src/welcome/main.cpp
+msgid "Starting Android"
+msgstr "Android を起動しています"
+
+#: src/android_setup.cpp
+msgid "The first start takes a minute or two."
+msgstr "初回の起動には 1〜2 分かかります。"
+
+#: src/android_setup.cpp src/welcome/main.cpp
+msgid "Getting Android ready"
+msgstr "Android を準備しています"
+
+#: src/android_setup.cpp
+msgid "Android is downloaded once, about 1.3 GB. You can keep using the store meanwhile."
+msgstr "Android のダウンロードは一度だけで、約 1.3 GB です。その間もストアは使えます。"
 
 #: src/android_setup.cpp
 msgid "Android could not be set up: pkexec is missing."
@@ -109,6 +154,71 @@ msgstr "サウンド"
 msgid "Play & record"
 msgstr "再生と録音"
 
+#: src/install/main.cpp
+#, python-brace-format
+msgid "The APK could not be read: {error}"
+msgstr "APK を読み込めません: {error}"
+
+#: src/install/main.cpp data/bayu-android-install.desktop
+msgid "Install on Android"
+msgstr "Android にインストール"
+
+#: src/install/main.cpp
+msgid "Cancel"
+msgstr "キャンセル"
+
+#: src/install/main.cpp src/ui/store_widgets.cpp
+msgid "Install"
+msgstr "インストール"
+
+#: src/install/main.cpp
+#, python-brace-format
+msgid "Install {name} on Android?"
+msgstr "{name} を Android にインストールしますか？"
+
+#: src/install/main.cpp
+msgid "Install only apps you trust: an app from outside F-Droid can read what you give it."
+msgstr "信頼できるアプリだけをインストールしてください。F-Droid 以外のアプリは、渡したものを読み取れます。"
+
+#: src/install/main.cpp
+#, python-brace-format
+msgid "Installing {name}"
+msgstr "{name} をインストールしています"
+
+#: src/install/main.cpp
+msgid "Android checks and installs the app."
+msgstr "Android がアプリを確認してインストールします。"
+
+#: src/install/main.cpp src/ui/pages.cpp src/ui/store_window.cpp
+msgid "Installed"
+msgstr "インストール済み"
+
+#: src/install/main.cpp
+#, python-brace-format
+msgid "{name} is installed on Android."
+msgstr "{name} を Android にインストールしました。"
+
+#: src/install/main.cpp
+msgid "It is in the app menu with your other apps."
+msgstr "ほかのアプリと一緒にアプリメニューにあります。"
+
+#: src/install/main.cpp
+msgid "Close"
+msgstr "閉じる"
+
+#: src/install/main.cpp src/ui/pages.cpp
+msgid "Open"
+msgstr "開く"
+
+#: src/install/main.cpp
+msgid "Not installed"
+msgstr "インストールされませんでした"
+
+#: src/install/main.cpp
+#, python-brace-format
+msgid "{name} could not be installed."
+msgstr "{name} をインストールできませんでした。"
+
 #: src/lapis.cpp
 msgid "Android started but did not finish booting. It needs graphics with 3D acceleration (OpenGL; in a virtual machine, virgl), which this computer may not have."
 msgstr "Android は起動しましたが、起動処理が完了しませんでした。3D アクセラレーション対応のグラフィックス（OpenGL、仮想マシンでは virgl）が必要ですが、このコンピューターにはない可能性があります。"
@@ -128,10 +238,6 @@ msgstr "Android が時間内に起動しませんでした。"
 #: src/lapis.cpp
 msgid "lapis-session could not be stopped."
 msgstr "lapis-session を停止できませんでした。"
-
-#: src/launch/main.cpp src/ui/pages.cpp src/welcome/main.cpp
-msgid "Starting Android"
-msgstr "Android を起動しています"
 
 #: src/launch/main.cpp
 #, python-brace-format
@@ -483,10 +589,6 @@ msgstr "待機中"
 msgid "UPDATE"
 msgstr "更新"
 
-#: src/ui/pages.cpp
-msgid "Open"
-msgstr "開く"
-
 #: src/ui/pages.cpp src/ui/store_window.cpp
 msgid "Uninstall"
 msgstr "アンインストール"
@@ -494,10 +596,6 @@ msgstr "アンインストール"
 #: src/ui/pages.cpp src/ui/store_window.cpp
 msgid "Updates"
 msgstr "アップデート"
-
-#: src/ui/pages.cpp src/ui/store_window.cpp
-msgid "Installed"
-msgstr "インストール済み"
 
 #: src/ui/pages.cpp src/ui/store_window.cpp
 msgid "Recent"
@@ -713,47 +811,6 @@ msgid "Settings"
 msgstr "設定"
 
 #: src/ui/pages.cpp
-msgid "Waiting for your password"
-msgstr "パスワードを待っています"
-
-#: src/ui/pages.cpp
-msgid "Setting Android up needs administrator rights, once."
-msgstr "Android のセットアップには、一度だけ管理者権限が必要です。"
-
-#: src/ui/pages.cpp
-msgid "Downloading Android's vendor image"
-msgstr "Android の vendor イメージをダウンロード中"
-
-#: src/ui/pages.cpp src/welcome/main.cpp
-msgid "Downloading Android"
-msgstr "Android をダウンロード中"
-
-#: src/ui/pages.cpp
-#, python-brace-format
-msgid "{done} of {total}"
-msgstr "{done} / {total}"
-
-#: src/ui/pages.cpp src/welcome/main.cpp
-msgid "Unpacking Android"
-msgstr "Android を展開しています"
-
-#: src/ui/pages.cpp
-msgid "Almost there."
-msgstr "もう少しです。"
-
-#: src/ui/pages.cpp
-msgid "The first start takes a minute or two."
-msgstr "初回の起動には 1〜2 分かかります。"
-
-#: src/ui/pages.cpp src/welcome/main.cpp
-msgid "Getting Android ready"
-msgstr "Android を準備しています"
-
-#: src/ui/pages.cpp
-msgid "Android is downloaded once, about 1.3 GB. You can keep using the store meanwhile."
-msgstr "Android のダウンロードは一度だけで、約 1.3 GB です。その間もストアは使えます。"
-
-#: src/ui/pages.cpp
 msgid "Android could not be turned on"
 msgstr "Android をオンにできませんでした"
 
@@ -805,10 +862,6 @@ msgstr "インストール"
 #: src/ui/store_widgets.cpp
 msgid "APP OF THE DAY"
 msgstr "今日のアプリ"
-
-#: src/ui/store_widgets.cpp
-msgid "Install"
-msgstr "インストール"
 
 #: src/ui/store_window.cpp
 msgid "BROWSE"
@@ -1107,6 +1160,10 @@ msgstr "IGN 26 とアプリの簡単なツアー"
 #: data/bayu-welcome.desktop
 msgid "tour;welcome;help;getting started;"
 msgstr "ツアー;ようこそ;ヘルプ;はじめに;tour;welcome;help;getting started;"
+
+#: data/bayu-android-install.desktop
+msgid "Install an APK into Android"
+msgstr "APK を Android にインストール"
 
 #~ msgid "App updates are in Bayu Store, under Updates. For the system, run \"sudo dnf upgrade\" in Terminal."
 #~ msgstr "アプリのアップデートは Bayu Store の「アップデート」にあります。システムは、ターミナルで「sudo dnf upgrade」を実行してください。"

@@ -5,6 +5,7 @@
 
 #include <crypt.h>
 #include <expat.h>
+#include <sys/statvfs.h>
 #include <sys/utsname.h>
 #include <unistd.h>
 
@@ -44,6 +45,9 @@ namespace installer {
 namespace {
 
 constexpr uint64_t MiB = 1024ull * 1024;
+// What the boot loader takes on the EFI partition (the live image's /boot/efi
+// is about 9 MB), with room to spare.
+constexpr uint64_t kEspNeeded = 20 * MiB;
 constexpr const char* kHelper = "/usr/libexec/nabau/nabau-backend";
 constexpr const char* kConfig = "/etc/nabau/nabau.conf";
 constexpr const char* kRules = "/usr/share/X11/xkb/rules/evdev.xml";
@@ -465,6 +469,8 @@ public:
         m_encrypted = plan.method == StoragePlan::Method::Automatic && plan.encrypt;
         serialize([this, plan, passphrase, done](std::function<void()> next) {
             auto apply = [this, done, next](const Partitioning& partitioning, ValidationReport report) {
+                if (report.ok())
+                    checkEsp(partitioning.tree, report);
                 if (report.ok()) {
                     const Reply reply = storage().call("ApplyPartitioning", ObjectPath{partitioning.path});
                     if (reply.isError())
@@ -476,6 +482,8 @@ public:
             };
             if (plan.method == StoragePlan::Method::Custom)
                 configureCustom(passphrase, apply);
+            else if (plan.newEsp)
+                configureNewEsp(plan, passphrase, apply);
             else
                 configureAutomatic(plan, passphrase, apply);
         });
@@ -633,6 +641,8 @@ public:
                 if (!created.count(child) && get<std::string>(formatData(view, child), "type") == "efi")
                     existing = child;
             }
+            if (m_newEsp)
+                existing.clear();
             std::string error = existing.empty() ? std::string("none") : std::string();
             if (!existing.empty()) {
                 VariantMap original;
@@ -1361,6 +1371,67 @@ private:
         validate(partitioning, done);
     }
 
+    // Automatic's layout made by hand, with an EFI partition of its own:
+    // the one there is too full (checkEsp).
+    void configureNewEsp(const StoragePlan& plan, const std::string& passphrase,
+                         std::function<void(const Partitioning&, const ValidationReport&)> done)
+    {
+        m_custom = {};
+        m_customDisks.clear();
+        beginCustom(plan.disks);
+        if (plan.existing == StoragePlan::ExistingData::Alongside && !plan.shrinkDevice.empty()) {
+            if (std::string error = resize(plan.shrinkDevice, plan.shrinkTo); !error.empty()) {
+                done({}, errorReport(error));
+                return;
+            }
+        }
+        m_newEsp = true;
+        const std::string error = createRecommended(plan.encrypt);
+        m_newEsp = false;
+        if (!error.empty()) {
+            done({}, errorReport(error));
+            return;
+        }
+        configureCustom(passphrase, done);
+    }
+
+    // An EFI partition kept from another system (Windows makes 100 MB ones,
+    // which vendors fill) can be too small for the boot loader: copying the
+    // system then fails a few percent in, after the disks have changed.
+    void checkEsp(const std::string& tree, ValidationReport& report) const
+    {
+        if (!m_info.uefi)
+            return;
+        StringMap mounts;
+        viewer(tree).call("GetMountPoints").read(mounts);
+        const std::string device = valueOf(mounts, "/boot/efi");
+        if (device.empty())
+            return;
+        // Made or formatted by the installer: empty.
+        std::vector<VariantMap> actions;
+        viewer(tree).call("GetActions").read(actions);
+        for (const VariantMap& action : actions) {
+            if (get<std::string>(action, "action-type") == "create" && get<std::string>(action, "device-name") == device)
+                return;
+        }
+        const std::string mountPoint = "/tmp/nabau-esp";
+        const Proxy handler(m_bus.get(), kStorage, tree, std::string(kStorage) + ".DeviceTree.Handler");
+        if (handler.call("MountDevice", device, mountPoint, std::string("ro")).isError())
+            return;
+        struct statvfs fs {};
+        const bool read = statvfs(mountPoint.c_str(), &fs) == 0;
+        handler.call("UnmountDevice", device, mountPoint);
+        const uint64_t free = uint64_t(fs.f_bavail) * fs.f_frsize;
+        if (!read || free >= kEspNeeded)
+            return;
+        report.espFull = true;
+        report.errors.push_back(format(tr("The EFI partition {device} has {free} MB free; the boot loader needs "
+                                          "{needed} MB."),
+                                       {{"device", device},
+                                        {"free", std::to_string(free / MiB)},
+                                        {"needed", std::to_string(kEspNeeded / MiB)}}));
+    }
+
     void configureCustom(const std::string& passphrase,
                          std::function<void(const Partitioning&, const ValidationReport&)> done)
     {
@@ -1790,6 +1861,8 @@ private:
     std::vector<LayoutPart> m_applied;
     bool m_encrypted = false;
     bool m_encryptedMounts = false;
+    // createRecommended makes an EFI partition even beside an existing one.
+    bool m_newEsp = false;
     // Planning checks an encrypted layout with this until the account step
     // gives the real passphrase.
     const std::string m_placeholder = "nabau-plan";

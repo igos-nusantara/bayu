@@ -35,6 +35,7 @@
 #include "modules/svg/include/SkSVGSVG.h"
 
 #include "base/file.h"
+#include "base/paths.h"
 #include "base/thread_pool.h"
 #include "ui/embedded_files.h"
 #include "ui/theme.h"
@@ -52,17 +53,24 @@ static std::string homeDirectory()
     return {};
 }
 
-// Where icon themes live, first match first.
+// Where icon themes live, first match first, as the Icon Theme spec has it:
+// ~/.icons, then icons/ in $XDG_DATA_HOME and each of $XDG_DATA_DIRS, where
+// Flatpak exports its applications' icons (issue #163). /usr/share/icons
+// stays, last, when the variable leaves it out.
 static std::vector<std::string> iconBases()
 {
     std::vector<std::string> bases;
-    const std::string home = homeDirectory();
-    if (!home.empty()) {
-        bases.push_back(home + "/.icons");
-        bases.push_back(home + "/.local/share/icons");
-    }
-    bases.push_back("/usr/local/share/icons");
-    bases.push_back("/usr/share/icons");
+    const auto add = [&bases](const std::string& base) {
+        if (std::find(bases.begin(), bases.end(), base) == bases.end())
+            bases.push_back(base);
+    };
+    if (const std::string home = homeDirectory(); !home.empty())
+        add(home + "/.icons");
+    add(base::paths::dataHome() + "/icons");
+    for (const std::string& directory : base::paths::dataDirectories())
+        add(directory + "/icons");
+    add("/usr/local/share/icons");
+    add("/usr/share/icons");
     return bases;
 }
 
@@ -879,6 +887,12 @@ void IconLoader::registerGlyph(const std::string& name, std::string svg)
             ++it;
         }
     }
+}
+
+void IconLoader::reload()
+{
+    m_themes.clear();
+    m_paths.clear();
 }
 
 sk_sp<SkImage> IconLoader::renderSvgFile(const std::string& path, int width, int height)

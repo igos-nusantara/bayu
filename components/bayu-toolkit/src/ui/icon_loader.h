@@ -54,6 +54,10 @@ public:
     static sk_sp<SkImage> renderSvgFile(const std::string& path, int width, int height);
     // An application's own single-colour glyph, drawn as the built-in ones.
     void registerGlyph(const std::string& name, std::string svg);
+    // Forgets the themes' directories and caches and every lookup, found or
+    // not, so icons installed since are found: an application installed while
+    // the shell runs brings its icon with it.
+    void reload();
 
 private:
     struct Directory

@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bayu-store\n"
 "Report-Msgid-Bugs-To: https://github.com/bayuos\n"
-"POT-Creation-Date: 2026-10-28 05:19+0000\n"
+"POT-Creation-Date: 2026-11-02 06:37+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -12,6 +12,51 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: src/android_setup.cpp
+msgid "Waiting for your password"
+msgstr ""
+
+#: src/android_setup.cpp
+msgid "Setting Android up needs administrator rights, once."
+msgstr ""
+
+#: src/android_setup.cpp
+msgid "Downloading Android's vendor image"
+msgstr ""
+
+#: src/android_setup.cpp src/welcome/main.cpp
+msgid "Downloading Android"
+msgstr ""
+
+#: src/android_setup.cpp
+#, python-brace-format
+msgid "{done} of {total}"
+msgstr ""
+
+#: src/android_setup.cpp src/welcome/main.cpp
+msgid "Unpacking Android"
+msgstr ""
+
+#: src/android_setup.cpp
+msgid "Almost there."
+msgstr ""
+
+#: src/android_setup.cpp src/launch/main.cpp src/welcome/main.cpp
+msgid "Starting Android"
+msgstr ""
+
+#: src/android_setup.cpp
+msgid "The first start takes a minute or two."
+msgstr ""
+
+#: src/android_setup.cpp src/welcome/main.cpp
+msgid "Getting Android ready"
+msgstr ""
+
+#: src/android_setup.cpp
+msgid "Android is downloaded once, about 1.3 GB. You can keep using the store meanwhile."
+msgstr ""
 
 #: src/android_setup.cpp
 msgid "Android could not be set up: pkexec is missing."
@@ -109,6 +154,71 @@ msgstr ""
 msgid "Play & record"
 msgstr ""
 
+#: src/install/main.cpp
+#, python-brace-format
+msgid "The APK could not be read: {error}"
+msgstr ""
+
+#: src/install/main.cpp data/bayu-android-install.desktop
+msgid "Install on Android"
+msgstr ""
+
+#: src/install/main.cpp
+msgid "Cancel"
+msgstr ""
+
+#: src/install/main.cpp src/ui/store_widgets.cpp
+msgid "Install"
+msgstr ""
+
+#: src/install/main.cpp
+#, python-brace-format
+msgid "Install {name} on Android?"
+msgstr ""
+
+#: src/install/main.cpp
+msgid "Install only apps you trust: an app from outside F-Droid can read what you give it."
+msgstr ""
+
+#: src/install/main.cpp
+#, python-brace-format
+msgid "Installing {name}"
+msgstr ""
+
+#: src/install/main.cpp
+msgid "Android checks and installs the app."
+msgstr ""
+
+#: src/install/main.cpp src/ui/pages.cpp src/ui/store_window.cpp
+msgid "Installed"
+msgstr ""
+
+#: src/install/main.cpp
+#, python-brace-format
+msgid "{name} is installed on Android."
+msgstr ""
+
+#: src/install/main.cpp
+msgid "It is in the app menu with your other apps."
+msgstr ""
+
+#: src/install/main.cpp
+msgid "Close"
+msgstr ""
+
+#: src/install/main.cpp src/ui/pages.cpp
+msgid "Open"
+msgstr ""
+
+#: src/install/main.cpp
+msgid "Not installed"
+msgstr ""
+
+#: src/install/main.cpp
+#, python-brace-format
+msgid "{name} could not be installed."
+msgstr ""
+
 #: src/lapis.cpp
 msgid "Android started but did not finish booting. It needs graphics with 3D acceleration (OpenGL; in a virtual machine, virgl), which this computer may not have."
 msgstr ""
@@ -127,10 +237,6 @@ msgstr ""
 
 #: src/lapis.cpp
 msgid "lapis-session could not be stopped."
-msgstr ""
-
-#: src/launch/main.cpp src/ui/pages.cpp src/welcome/main.cpp
-msgid "Starting Android"
 msgstr ""
 
 #: src/launch/main.cpp
@@ -483,20 +589,12 @@ msgstr ""
 msgid "UPDATE"
 msgstr ""
 
-#: src/ui/pages.cpp
-msgid "Open"
-msgstr ""
-
 #: src/ui/pages.cpp src/ui/store_window.cpp
 msgid "Uninstall"
 msgstr ""
 
 #: src/ui/pages.cpp src/ui/store_window.cpp
 msgid "Updates"
-msgstr ""
-
-#: src/ui/pages.cpp src/ui/store_window.cpp
-msgid "Installed"
 msgstr ""
 
 #: src/ui/pages.cpp src/ui/store_window.cpp
@@ -716,47 +814,6 @@ msgid "Settings"
 msgstr ""
 
 #: src/ui/pages.cpp
-msgid "Waiting for your password"
-msgstr ""
-
-#: src/ui/pages.cpp
-msgid "Setting Android up needs administrator rights, once."
-msgstr ""
-
-#: src/ui/pages.cpp
-msgid "Downloading Android's vendor image"
-msgstr ""
-
-#: src/ui/pages.cpp src/welcome/main.cpp
-msgid "Downloading Android"
-msgstr ""
-
-#: src/ui/pages.cpp
-#, python-brace-format
-msgid "{done} of {total}"
-msgstr ""
-
-#: src/ui/pages.cpp src/welcome/main.cpp
-msgid "Unpacking Android"
-msgstr ""
-
-#: src/ui/pages.cpp
-msgid "Almost there."
-msgstr ""
-
-#: src/ui/pages.cpp
-msgid "The first start takes a minute or two."
-msgstr ""
-
-#: src/ui/pages.cpp src/welcome/main.cpp
-msgid "Getting Android ready"
-msgstr ""
-
-#: src/ui/pages.cpp
-msgid "Android is downloaded once, about 1.3 GB. You can keep using the store meanwhile."
-msgstr ""
-
-#: src/ui/pages.cpp
 msgid "Android could not be turned on"
 msgstr ""
 
@@ -807,10 +864,6 @@ msgstr ""
 
 #: src/ui/store_widgets.cpp
 msgid "APP OF THE DAY"
-msgstr ""
-
-#: src/ui/store_widgets.cpp
-msgid "Install"
 msgstr ""
 
 #: src/ui/store_window.cpp
@@ -1109,4 +1162,8 @@ msgstr ""
 
 #: data/bayu-welcome.desktop
 msgid "tour;welcome;help;getting started;"
+msgstr ""
+
+#: data/bayu-android-install.desktop
+msgid "Install an APK into Android"
 msgstr ""

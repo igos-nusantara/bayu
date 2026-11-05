@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE policyconfig PUBLIC "-//freedesktop//DTD PolicyKit Policy Configuration 1.0//EN"
+ "http://www.freedesktop.org/standards/PolicyKit/1/policyconfig.dtd">
+<policyconfig>
+  <vendor>Bayu</vendor>
+  <action id="org.bayu.settings.admin">
+    <description>Change system settings</description>
+    <description xml:lang="id">Ubah pengaturan sistem</description>
+    <message>Authentication is required to change system settings</message>
+    <message xml:lang="id">Autentikasi diperlukan untuk mengubah pengaturan sistem</message>
+    <defaults>
+      <allow_any>auth_admin</allow_any>
+      <allow_inactive>auth_admin</allow_inactive>
+      <allow_active>auth_admin_keep</allow_active>
+    </defaults>
+    <annotate key="org.freedesktop.policykit.exec.path">/usr/libexec/bayu-settings-admin</annotate>
+  </action>
+</policyconfig>

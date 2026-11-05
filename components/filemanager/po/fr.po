@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bayu-filemanager\n"
 "Report-Msgid-Bugs-To: https://github.com/bayuos\n"
-"POT-Creation-Date: 2026-10-29 09:15+0000\n"
+"POT-Creation-Date: 2026-11-02 08:35+0000\n"
 "PO-Revision-Date: 2026-10-25 12:00+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -725,6 +725,73 @@ msgstr[0] "{n} fichier"
 msgstr[1] "{n} fichiers"
 
 #: src/dialogs/propertiesdialog.cpp
+#, python-brace-format
+msgid "The permissions could not be changed: {error}"
+msgstr "Impossible de modifier les permissions : {error}"
+
+#: src/dialogs/propertiesdialog.cpp
+#, python-brace-format
+msgid "The owner could not be changed: {error}"
+msgstr "Impossible de modifier le propriétaire : {error}"
+
+#: src/dialogs/propertiesdialog.cpp
+msgid "Changing the folder's contents…"
+msgstr "Modification du contenu du dossier…"
+
+#: src/dialogs/propertiesdialog.cpp
+#, python-brace-format
+msgid "Some items could not be changed: {error}"
+msgstr "Certains éléments n’ont pas pu être modifiés : {error}"
+
+#: src/dialogs/propertiesdialog.cpp
+msgid "The folder's contents were changed."
+msgstr "Le contenu du dossier a été modifié."
+
+#: src/dialogs/propertiesdialog.cpp
+msgid "Owner:"
+msgstr "Propriétaire :"
+
+#: src/dialogs/propertiesdialog.cpp
+msgid "Group:"
+msgstr "Groupe :"
+
+#: src/dialogs/propertiesdialog.cpp
+msgid "None"
+msgstr "Aucun"
+
+#: src/dialogs/propertiesdialog.cpp
+msgid "Read only"
+msgstr "Lecture seule"
+
+#: src/dialogs/propertiesdialog.cpp
+msgid "Read and write"
+msgstr "Lecture et écriture"
+
+#: src/dialogs/propertiesdialog.cpp
+msgid "Owner access:"
+msgstr "Accès du propriétaire :"
+
+#: src/dialogs/propertiesdialog.cpp
+msgid "Group access:"
+msgstr "Accès du groupe :"
+
+#: src/dialogs/propertiesdialog.cpp
+msgid "Others access:"
+msgstr "Accès des autres :"
+
+#: src/dialogs/propertiesdialog.cpp
+msgid "Allow executing as a program"
+msgstr "Autoriser l’exécution comme programme"
+
+#: src/dialogs/propertiesdialog.cpp
+msgid "Apply to the Folder's Contents"
+msgstr "Appliquer au contenu du dossier"
+
+#: src/dialogs/propertiesdialog.cpp
+msgid "Only the owner can change these. Open the folder as an administrator to change them."
+msgstr "Seul le propriétaire peut les modifier. Ouvrez le dossier en tant qu’administrateur pour les modifier."
+
+#: src/dialogs/propertiesdialog.cpp
 msgid "Type:"
 msgstr "Type :"
 
@@ -882,12 +949,28 @@ msgid "Open with"
 msgstr "Ouvrir avec"
 
 #: src/model/foldermodel.cpp
+msgid "Install on Android"
+msgstr "Installer sur Android"
+
+#: src/model/foldermodel.cpp
 msgid "Show in Enclosing Folder"
 msgstr "Afficher dans le dossier parent"
 
 #: src/model/foldermodel.cpp
 msgid "Compress"
 msgstr "Compresser"
+
+#: src/model/foldermodel.cpp
+msgid "Copy Location"
+msgstr "Copier l’emplacement"
+
+#: src/model/foldermodel.cpp
+msgid "Duplicate"
+msgstr "Dupliquer"
+
+#: src/model/foldermodel.cpp
+msgid "Make Link"
+msgstr "Créer un lien"
 
 #: src/model/foldermodel.cpp
 msgid "Cut"

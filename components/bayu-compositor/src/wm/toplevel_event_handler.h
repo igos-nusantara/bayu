@@ -21,6 +21,7 @@
 
 #include <memory>
 #include <optional>
+#include <vector>
 
 #include "base/geometry.h"
 #include "base/signal.h"
@@ -100,6 +101,9 @@ private:
     // the drag already detached from the handler.
     void settleDrag(WindowResizer *resizer, SnapType snapped, const base::Rect &initialRestoreBounds);
     void applyMotion(const base::PointF &location);
+    void collectPartners(Window *window, ResizeEdge edge);
+    void followPartners();
+    void endPartners(bool revert);
     void holdResize();
     void releaseHeldResize();
 
@@ -119,6 +123,17 @@ private:
     // cleared it. Empty unless the drag started from a tiled state.
     base::Rect m_initialRestoreBounds;
     WindowStateType m_initialStateType = WindowStateType::Normal;
+    // Where the pointer or touch point last was, which a tiled window is
+    // dropped at.
+    base::PointF m_dragLocation;
+    // Snapped windows across the edge a snapped window is resized by, and the
+    // sides of theirs that follow it (#149). Null once destroyed mid-drag.
+    struct Partner {
+        Window *window = nullptr;
+        base::Rect initialBounds;
+        bool left = false, right = false, top = false, bottom = false;
+    };
+    std::vector<Partner> m_partners;
 };
 
 } // namespace bayu::wm

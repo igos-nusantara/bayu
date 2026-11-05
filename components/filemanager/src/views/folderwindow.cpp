@@ -519,22 +519,6 @@ private:
     FolderWindow* m_window;
 };
 
-std::string administratorRoot()
-{
-    return "/run/user/" + std::to_string(::getuid()) + "/bayu-admin";
-}
-
-bool isAdministratorPath(const std::string& path)
-{
-    const std::string root = administratorRoot();
-    return path == root || path.starts_with(root + "/");
-}
-
-std::string administratorPath(const std::string& path)
-{
-    return isAdministratorPath(path) ? path : administratorRoot() + (path == "/" ? std::string() : path);
-}
-
 FolderWindow::FolderWindow(FileManagerHost* host, const FolderPage::Start& start, ui::SizeF size)
     : m_host(host)
     , m_window(std::make_unique<ui::Window>())

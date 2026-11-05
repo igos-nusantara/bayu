@@ -68,19 +68,24 @@ int64_t deployed(FlatpakInstalledRef* ref)
 
 std::string ensureFlathub()
 {
+    return ensureRemote(kRemote, kRepoFile);
+}
+
+std::string ensureRemote(const char* name, const char* repoFile)
+{
     // No installation at all while /var/lib/flatpak/repo is missing.
     GError* error = nullptr;
     if (Ref<FlatpakInstallation> installation = system(nullptr)) {
-        Ref<FlatpakRemote> existing(flatpak_installation_get_remote_by_name(installation.get(), kRemote, nullptr, &error));
+        Ref<FlatpakRemote> existing(flatpak_installation_get_remote_by_name(installation.get(), name, nullptr, &error));
         g_clear_error(&error);
         if (existing)
             return {};
     }
-    if (::access(kRepoFile, R_OK) != 0)
-        return "Flathub is not set up, and its description is missing.";
+    if (::access(repoFile, R_OK) != 0)
+        return std::string(name) + " is not set up, and its description is missing.";
     // The command line, not flatpak_installation_add_remote: only it asks the
     // system helper to create /var/lib/flatpak/repo when there is none yet.
-    const char* argv[] = {"flatpak", "remote-add", "--system", "--if-not-exists", kRemote, kRepoFile, nullptr};
+    const char* argv[] = {"flatpak", "remote-add", "--system", "--if-not-exists", name, repoFile, nullptr};
     gchar* errors = nullptr;
     gint status = 0;
     if (!g_spawn_sync(nullptr, const_cast<gchar**>(argv), nullptr, GSpawnFlags(G_SPAWN_SEARCH_PATH | G_SPAWN_STDOUT_TO_DEV_NULL),
@@ -89,7 +94,7 @@ std::string ensureFlathub()
     std::string text = errors ? errors : "";
     g_free(errors);
     if (!g_spawn_check_wait_status(status, nullptr))
-        return text.empty() ? "Cannot add Flathub." : text;
+        return text.empty() ? std::string("Cannot add ") + name + "." : text;
     return {};
 }
 
@@ -186,11 +191,13 @@ void newOperation(FlatpakTransaction*, FlatpakTransactionOperation*, FlatpakTran
 
 } // namespace
 
-std::string run(Operation operation, const std::string& id, const Progress& progress, std::atomic<bool>& cancel)
+std::string run(Operation operation, const std::string& id, const std::string& remote, const Progress& progress,
+                std::atomic<bool>& cancel)
 {
     std::string failure;
+    const char* from = remote.empty() ? kRemote : remote.c_str();
     if (operation == Operation::Install) {
-        failure = ensureFlathub();
+        failure = remote.empty() || remote == kRemote ? ensureFlathub() : std::string();
         if (!failure.empty())
             return failure;
     }
@@ -211,7 +218,7 @@ std::string run(Operation operation, const std::string& id, const Progress& prog
     gboolean added = FALSE;
     switch (operation) {
     case Operation::Install:
-        added = flatpak_transaction_add_install(transaction.get(), kRemote, ref.c_str(), nullptr, &error);
+        added = flatpak_transaction_add_install(transaction.get(), from, ref.c_str(), nullptr, &error);
         break;
     case Operation::Update:
         added = flatpak_transaction_add_update(transaction.get(), ref.c_str(), nullptr, nullptr, &error);

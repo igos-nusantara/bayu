@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bayu-store\n"
 "Report-Msgid-Bugs-To: https://github.com/bayuos\n"
-"POT-Creation-Date: 2026-10-28 05:19+0000\n"
+"POT-Creation-Date: 2026-11-02 06:37+0000\n"
 "PO-Revision-Date: 2026-10-25 00:00+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -11,6 +11,51 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+
+#: src/android_setup.cpp
+msgid "Waiting for your password"
+msgstr "Ожидание пароля"
+
+#: src/android_setup.cpp
+msgid "Setting Android up needs administrator rights, once."
+msgstr "Для настройки Android однократно нужны права администратора."
+
+#: src/android_setup.cpp
+msgid "Downloading Android's vendor image"
+msgstr "Загрузка образа vendor Android"
+
+#: src/android_setup.cpp src/welcome/main.cpp
+msgid "Downloading Android"
+msgstr "Загрузка Android"
+
+#: src/android_setup.cpp
+#, python-brace-format
+msgid "{done} of {total}"
+msgstr "{done} из {total}"
+
+#: src/android_setup.cpp src/welcome/main.cpp
+msgid "Unpacking Android"
+msgstr "Распаковка Android"
+
+#: src/android_setup.cpp
+msgid "Almost there."
+msgstr "Почти готово."
+
+#: src/android_setup.cpp src/launch/main.cpp src/welcome/main.cpp
+msgid "Starting Android"
+msgstr "Запуск Android"
+
+#: src/android_setup.cpp
+msgid "The first start takes a minute or two."
+msgstr "Первый запуск занимает одну-две минуты."
+
+#: src/android_setup.cpp src/welcome/main.cpp
+msgid "Getting Android ready"
+msgstr "Подготовка Android"
+
+#: src/android_setup.cpp
+msgid "Android is downloaded once, about 1.3 GB. You can keep using the store meanwhile."
+msgstr "Android загружается один раз, около 1,3 ГБ. Пока идёт загрузка, магазином можно пользоваться."
 
 #: src/android_setup.cpp
 msgid "Android could not be set up: pkexec is missing."
@@ -108,6 +153,71 @@ msgstr "Звук"
 msgid "Play & record"
 msgstr "Воспроизведение и запись"
 
+#: src/install/main.cpp
+#, python-brace-format
+msgid "The APK could not be read: {error}"
+msgstr "Не удалось прочитать APK: {error}"
+
+#: src/install/main.cpp data/bayu-android-install.desktop
+msgid "Install on Android"
+msgstr "Установить в Android"
+
+#: src/install/main.cpp
+msgid "Cancel"
+msgstr "Отмена"
+
+#: src/install/main.cpp src/ui/store_widgets.cpp
+msgid "Install"
+msgstr "Установить"
+
+#: src/install/main.cpp
+#, python-brace-format
+msgid "Install {name} on Android?"
+msgstr "Установить {name} в Android?"
+
+#: src/install/main.cpp
+msgid "Install only apps you trust: an app from outside F-Droid can read what you give it."
+msgstr "Устанавливайте только приложения, которым доверяете: приложение не из F-Droid может прочитать то, что вы ему дадите."
+
+#: src/install/main.cpp
+#, python-brace-format
+msgid "Installing {name}"
+msgstr "Установка {name}"
+
+#: src/install/main.cpp
+msgid "Android checks and installs the app."
+msgstr "Android проверяет и устанавливает приложение."
+
+#: src/install/main.cpp src/ui/pages.cpp src/ui/store_window.cpp
+msgid "Installed"
+msgstr "Установленные"
+
+#: src/install/main.cpp
+#, python-brace-format
+msgid "{name} is installed on Android."
+msgstr "{name} установлено в Android."
+
+#: src/install/main.cpp
+msgid "It is in the app menu with your other apps."
+msgstr "Оно находится в меню приложений вместе с другими вашими приложениями."
+
+#: src/install/main.cpp
+msgid "Close"
+msgstr "Закрыть"
+
+#: src/install/main.cpp src/ui/pages.cpp
+msgid "Open"
+msgstr "Открыть"
+
+#: src/install/main.cpp
+msgid "Not installed"
+msgstr "Не установлено"
+
+#: src/install/main.cpp
+#, python-brace-format
+msgid "{name} could not be installed."
+msgstr "Не удалось установить {name}."
+
 #: src/lapis.cpp
 msgid "Android started but did not finish booting. It needs graphics with 3D acceleration (OpenGL; in a virtual machine, virgl), which this computer may not have."
 msgstr "Android запустился, но не завершил загрузку. Ему нужна графика с 3D-ускорением (OpenGL; в виртуальной машине — virgl), которой на этом компьютере может не быть."
@@ -127,10 +237,6 @@ msgstr "Android не запустился вовремя."
 #: src/lapis.cpp
 msgid "lapis-session could not be stopped."
 msgstr "Не удалось остановить lapis-session."
-
-#: src/launch/main.cpp src/ui/pages.cpp src/welcome/main.cpp
-msgid "Starting Android"
-msgstr "Запуск Android"
 
 #: src/launch/main.cpp
 #, python-brace-format
@@ -482,10 +588,6 @@ msgstr "В ОЧЕРЕДИ"
 msgid "UPDATE"
 msgstr "ОБНОВИТЬ"
 
-#: src/ui/pages.cpp
-msgid "Open"
-msgstr "Открыть"
-
 #: src/ui/pages.cpp src/ui/store_window.cpp
 msgid "Uninstall"
 msgstr "Удалить"
@@ -493,10 +595,6 @@ msgstr "Удалить"
 #: src/ui/pages.cpp src/ui/store_window.cpp
 msgid "Updates"
 msgstr "Обновления"
-
-#: src/ui/pages.cpp src/ui/store_window.cpp
-msgid "Installed"
-msgstr "Установленные"
 
 #: src/ui/pages.cpp src/ui/store_window.cpp
 msgid "Recent"
@@ -718,47 +816,6 @@ msgid "Settings"
 msgstr "Параметры"
 
 #: src/ui/pages.cpp
-msgid "Waiting for your password"
-msgstr "Ожидание пароля"
-
-#: src/ui/pages.cpp
-msgid "Setting Android up needs administrator rights, once."
-msgstr "Для настройки Android однократно нужны права администратора."
-
-#: src/ui/pages.cpp
-msgid "Downloading Android's vendor image"
-msgstr "Загрузка образа vendor Android"
-
-#: src/ui/pages.cpp src/welcome/main.cpp
-msgid "Downloading Android"
-msgstr "Загрузка Android"
-
-#: src/ui/pages.cpp
-#, python-brace-format
-msgid "{done} of {total}"
-msgstr "{done} из {total}"
-
-#: src/ui/pages.cpp src/welcome/main.cpp
-msgid "Unpacking Android"
-msgstr "Распаковка Android"
-
-#: src/ui/pages.cpp
-msgid "Almost there."
-msgstr "Почти готово."
-
-#: src/ui/pages.cpp
-msgid "The first start takes a minute or two."
-msgstr "Первый запуск занимает одну-две минуты."
-
-#: src/ui/pages.cpp src/welcome/main.cpp
-msgid "Getting Android ready"
-msgstr "Подготовка Android"
-
-#: src/ui/pages.cpp
-msgid "Android is downloaded once, about 1.3 GB. You can keep using the store meanwhile."
-msgstr "Android загружается один раз, около 1,3 ГБ. Пока идёт загрузка, магазином можно пользоваться."
-
-#: src/ui/pages.cpp
 msgid "Android could not be turned on"
 msgstr "Не удалось включить Android"
 
@@ -810,10 +867,6 @@ msgstr "УСТАНОВКА"
 #: src/ui/store_widgets.cpp
 msgid "APP OF THE DAY"
 msgstr "ПРИЛОЖЕНИЕ ДНЯ"
-
-#: src/ui/store_widgets.cpp
-msgid "Install"
-msgstr "Установить"
 
 #: src/ui/store_window.cpp
 msgid "BROWSE"
@@ -1112,6 +1165,10 @@ msgstr "Краткий обзор IGN 26 и его приложений"
 #: data/bayu-welcome.desktop
 msgid "tour;welcome;help;getting started;"
 msgstr "обзор;добро пожаловать;справка;начало работы;tour;welcome;help;getting started;"
+
+#: data/bayu-android-install.desktop
+msgid "Install an APK into Android"
+msgstr "Установить APK в Android"
 
 #~ msgid "App updates are in Bayu Store, under Updates. For the system, run \"sudo dnf upgrade\" in Terminal."
 #~ msgstr "Обновления приложений находятся в Bayu Store, в разделе «Обновления». Для системы выполните «sudo dnf upgrade» в Терминале."

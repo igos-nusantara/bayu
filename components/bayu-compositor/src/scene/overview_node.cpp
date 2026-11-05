@@ -547,6 +547,8 @@ void OverviewNode::render(render::Renderer &renderer) const
             node->render(renderer);
     }
     renderer.opacityScale = opacity;
+    for (const Node *node : m_kept)
+        node->render(renderer);
 
     const int raised = m_raised < int(m_items.size()) && m_raised != m_dragged ? m_raised : -1;
     for (int index = 0; index < int(m_items.size()); ++index) {

@@ -96,6 +96,14 @@ The live ISO boots on BIOS and UEFI machines, from optical media or from a
 USB stick written with `dd`, and starts the desktop with the profile's user
 logged in.
 
+It needs an x86-64-v3 processor (AVX2: Intel Haswell, AMD Excavator and
+later), as AlmaLinux 10 does. In a virtual machine that emulates the
+processor, such as UTM on an Apple Silicon Mac, choose one that has it
+(UTM: System > CPU, `max` or a Haswell or newer model; QEMU: `-cpu max`):
+with the default (`qemu64`) the kernel does not start (#86). Under
+virtualization (KVM, UTM on an Intel Mac, VirtualBox, VMware), the host's
+processor is used.
+
 ### Testing packages on a running system
 
 New packages do not need a new image. Serve `out/repo` and point systems at
@@ -186,7 +194,10 @@ Realtek RTL8811CU/8821CU, 8822CU, 8723DU, 8812AU, 8821AU, 8814AU, 8852BU and
 Atheros AR9170 and ath10k on USB, as modules loaded only for their hardware
 (`packaging/kernel/kernel-local`; `packaging/kernel/test-kernel.sh` loads
 them before a kernel is released). `usb_modeswitch` switches the adapters
-that first show up as a CD with their Windows driver.
+that first show up as a CD with their Windows driver. MediaTek MT7902 cards
+work with the Linux 7 kernel (`mt7921e`). A phone's USB tethering is a wired
+connection: Android's at once, an iPhone's once it trusts the computer
+(`usbmuxd`; `idevicepair pair` if it does not ask).
 
 Printers are found by themselves: CUPS with cups-browsed and Avahi sets up
 the printers on the network, `ipp-usb` the USB printers that print without a

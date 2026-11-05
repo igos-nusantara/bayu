@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bayu-store\n"
 "Report-Msgid-Bugs-To: https://github.com/bayuos\n"
-"POT-Creation-Date: 2026-10-28 05:19+0000\n"
+"POT-Creation-Date: 2026-11-02 06:37+0000\n"
 "PO-Revision-Date: 2026-10-25 12:00+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -11,6 +11,51 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: src/android_setup.cpp
+msgid "Waiting for your password"
+msgstr "Aguardando sua senha"
+
+#: src/android_setup.cpp
+msgid "Setting Android up needs administrator rights, once."
+msgstr "Configurar o Android exige permissões de administrador, uma única vez."
+
+#: src/android_setup.cpp
+msgid "Downloading Android's vendor image"
+msgstr "Baixando a imagem vendor do Android"
+
+#: src/android_setup.cpp src/welcome/main.cpp
+msgid "Downloading Android"
+msgstr "Baixando o Android"
+
+#: src/android_setup.cpp
+#, python-brace-format
+msgid "{done} of {total}"
+msgstr "{done} de {total}"
+
+#: src/android_setup.cpp src/welcome/main.cpp
+msgid "Unpacking Android"
+msgstr "Descompactando o Android"
+
+#: src/android_setup.cpp
+msgid "Almost there."
+msgstr "Quase lá."
+
+#: src/android_setup.cpp src/launch/main.cpp src/welcome/main.cpp
+msgid "Starting Android"
+msgstr "Iniciando o Android"
+
+#: src/android_setup.cpp
+msgid "The first start takes a minute or two."
+msgstr "A primeira inicialização leva um ou dois minutos."
+
+#: src/android_setup.cpp src/welcome/main.cpp
+msgid "Getting Android ready"
+msgstr "Preparando o Android"
+
+#: src/android_setup.cpp
+msgid "Android is downloaded once, about 1.3 GB. You can keep using the store meanwhile."
+msgstr "O Android é baixado uma única vez, cerca de 1,3 GB. Você pode continuar usando a loja enquanto isso."
 
 #: src/android_setup.cpp
 msgid "Android could not be set up: pkexec is missing."
@@ -108,6 +153,71 @@ msgstr "Som"
 msgid "Play & record"
 msgstr "Reproduzir e gravar"
 
+#: src/install/main.cpp
+#, python-brace-format
+msgid "The APK could not be read: {error}"
+msgstr "Não foi possível ler o APK: {error}"
+
+#: src/install/main.cpp data/bayu-android-install.desktop
+msgid "Install on Android"
+msgstr "Instalar no Android"
+
+#: src/install/main.cpp
+msgid "Cancel"
+msgstr "Cancelar"
+
+#: src/install/main.cpp src/ui/store_widgets.cpp
+msgid "Install"
+msgstr "Instalar"
+
+#: src/install/main.cpp
+#, python-brace-format
+msgid "Install {name} on Android?"
+msgstr "Instalar {name} no Android?"
+
+#: src/install/main.cpp
+msgid "Install only apps you trust: an app from outside F-Droid can read what you give it."
+msgstr "Instale apenas aplicativos em que você confia: um aplicativo de fora do F-Droid pode ler o que você der a ele."
+
+#: src/install/main.cpp
+#, python-brace-format
+msgid "Installing {name}"
+msgstr "Instalando {name}"
+
+#: src/install/main.cpp
+msgid "Android checks and installs the app."
+msgstr "O Android verifica e instala o aplicativo."
+
+#: src/install/main.cpp src/ui/pages.cpp src/ui/store_window.cpp
+msgid "Installed"
+msgstr "Instalados"
+
+#: src/install/main.cpp
+#, python-brace-format
+msgid "{name} is installed on Android."
+msgstr "{name} está instalado no Android."
+
+#: src/install/main.cpp
+msgid "It is in the app menu with your other apps."
+msgstr "Ele está no menu de aplicativos com seus outros aplicativos."
+
+#: src/install/main.cpp
+msgid "Close"
+msgstr "Fechar"
+
+#: src/install/main.cpp src/ui/pages.cpp
+msgid "Open"
+msgstr "Abrir"
+
+#: src/install/main.cpp
+msgid "Not installed"
+msgstr "Não instalado"
+
+#: src/install/main.cpp
+#, python-brace-format
+msgid "{name} could not be installed."
+msgstr "Não foi possível instalar {name}."
+
 #: src/lapis.cpp
 msgid "Android started but did not finish booting. It needs graphics with 3D acceleration (OpenGL; in a virtual machine, virgl), which this computer may not have."
 msgstr "O Android foi iniciado, mas não terminou de inicializar. Ele precisa de gráficos com aceleração 3D (OpenGL; em uma máquina virtual, virgl), que este computador talvez não tenha."
@@ -127,10 +237,6 @@ msgstr "O Android não iniciou a tempo."
 #: src/lapis.cpp
 msgid "lapis-session could not be stopped."
 msgstr "Não foi possível parar o lapis-session."
-
-#: src/launch/main.cpp src/ui/pages.cpp src/welcome/main.cpp
-msgid "Starting Android"
-msgstr "Iniciando o Android"
 
 #: src/launch/main.cpp
 #, python-brace-format
@@ -482,10 +588,6 @@ msgstr "NA FILA"
 msgid "UPDATE"
 msgstr "ATUALIZAR"
 
-#: src/ui/pages.cpp
-msgid "Open"
-msgstr "Abrir"
-
 #: src/ui/pages.cpp src/ui/store_window.cpp
 msgid "Uninstall"
 msgstr "Desinstalar"
@@ -493,10 +595,6 @@ msgstr "Desinstalar"
 #: src/ui/pages.cpp src/ui/store_window.cpp
 msgid "Updates"
 msgstr "Atualizações"
-
-#: src/ui/pages.cpp src/ui/store_window.cpp
-msgid "Installed"
-msgstr "Instalados"
 
 #: src/ui/pages.cpp src/ui/store_window.cpp
 msgid "Recent"
@@ -715,47 +813,6 @@ msgid "Settings"
 msgstr "Configurações"
 
 #: src/ui/pages.cpp
-msgid "Waiting for your password"
-msgstr "Aguardando sua senha"
-
-#: src/ui/pages.cpp
-msgid "Setting Android up needs administrator rights, once."
-msgstr "Configurar o Android exige permissões de administrador, uma única vez."
-
-#: src/ui/pages.cpp
-msgid "Downloading Android's vendor image"
-msgstr "Baixando a imagem vendor do Android"
-
-#: src/ui/pages.cpp src/welcome/main.cpp
-msgid "Downloading Android"
-msgstr "Baixando o Android"
-
-#: src/ui/pages.cpp
-#, python-brace-format
-msgid "{done} of {total}"
-msgstr "{done} de {total}"
-
-#: src/ui/pages.cpp src/welcome/main.cpp
-msgid "Unpacking Android"
-msgstr "Descompactando o Android"
-
-#: src/ui/pages.cpp
-msgid "Almost there."
-msgstr "Quase lá."
-
-#: src/ui/pages.cpp
-msgid "The first start takes a minute or two."
-msgstr "A primeira inicialização leva um ou dois minutos."
-
-#: src/ui/pages.cpp src/welcome/main.cpp
-msgid "Getting Android ready"
-msgstr "Preparando o Android"
-
-#: src/ui/pages.cpp
-msgid "Android is downloaded once, about 1.3 GB. You can keep using the store meanwhile."
-msgstr "O Android é baixado uma única vez, cerca de 1,3 GB. Você pode continuar usando a loja enquanto isso."
-
-#: src/ui/pages.cpp
 msgid "Android could not be turned on"
 msgstr "Não foi possível ativar o Android"
 
@@ -807,10 +864,6 @@ msgstr "INSTALAR"
 #: src/ui/store_widgets.cpp
 msgid "APP OF THE DAY"
 msgstr "APLICATIVO DO DIA"
-
-#: src/ui/store_widgets.cpp
-msgid "Install"
-msgstr "Instalar"
 
 #: src/ui/store_window.cpp
 msgid "BROWSE"
@@ -1109,6 +1162,10 @@ msgstr "Um tour rápido pelo IGN 26 e seus aplicativos"
 #: data/bayu-welcome.desktop
 msgid "tour;welcome;help;getting started;"
 msgstr "tour;boas-vindas;ajuda;primeiros passos;welcome;help;getting started;"
+
+#: data/bayu-android-install.desktop
+msgid "Install an APK into Android"
+msgstr "Instalar um APK no Android"
 
 #~ msgid "App updates are in Bayu Store, under Updates. For the system, run \"sudo dnf upgrade\" in Terminal."
 #~ msgstr "As atualizações de aplicativos ficam na Bayu Store, em Atualizações. Para o sistema, execute \"sudo dnf upgrade\" no Terminal."

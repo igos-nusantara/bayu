@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bayu-settings\n"
 "Report-Msgid-Bugs-To: https://github.com/bayuos\n"
-"POT-Creation-Date: 2026-10-28 07:51+0000\n"
+"POT-Creation-Date: 2026-11-03 11:52+0000\n"
 "PO-Revision-Date: 2026-10-25 12:00+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -114,6 +114,19 @@ msgstr "Pamaké"
 #: src/pages/accounts/accountspage.cpp
 msgid "Add user"
 msgstr "Tambahkeun pamaké"
+
+#: src/pages/accounts/accountspage.cpp
+msgid "Log in automatically"
+msgstr "Asup otomatis"
+
+#: src/pages/accounts/accountspage.cpp
+msgid "This account starts without a password when the computer turns on. Anyone at the computer can use it, and the login keyring may ask for the password."
+msgstr "Akun ieu dibuka tanpa kecap konci nalika komputer dihurungkeun. Saha waé di hareupeun komputer tiasa nganggo, sareng keyring login tiasa naroskeun kecap konci."
+
+#: src/pages/accounts/accountspage.cpp
+#, python-brace-format
+msgid "“{name}” logs in automatically now; turning this on logs this account in instead."
+msgstr "“{name}” ayeuna asup otomatis; ngahurungkeun ieu ngajantenkeun akun ieu anu asup otomatis."
 
 #: src/pages/accounts/accountspage.cpp src/pages/wallpaper/wallpaperpage.cpp
 #, python-brace-format
@@ -686,7 +699,7 @@ msgstr "Pamaén vidéo"
 
 #: src/pages/defaultapps/defaultappspage.cpp src/pages/fonts/fontspage.cpp
 #: src/pages/hotcorners/hotcornerspage.cpp src/pages/keyboard/keyboardpage.cpp
-#: src/pages/shortcuts/shortcutspage.cpp
+#: src/pages/shortcuts/shortcutspage.cpp src/pages/tiling/tilingpage.cpp
 msgid "None"
 msgstr "Euweuh"
 
@@ -876,6 +889,11 @@ msgstr "Leuwih warnaan"
 msgid "Hot Corners"
 msgstr "Juru Panas"
 
+#: src/pages/dock/dockpage.cpp src/pages/shortcuts/shortcutsmodel.cpp
+#: src/pages/tiling/tilingpage.cpp src/window/pagelist.cpp
+msgid "Tiling"
+msgstr "Tiling"
+
 #: src/pages/dock/dockpage.cpp
 msgid "The panel has no top bar, so applications show their menus in their windows. Applications already open may need to be opened again."
 msgstr "Panél teu boga bar luhur, ku kituna ménu aplikasi némbongan dina jandélana séwang-séwangan. Aplikasi nu geus muka meureun kudu dibuka deui."
@@ -896,7 +914,7 @@ msgstr "Handap"
 msgid "Right"
 msgstr "Katuhu"
 
-#: src/pages/dock/dockpage.cpp
+#: src/pages/dock/dockpage.cpp src/pages/memory/memorypage.cpp
 msgid "Size"
 msgstr "Ukuran"
 
@@ -970,6 +988,70 @@ msgstr "Pinuh"
 #: src/pages/fonts/fontspage.cpp
 msgid "Anti-Aliasing"
 msgstr "Anti-Aliasing"
+
+#: src/pages/hardware/hardware.cpp
+#, python-brace-format
+msgid "{driver} driver for {device}"
+msgstr "Driver {driver} kanggo {device}"
+
+#: src/pages/hardware/hardware.cpp
+#, python-brace-format
+msgid "Driver for {device}"
+msgstr "Driver kanggo {device}"
+
+#: src/pages/hardware/hardware.cpp
+#, python-brace-format
+msgid "Firmware for {device}"
+msgstr "Firmware kanggo {device}"
+
+#: src/pages/hardware/hardwarepage.cpp src/window/pagelist.cpp
+msgid "Drivers & Hardware"
+msgstr "Driver & Parangkat Teuas"
+
+#: src/pages/hardware/hardwarepage.cpp
+msgid "Recommended"
+msgstr "Disarankeun"
+
+#: src/pages/hardware/hardwarepage.cpp src/window/pagelist.cpp
+msgid "Devices"
+msgstr "Parangkat"
+
+#: src/pages/hardware/hardwarepage.cpp
+msgid "Copy Hardware Information"
+msgstr "Salin Info Parangkat Teuas"
+
+#: src/pages/hardware/hardwarepage.cpp
+msgid "Paste it into a bug report, so that others can see this hardware."
+msgstr "Témpélkeun dina laporan bug, supados batur tiasa ningali parangkat teuas ieu."
+
+#: src/pages/hardware/hardwarepage.cpp
+msgid "No driver"
+msgstr "Tanpa driver"
+
+#: src/pages/hardware/hardwarepage.cpp
+#, python-brace-format
+msgid "Driver: {driver}"
+msgstr "Driver: {driver}"
+
+#: src/pages/hardware/hardwarepage.cpp
+msgid "Proprietary"
+msgstr "Proprietari"
+
+#: src/pages/hardware/hardwarepage.cpp
+msgid "Install"
+msgstr "Pasang"
+
+#: src/pages/hardware/hardwarepage.cpp
+msgid "The driver is installed. Restart the computer to use it."
+msgstr "Driver parantos dipasang. Hurungkeun deui komputer pikeun nganggona."
+
+#: src/pages/hardware/hardwarepage.cpp
+msgid "Drivers and firmware for the devices of this computer that are not installed yet. Without them, the devices may not work, or work only in part."
+msgstr "Driver sareng firmware kanggo parangkat komputer ieu anu teu acan dipasang. Tanpa éta, parangkat tiasa teu jalan, atanapi ngan sabagian."
+
+#: src/pages/hardware/hardwarepage.cpp
+msgid "Secure Boot is on: it keeps proprietary drivers built on this computer from loading. Turn it off in the computer's firmware settings to use them."
+msgstr "Secure Boot hurung: driver proprietari anu didamel di komputer ieu teu tiasa dimuat. Pareuman Secure Boot dina setélan firmware komputer pikeun nganggona."
 
 #: src/pages/hotcorners/hotcorners.cpp src/pages/shortcuts/shortcutsmodel.cpp
 msgctxt "key"
@@ -1154,6 +1236,54 @@ msgstr "Basa sistem"
 #: src/pages/language/preferredlanguagelist.cpp
 msgid "Remove language"
 msgstr "Piceun basa"
+
+#: src/pages/memory/memorypage.cpp src/window/pagelist.cpp
+msgid "Memory"
+msgstr "Mémori"
+
+#: src/pages/memory/memorypage.cpp
+msgid "Memory compression"
+msgstr "Komprési mémori"
+
+#: src/pages/memory/memorypage.cpp
+msgid "Compress memory"
+msgstr "Kompres mémori"
+
+#: src/pages/memory/memorypage.cpp src/pages/network/vpn/vpneditor.cpp
+msgid "Automatic"
+msgstr "Otomatis"
+
+#: src/pages/memory/memorypage.cpp
+msgid "25% of memory"
+msgstr "25% tina mémori"
+
+#: src/pages/memory/memorypage.cpp
+msgid "50% of memory"
+msgstr "50% tina mémori"
+
+#: src/pages/memory/memorypage.cpp
+msgid "Usage"
+msgstr "Pamakéan"
+
+#: src/pages/memory/memorypage.cpp
+msgid "Compressed swap"
+msgstr "Swap dikompres"
+
+#: src/pages/memory/memorypage.cpp
+msgid "Swapped out"
+msgstr "Dipindahkeun ka swap"
+
+#: src/pages/memory/memorypage.cpp
+msgid "Memory it takes"
+msgstr "Mémori anu dipaké"
+
+#: src/pages/memory/memorypage.cpp
+msgid "Compression ratio"
+msgstr "Rasio komprési"
+
+#: src/pages/memory/memorypage.cpp
+msgid "Memory that is not in use is kept compressed in memory, so more applications and Android apps fit before the computer slows down, as on phones. Changes apply at once."
+msgstr "Mémori anu teu keur dipaké disimpen dikompres dina mémori, janten langkung seueur aplikasi sareng aplikasi Android muat sateuacan komputer ngalambatan, sapertos dina telepon. Parobihan langsung lumaku."
 
 #: src/pages/mouse/mousepage.cpp
 msgid "Left hand"
@@ -1438,7 +1568,7 @@ msgstr "Témbongkeun pilihan lanjutan"
 msgid "Asked on connect"
 msgstr "Ditanya nalika nyambung"
 
-#: src/pages/network/vpn/vpneditor.cpp
+#: src/pages/network/vpn/vpneditor.cpp src/pages/tiling/tilingpage.cpp
 msgid "Choose…"
 msgstr "Pilih…"
 
@@ -1479,10 +1609,6 @@ msgid "Listen port"
 msgstr "Port ngadéngékeun"
 
 #: src/pages/network/vpn/vpneditor.cpp
-msgid "Automatic"
-msgstr "Otomatis"
-
-#: src/pages/network/vpn/vpneditor.cpp
 msgid "Firewall mark"
 msgstr "Tanda firewall"
 
@@ -1504,6 +1630,7 @@ msgstr "Peer"
 
 #: src/pages/network/vpn/vpneditor.cpp src/pages/printers/printerspage.cpp
 #: src/pages/privacy/privacypage.cpp src/pages/shortcuts/shortcuteditdialog.cpp
+#: src/pages/tiling/tilingpage.cpp
 msgid "Remove"
 msgstr "Piceun"
 
@@ -1733,6 +1860,10 @@ msgid "Prevent automatic sleeping when the display is off"
 msgstr "Cegah anteng otomatis nalika layar pareum"
 
 #: src/pages/printers/printers.cpp
+msgid "Raw (the application sends the printer's own commands)"
+msgstr "Raw (aplikasi ngirim paréntah printer nyalira)"
+
+#: src/pages/printers/printers.cpp
 msgid "No driver for this printer was found."
 msgstr "Driver kanggo printer ieu teu kapendak."
 
@@ -1802,6 +1933,15 @@ msgstr "Teu tiasa ngarobih printer: {error}"
 #: src/pages/printers/printerspage.cpp
 msgid "No other printers found"
 msgstr "Teu aya printer sanés anu kapendak"
+
+#: src/pages/printers/printerspage.cpp
+msgid "Choose a Driver"
+msgstr "Pilih Driver"
+
+#: src/pages/printers/printerspage.cpp
+#, python-brace-format
+msgid "No driver is known for {printer}. Choose one: that of a model of the same series usually works, such as Epson LQ-850 for an Epson LQ dot-matrix printer. Raw is for applications that send the printer's own commands, such as point of sale ones."
+msgstr "Teu acan aya driver anu dikenal pikeun {printer}. Pilih hiji: driver model tina séri anu sami biasana tiasa, contona Epson LQ-850 pikeun printer dot-matrix Epson LQ. Raw pikeun aplikasi anu ngirim paréntah printer nyalira, sapertos aplikasi kasir."
 
 #: src/pages/printers/printerspage.cpp
 msgid "The printer's host name or IP address, such as 192.168.1.20, or its IPP address. It has to print without a driver (IPP Everywhere or AirPrint), as most printers made since 2012 do."
@@ -1929,12 +2069,60 @@ msgid "Snap the window to the right"
 msgstr "Rapétkeun jandéla ka katuhu"
 
 #: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Snap the window up, or maximize it"
+msgstr "Tempelkeun jandéla ka luhur, atanapi gedékeun"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Snap the window down, or minimize it"
+msgstr "Tempelkeun jandéla ka handap, atanapi leutikan"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
 msgid "Close the window"
 msgstr "Tutup jandéla"
 
 #: src/pages/shortcuts/shortcutsmodel.cpp
 msgid "Move the window to the next display"
 msgstr "Pindahkeun jandéla ka layar saterusna"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Tile or untile the desk"
+msgstr "Hurungkeun atanapi pareuman tiling desk"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Float the window, or tile it again"
+msgstr "Jantenkeun jandéla ngambang, atanapi tiling deui"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Swap the window with the one on the left, or move it to the display on the left"
+msgstr "Tukeur jandéla jeung nu di kénca, atawa pindahkeun ka layar di kénca"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Swap the window with the one on the right, or move it to the display on the right"
+msgstr "Tukeur jandéla jeung nu di katuhu, atawa pindahkeun ka layar di katuhu"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Swap the window with the one above"
+msgstr "Tukeurkeun jandéla sareng anu di luhur"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Swap the window with the one below"
+msgstr "Tukeurkeun jandéla sareng anu di handap"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Move the edge of the window to the left"
+msgstr "Geser sisi jandéla ka kénca"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Move the edge of the window to the right"
+msgstr "Geser sisi jandéla ka katuhu"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Move the edge of the window up"
+msgstr "Geser sisi jandéla ka luhur"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Move the edge of the window down"
+msgstr "Geser sisi jandéla ka handap"
 
 #: src/pages/shortcuts/shortcutsmodel.cpp
 msgid "Switch to the desk on the left"
@@ -2309,6 +2497,39 @@ msgstr "Euweuh parangkat input"
 msgid "No output devices"
 msgstr "Euweuh parangkat kaluaran"
 
+#: src/pages/tiling/tilingpage.cpp
+msgid "Tiling is managed by the Bayu compositor, which is not running."
+msgstr "Tiling diatur ku compositor Bayu, anu nuju henteu jalan."
+
+#: src/pages/tiling/tilingpage.cpp
+msgid "Tile windows on every desk"
+msgstr "Tiling jandéla dina unggal desk"
+
+#: src/pages/tiling/tilingpage.cpp
+msgid "Gap between windows"
+msgstr "Jarak antarjandéla"
+
+#: src/pages/tiling/tilingpage.cpp
+#, python-brace-format
+msgid "{pixels} px"
+msgstr "{pixels} px"
+
+#: src/pages/tiling/tilingpage.cpp
+msgid "Meta+Y tiles or untiles the current desk, as does the tiling button in the status bar. On a tiled desk, Meta+arrow keys move between windows, Meta+Shift+arrow keys swap them, Meta+Alt+arrow keys resize them and Meta+G lets a window float. Drag a window onto another to swap them."
+msgstr "Meta+Y ngatur atanapi ngaleupaskeun tiling desk ayeuna, sami sareng tombol tiling dina bar status. Dina desk tiling, Meta+panah pindah antarjandéla, Meta+Shift+panah silih tukeurkeun jandéla, Meta+Alt+panah ngarobah ukuranana, sareng Meta+G ngajantenkeun jandéla ngambang. Sered jandéla kana jandéla séjén pikeun silih tukeurkeun."
+
+#: src/pages/tiling/tilingpage.cpp
+msgid "Always float"
+msgstr "Salawasna ngambang"
+
+#: src/pages/tiling/tilingpage.cpp
+msgid "Add an app"
+msgstr "Tambihan aplikasi"
+
+#: src/pages/tiling/tilingpage.cpp
+msgid "Windows of these apps never tile, nor do dialogs and windows too large for a tile."
+msgstr "Jandéla aplikasi ieu henteu pernah ngiringan tiling, kitu ogé dialog sareng jandéla anu kagedéan pikeun hiji petak."
+
 #: src/pages/touchpad/touchpadpage.cpp src/window/pagelist.cpp
 msgid "Touchpad"
 msgstr "Touchpad"
@@ -2550,6 +2771,10 @@ msgstr "Tambahkeun Folder Rarapihan"
 msgid "Search"
 msgstr "Téangan"
 
+#: src/window/admin.cpp
+msgid "Only an administrator can change this."
+msgstr "Ngan administrator anu tiasa ngarobih ieu."
+
 #: src/window/page.cpp
 msgid "This page is not ported yet."
 msgstr "Kaca ieu can dipindahkeun."
@@ -2587,10 +2812,6 @@ msgid "do not disturb, banners, alerts"
 msgstr "ulah ngaganggu, spanduk, bewara, do not disturb, banners, alerts"
 
 #: src/window/pagelist.cpp
-msgid "Devices"
-msgstr "Parangkat"
-
-#: src/window/pagelist.cpp
 msgid "monitor, screen, resolution, refresh rate, scaling, brightness, rotation"
 msgstr "monitor, layar, résolusi, laju ségeran, skala, kacaangan, rotasi, screen, resolution, refresh rate, scaling, brightness, rotation"
 
@@ -2619,8 +2840,12 @@ msgid "printer, print, printing, scanner, CUPS, USB, network, default printer, t
 msgstr "printer, citak, nyitak, panyeken, scanner, CUPS, USB, jaringan, printer bawaan, kaca uji"
 
 #: src/window/pagelist.cpp
-msgid "accounts, password, login, administrator, avatar"
-msgstr "akun, kecap sandi, asup, administrator, avatar, accounts, password, login"
+msgid "driver, firmware, hardware, device, PCI, USB, lspci, lsusb, Wi-Fi, graphics"
+msgstr "driver, firmware, parangkat teuas, parangkat, PCI, USB, lspci, lsusb, Wi-Fi, grafis"
+
+#: src/window/pagelist.cpp
+msgid "accounts, password, login, administrator, avatar, automatic login, autologin"
+msgstr "akun, kecap konci, login, administrator, avatar, asup otomatis, autologin"
 
 #: src/window/pagelist.cpp
 msgid "region, locale, system language"
@@ -2645,6 +2870,10 @@ msgstr "ngecas, watesan ngecas, kaséhatan batré, kapasitas, riwayat, persénta
 #: src/window/pagelist.cpp
 msgid "energy, performance, power saving, sleep, turn off display"
 msgstr "énergi, kinerja, héman daya, anteng, pareuman layar, energy, performance, power saving, sleep, turn off display"
+
+#: src/window/pagelist.cpp
+msgid "RAM, zram, swap, memory compression, Android"
+msgstr "RAM, zram, swap, komprési mémori, Android"
 
 #: src/window/pagelist.cpp
 msgid "update, upgrade, dnf, packages, security, download, restart"
@@ -2691,6 +2920,10 @@ msgid "screen corners, show desktop, show all windows"
 msgstr "juru layar, témbongkeun dékstop, témbongkeun sakabéh jandéla, screen corners, show desktop, show all windows"
 
 #: src/window/pagelist.cpp
+msgid "tile, tiling, split, windows, gaps, float"
+msgstr "tile, tiling, petak, bagi, jandéla, jarak, ngambang"
+
+#: src/window/pagelist.cpp
 msgid "hotkeys, key bindings"
 msgstr "konci pinten, hotkeys, key bindings"
 
@@ -2701,3 +2934,39 @@ msgstr "Setélan"
 #: src/window/sidebar.cpp
 msgid "No results"
 msgstr "Euweuh hasil"
+
+#~ msgid "Intel Wi-Fi"
+#~ msgstr "Wi-Fi Intel"
+
+#~ msgid "Realtek Wi-Fi"
+#~ msgstr "Wi-Fi Realtek"
+
+#~ msgid "Qualcomm Atheros Wi-Fi"
+#~ msgstr "Wi-Fi Qualcomm Atheros"
+
+#~ msgid "MediaTek Wi-Fi"
+#~ msgstr "Wi-Fi MediaTek"
+
+#~ msgid "Broadcom Wi-Fi"
+#~ msgstr "Wi-Fi Broadcom"
+
+#~ msgid "AMD graphics"
+#~ msgstr "Grafis AMD"
+
+#~ msgid "Intel graphics"
+#~ msgstr "Grafis Intel"
+
+#~ msgid "NVIDIA graphics"
+#~ msgstr "Grafis NVIDIA"
+
+#~ msgid "Intel sound"
+#~ msgstr "Sora Intel"
+
+#~ msgid "Realtek USB Wi-Fi or Bluetooth"
+#~ msgstr "Wi-Fi atanapi Bluetooth USB Realtek"
+
+#~ msgid "Qualcomm Atheros USB Wi-Fi or Bluetooth"
+#~ msgstr "Wi-Fi atanapi Bluetooth USB Qualcomm Atheros"
+
+#~ msgid "MediaTek USB Wi-Fi or Bluetooth"
+#~ msgstr "Wi-Fi atanapi Bluetooth USB MediaTek"

@@ -1,7 +1,10 @@
 # bayu-dm
 
-The Bayu display manager. It runs the login screen and starts the Wayland
-session the user picks.
+The Bayu display manager. It runs the login screen and starts the session
+the user picks: a Wayland one (`wayland-sessions`), or an X11 one
+(`xsessions`, such as IceWM), which `bayu-dm-xsession` runs on Xorg. The
+login screen offers X11 sessions, named "... (X11)", when Xorg and xinit are
+installed.
 
 ## Dependencies
 

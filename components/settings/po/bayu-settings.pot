@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bayu-settings\n"
 "Report-Msgid-Bugs-To: https://github.com/bayuos\n"
-"POT-Creation-Date: 2026-10-28 07:51+0000\n"
+"POT-Creation-Date: 2026-11-03 11:52+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -114,6 +114,19 @@ msgstr ""
 
 #: src/pages/accounts/accountspage.cpp
 msgid "Add user"
+msgstr ""
+
+#: src/pages/accounts/accountspage.cpp
+msgid "Log in automatically"
+msgstr ""
+
+#: src/pages/accounts/accountspage.cpp
+msgid "This account starts without a password when the computer turns on. Anyone at the computer can use it, and the login keyring may ask for the password."
+msgstr ""
+
+#: src/pages/accounts/accountspage.cpp
+#, python-brace-format
+msgid "“{name}” logs in automatically now; turning this on logs this account in instead."
 msgstr ""
 
 #: src/pages/accounts/accountspage.cpp src/pages/wallpaper/wallpaperpage.cpp
@@ -691,7 +704,7 @@ msgstr ""
 
 #: src/pages/defaultapps/defaultappspage.cpp src/pages/fonts/fontspage.cpp
 #: src/pages/hotcorners/hotcornerspage.cpp src/pages/keyboard/keyboardpage.cpp
-#: src/pages/shortcuts/shortcutspage.cpp
+#: src/pages/shortcuts/shortcutspage.cpp src/pages/tiling/tilingpage.cpp
 msgid "None"
 msgstr ""
 
@@ -882,6 +895,11 @@ msgstr ""
 msgid "Hot Corners"
 msgstr ""
 
+#: src/pages/dock/dockpage.cpp src/pages/shortcuts/shortcutsmodel.cpp
+#: src/pages/tiling/tilingpage.cpp src/window/pagelist.cpp
+msgid "Tiling"
+msgstr ""
+
 #: src/pages/dock/dockpage.cpp
 msgid "The panel has no top bar, so applications show their menus in their windows. Applications already open may need to be opened again."
 msgstr ""
@@ -902,7 +920,7 @@ msgstr ""
 msgid "Right"
 msgstr ""
 
-#: src/pages/dock/dockpage.cpp
+#: src/pages/dock/dockpage.cpp src/pages/memory/memorypage.cpp
 msgid "Size"
 msgstr ""
 
@@ -975,6 +993,70 @@ msgstr ""
 
 #: src/pages/fonts/fontspage.cpp
 msgid "Anti-Aliasing"
+msgstr ""
+
+#: src/pages/hardware/hardware.cpp
+#, python-brace-format
+msgid "{driver} driver for {device}"
+msgstr ""
+
+#: src/pages/hardware/hardware.cpp
+#, python-brace-format
+msgid "Driver for {device}"
+msgstr ""
+
+#: src/pages/hardware/hardware.cpp
+#, python-brace-format
+msgid "Firmware for {device}"
+msgstr ""
+
+#: src/pages/hardware/hardwarepage.cpp src/window/pagelist.cpp
+msgid "Drivers & Hardware"
+msgstr ""
+
+#: src/pages/hardware/hardwarepage.cpp
+msgid "Recommended"
+msgstr ""
+
+#: src/pages/hardware/hardwarepage.cpp src/window/pagelist.cpp
+msgid "Devices"
+msgstr ""
+
+#: src/pages/hardware/hardwarepage.cpp
+msgid "Copy Hardware Information"
+msgstr ""
+
+#: src/pages/hardware/hardwarepage.cpp
+msgid "Paste it into a bug report, so that others can see this hardware."
+msgstr ""
+
+#: src/pages/hardware/hardwarepage.cpp
+msgid "No driver"
+msgstr ""
+
+#: src/pages/hardware/hardwarepage.cpp
+#, python-brace-format
+msgid "Driver: {driver}"
+msgstr ""
+
+#: src/pages/hardware/hardwarepage.cpp
+msgid "Proprietary"
+msgstr ""
+
+#: src/pages/hardware/hardwarepage.cpp
+msgid "Install"
+msgstr ""
+
+#: src/pages/hardware/hardwarepage.cpp
+msgid "The driver is installed. Restart the computer to use it."
+msgstr ""
+
+#: src/pages/hardware/hardwarepage.cpp
+msgid "Drivers and firmware for the devices of this computer that are not installed yet. Without them, the devices may not work, or work only in part."
+msgstr ""
+
+#: src/pages/hardware/hardwarepage.cpp
+msgid "Secure Boot is on: it keeps proprietary drivers built on this computer from loading. Turn it off in the computer's firmware settings to use them."
 msgstr ""
 
 #: src/pages/hotcorners/hotcorners.cpp src/pages/shortcuts/shortcutsmodel.cpp
@@ -1159,6 +1241,54 @@ msgstr ""
 
 #: src/pages/language/preferredlanguagelist.cpp
 msgid "Remove language"
+msgstr ""
+
+#: src/pages/memory/memorypage.cpp src/window/pagelist.cpp
+msgid "Memory"
+msgstr ""
+
+#: src/pages/memory/memorypage.cpp
+msgid "Memory compression"
+msgstr ""
+
+#: src/pages/memory/memorypage.cpp
+msgid "Compress memory"
+msgstr ""
+
+#: src/pages/memory/memorypage.cpp src/pages/network/vpn/vpneditor.cpp
+msgid "Automatic"
+msgstr ""
+
+#: src/pages/memory/memorypage.cpp
+msgid "25% of memory"
+msgstr ""
+
+#: src/pages/memory/memorypage.cpp
+msgid "50% of memory"
+msgstr ""
+
+#: src/pages/memory/memorypage.cpp
+msgid "Usage"
+msgstr ""
+
+#: src/pages/memory/memorypage.cpp
+msgid "Compressed swap"
+msgstr ""
+
+#: src/pages/memory/memorypage.cpp
+msgid "Swapped out"
+msgstr ""
+
+#: src/pages/memory/memorypage.cpp
+msgid "Memory it takes"
+msgstr ""
+
+#: src/pages/memory/memorypage.cpp
+msgid "Compression ratio"
+msgstr ""
+
+#: src/pages/memory/memorypage.cpp
+msgid "Memory that is not in use is kept compressed in memory, so more applications and Android apps fit before the computer slows down, as on phones. Changes apply at once."
 msgstr ""
 
 #: src/pages/mouse/mousepage.cpp
@@ -1444,7 +1574,7 @@ msgstr ""
 msgid "Asked on connect"
 msgstr ""
 
-#: src/pages/network/vpn/vpneditor.cpp
+#: src/pages/network/vpn/vpneditor.cpp src/pages/tiling/tilingpage.cpp
 msgid "Choose…"
 msgstr ""
 
@@ -1485,10 +1615,6 @@ msgid "Listen port"
 msgstr ""
 
 #: src/pages/network/vpn/vpneditor.cpp
-msgid "Automatic"
-msgstr ""
-
-#: src/pages/network/vpn/vpneditor.cpp
 msgid "Firewall mark"
 msgstr ""
 
@@ -1510,6 +1636,7 @@ msgstr ""
 
 #: src/pages/network/vpn/vpneditor.cpp src/pages/printers/printerspage.cpp
 #: src/pages/privacy/privacypage.cpp src/pages/shortcuts/shortcuteditdialog.cpp
+#: src/pages/tiling/tilingpage.cpp
 msgid "Remove"
 msgstr ""
 
@@ -1740,6 +1867,10 @@ msgid "Prevent automatic sleeping when the display is off"
 msgstr ""
 
 #: src/pages/printers/printers.cpp
+msgid "Raw (the application sends the printer's own commands)"
+msgstr ""
+
+#: src/pages/printers/printers.cpp
 msgid "No driver for this printer was found."
 msgstr ""
 
@@ -1809,6 +1940,15 @@ msgstr ""
 
 #: src/pages/printers/printerspage.cpp
 msgid "No other printers found"
+msgstr ""
+
+#: src/pages/printers/printerspage.cpp
+msgid "Choose a Driver"
+msgstr ""
+
+#: src/pages/printers/printerspage.cpp
+#, python-brace-format
+msgid "No driver is known for {printer}. Choose one: that of a model of the same series usually works, such as Epson LQ-850 for an Epson LQ dot-matrix printer. Raw is for applications that send the printer's own commands, such as point of sale ones."
 msgstr ""
 
 #: src/pages/printers/printerspage.cpp
@@ -1937,11 +2077,59 @@ msgid "Snap the window to the right"
 msgstr ""
 
 #: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Snap the window up, or maximize it"
+msgstr ""
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Snap the window down, or minimize it"
+msgstr ""
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
 msgid "Close the window"
 msgstr ""
 
 #: src/pages/shortcuts/shortcutsmodel.cpp
 msgid "Move the window to the next display"
+msgstr ""
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Tile or untile the desk"
+msgstr ""
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Float the window, or tile it again"
+msgstr ""
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Swap the window with the one on the left, or move it to the display on the left"
+msgstr ""
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Swap the window with the one on the right, or move it to the display on the right"
+msgstr ""
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Swap the window with the one above"
+msgstr ""
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Swap the window with the one below"
+msgstr ""
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Move the edge of the window to the left"
+msgstr ""
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Move the edge of the window to the right"
+msgstr ""
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Move the edge of the window up"
+msgstr ""
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Move the edge of the window down"
 msgstr ""
 
 #: src/pages/shortcuts/shortcutsmodel.cpp
@@ -2317,6 +2505,39 @@ msgstr ""
 msgid "No output devices"
 msgstr ""
 
+#: src/pages/tiling/tilingpage.cpp
+msgid "Tiling is managed by the Bayu compositor, which is not running."
+msgstr ""
+
+#: src/pages/tiling/tilingpage.cpp
+msgid "Tile windows on every desk"
+msgstr ""
+
+#: src/pages/tiling/tilingpage.cpp
+msgid "Gap between windows"
+msgstr ""
+
+#: src/pages/tiling/tilingpage.cpp
+#, python-brace-format
+msgid "{pixels} px"
+msgstr ""
+
+#: src/pages/tiling/tilingpage.cpp
+msgid "Meta+Y tiles or untiles the current desk, as does the tiling button in the status bar. On a tiled desk, Meta+arrow keys move between windows, Meta+Shift+arrow keys swap them, Meta+Alt+arrow keys resize them and Meta+G lets a window float. Drag a window onto another to swap them."
+msgstr ""
+
+#: src/pages/tiling/tilingpage.cpp
+msgid "Always float"
+msgstr ""
+
+#: src/pages/tiling/tilingpage.cpp
+msgid "Add an app"
+msgstr ""
+
+#: src/pages/tiling/tilingpage.cpp
+msgid "Windows of these apps never tile, nor do dialogs and windows too large for a tile."
+msgstr ""
+
 #: src/pages/touchpad/touchpadpage.cpp src/window/pagelist.cpp
 msgid "Touchpad"
 msgstr ""
@@ -2562,6 +2783,10 @@ msgstr ""
 msgid "Search"
 msgstr ""
 
+#: src/window/admin.cpp
+msgid "Only an administrator can change this."
+msgstr ""
+
 #: src/window/page.cpp
 msgid "This page is not ported yet."
 msgstr ""
@@ -2599,10 +2824,6 @@ msgid "do not disturb, banners, alerts"
 msgstr ""
 
 #: src/window/pagelist.cpp
-msgid "Devices"
-msgstr ""
-
-#: src/window/pagelist.cpp
 msgid "monitor, screen, resolution, refresh rate, scaling, brightness, rotation"
 msgstr ""
 
@@ -2631,7 +2852,11 @@ msgid "printer, print, printing, scanner, CUPS, USB, network, default printer, t
 msgstr ""
 
 #: src/window/pagelist.cpp
-msgid "accounts, password, login, administrator, avatar"
+msgid "driver, firmware, hardware, device, PCI, USB, lspci, lsusb, Wi-Fi, graphics"
+msgstr ""
+
+#: src/window/pagelist.cpp
+msgid "accounts, password, login, administrator, avatar, automatic login, autologin"
 msgstr ""
 
 #: src/window/pagelist.cpp
@@ -2656,6 +2881,10 @@ msgstr ""
 
 #: src/window/pagelist.cpp
 msgid "energy, performance, power saving, sleep, turn off display"
+msgstr ""
+
+#: src/window/pagelist.cpp
+msgid "RAM, zram, swap, memory compression, Android"
 msgstr ""
 
 #: src/window/pagelist.cpp
@@ -2700,6 +2929,10 @@ msgstr ""
 
 #: src/window/pagelist.cpp
 msgid "screen corners, show desktop, show all windows"
+msgstr ""
+
+#: src/window/pagelist.cpp
+msgid "tile, tiling, split, windows, gaps, float"
 msgstr ""
 
 #: src/window/pagelist.cpp

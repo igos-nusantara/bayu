@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bayu-filemanager\n"
 "Report-Msgid-Bugs-To: https://github.com/bayuos\n"
-"POT-Creation-Date: 2026-10-29 09:15+0000\n"
+"POT-Creation-Date: 2026-11-02 08:35+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -712,6 +712,73 @@ msgid_plural "{n} files"
 msgstr[0] "{n} berkas"
 
 #: src/dialogs/propertiesdialog.cpp
+#, python-brace-format
+msgid "The permissions could not be changed: {error}"
+msgstr "Idin ora bisa diganti: {error}"
+
+#: src/dialogs/propertiesdialog.cpp
+#, python-brace-format
+msgid "The owner could not be changed: {error}"
+msgstr "Sing nduwé ora bisa diganti: {error}"
+
+#: src/dialogs/propertiesdialog.cpp
+msgid "Changing the folder's contents…"
+msgstr "Ngganti isi folder…"
+
+#: src/dialogs/propertiesdialog.cpp
+#, python-brace-format
+msgid "Some items could not be changed: {error}"
+msgstr "Sawetara item ora bisa diganti: {error}"
+
+#: src/dialogs/propertiesdialog.cpp
+msgid "The folder's contents were changed."
+msgstr "Isi folder wis diganti."
+
+#: src/dialogs/propertiesdialog.cpp
+msgid "Owner:"
+msgstr "Sing nduwé:"
+
+#: src/dialogs/propertiesdialog.cpp
+msgid "Group:"
+msgstr "Grup:"
+
+#: src/dialogs/propertiesdialog.cpp
+msgid "None"
+msgstr "Ora ana"
+
+#: src/dialogs/propertiesdialog.cpp
+msgid "Read only"
+msgstr "Mung maca"
+
+#: src/dialogs/propertiesdialog.cpp
+msgid "Read and write"
+msgstr "Maca lan nulis"
+
+#: src/dialogs/propertiesdialog.cpp
+msgid "Owner access:"
+msgstr "Akses sing nduwé:"
+
+#: src/dialogs/propertiesdialog.cpp
+msgid "Group access:"
+msgstr "Akses grup:"
+
+#: src/dialogs/propertiesdialog.cpp
+msgid "Others access:"
+msgstr "Akses liyané:"
+
+#: src/dialogs/propertiesdialog.cpp
+msgid "Allow executing as a program"
+msgstr "Idinaké dilakokaké minangka program"
+
+#: src/dialogs/propertiesdialog.cpp
+msgid "Apply to the Folder's Contents"
+msgstr "Trapaké menyang Isi Folder"
+
+#: src/dialogs/propertiesdialog.cpp
+msgid "Only the owner can change these. Open the folder as an administrator to change them."
+msgstr "Mung sing nduwé sing bisa ngganti iki. Bukak folder minangka administrator kanggo ngganti."
+
+#: src/dialogs/propertiesdialog.cpp
 msgid "Type:"
 msgstr "Jinis:"
 
@@ -868,12 +935,28 @@ msgid "Open with"
 msgstr "Bukak nganggo"
 
 #: src/model/foldermodel.cpp
+msgid "Install on Android"
+msgstr "Pasang ing Android"
+
+#: src/model/foldermodel.cpp
 msgid "Show in Enclosing Folder"
 msgstr "Tuduhna ing Folder Induk"
 
 #: src/model/foldermodel.cpp
 msgid "Compress"
 msgstr "Kompres"
+
+#: src/model/foldermodel.cpp
+msgid "Copy Location"
+msgstr "Salin Lokasi"
+
+#: src/model/foldermodel.cpp
+msgid "Duplicate"
+msgstr "Duplikat"
+
+#: src/model/foldermodel.cpp
+msgid "Make Link"
+msgstr "Gawé Tautan"
 
 #: src/model/foldermodel.cpp
 msgid "Cut"

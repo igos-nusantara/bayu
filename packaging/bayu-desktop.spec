@@ -49,6 +49,13 @@ Requires:       mesa-dri-drivers mesa-libEGL mesa-libgbm glibc-langpack-en
 # dbus-update-activation-environment: the session hands its environment
 # (WAYLAND_DISPLAY, XDG_CURRENT_DESKTOP) to D-Bus and systemd services.
 Requires:       dbus-tools
+# X11 sessions at the login screen (issue #102): window managers and desktops
+# that only have an xsessions entry, such as IceWM, run on Xorg, which
+# bayu-dm-xsession starts with xinit and an xauth cookie.
+Requires:       xorg-x11-server-Xorg xorg-x11-drv-libinput xorg-x11-xinit xorg-x11-xauth
+# Memory compression (Settings > Memory, issue #72): a zram swap, by default
+# half the memory up to 8 GiB (components/settings/admin/zram-generator.conf).
+Requires:       zram-generator
 # xdg-open opens links, from the terminal's Ctrl+click and from command-line
 # programs; wl-copy is how those programs copy to the clipboard (Claude Code's
 # own selection does). Without them both fail silently.
@@ -56,10 +63,11 @@ Requires:       xdg-utils wl-clipboard
 # Hardware (issue #73): USB Wi-Fi adapters that first show up as a CD with
 # their driver (usb_modeswitch, from packaging/usb-modeswitch), printers found
 # on USB and on the network and set up with their driver (Settings > Printers),
-# scanners, and the tools that show what hardware is there (lsusb, lspci...).
+# foomatic for those no other driver knows, such as Epson dot-matrix printers
+# (issue #165), scanners, and the tools that show what hardware is there (lsusb, lspci...).
 Requires:       usb_modeswitch usb_modeswitch-data
 Requires:       cups cups-filters cups-browsed ipp-usb system-config-printer-udev avahi nss-mdns
-Requires:       hplip gutenprint-cups splix
+Requires:       hplip gutenprint-cups splix foomatic foomatic-db-ppds
 Requires:       sane-backends sane-airscan
 Requires:       usbutils pciutils lshw dmidecode hwinfo lm_sensors smartmontools nvme-cli iw ethtool hdparm
 # Default UI and fixed-width fonts.
@@ -114,6 +122,9 @@ install -Dm 755 components/bayu-computer-use/target/release/bayu-computer-use \
   %{buildroot}%{_bindir}/bayu-computer-use
 install -m 644 packaging/pam/bayu-dm packaging/pam/bayu-dm-greeter packaging/pam/bayu-auth \
   %{buildroot}%{_sysconfdir}/pam.d/
+# What the devices of a computer need from the repositories, for Settings >
+# Drivers & Hardware (packaging/kernel/driver-db.sh).
+install -Dm 644 packaging/kernel/drivers.db %{buildroot}%{_datadir}/bayu/drivers.db
 install -Dm 644 packaging/fontconfig/60-bayu-noto-mono.conf \
   %{buildroot}%{_datadir}/fontconfig/conf.avail/60-bayu-noto-mono.conf
 mkdir -p %{buildroot}%{_sysconfdir}/fonts/conf.d
@@ -154,6 +165,8 @@ if [ ! -e /var/lib/bayu-desktop/printing ]; then
 fi
 # The store installs Flathub apps system-wide.
 flatpak remote-add --system --if-not-exists flathub %{_datadir}/bayu-store/flathub.flatpakrepo >/dev/null 2>&1 || :
+# And IGOS Nusantara's own (github.com/igos-nusantara/flathub), the ArtCraft apps among them.
+flatpak remote-add --system --if-not-exists igos %{_datadir}/bayu-store/igos.flatpakrepo >/dev/null 2>&1 || :
 # The Bayu GTK themes, which bayu-services copies to ~/.themes, for every Flatpak application.
 flatpak override --system --filesystem=~/.themes:ro >/dev/null 2>&1 || :
 gtk-update-icon-cache -q -f /usr/share/icons/* 2>/dev/null || :

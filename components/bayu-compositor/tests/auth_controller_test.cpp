@@ -101,6 +101,23 @@ TEST(AuthControllerTest, LoginSessionsFollowWaylandSessions)
     setLoginSessionDirectoriesForTesting({});
 }
 
+// As bayu-dm offers them: xsessions entries where Xorg and xinit are, as X11.
+TEST(AuthControllerTest, LoginSessionsOfferXSessionsWithAnXServer)
+{
+    TemporaryDirectory directory;
+    ASSERT_TRUE(directory.isValid());
+    ASSERT_TRUE(directory.write("xsessions/icewm-session.desktop",
+                                "[Desktop Entry]\nName=IceWM Session\nExec=/usr/bin/icewm-session\n"));
+    const std::string xsessions = directory.path() + "/xsessions";
+
+    EXPECT_TRUE(findLoginSessions({xsessions}, false).empty());
+    const auto sessions = findLoginSessions({xsessions}, true);
+    ASSERT_EQ(sessions.size(), 1u);
+    EXPECT_EQ(sessions.front().name, "IceWM Session (X11)");
+    const auto &environment = sessions.front().environment;
+    EXPECT_NE(std::find(environment.begin(), environment.end(), "XDG_SESSION_TYPE=x11"), environment.end());
+}
+
 TEST(AuthControllerTest, EveryDesktopNameReachesTheSessionEnvironment)
 {
     TemporaryDirectory directory;

@@ -15,6 +15,14 @@ const char* toString(WindowStateType type)
         return "primary-snapped";
     case WindowStateType::SecondarySnapped:
         return "secondary-snapped";
+    case WindowStateType::TopLeftSnapped:
+        return "top-left-snapped";
+    case WindowStateType::TopRightSnapped:
+        return "top-right-snapped";
+    case WindowStateType::BottomLeftSnapped:
+        return "bottom-left-snapped";
+    case WindowStateType::BottomRightSnapped:
+        return "bottom-right-snapped";
     case WindowStateType::Maximized:
         return "maximized";
     case WindowStateType::Fullscreen:

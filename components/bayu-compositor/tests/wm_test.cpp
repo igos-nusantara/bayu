@@ -41,6 +41,7 @@
 #include "wm/quit_all.h"
 #include "wm/snap_drag_controller.h"
 #include "wm/stacking.h"
+#include "wm/tiling_controller.h"
 #include "wm/toplevel_event_handler.h"
 #include "wm/transient_manager.h"
 #include "wm/window.h"
@@ -1451,8 +1452,62 @@ TEST_F(WmTest, TheEdgeTolerancesFollowTheWorkArea)
     EXPECT_EQ(SnapType::Secondary, snapTypeAt(base::PointF(980, 400), kOutput, kOutput));
     EXPECT_EQ(SnapType::Maximize, snapTypeAt(base::PointF(500, 4), kOutput, kOutput));
     EXPECT_EQ(SnapType::None, snapTypeAt(base::PointF(500, 400), kOutput, kOutput));
-    // A corner belongs to the side, as it does in Ash.
-    EXPECT_EQ(SnapType::Primary, snapTypeAt(base::PointF(4, 2), kOutput, kOutput));
+    // The corners are quarters (#149): on a side within an eighth of the
+    // height (at least 64) of the top or the bottom, and on the top within an
+    // eighth of the width of either end.
+    EXPECT_EQ(SnapType::TopLeft, snapTypeAt(base::PointF(4, 2), kOutput, kOutput));
+    EXPECT_EQ(SnapType::TopLeft, snapTypeAt(base::PointF(20, 90), kOutput, kOutput));
+    EXPECT_EQ(SnapType::Primary, snapTypeAt(base::PointF(20, 110), kOutput, kOutput));
+    EXPECT_EQ(SnapType::BottomLeft, snapTypeAt(base::PointF(20, 750), kOutput, kOutput));
+    EXPECT_EQ(SnapType::TopRight, snapTypeAt(base::PointF(990, 40), kOutput, kOutput));
+    EXPECT_EQ(SnapType::BottomRight, snapTypeAt(base::PointF(990, 790), kOutput, kOutput));
+    EXPECT_EQ(SnapType::TopLeft, snapTypeAt(base::PointF(100, 4), kOutput, kOutput));
+    EXPECT_EQ(SnapType::TopRight, snapTypeAt(base::PointF(900, 4), kOutput, kOutput));
+    EXPECT_EQ(SnapType::Maximize, snapTypeAt(base::PointF(200, 4), kOutput, kOutput));
+
+    EXPECT_EQ(base::Rect(0, 0, 500, 400), snapBounds(SnapType::TopLeft, kOutput));
+    EXPECT_EQ(base::Rect(500, 400, 500, 400), snapBounds(SnapType::BottomRight, kOutput));
+    // A quarter needs a window that fits in half the height too.
+    EXPECT_TRUE(canSnapSize(base::Size(400, 700), kOutput, SnapType::Primary));
+    EXPECT_FALSE(canSnapSize(base::Size(400, 700), kOutput, SnapType::TopLeft));
+}
+
+TEST_F(WmTest, DraggingToACornerSnapsTheWindowToThatQuarter)
+{
+    Window *window = makeWindow(base::Rect(300, 300, 300, 200));
+
+    ASSERT_TRUE(manager.eventHandler()->beginMove(window, base::PointF(350, 320)));
+    manager.eventHandler()->onPointerMotion(base::PointF(990, 790));
+    EXPECT_EQ(SnapType::BottomRight, manager.eventHandler()->snapController()->snapType());
+    manager.eventHandler()->onPointerButtonReleased();
+
+    EXPECT_EQ(WindowStateType::BottomRightSnapped, window->stateType());
+    EXPECT_EQ(base::Rect(500, 400, 500, 400), window->bounds());
+
+    window->restore();
+    EXPECT_EQ(WindowStateType::Normal, window->stateType());
+    EXPECT_EQ(base::Size(300, 200), window->bounds().size());
+    // Too tall for a quarter, it takes the half on that side.
+    window->setMinimumSize(base::Size(100, 500));
+    ASSERT_TRUE(manager.eventHandler()->beginMove(window, base::PointF(350, 320)));
+    manager.eventHandler()->onPointerMotion(base::PointF(4, 2));
+    EXPECT_EQ(SnapType::Primary, manager.eventHandler()->snapController()->snapType());
+    manager.eventHandler()->onPointerButtonReleased();
+    EXPECT_EQ(WindowStateType::PrimarySnapped, window->stateType());
+}
+
+TEST_F(WmTest, AQuarterFollowsTheWorkAreaAndStaysSnappedWhenResizedInward)
+{
+    Window *window = makeWindow(base::Rect(200, 100, 400, 300));
+    window->snap(SnapType::TopLeft);
+    EXPECT_EQ(WindowStateType::TopLeftSnapped, window->stateType());
+    EXPECT_EQ(base::Rect(0, 0, 500, 400), window->bounds());
+
+    ASSERT_TRUE(manager.eventHandler()->beginResize(window, ResizeEdge::Bottom, base::PointF(250, 400)));
+    manager.eventHandler()->onPointerMotion(base::PointF(250, 500));
+    manager.eventHandler()->onPointerButtonReleased();
+    EXPECT_EQ(WindowStateType::TopLeftSnapped, window->stateType());
+    EXPECT_EQ(base::Rect(0, 0, 500, 500), window->bounds());
 }
 
 TEST_F(WmTest, DraggingToTheLeftEdgeSnapsTheWindowToThatHalf)
@@ -1653,6 +1708,61 @@ TEST_F(WmTest, ASnappedWindowKeepsItsStateWhileItsSharedEdgeIsResized)
 
     EXPECT_EQ(WindowStateType::PrimarySnapped, window->stateType());
     EXPECT_EQ(base::Rect(0, 0, 650, 800), window->bounds());
+}
+
+TEST_F(WmTest, ResizingTheSharedEdgeOfSnappedWindowsResizesBoth)
+{
+    Window *left = makeWindow(base::Rect(200, 100, 400, 300));
+    left->snapPrimary();
+    Window *right = makeWindow(base::Rect(300, 100, 400, 300));
+    right->snapSecondary();
+    // On another desk's or an unsnapped window, nothing follows.
+    Window *floating = makeWindow(base::Rect(500, 100, 300, 300));
+
+    ASSERT_TRUE(manager.eventHandler()->beginResize(left, ResizeEdge::Right, base::PointF(500, 400)));
+    manager.eventHandler()->onPointerMotion(base::PointF(650, 400));
+    EXPECT_EQ(base::Rect(650, 0, 350, 800), right->bounds());
+    manager.eventHandler()->onPointerButtonReleased();
+
+    EXPECT_EQ(WindowStateType::PrimarySnapped, left->stateType());
+    EXPECT_EQ(WindowStateType::SecondarySnapped, right->stateType());
+    EXPECT_EQ(base::Rect(0, 0, 650, 800), left->bounds());
+    EXPECT_EQ(base::Rect(650, 0, 350, 800), right->bounds());
+    EXPECT_EQ(base::Rect(500, 100, 300, 300), floating->bounds());
+
+    // The edge stops at the partner's minimum size, and Esc puts both back.
+    right->setMinimumSize(base::Size(300, 100));
+    ASSERT_TRUE(manager.eventHandler()->beginResize(right, ResizeEdge::Left, base::PointF(650, 400)));
+    manager.eventHandler()->onPointerMotion(base::PointF(900, 400));
+    EXPECT_EQ(base::Rect(0, 0, 700, 800), left->bounds());
+    EXPECT_EQ(base::Rect(700, 0, 300, 800), right->bounds());
+    compositor.frameStarted(16);
+    manager.eventHandler()->onPointerMotion(base::PointF(200, 400));
+    compositor.frameStarted(32);
+    EXPECT_EQ(base::Rect(0, 0, 200, 800), left->bounds());
+    EXPECT_EQ(base::Rect(200, 0, 800, 800), right->bounds());
+    manager.eventHandler()->onKeyPressed(KEY_ESC);
+    EXPECT_EQ(base::Rect(0, 0, 650, 800), left->bounds());
+    EXPECT_EQ(base::Rect(650, 0, 350, 800), right->bounds());
+}
+
+TEST_F(WmTest, ResizingTheSharedEdgeOfQuartersResizesTheNeighbourOnly)
+{
+    Window *topLeft = makeWindow(base::Rect(100, 100, 300, 200));
+    topLeft->snap(SnapType::TopLeft);
+    Window *topRight = makeWindow(base::Rect(100, 100, 300, 200));
+    topRight->snap(SnapType::TopRight);
+    Window *bottomRight = makeWindow(base::Rect(100, 100, 300, 200));
+    bottomRight->snap(SnapType::BottomRight);
+
+    ASSERT_TRUE(manager.eventHandler()->beginResize(topRight, ResizeEdge::Bottom, base::PointF(700, 400)));
+    manager.eventHandler()->onPointerMotion(base::PointF(700, 300));
+    manager.eventHandler()->onPointerButtonReleased();
+
+    EXPECT_EQ(base::Rect(500, 0, 500, 300), topRight->bounds());
+    EXPECT_EQ(base::Rect(500, 300, 500, 500), bottomRight->bounds());
+    EXPECT_EQ(base::Rect(0, 0, 500, 400), topLeft->bounds());
+    EXPECT_EQ(WindowStateType::BottomRightSnapped, bottomRight->stateType());
 }
 
 TEST_F(WmTest, ASnappedWindowResizedOffItsEdgeBecomesNormal)
@@ -2750,4 +2860,165 @@ TEST_F(WmTest, AConsumedPressKeepsItsReleaseForEachButton)
 
     EXPECT_FALSE(manager.onPointerButton(at(5), base::PointF(20, 20), BTN_LEFT, true));
     EXPECT_FALSE(manager.onPointerButton(at(6), base::PointF(20, 20), BTN_LEFT, false));
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// Auto-tiling (#149)
+
+TEST_F(WmTest, ATiledDeskSplitsTheActiveTileForEachNewWindow)
+{
+    TilingController *tiling = manager.tiling();
+    Window *floating = makeWindow(base::Rect(100, 100, 300, 200));
+    tiling->toggleActiveDesk();
+    EXPECT_TRUE(tiling->isActiveDeskTiled());
+    // What was there tiles too, filling the work area inside the gap.
+    EXPECT_TRUE(floating->isTiled());
+    EXPECT_EQ(base::Rect(8, 8, 984, 784), floating->bounds());
+
+    // Along the longer side: side by side, then one above the other.
+    Window *second = mapManagedWindow(base::Size(300, 200));
+    EXPECT_EQ(base::Rect(8, 8, 488, 784), floating->bounds());
+    EXPECT_EQ(base::Rect(504, 8, 488, 784), second->bounds());
+    manager.activation()->activate(second);
+    Window *third = mapManagedWindow(base::Size(300, 200));
+    EXPECT_EQ(base::Rect(504, 8, 488, 388), second->bounds());
+    EXPECT_EQ(base::Rect(504, 404, 488, 388), third->bounds());
+
+    // A closed window's tile goes to its neighbour.
+    manager.destroyWindow(second);
+    EXPECT_EQ(base::Rect(504, 8, 488, 784), third->bounds());
+
+    // Untiled, the windows go back where they were.
+    tiling->toggleActiveDesk();
+    EXPECT_FALSE(floating->isTiled());
+    EXPECT_EQ(base::Rect(100, 100, 300, 200), floating->bounds());
+}
+
+TEST_F(WmTest, DialogsFixedSizeAndFloatingApplicationsDoNotTile)
+{
+    TilingController *tiling = manager.tiling();
+    tiling->toggleActiveDesk();
+    Window *window = mapManagedWindow(base::Size(300, 200));
+    ASSERT_TRUE(window->isTiled());
+
+    Window *dialog = manager.createWindow(makeSurface(base::Size(200, 100)),
+                                          {.requestedSize = base::Size(200, 100),
+                                           .transientParent = window});
+    EXPECT_FALSE(dialog->isTiled());
+
+    Window *fixed = manager.createWindow(makeSurface(base::Size(200, 100)),
+                                         {.requestedSize = base::Size(200, 100),
+                                          .minimumSize = base::Size(200, 100),
+                                          .maximumSize = base::Size(200, 100)});
+    EXPECT_FALSE(fixed->isTiled());
+
+    tiling->setFloatingApplications({"calculator"});
+    Window *calculator = mapManagedWindow(base::Size(200, 300), "calculator");
+    EXPECT_FALSE(calculator->isTiled());
+    EXPECT_EQ(base::Rect(8, 8, 984, 784), window->bounds());
+
+    // Too large for half the screen: it floats rather than squeezing in.
+    Window *large = manager.createWindow(makeSurface(base::Size(700, 500)),
+                                         {.requestedSize = base::Size(700, 500),
+                                          .minimumSize = base::Size(700, 500)});
+    EXPECT_FALSE(large->isTiled());
+    EXPECT_EQ(base::Rect(8, 8, 984, 784), window->bounds());
+
+    // Floated by hand, and back.
+    Window *other = mapManagedWindow(base::Size(300, 200));
+    ASSERT_TRUE(other->isTiled());
+    tiling->toggleFloating(other);
+    EXPECT_FALSE(other->isTiled());
+    EXPECT_EQ(base::Rect(8, 8, 984, 784), window->bounds());
+    tiling->toggleFloating(other);
+    EXPECT_TRUE(other->isTiled());
+}
+
+TEST_F(WmTest, AMaximizedOrMinimizedTileLeavesTheTreeUntilItIsBack)
+{
+    manager.tiling()->toggleActiveDesk();
+    Window *first = mapManagedWindow(base::Size(300, 200));
+    Window *second = mapManagedWindow(base::Size(300, 200));
+    ASSERT_EQ(base::Rect(8, 8, 488, 784), first->bounds());
+
+    second->maximize();
+    EXPECT_FALSE(second->isTiled());
+    EXPECT_EQ(base::Rect(8, 8, 984, 784), first->bounds());
+    second->restore();
+    EXPECT_TRUE(second->isTiled());
+    EXPECT_EQ(base::Rect(8, 8, 488, 784), first->bounds());
+
+    second->minimize();
+    EXPECT_EQ(base::Rect(8, 8, 984, 784), first->bounds());
+    second->restore();
+    EXPECT_EQ(base::Rect(8, 8, 488, 784), first->bounds());
+    EXPECT_TRUE(second->isTiled());
+}
+
+TEST_F(WmTest, TheKeysMoveTheFocusSwapAndResizeTiles)
+{
+    TilingController *tiling = manager.tiling();
+    tiling->toggleActiveDesk();
+    Window *left = mapManagedWindow(base::Size(300, 200));
+    Window *right = mapManagedWindow(base::Size(300, 200));
+    manager.activation()->activate(left);
+
+    EXPECT_TRUE(tiling->focus(left, TilingController::Direction::Right));
+    EXPECT_EQ(right, manager.activation()->activeWindow());
+    EXPECT_FALSE(tiling->focus(right, TilingController::Direction::Right));
+
+    EXPECT_TRUE(tiling->swap(right, TilingController::Direction::Left));
+    EXPECT_EQ(base::Rect(8, 8, 488, 784), right->bounds());
+    EXPECT_EQ(base::Rect(504, 8, 488, 784), left->bounds());
+
+    // The edge on that side moves, or the other one at the screen's edge.
+    EXPECT_TRUE(tiling->resize(right, TilingController::Direction::Right));
+    EXPECT_EQ(base::Rect(8, 8, 536, 784), right->bounds());
+    EXPECT_EQ(base::Rect(552, 8, 440, 784), left->bounds());
+    EXPECT_TRUE(tiling->resize(left, TilingController::Direction::Right));
+    EXPECT_EQ(base::Rect(8, 8, 584, 784), right->bounds());
+    EXPECT_FALSE(tiling->resize(left, TilingController::Direction::Up));
+}
+
+TEST_F(WmTest, DraggingTilesResizesTheSplitAndSwapsOnDrop)
+{
+    manager.tiling()->toggleActiveDesk();
+    Window *left = mapManagedWindow(base::Size(300, 200));
+    Window *right = mapManagedWindow(base::Size(300, 200));
+
+    ASSERT_TRUE(manager.eventHandler()->beginResize(left, ResizeEdge::Right, base::PointF(496, 400)));
+    manager.eventHandler()->onPointerMotion(base::PointF(596, 400));
+    manager.eventHandler()->onPointerButtonReleased();
+    EXPECT_EQ(base::Rect(8, 8, 588, 784), left->bounds());
+    EXPECT_EQ(base::Rect(604, 8, 388, 784), right->bounds());
+    EXPECT_TRUE(left->isTiled());
+
+    // A move does not snap; dropped on the other tile, the two swap.
+    ASSERT_TRUE(manager.eventHandler()->beginMove(left, base::PointF(100, 20)));
+    manager.eventHandler()->onPointerMotion(base::PointF(800, 400));
+    EXPECT_EQ(SnapType::None, manager.eventHandler()->snapController()->snapType());
+    manager.eventHandler()->onPointerButtonReleased();
+    EXPECT_EQ(base::Rect(8, 8, 588, 784), right->bounds());
+    EXPECT_EQ(base::Rect(604, 8, 388, 784), left->bounds());
+}
+
+TEST_F(WmTest, AWindowTooLargeForTheActiveTileTakesTheLargestOne)
+{
+    manager.tiling()->toggleActiveDesk();
+    Window *first = mapManagedWindow(base::Size(300, 200));
+    Window *second = mapManagedWindow(base::Size(300, 200));
+    manager.activation()->activate(second);
+    Window *third = mapManagedWindow(base::Size(300, 200));
+    manager.activation()->activate(third);
+    ASSERT_EQ(base::Rect(504, 404, 488, 388), third->bounds());
+
+    // Half of the active tile is 240 wide; half of the largest is wide enough.
+    Window *wide = manager.createWindow(makeSurface(base::Size(300, 300)),
+                                        {.requestedSize = base::Size(300, 300),
+                                         .minimumSize = base::Size(300, 300),
+                                         .positionManaged = true});
+    EXPECT_TRUE(wide->isTiled());
+    EXPECT_EQ(base::Rect(8, 8, 488, 388), first->bounds());
+    EXPECT_EQ(base::Rect(8, 404, 488, 388), wide->bounds());
+    EXPECT_EQ(base::Rect(504, 404, 488, 388), third->bounds());
 }

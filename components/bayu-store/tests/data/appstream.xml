@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<components version="0.8" origin="flatpak">
+  <component type="desktop-application">
+    <id>ai.storyteller.photocraft.desktop</id>
+    <name>PhotoCraft</name>
+    <name xml:lang="id">PhotoCraft ID</name>
+    <summary>Edit photos and layered PSD documents</summary>
+    <summary xml:lang="id">Sunting foto</summary>
+    <project_license>MIT OR Apache-2.0</project_license>
+    <description>
+      <p>
+        The open-source image   editor.
+      </p>
+      <p xml:lang="id">Penyunting gambar.</p>
+      <ul>
+        <li>Layers</li>
+        <li>PSD files</li>
+      </ul>
+    </description>
+    <developer id="ai.storyteller">
+      <name>Learning Machines LLC</name>
+    </developer>
+    <developer_name>Someone Else</developer_name>
+    <icon type="cached" width="64" height="64">ai.storyteller.photocraft.png</icon>
+    <icon type="cached" width="128" height="128" scale="2">ai.storyteller.photocraft.png</icon>
+    <icon type="cached" width="128" height="128">ai.storyteller.photocraft.png</icon>
+    <icon type="stock">ai.storyteller.photocraft</icon>
+    <url type="bugtracker">https://example.org/bugs</url>
+    <url type="homepage">https://getartcraft.com/apps</url>
+    <categories>
+      <category>Graphics</category>
+      <category>RasterGraphics</category>
+    </categories>
+    <keywords>
+      <keyword>photo</keyword>
+      <keyword xml:lang="id">foto</keyword>
+    </keywords>
+    <screenshots>
+      <screenshot type="default">
+        <caption>Curves</caption>
+        <image type="thumbnail" width="624" height="351">https://example.org/thumb.png</image>
+        <image type="source" width="1600" height="1000">https://example.org/shot.png</image>
+      </screenshot>
+    </screenshots>
+    <releases>
+      <release type="stable" version="0.20.1" timestamp="1793664000"/>
+      <release type="stable" version="0.20.0" timestamp="1793000000"/>
+    </releases>
+    <bundle type="flatpak" runtime="org.freedesktop.Platform/x86_64/26.08">app/ai.storyteller.photocraft/x86_64/stable</bundle>
+  </component>
+  <component type="runtime">
+    <id>org.freedesktop.Platform</id>
+    <name>Platform</name>
+  </component>
+  <component type="desktop-application">
+    <id>ai.storyteller.wordcraft</id>
+    <summary>Words</summary>
+  </component>
+</components>

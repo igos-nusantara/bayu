@@ -1,13 +1,37 @@
---- a/pyanaconda/modules/payloads/payload/live_image/installation.py	2026-10-26 20:58:27
-+++ b/pyanaconda/modules/payloads/payload/live_image/installation.py	2026-10-26 20:58:27
-@@ -378,6 +378,26 @@
-         except (OSError, RuntimeError) as e:
-             msg = "Failed to install tar: {}".format(e)
+--- a/pyanaconda/modules/payloads/payload/live_image/installation.py
++++ b/pyanaconda/modules/payloads/payload/live_image/installation.py
+@@ -380,6 +380,54 @@
              raise PayloadInstallationError(msg) from None
+ 
+ 
++def full_mounts(sysroot):
++    """The file systems under the sysroot with next to no space left, as
++    "/boot/efi (0 MB free)". A full vfat says nothing in the kernel log, and
++    rsync's receiver can die before its "No space left" reaches the log."""
++    root = sysroot.rstrip("/")
++    full = []
++    try:
++        with open("/proc/self/mounts") as mounts:
++            # Disks only, not /sys or /dev bound in.
++            targets = [line.split()[1].replace("\\040", " ") for line in mounts if line.startswith("/dev/")]
++    except OSError:
++        return full
++    for target in targets:
++        if target != root and not target.startswith(root + "/"):
++            continue
++        try:
++            fs = os.statvfs(target)
++        except OSError:
++            continue
++        free = fs.f_bavail * fs.f_frsize
++        if fs.f_blocks and free < 4 * 1024 * 1024:
++            full.append("{} ({} MB free)".format(target[len(root):] or "/", free // (1024 * 1024)))
++    return full
 +
 +
-+def rsync_failure(rc, errors):
-+    """Why copying the system stopped, for the user: rsync's exit and its last errors."""
++def rsync_failure(rc, errors, full=()):
++    """Why copying the system stopped, for the user: rsync's exit, its errors
++    and the file systems that are full."""
 +    text = "\n".join(errors)
 +    if rc < 0:
 +        why = "rsync was stopped by signal {}".format(-rc)
@@ -15,7 +39,9 @@
 +            why += ", probably for lack of memory"
 +    else:
 +        why = "rsync exited with code {}".format(rc)
-+    if "No space left on device" in text:
++    if full:
++        hint = "There is no space left on {}.".format(", ".join(full))
++    elif "No space left on device" in text:
 +        hint = "The target disk or partition is full."
 +    elif "Input/output error" in text:
 +        hint = "A disk could not be read or written: the installation medium (write the " \
@@ -24,10 +50,12 @@
 +        hint = ""
 +    return " ".join(part for part in (
 +        "Copying the system to the disk failed ({}).".format(why), hint, text) if part)
- 
- 
++
++
  class InstallFromImageTask(Task):
-@@ -435,21 +455,29 @@
+     """Task to install the payload from image."""
+ 
+@@ -435,21 +483,32 @@
              self._sysroot
          ]
  
@@ -38,11 +66,14 @@
              for line in reader:
                  self._parse_rsync_update(line)
 +                # rsync's own errors ("rsync: [receiver] write failed ...:
-+                # No space left on device (28)"), the last few.
++                # No space left on device (28)"): the first two, what went
++                # wrong, and the last three, how rsync ended.
 +                line = line.rsplit("\r", 1)[-1].strip()
-+                if line.startswith(("rsync:", "rsync error:")):
++                if line.startswith(("rsync:", "rsync error:", "ERROR:")):
 +                    log.error("rsync: %s", line)
-+                    errors = (errors + [line])[-3:]
++                    errors.append(line)
++                    if len(errors) > 5:
++                        del errors[2]
  
          except (OSError, RuntimeError) as e:
              msg = "Failed to install image: {}".format(e)
@@ -58,7 +89,7 @@
 +        # without what stopped the copy. 24: files that vanished from the
 +        # source, nothing missing in the system.
 +        if reader.rc not in (0, 24):
-+            raise PayloadInstallationError(rsync_failure(reader.rc, errors))
++            raise PayloadInstallationError(rsync_failure(reader.rc, errors, full_mounts(self._sysroot)))
  
      def _parse_rsync_update(self, line):
          """Try to extract progress from rsync output.

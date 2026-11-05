@@ -83,7 +83,8 @@ private:
     void removeGlobal(uint32_t id);
     void updateDefaults();
     void updateLinks();
-    void updateRouteVolume(AudioObject* object);
+    // False when the node's card has no route volume for it.
+    bool updateRouteVolume(AudioObject* object);
     void setNodeParam(AudioObject* object, const spa_pod* param);
     void checkResult(int result, const char* operation);
 

@@ -72,6 +72,7 @@ private:
     };
 
     void setup();
+    void setRootCursor();
     void drain();
     void event(xcb_generic_event_t *event);
     // Reads `atoms`, or every property the window manager follows.

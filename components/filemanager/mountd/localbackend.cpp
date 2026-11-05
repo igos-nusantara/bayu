@@ -117,6 +117,11 @@ int LocalBackend::setMode(const std::string &path, mode_t mode)
     return result(::chmod(full(path).c_str(), mode));
 }
 
+int LocalBackend::setOwner(const std::string &path, uid_t uid, gid_t gid)
+{
+    return result(::lchown(full(path).c_str(), uid, gid));
+}
+
 int LocalBackend::setTimes(const std::string &path, const struct timespec times[2])
 {
     return result(::utimensat(AT_FDCWD, full(path).c_str(), times, AT_SYMLINK_NOFOLLOW));

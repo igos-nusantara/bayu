@@ -1,0 +1,34 @@
+#!/bin/sh
+# Runs an X11 session (an xsessions entry): Xorg on the session's VT, as the
+# user (Xorg.wrap and logind give it the VT and the devices), with a fresh
+# authority cookie, and the session as its client through bayu-dm-session,
+# so profiles apply as in a Wayland session.
+#   bayu-dm-xsession COMMAND...    XDG_VTNR names the VT
+
+# The session's client: what X sessions get from a display manager besides
+# DISPLAY, then the session itself. xinit runs it; its end ends Xorg.
+if [ "$1" = --client ]; then
+    shift
+    dbus-update-activation-environment --systemd DISPLAY XAUTHORITY XDG_SESSION_TYPE \
+        XDG_CURRENT_DESKTOP XDG_SESSION_DESKTOP DESKTOP_SESSION 2>/dev/null
+    for script in /etc/X11/xinit/xinitrc.d/*.sh; do
+        [ -x "$script" ] && . "$script"
+    done
+    [ -f "$HOME/.Xresources" ] && xrdb -merge "$HOME/.Xresources"
+    exec @DM_SESSION_WRAPPER@ "$@"
+fi
+
+# The first display without a server.
+display=0
+while [ -e "/tmp/.X$display-lock" ] || [ -e "/tmp/.X11-unix/X$display" ]; do
+    display=$((display + 1))
+done
+
+XAUTHORITY=${XDG_RUNTIME_DIR:-$HOME}/.Xauthority-bayu-dm
+export XAUTHORITY
+rm -f "$XAUTHORITY"
+(umask 077 && touch "$XAUTHORITY")
+xauth -q -f "$XAUTHORITY" add ":$display" . "$(mcookie)"
+
+exec xinit "$0" --client "$@" -- /usr/bin/Xorg ":$display" "vt${XDG_VTNR:-2}" \
+    -keeptty -nolisten tcp -noreset -auth "$XAUTHORITY"

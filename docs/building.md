@@ -80,7 +80,8 @@ while; later builds reuse it.
 | `STAGE`, `COMPONENTS` | `out/stage`, all | `desktop` |
 | `SCENARIOS` | all | `e2e` |
 | `CONFIG`, `REPOS` | the profile's | another `profile.conf` or `repos.d` for `iso` and `image` |
-| `KERNEL`, `BUILD` | in `build-kernel.sh` | `kernel`: another AlmaLinux kernel, or Bayu's build number of it |
+| `KERNEL`, `BUILD` | in `build-kernel.sh` | `kernel`: another Fedora kernel (Koji), or Bayu's build number of it |
+| `WL_BUILD` | in `build-wl.sh` | `kernel`: Bayu's build number of akmod-wl |
 | `ALMA_MIRROR`, `EPEL_MIRROR` | | `rpm`: mirrors for the build container |
 | `BAYU_REPO_GPG_KEY` | | `sign` |
 
@@ -90,7 +91,9 @@ environment; the scripts read the same names.
 ## Changing the kernel
 
 - A config option: add it to `packaging/kernel/kernel-local`, which the
-  kernel spec merges over AlmaLinux's config.
+  kernel spec merges over Fedora's config. The spec checks every
+  architecture's config: an option that brings new ones needs them set
+  too (`# CONFIG_X is not set`), or the build stops at %prep.
 - A source change: `packaging/kernel/cs8409-macbookpro.patch` is applied by
   the kernel spec as `linux-kernel-test.patch`; changes go into it, as one
   patch with `a/` and `b/` paths from the kernel tree.
@@ -99,11 +102,18 @@ environment; the scripts read the same names.
 - Add a check for it to `packaging/kernel/test-kernel.sh`, then
   `make kernel kernel-test`.
 - `make kernel` writes the build's whole config to
-  `packaging/kernel/config-x86_64`; commit it with the change, so the
-  difference to the last kernel shows in the diff.
+  `packaging/kernel/config-x86_64`, and its driver database to
+  `packaging/kernel/drivers.db` (`driver-db.sh`: the firmware each module
+  loads and its package, the modules outside `kernel-modules`, and the
+  proprietary drivers of `proprietary-drivers`, as NVIDIA's), which Settings >
+  Drivers & Hardware reads; commit both with the change, so the difference to
+  the last kernel shows in the diff.
 
-A workflow opens a pull request when AlmaLinux publishes a newer kernel,
-after building and testing it.
+The kernel is Fedora's (its source RPM from Koji), built for EL10 with the
+Fedora config (issue #133). A workflow opens a pull request when Fedora 44
+publishes a newer kernel, after building and testing it. A change to
+`packaging/wl`'s patches raises `WL_BUILD` in `build-wl.sh`, so installed
+systems get the new akmod-wl.
 
 ## Releases
 

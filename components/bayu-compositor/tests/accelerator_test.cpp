@@ -19,6 +19,7 @@
 
 #include "base/geometry.h"
 #include "accelerators/accelerator.h"
+#include "accelerators/accelerator_commands.h"
 #include "accelerators/accelerator_configuration.h"
 #include "accelerators/accelerator_controller.h"
 #include "accelerators/accelerator_delegate.h"
@@ -257,6 +258,20 @@ base::json::Value parse(const std::string &json)
 ////////////////////////////////////////////////////////////////////////////////
 // Accelerator and AcceleratorMap
 
+// Shift+Meta+Left/Right (issue #141): the display beside the window's, the
+// nearest on that side, none past the last.
+TEST(AcceleratorCommands, DisplayTowardPicksTheNearestOnThatSide)
+{
+    using bayu::accelerators::commands::displayToward;
+    const std::vector<bayu::base::Rect> displays = {{0, 0, 1920, 1080}, {1920, 0, 1280, 1024}, {-1280, 0, 1280, 800}};
+    EXPECT_EQ(displayToward(displays, displays[0], false), 1);
+    EXPECT_EQ(displayToward(displays, displays[0], true), 2);
+    EXPECT_EQ(displayToward(displays, displays[1], true), 0);
+    EXPECT_EQ(displayToward(displays, displays[1], false), -1);
+    EXPECT_EQ(displayToward(displays, displays[2], true), -1);
+    EXPECT_EQ(displayToward({displays[0]}, displays[0], false), -1);
+}
+
 TEST(Accelerator, IdentityIgnoresTheEvdevCodeAndTextNamesTheKey)
 {
     const Accelerator a(XKB_KEY_q, KEY_Q, ControlDown | ShiftDown, Accelerator::KeyState::Pressed);
@@ -394,26 +409,27 @@ TEST(AcceleratorConfiguration, AddRemoveReplaceAndRestore)
     int updates = 0;
     auto counted = configuration.acceleratorsUpdated.connect([&updates] { ++updates; });
 
-    const auto maximize = toActionId(AcceleratorAction::ToggleMaximized);
-    const auto minimize = toActionId(AcceleratorAction::WindowMinimize);
+    const auto maximize = toActionId(AcceleratorAction::WindowSnapUp);
+    const auto minimize = toActionId(AcceleratorAction::WindowSnapDown);
     const Accelerator metaUp(XKB_KEY_Up, MetaDown);
     const Accelerator metaDown(XKB_KEY_Down, MetaDown);
     const Accelerator custom(XKB_KEY_k, MetaDown | ControlDown);
 
     ASSERT_TRUE(configuration.findAcceleratorAction(metaUp));
-    EXPECT_EQ(AcceleratorAction::ToggleMaximized, *configuration.findAcceleratorAction(metaUp));
+    EXPECT_EQ(AcceleratorAction::WindowSnapUp, *configuration.findAcceleratorAction(metaUp));
     EXPECT_FALSE(configuration.hasCustomAccelerators());
 
     EXPECT_EQ(AcceleratorConfigResult::Success, configuration.addUserAccelerator(maximize, custom));
-    EXPECT_EQ(AcceleratorAction::ToggleMaximized, *configuration.findAcceleratorAction(custom));
+    EXPECT_EQ(AcceleratorAction::WindowSnapUp, *configuration.findAcceleratorAction(custom));
     EXPECT_TRUE(configuration.hasCustomAccelerators());
     EXPECT_EQ(1, updates);
 
     // Giving another action's default to this one takes it away from there.
     EXPECT_EQ(AcceleratorConfigResult::Success,
               configuration.addUserAccelerator(maximize, metaDown));
-    EXPECT_EQ(AcceleratorAction::ToggleMaximized, *configuration.findAcceleratorAction(metaDown));
-    EXPECT_EQ(1u, configuration.acceleratorsForAction(minimize)->size());
+    EXPECT_EQ(AcceleratorAction::WindowSnapUp, *configuration.findAcceleratorAction(metaDown));
+    // Meta+Down was its only default (#149).
+    EXPECT_TRUE(configuration.acceleratorsForAction(minimize).value_or(std::vector<Accelerator>{}).empty());
 
     EXPECT_EQ(AcceleratorConfigResult::Success,
               configuration.replaceAccelerator(maximize, custom,
@@ -433,8 +449,8 @@ TEST(AcceleratorConfiguration, AddRemoveReplaceAndRestore)
     // Restoring maximize gives the taken default back to minimize, which is
     // what the override file, with no entry left for either, now describes.
     EXPECT_EQ(AcceleratorConfigResult::Success, configuration.restoreDefault(maximize));
-    EXPECT_EQ(AcceleratorAction::ToggleMaximized, *configuration.findAcceleratorAction(metaUp));
-    EXPECT_EQ(AcceleratorAction::WindowMinimize, *configuration.findAcceleratorAction(metaDown));
+    EXPECT_EQ(AcceleratorAction::WindowSnapUp, *configuration.findAcceleratorAction(metaUp));
+    EXPECT_EQ(AcceleratorAction::WindowSnapDown, *configuration.findAcceleratorAction(metaDown));
     EXPECT_FALSE(configuration.hasCustomAccelerators());
 
     // Removing a taken default from its new owner does the same, unless the
@@ -443,7 +459,7 @@ TEST(AcceleratorConfiguration, AddRemoveReplaceAndRestore)
               configuration.addUserAccelerator(maximize, metaDown));
     EXPECT_EQ(AcceleratorConfigResult::Success,
               configuration.removeAccelerator(maximize, metaDown));
-    EXPECT_EQ(AcceleratorAction::WindowMinimize, *configuration.findAcceleratorAction(metaDown));
+    EXPECT_EQ(AcceleratorAction::WindowSnapDown, *configuration.findAcceleratorAction(metaDown));
     EXPECT_FALSE(configuration.hasCustomAccelerators());
     EXPECT_EQ(AcceleratorConfigResult::Success,
               configuration.removeAccelerator(minimize, metaDown));
@@ -453,7 +469,7 @@ TEST(AcceleratorConfiguration, AddRemoveReplaceAndRestore)
               configuration.removeAccelerator(maximize, metaDown));
     EXPECT_FALSE(configuration.findAcceleratorAction(metaDown));
     EXPECT_EQ(AcceleratorConfigResult::Success, configuration.restoreAllDefaults());
-    EXPECT_EQ(AcceleratorAction::WindowMinimize, *configuration.findAcceleratorAction(metaDown));
+    EXPECT_EQ(AcceleratorAction::WindowSnapDown, *configuration.findAcceleratorAction(metaDown));
     EXPECT_FALSE(configuration.hasCustomAccelerators());
     EXPECT_EQ(configuration.defaultAcceleratorsForId(maximize),
               *configuration.acceleratorsForAction(maximize));
@@ -1732,18 +1748,25 @@ TEST_F(AcceleratorTest, ServiceValidatesConfirmsAndReportsConflicts)
               parse(service.addAccelerator("no-such", KEY_K, 0, MetaDown))
                       ["result"].toString());
 
-    // Meta+Down belongs to minimize: the first request asks, the second takes.
+    // Meta+Down belongs to snapping down (#149): the first request asks, the
+    // second takes.
     base::json::Value answer = parse(service.addAccelerator(maximize, KEY_DOWN, 0, MetaDown));
     EXPECT_EQ("conflict-can-override", answer["result"].toString());
-    EXPECT_EQ("window-minimize", answer["conflictAction"].toString());
+    EXPECT_EQ("window-snap-down", answer["conflictAction"].toString());
     answer = parse(service.addAccelerator(maximize, KEY_DOWN, 0, MetaDown));
     EXPECT_EQ("success", answer["result"].toString());
     EXPECT_EQ(AcceleratorAction::ToggleMaximized,
               *configuration->findAcceleratorAction(Accelerator(XKB_KEY_Down, MetaDown)));
 
     // Already this action's own: a plain conflict.
-    answer = parse(service.addAccelerator(maximize, KEY_UP, 0, MetaDown));
+    answer = parse(service.addAccelerator(maximize, KEY_EQUAL, 0, AltDown));
     EXPECT_EQ("conflict", answer["result"].toString());
+
+    // Meta+Up, snapping up's now, taken as Meta+Down was.
+    answer = parse(service.addAccelerator(maximize, KEY_UP, 0, MetaDown));
+    EXPECT_EQ("conflict-can-override", answer["result"].toString());
+    answer = parse(service.addAccelerator(maximize, KEY_UP, 0, MetaDown));
+    EXPECT_EQ("success", answer["result"].toString());
 
     // Without Meta the first request only warns; the second goes through.
     answer = parse(service.addAccelerator(maximize, KEY_K, 0, ControlDown | AltDown));
@@ -1894,7 +1917,7 @@ TEST_F(AcceleratorTest, ServiceListsActionsWithTheirDefaultsOverTheBus)
     const auto reply = proxy.call("accelerators");
     ASSERT_FALSE(reply.isError()) << reply.error().message;
     const base::json::Value actions = parse(reply.value<std::string>().value_or(""))["actions"];
-    EXPECT_EQ(46u, actions.size());
+    EXPECT_EQ(58u, actions.size());
     bool sawMaximize = false;
     bool sawOverview = false;
     for (const base::json::Value &action : actions.toArray()) {
@@ -1917,12 +1940,13 @@ TEST_F(AcceleratorTest, ServiceListsActionsWithTheirDefaultsOverTheBus)
             EXPECT_EQ("released", tap["keyState"].toString());
             continue;
         }
-        if (action["name"].toString() != "toggle-maximized")
+        // Meta+Up snaps up now (#149), its one default.
+        if (action["name"].toString() != "window-snap-up")
             continue;
         sawMaximize = true;
         const base::json::Value &accelerators = action["accelerators"];
-        ASSERT_EQ(2u, accelerators.size());
-        const base::json::Value &metaUp = accelerators[1];
+        ASSERT_EQ(1u, accelerators.size());
+        const base::json::Value &metaUp = accelerators[0];
         EXPECT_EQ("Up", metaUp["keyName"].toString());
         EXPECT_EQ(static_cast<int>(MetaDown), metaUp["modifiers"].toInt());
         EXPECT_EQ("default", metaUp["type"].toString());

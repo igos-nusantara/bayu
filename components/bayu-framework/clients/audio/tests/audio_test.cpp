@@ -399,6 +399,11 @@ TEST_F(AudioTest, HardwareRoutes)
     ASSERT_TRUE(until([&] { return card->activeProfileIndex() == 1; }));
     EXPECT_TRUE(device.saved);
 
+    // The route's volume, set before the node appears, is the node's: its
+    // own Props say 1.0 (#131).
+    device.volumes[0] = 0.064f;
+    device.volumes[1] = 0.064f;
+    device.notify();
     const std::string cardId = std::to_string(card->index());
     auto* properties = pw_properties_new("factory.name", "support.null-audio-sink", PW_KEY_NODE_NAME, "test-card-output",
                                          PW_KEY_MEDIA_CLASS, "Audio/Sink", PW_KEY_DEVICE_ID, cardId.c_str(),
@@ -410,6 +415,9 @@ TEST_F(AudioTest, HardwareRoutes)
     ASSERT_TRUE(until([] { return find("test-card-output") != nullptr; }));
     const auto sink = find("test-card-output");
     ASSERT_TRUE(until([&] { return sink->volumeWritable(); }));
+    ASSERT_TRUE(until([&] { return sink->hasVolume(); }));
+    wait(*loop, 30ms);
+    EXPECT_NEAR(sink->volume(), 0.4, 1e-3);
     ASSERT_TRUE(until([&] { return sink->ports().size() == 2; }));
     sink->setActivePortIndex(1);
     ASSERT_TRUE(until([&] { return device.route == 10; }));

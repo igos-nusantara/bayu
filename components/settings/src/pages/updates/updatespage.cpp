@@ -146,7 +146,9 @@ private:
             m_done = m_transaction->finished.connect([this](bool, const std::string&) {
                 post([this] { list(false); });
             });
-            m_transaction->refreshCache(false);
+            // Asked for: every repository read again, as dnf check-update does,
+            // not the metadata PackageKit still thinks fresh (issue #123).
+            m_transaction->refreshCache(false, true);
             return;
         }
         m_done = m_transaction->finished.connect([this](bool success, const std::string& error) {

@@ -24,6 +24,7 @@
 #include "wm/overview/overview_controller.h"
 #include "wm/show_desktop_controller.h"
 #include "wm/toplevel_event_handler.h"
+#include "wm/tiling_controller.h"
 #include "wm/window.h"
 #include "wm/window_cycle_controller.h"
 #include "wm/window_manager.h"
@@ -139,17 +140,97 @@ void toggleFullscreen(const CommandContext &context)
     }
 }
 
+bool canTile(const CommandContext &context)
+{
+    const wm::Window *window = targetWindow(context);
+    wm::TilingController *tiling = context.windowManager->tiling();
+    return window && tiling && tiling->isActiveDeskTiled();
+}
+
+void tilingToggle(const CommandContext &context)
+{
+    if (wm::TilingController *tiling = context.windowManager->tiling())
+        tiling->toggleActiveDesk();
+}
+
+void tilingToggleFloating(const CommandContext &context)
+{
+    if (wm::Window *window = targetWindow(context))
+        context.windowManager->tiling()->toggleFloating(window);
+}
+
+void tilingMove(const CommandContext &context, AcceleratorAction action)
+{
+    wm::Window *window = targetWindow(context);
+    if (!window)
+        return;
+    using Direction = wm::TilingController::Direction;
+    wm::TilingController *tiling = context.windowManager->tiling();
+    switch (action) {
+    // Nothing to swap with that way, or not tiled: the display on that side.
+    case AcceleratorAction::TilingSwapLeft:
+        if (!canTile(context) || !tiling->swap(window, Direction::Left))
+            moveActiveWindowToDisplay(context, true);
+        break;
+    case AcceleratorAction::TilingSwapRight:
+        if (!canTile(context) || !tiling->swap(window, Direction::Right))
+            moveActiveWindowToDisplay(context, false);
+        break;
+    case AcceleratorAction::TilingSwapUp:
+        tiling->swap(window, Direction::Up);
+        break;
+    case AcceleratorAction::TilingSwapDown:
+        tiling->swap(window, Direction::Down);
+        break;
+    case AcceleratorAction::TilingResizeLeft:
+        tiling->resize(window, Direction::Left);
+        break;
+    case AcceleratorAction::TilingResizeRight:
+        tiling->resize(window, Direction::Right);
+        break;
+    case AcceleratorAction::TilingResizeUp:
+        tiling->resize(window, Direction::Up);
+        break;
+    case AcceleratorAction::TilingResizeDown:
+        tiling->resize(window, Direction::Down);
+        break;
+    default:
+        break;
+    }
+}
+
 void windowSnap(const CommandContext &context, AcceleratorAction action)
 {
     wm::Window *window = targetWindow(context);
     if (!window)
         return;
+    // On a tiled desk the arrows move the focus between the tiles.
+    if (window->isTiled()) {
+        context.windowManager->tiling()->focus(window,
+                                               action == AcceleratorAction::WindowCycleSnapLeft
+                                                       ? wm::TilingController::Direction::Left
+                                                       : wm::TilingController::Direction::Right);
+        return;
+    }
     // ash::BaseState::CycleSnap: snap unless already snapped to that side, in
     // which case restore. Rotated displays are not distinguished; Bayu
-    // snaps in logical coordinates.
-    const wm::WindowStateType desired = action == AcceleratorAction::WindowCycleSnapLeft
-            ? wm::WindowStateType::PrimarySnapped
-            : wm::WindowStateType::SecondarySnapped;
+    // snaps in logical coordinates. A quarter moves across, to the same row
+    // on the other side (#149).
+    const bool left = action == AcceleratorAction::WindowCycleSnapLeft;
+    switch (window->stateType()) {
+    case wm::WindowStateType::TopLeftSnapped:
+    case wm::WindowStateType::TopRightSnapped:
+        window->snap(left ? wm::SnapType::TopLeft : wm::SnapType::TopRight);
+        return;
+    case wm::WindowStateType::BottomLeftSnapped:
+    case wm::WindowStateType::BottomRightSnapped:
+        window->snap(left ? wm::SnapType::BottomLeft : wm::SnapType::BottomRight);
+        return;
+    default:
+        break;
+    }
+    const wm::WindowStateType desired = left ? wm::WindowStateType::PrimarySnapped
+                                             : wm::WindowStateType::SecondarySnapped;
     if (window->isResizable() && window->stateType() != desired) {
         if (desired == wm::WindowStateType::PrimarySnapped)
             window->snapPrimary();
@@ -159,6 +240,59 @@ void windowSnap(const CommandContext &context, AcceleratorAction action)
     }
     if (window->state()->isSnapped())
         window->restore();
+}
+
+void windowSnapVertical(const CommandContext &context, bool up)
+{
+    wm::Window *window = targetWindow(context);
+    if (!window)
+        return;
+    if (window->isTiled()) {
+        context.windowManager->tiling()->focus(window, up ? wm::TilingController::Direction::Up
+                                                          : wm::TilingController::Direction::Down);
+        return;
+    }
+    using wm::SnapType;
+    using wm::WindowStateType;
+    SnapType target = SnapType::None;
+    switch (window->stateType()) {
+    case WindowStateType::PrimarySnapped:
+        target = up ? SnapType::TopLeft : SnapType::BottomLeft;
+        break;
+    case WindowStateType::SecondarySnapped:
+        target = up ? SnapType::TopRight : SnapType::BottomRight;
+        break;
+    // A quarter goes back to its half the other way, and on past the edge as
+    // an unsnapped window would.
+    case WindowStateType::TopLeftSnapped:
+        target = up ? SnapType::Maximize : SnapType::Primary;
+        break;
+    case WindowStateType::TopRightSnapped:
+        target = up ? SnapType::Maximize : SnapType::Secondary;
+        break;
+    case WindowStateType::BottomLeftSnapped:
+        if (!up) {
+            window->minimize();
+            return;
+        }
+        target = SnapType::Primary;
+        break;
+    case WindowStateType::BottomRightSnapped:
+        if (!up) {
+            window->minimize();
+            return;
+        }
+        target = SnapType::Secondary;
+        break;
+    default:
+        if (up)
+            toggleMaximized(context);
+        else
+            windowMinimize(context);
+        return;
+    }
+    if (target == SnapType::Maximize ? window->isResizable() : window->state()->canSnap(target))
+        window->snap(target);
 }
 
 void closeWindow(const CommandContext &context)
@@ -177,29 +311,12 @@ void toggleShowDesktop(const CommandContext &context)
     context.windowManager->showDesktop()->toggle();
 }
 
-void moveActiveWindowBetweenDisplays(const CommandContext &context)
+// ash::display_move_window_util: the window goes to the display, keeping its
+// position relative to the display's origin, then is fitted into that
+// display's work area.
+static void moveWindowToDisplay(const CommandContext &context, wm::Window *window, const base::Rect &current,
+                                const display::LogicalDisplay &target)
 {
-    wm::Window *window = targetWindow(context);
-    display::DisplayManager *displays = context.windowManager->displayManager();
-    if (!window || !displays || !displays->applied())
-        return;
-    const std::vector<display::LogicalDisplay> &logical = displays->applied()->logicalDisplays;
-    if (logical.size() < 2)
-        return;
-
-    // ash::display_move_window_util: the window goes to the next display in
-    // the list, keeping its position relative to the display's origin, then
-    // is fitted into that display's work area.
-    const base::Rect current = context.windowManager->outputBoundsFor(window);
-    int index = 0;
-    for (int i = 0; i < logical.size(); ++i) {
-        if (logical[i].bounds == current) {
-            index = i;
-            break;
-        }
-    }
-    const display::LogicalDisplay &target = logical[(index + 1) % logical.size()];
-
     const base::Rect targetBounds = target.bounds;
     const base::Rect workArea = context.windowManager->workAreaForOutput(targetBounds);
     base::Rect bounds = window->bounds();
@@ -220,6 +337,59 @@ void moveActiveWindowBetweenDisplays(const CommandContext &context)
         window->requestBounds(bounds);
     else
         window->state()->onEvent(wm::WMEvent(wm::WMEventType::WorkAreaChanged));
+}
+
+void moveActiveWindowBetweenDisplays(const CommandContext &context)
+{
+    wm::Window *window = targetWindow(context);
+    display::DisplayManager *displays = context.windowManager->displayManager();
+    if (!window || !displays || !displays->applied())
+        return;
+    const std::vector<display::LogicalDisplay> &logical = displays->applied()->logicalDisplays;
+    if (logical.size() < 2)
+        return;
+
+    // The next display in the list.
+    const base::Rect current = context.windowManager->outputBoundsFor(window);
+    int index = 0;
+    for (int i = 0; i < logical.size(); ++i) {
+        if (logical[i].bounds == current) {
+            index = i;
+            break;
+        }
+    }
+    moveWindowToDisplay(context, window, current, logical[(index + 1) % logical.size()]);
+}
+
+int displayToward(const std::vector<base::Rect> &displays, const base::Rect &current, bool toLeft)
+{
+    const int centre = current.x() + current.width() / 2;
+    int best = -1;
+    int bestDistance = 0;
+    for (int i = 0; i < int(displays.size()); ++i) {
+        const int distance = toLeft ? centre - (displays[i].x() + displays[i].width() / 2)
+                                    : displays[i].x() + displays[i].width() / 2 - centre;
+        if (distance > 0 && (best < 0 || distance < bestDistance)) {
+            best = i;
+            bestDistance = distance;
+        }
+    }
+    return best;
+}
+
+void moveActiveWindowToDisplay(const CommandContext &context, bool toLeft)
+{
+    wm::Window *window = targetWindow(context);
+    display::DisplayManager *displays = context.windowManager->displayManager();
+    if (!window || !displays || !displays->applied())
+        return;
+    const std::vector<display::LogicalDisplay> &logical = displays->applied()->logicalDisplays;
+    std::vector<base::Rect> bounds;
+    for (const display::LogicalDisplay &display : logical)
+        bounds.push_back(display.bounds);
+    const base::Rect current = context.windowManager->outputBoundsFor(window);
+    if (const int index = displayToward(bounds, current, toLeft); index >= 0)
+        moveWindowToDisplay(context, window, current, logical[size_t(index)]);
 }
 
 void lockScreen(const CommandContext &context)

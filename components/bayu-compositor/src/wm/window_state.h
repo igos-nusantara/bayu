@@ -18,6 +18,7 @@
 
 #include "base/geometry.h"
 #include "wm/types.h"
+#include "wm/window_snap.h"
 
 namespace bayu::scene {
 class WindowAnimation;
@@ -47,10 +48,10 @@ public:
 
     bool isSnapped() const { return isSnappedStateType(m_type); }
 
-    // Whether this window could take a snapped state at all: a window that is
-    // not resizable, or whose minimum size does not fit in half the work area,
-    // cannot.
-    bool canSnap() const;
+    // Whether this window could take that snap: a window that is not
+    // resizable, or whose minimum size does not fit in half the work area (in
+    // a quarter, for a corner), cannot.
+    bool canSnap(SnapType type = SnapType::Primary) const;
 
     // The single entry point for state change.
     void onEvent(const WMEvent& event);

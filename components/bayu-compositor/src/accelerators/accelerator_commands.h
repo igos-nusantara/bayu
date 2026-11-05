@@ -12,7 +12,10 @@
 #ifndef BAYU_ACCELERATORS_ACCELERATOR_COMMANDS_H_
 #define BAYU_ACCELERATORS_ACCELERATOR_COMMANDS_H_
 
+#include <vector>
+
 #include "accelerators/accelerator_actions.h"
+#include "base/geometry.h"
 
 namespace bayu::session {
 class ScreenSaverService;
@@ -46,6 +49,8 @@ wm::Window *targetWindow(const CommandContext &context);
 bool canCycleMru(const CommandContext &context);
 bool canLock(const CommandContext &context);
 bool canWindowSnap(const CommandContext &context);
+// A window to tile, float or move in its tiles.
+bool canTile(const CommandContext &context);
 bool canMoveActiveWindowBetweenDisplays(const CommandContext &context);
 bool canCloseWindow(const CommandContext &context);
 bool canToggleOverview(const CommandContext &context);
@@ -64,8 +69,21 @@ void hideOtherApplications(const CommandContext &context);
 void toggleFullscreen(const CommandContext &context);
 // Snaps to the requested side, or restores when already snapped there.
 void windowSnap(const CommandContext &context, AcceleratorAction action);
+// A snapped half to its top or bottom quarter and a quarter back to its half;
+// any other window maximizes (up) or minimizes (down).
+// Auto-tiling (#149): the active desk's tiling, the active window floating,
+// and its place in the tiles.
+void tilingToggle(const CommandContext &context);
+void tilingToggleFloating(const CommandContext &context);
+void tilingMove(const CommandContext &context, AcceleratorAction action);
+void windowSnapVertical(const CommandContext &context, bool up);
 void closeWindow(const CommandContext &context);
 void moveActiveWindowBetweenDisplays(const CommandContext &context);
+// Shift+Meta+Left/Right (issue #141): the active window to the display on
+// that side, when its tiles have nothing to swap with that way.
+void moveActiveWindowToDisplay(const CommandContext &context, bool toLeft);
+// The display beside `current` on that side, the nearest by centre, or -1.
+int displayToward(const std::vector<base::Rect> &displays, const base::Rect &current, bool toLeft);
 void toggleOverview(const CommandContext &context);
 // Slides the application windows aside to show the desktop, or back.
 void toggleShowDesktop(const CommandContext &context);

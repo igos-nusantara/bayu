@@ -236,6 +236,22 @@ TEST_F(DisplayManagerTest, EarlierDirectoriesWinAndIdsNameFilesOnly)
     EXPECT_FALSE(dm::findSession(directories, ""));
 }
 
+// xsessions entries are X11 sessions, offered only where Xorg and xinit are.
+TEST_F(DisplayManagerTest, XSessionsNeedAnXServer)
+{
+    const std::string xsessions = directory.path() + "/xsessions";
+    ASSERT_EQ(mkdir(xsessions.c_str(), 0755), 0);
+    writeFile(xsessions + "/icewm-session.desktop", "[Desktop Entry]\nName=IceWM Session\nExec=/usr/bin/icewm-session\n");
+
+    EXPECT_TRUE(dm::findSessions({xsessions}, false).empty());
+    const auto sessions = dm::findSessions({xsessions}, true);
+    ASSERT_EQ(sessions.size(), 1u);
+    EXPECT_TRUE(sessions.front().x11);
+    EXPECT_EQ(sessions.front().name, "IceWM Session (X11)");
+    const auto environment = dm::sessionEnvironment(sessions.front(), 2);
+    EXPECT_NE(std::find(environment.begin(), environment.end(), "XDG_SESSION_TYPE=x11"), environment.end());
+}
+
 TEST(SessionTest, EnvironmentsCarryWhatPamSystemdReads)
 {
     const auto contains = [](const std::vector<std::string> &list, const std::string &value) {
@@ -743,6 +759,40 @@ TEST_F(DaemonTest, AutologinStartsTheSessionOncePerBoot)
     restart();
     runFor(1s);
     EXPECT_FALSE(loggedIn());
+}
+
+namespace dm {
+std::vector<std::string> &terminalCalls();
+}
+
+// Another desktop's session is switched to as it starts: cosmic-comp finds no
+// output on a seat that is not active. Bayu's is switched to once it has taken
+// its VT, the login screen staying until then.
+TEST_F(DaemonTest, OtherDesktopsAreSwitchedToBeforeTheyTakeTheirVt)
+{
+    writeFile(directory.path() + "/cosmic.desktop", "[Desktop Entry]\nName=COSMIC\nExec=/bin/sh\n");
+    writeFile(directory.path() + "/bayu-wayland.desktop", "[Desktop Entry]\nName=Bayu\nExec=/bin/sh\n");
+    for (const std::string session : {"cosmic", "bayu-wayland"}) {
+        config.autologinUser = "alice";
+        config.autologinSession = session;
+        std::filesystem::remove_all(config.runtimeDirectory);
+        std::filesystem::remove(config.statePath);
+        dm::terminalCalls().clear();
+        restart();
+        const auto loggedIn = [&] {
+            return base::file::read(config.statePath).value_or("").find("alice=" + session) != std::string::npos;
+        };
+        ASSERT_TRUE(runUntil(loggedIn));
+        runFor(300ms);
+        const auto &calls = dm::terminalCalls();
+        const auto activate = std::find(calls.begin(), calls.end(), "activate");
+        ASSERT_NE(activate, calls.end()) << session;
+        const auto controlled = std::find(calls.begin(), calls.end(), "controlled");
+        if (session == "cosmic")
+            EXPECT_LT(activate - calls.begin(), controlled - calls.begin()) << session;
+        else
+            EXPECT_LT(controlled - calls.begin(), activate - calls.begin()) << session;
+    }
 }
 
 TEST_F(DaemonTest, AutologinToAMissingSessionLeavesTheLoginScreen)

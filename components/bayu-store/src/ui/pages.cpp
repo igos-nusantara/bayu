@@ -9,6 +9,7 @@
 
 #include "base/event_loop.h"
 #include "base/i18n.h"
+#include "android_setup.h"
 #include "catalog.h"
 #include "ui/clipboard.h"
 #include "ui/icon.h"
@@ -719,7 +720,7 @@ public:
         }
 
         std::vector<StatStrip::Stat> stats;
-        stats.push_back({sourceName(app.source), sourceGlyph(app.source),
+        stats.push_back({sourceName(app), sourceGlyph(app.source),
                          app.verified ? tr("verified publisher") : app.source == Source::FDroid ? tr("free software")
                                                                                                  : tr("community")});
         stats.push_back({app.license.empty() ? tr("Unknown") : app.license, "scale",
@@ -817,7 +818,7 @@ public:
         source->addChild<SourceTile>(app.source);
         Column* sourceText = source->addChild<Column>();
         sourceText->setLayoutHints({.fillWidth = true});
-        addText(sourceText, sourceName(app.source), 16, 600);
+        addText(sourceText, sourceName(app), 16, 600);
         addText(sourceText, app.id, 14, 400, Role::SecondaryText);
         if (app.permissions.empty())
             addText(permissions, tr("Asks for no special access."), 15, 400, Role::SecondaryText);
@@ -1481,33 +1482,7 @@ private:
         if (setup.busy()) {
             glyph = setup.stage == AndroidSetup::Stage::Downloading ? "download" : "smartphone";
             color = Role::SecondaryText;
-            switch (setup.stage) {
-            case AndroidSetup::Stage::Authorizing:
-                title = tr("Waiting for your password");
-                detail = tr("Setting Android up needs administrator rights, once.");
-                break;
-            case AndroidSetup::Stage::Downloading:
-                title = setup.image == "vendor" ? tr("Downloading Android's vendor image")
-                                                : tr("Downloading Android");
-                detail = setup.bytesTotal ? format(tr("{done} of {total}"), {{"done", style::formatSize(setup.bytesDone)},
-                                                                              {"total", style::formatSize(setup.bytesTotal)}})
-                                          : style::formatSize(setup.bytesDone);
-                if (setup.progress >= 0)
-                    detail += " · " + std::to_string(int(setup.progress * 100)) + "%";
-                break;
-            case AndroidSetup::Stage::Extracting:
-                title = tr("Unpacking Android");
-                detail = tr("Almost there.");
-                break;
-            case AndroidSetup::Stage::Starting:
-                title = tr("Starting Android");
-                detail = tr("The first start takes a minute or two.");
-                break;
-            default:
-                title = tr("Getting Android ready");
-                detail = tr("Android is downloaded once, about 1.3 GB. You can keep using the store meanwhile.");
-                break;
-            }
+            describeSetup(setup, &title, &detail);
         } else if (setup.stage == AndroidSetup::Stage::Failed) {
             glyph = "alert";
             color = Role::Danger;

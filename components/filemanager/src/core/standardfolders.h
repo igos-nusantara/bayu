@@ -14,6 +14,14 @@ namespace fm {
 // folders keep their names on disk.
 std::shared_ptr<const std::map<std::string, std::string>> standardFolderNames();
 // The shown names are made again on the next call, in the language of then.
+// Where bayu-admin-mount serves the file system as root for this user.
+std::string administratorRoot();
+// `path` there, or `path` itself when it is there already.
+std::string administratorPath(const std::string& path);
+bool isAdministratorPath(const std::string& path);
+// The path an administrator window shows, outside the mount.
+std::string realPath(const std::string& path);
+
 void forgetStandardFolderNames();
 // Empty for any other path.
 std::string standardFolderName(const std::string& path);

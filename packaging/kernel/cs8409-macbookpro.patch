@@ -2,14 +2,15 @@ Sound of the MacBook Pros of 2016-2017 and iMacs of 2017 (issue #104): their
 Cirrus CS8409 with Apple's amplifiers (SSM3515, MAX98706, TAS5764L), which the
 kernel's snd-hda-codec-cs8409 leaves silent. From snd_hda_macbookpro
 (github.com/davidjo/snd_hda_macbookpro, GPL-2.0, commit 89b22ff): its
-patch_cirrus headers and its cs8409.c/cs8409.h changes, against the AlmaLinux
-6.12.0-211 tree. Two changes of Bayu: the Makefile builds it with the driver's
-APPLE_CODECS flags, and the 6.17 checks are on, as this 6.12 has 6.17's HDA
-codec layout. The kernel spec applies it as linux-kernel-test.patch.
+patch_cirrus headers and its cs8409.c/cs8409.h changes, against Linux
+7.3.1. Two changes of Bayu: the Makefile builds it with the driver's
+APPLE_CODECS flags, and the 6.17 checks are on (EL's 6.12 had 6.17's HDA
+codec layout; 7.x has it anyway). The kernel spec applies it as
+linux-kernel-test.patch.
 
 diff -ruN a/sound/hda/codecs/cirrus/cirrus_apple.h b/sound/hda/codecs/cirrus/cirrus_apple.h
---- a/sound/hda/codecs/cirrus/cirrus_apple.h	1970-01-01 00:00:00.000000000 +0000
-+++ b/sound/hda/codecs/cirrus/cirrus_apple.h	2026-10-30 00:04:52.328293142 +0000
+--- a/sound/hda/codecs/cirrus/cirrus_apple.h	1970-01-01 07:00:00.000000000 +0700
++++ b/sound/hda/codecs/cirrus/cirrus_apple.h	2026-11-01 09:19:07.978796542 +0700
 @@ -0,0 +1,3245 @@
 +//#include <linux/ctype.h>
 +#include <linux/timer.h>
@@ -3257,9 +3258,9 @@ diff -ruN a/sound/hda/codecs/cirrus/cirrus_apple.h b/sound/hda/codecs/cirrus/cir
 +
 +
 diff -ruN a/sound/hda/codecs/cirrus/cs8409.c b/sound/hda/codecs/cirrus/cs8409.c
---- a/sound/hda/codecs/cirrus/cs8409.c	2026-09-16 07:43:48.000000000 +0000
-+++ b/sound/hda/codecs/cirrus/cs8409.c	2026-10-30 00:04:52.342292686 +0000
-@@ -1423,6 +1423,8 @@
+--- a/sound/hda/codecs/cirrus/cs8409.c	2026-11-01 09:19:07.971796568 +0700
++++ b/sound/hda/codecs/cirrus/cs8409.c	2026-11-01 09:19:07.978796542 +0700
+@@ -1584,6 +1584,8 @@
  	}
  }
  
@@ -3268,7 +3269,7 @@ diff -ruN a/sound/hda/codecs/cirrus/cs8409.c b/sound/hda/codecs/cirrus/cs8409.c
  static int cs8409_probe(struct hda_codec *codec, const struct hda_device_id *id)
  {
  	int err;
-@@ -1430,8 +1432,19 @@
+@@ -1591,8 +1593,19 @@
  	if (!cs8409_alloc_spec(codec))
  		return -ENOMEM;
  
@@ -3288,7 +3289,7 @@ diff -ruN a/sound/hda/codecs/cirrus/cs8409.c b/sound/hda/codecs/cirrus/cs8409.c
  	codec_dbg(codec, "Picked ID=%d, VID=%08x, DEV=%08x\n", codec->fixup_id,
  			 codec->bus->pci->subsystem_vendor,
  			 codec->bus->pci->subsystem_device);
-@@ -1459,6 +1472,12 @@
+@@ -1620,6 +1633,12 @@
  	.stream_pm = snd_hda_gen_stream_pm,
  };
  
@@ -3302,11 +3303,11 @@ diff -ruN a/sound/hda/codecs/cirrus/cs8409.c b/sound/hda/codecs/cirrus/cs8409.c
  	HDA_CODEC_ID(0x10138409, "CS8409"),
  	{} /* terminator */
 diff -ruN a/sound/hda/codecs/cirrus/cs8409.h b/sound/hda/codecs/cirrus/cs8409.h
---- a/sound/hda/codecs/cirrus/cs8409.h	2026-09-16 07:43:48.000000000 +0000
-+++ b/sound/hda/codecs/cirrus/cs8409.h	2026-10-30 00:04:52.345292589 +0000
-@@ -19,198 +19,204 @@
- #include "hda_jack.h"
+--- a/sound/hda/codecs/cirrus/cs8409.h	2026-11-01 09:19:07.971796568 +0700
++++ b/sound/hda/codecs/cirrus/cs8409.h	2026-11-01 09:19:07.979796538 +0700
+@@ -20,198 +20,204 @@
  #include "../generic.h"
+ #include "../side-codecs/hda_component.h"
  
 +//#ifdef APPLE_CODECS
 +//#include <linux/ctype.h>
@@ -3695,7 +3696,7 @@ diff -ruN a/sound/hda/codecs/cirrus/cs8409.h b/sound/hda/codecs/cirrus/cs8409.h
  	CS8409_LOOPBACK_CTRL = 0x80,
  	CS8409_PAD_CFG_SLW_RATE_CTRL = 0x82, /* Pad Config and Slew Rate Control (CIR = 0x0082) */
  };
-@@ -299,6 +305,23 @@
+@@ -302,6 +308,23 @@
  	unsigned int coeff;
  };
  
@@ -3719,7 +3720,7 @@ diff -ruN a/sound/hda/codecs/cirrus/cs8409.h b/sound/hda/codecs/cirrus/cs8409.h
  struct sub_codec {
  	struct hda_codec *codec;
  	unsigned int addr;
-@@ -309,6 +332,9 @@
+@@ -312,6 +335,9 @@
  
  	unsigned int hp_jack_in:1;
  	unsigned int mic_jack_in:1;
@@ -3729,9 +3730,9 @@ diff -ruN a/sound/hda/codecs/cirrus/cs8409.h b/sound/hda/codecs/cirrus/cs8409.h
  	unsigned int suspended:1;
  	unsigned int paged:1;
  	unsigned int last_page;
-@@ -342,6 +368,129 @@
- 	unsigned int init_done:1;
+@@ -346,6 +372,129 @@
  	unsigned int build_ctrl_done:1;
+ 	unsigned int speaker_muted:1;
  
 +#ifdef APPLE_CODECS
 +
@@ -3859,9 +3860,24 @@ diff -ruN a/sound/hda/codecs/cirrus/cs8409.h b/sound/hda/codecs/cirrus/cs8409.h
  	/* verb exec op override */
  	int (*exec_verb)(struct hdac_device *dev, unsigned int cmd, unsigned int flags,
  			 unsigned int *res);
+diff -ruN a/sound/hda/codecs/cirrus/Makefile b/sound/hda/codecs/cirrus/Makefile
+--- a/sound/hda/codecs/cirrus/Makefile	2026-11-01 09:19:07.971796568 +0700
++++ b/sound/hda/codecs/cirrus/Makefile	2026-11-01 09:19:07.984796519 +0700
+@@ -5,6 +5,11 @@
+ snd-hda-codec-cs421x-y :=	cs421x.o
+ snd-hda-codec-cs8409-y :=	cs8409.o cs8409-tables.o
+ 
++# Apple's CS8409 code, as snd_hda_macbookpro's Makefile builds it.
++cs8409-apple-flags := -DAPPLE_PINSENSE_FIXUP -DAPPLE_CODECS -Wno-unused-variable -Wno-unused-function
++CFLAGS_cs8409.o += $(cs8409-apple-flags)
++CFLAGS_cs8409-tables.o += $(cs8409-apple-flags)
++
+ obj-$(CONFIG_SND_HDA_CODEC_CS420X) += snd-hda-codec-cs420x.o
+ obj-$(CONFIG_SND_HDA_CODEC_CS421X) += snd-hda-codec-cs421x.o
+ obj-$(CONFIG_SND_HDA_CODEC_CS8409) += snd-hda-codec-cs8409.o
 diff -ruN a/sound/hda/codecs/cirrus/patch_cirrus_boot84.h b/sound/hda/codecs/cirrus/patch_cirrus_boot84.h
---- a/sound/hda/codecs/cirrus/patch_cirrus_boot84.h	1970-01-01 00:00:00.000000000 +0000
-+++ b/sound/hda/codecs/cirrus/patch_cirrus_boot84.h	2026-10-30 00:04:52.331293044 +0000
+--- a/sound/hda/codecs/cirrus/patch_cirrus_boot84.h	1970-01-01 07:00:00.000000000 +0700
++++ b/sound/hda/codecs/cirrus/patch_cirrus_boot84.h	2026-11-01 09:19:07.980796534 +0700
 @@ -0,0 +1,2452 @@
 +
 +static void setup_reset_and_clear(struct hda_codec *codec)
@@ -6316,8 +6332,8 @@ diff -ruN a/sound/hda/codecs/cirrus/patch_cirrus_boot84.h b/sound/hda/codecs/cir
 +
 +
 diff -ruN a/sound/hda/codecs/cirrus/patch_cirrus_hda_generic_copy.h b/sound/hda/codecs/cirrus/patch_cirrus_hda_generic_copy.h
---- a/sound/hda/codecs/cirrus/patch_cirrus_hda_generic_copy.h	1970-01-01 00:00:00.000000000 +0000
-+++ b/sound/hda/codecs/cirrus/patch_cirrus_hda_generic_copy.h	2026-10-30 00:04:52.338292816 +0000
+--- a/sound/hda/codecs/cirrus/patch_cirrus_hda_generic_copy.h	1970-01-01 07:00:00.000000000 +0700
++++ b/sound/hda/codecs/cirrus/patch_cirrus_hda_generic_copy.h	2026-11-01 09:19:07.980796534 +0700
 @@ -0,0 +1,426 @@
 +
 +/* playback mute control with the software mute bit check */
@@ -6746,8 +6762,8 @@ diff -ruN a/sound/hda/codecs/cirrus/patch_cirrus_hda_generic_copy.h b/sound/hda/
 +}
 +
 diff -ruN a/sound/hda/codecs/cirrus/patch_cirrus_new84.h b/sound/hda/codecs/cirrus/patch_cirrus_new84.h
---- a/sound/hda/codecs/cirrus/patch_cirrus_new84.h	1970-01-01 00:00:00.000000000 +0000
-+++ b/sound/hda/codecs/cirrus/patch_cirrus_new84.h	2026-10-30 00:04:52.333292979 +0000
+--- a/sound/hda/codecs/cirrus/patch_cirrus_new84.h	1970-01-01 07:00:00.000000000 +0700
++++ b/sound/hda/codecs/cirrus/patch_cirrus_new84.h	2026-11-01 09:19:07.981796530 +0700
 @@ -0,0 +1,2012 @@
 +
 +
@@ -8762,8 +8778,8 @@ diff -ruN a/sound/hda/codecs/cirrus/patch_cirrus_new84.h b/sound/hda/codecs/cirr
 +}
 +
 diff -ruN a/sound/hda/codecs/cirrus/patch_cirrus_real84.h b/sound/hda/codecs/cirrus/patch_cirrus_real84.h
---- a/sound/hda/codecs/cirrus/patch_cirrus_real84.h	1970-01-01 00:00:00.000000000 +0000
-+++ b/sound/hda/codecs/cirrus/patch_cirrus_real84.h	2026-10-30 00:04:52.336292881 +0000
+--- a/sound/hda/codecs/cirrus/patch_cirrus_real84.h	1970-01-01 07:00:00.000000000 +0700
++++ b/sound/hda/codecs/cirrus/patch_cirrus_real84.h	2026-11-01 09:19:07.983796523 +0700
 @@ -0,0 +1,6200 @@
 +
 +static int tdm_in_use(struct hda_codec *codec, int where_flag)
@@ -14966,8 +14982,8 @@ diff -ruN a/sound/hda/codecs/cirrus/patch_cirrus_real84.h b/sound/hda/codecs/cir
 +}
 +
 diff -ruN a/sound/hda/codecs/cirrus/patch_cirrus_real84_i2c.h b/sound/hda/codecs/cirrus/patch_cirrus_real84_i2c.h
---- a/sound/hda/codecs/cirrus/patch_cirrus_real84_i2c.h	1970-01-01 00:00:00.000000000 +0000
-+++ b/sound/hda/codecs/cirrus/patch_cirrus_real84_i2c.h	2026-10-30 00:04:52.340292751 +0000
+--- a/sound/hda/codecs/cirrus/patch_cirrus_real84_i2c.h	1970-01-01 07:00:00.000000000 +0700
++++ b/sound/hda/codecs/cirrus/patch_cirrus_real84_i2c.h	2026-11-01 09:19:07.984796519 +0700
 @@ -0,0 +1,1960 @@
 +
 +// this contains functions converted to use proper i2c calls
@@ -16929,18 +16945,3 @@ diff -ruN a/sound/hda/codecs/cirrus/patch_cirrus_real84_i2c.h b/sound/hda/codecs
 +		cs_8409_vendor_i2cWrite(codec, 0x90, 0x1d03, 0x0080, 1); // snd_hda
 +}
 +
-diff -ruN a/sound/hda/codecs/cirrus/Makefile b/sound/hda/codecs/cirrus/Makefile
---- a/sound/hda/codecs/cirrus/Makefile
-+++ b/sound/hda/codecs/cirrus/Makefile
-@@ -6,6 +6,11 @@
- snd-hda-codec-cs421x-y :=	cs421x.o
- snd-hda-codec-cs8409-y :=	cs8409.o cs8409-tables.o
- 
-+# Apple's CS8409 code, as snd_hda_macbookpro's Makefile builds it.
-+cs8409-apple-flags := -DAPPLE_PINSENSE_FIXUP -DAPPLE_CODECS -Wno-unused-variable -Wno-unused-function
-+CFLAGS_cs8409.o += $(cs8409-apple-flags)
-+CFLAGS_cs8409-tables.o += $(cs8409-apple-flags)
-+
- obj-$(CONFIG_SND_HDA_CODEC_CS420X) += snd-hda-codec-cs420x.o
- obj-$(CONFIG_SND_HDA_CODEC_CS421X) += snd-hda-codec-cs421x.o
- obj-$(CONFIG_SND_HDA_CODEC_CS8409) += snd-hda-codec-cs8409.o

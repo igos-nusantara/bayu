@@ -527,6 +527,16 @@ void Window::setResizingInternal(bool resizing)
     });
 }
 
+void Window::setTiledInternal(bool tiled)
+{
+    if (tiled == m_tiled)
+        return;
+    m_tiled = tiled;
+    forEachObserver(this, m_observers, [this](WindowObserver *observer) {
+        observer->onWindowTiledChanged(this);
+    });
+}
+
 void Window::setRestoringFromDragInternal(bool restoring)
 {
     if (restoring == m_restoringFromDrag)
@@ -766,6 +776,37 @@ void Window::snapSecondary()
 {
     const WMEvent event(WMEventType::SnapSecondary);
     m_state->onEvent(event);
+}
+
+void Window::snap(SnapType type)
+{
+    WMEventType event = WMEventType::Normal;
+    switch (type) {
+    case SnapType::Primary:
+        event = WMEventType::SnapPrimary;
+        break;
+    case SnapType::Secondary:
+        event = WMEventType::SnapSecondary;
+        break;
+    case SnapType::Maximize:
+        event = WMEventType::Maximize;
+        break;
+    case SnapType::TopLeft:
+        event = WMEventType::SnapTopLeft;
+        break;
+    case SnapType::TopRight:
+        event = WMEventType::SnapTopRight;
+        break;
+    case SnapType::BottomLeft:
+        event = WMEventType::SnapBottomLeft;
+        break;
+    case SnapType::BottomRight:
+        event = WMEventType::SnapBottomRight;
+        break;
+    case SnapType::None:
+        return;
+    }
+    m_state->onEvent(WMEvent(event));
 }
 
 void Window::minimize()

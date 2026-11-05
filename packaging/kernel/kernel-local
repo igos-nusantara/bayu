@@ -1,12 +1,17 @@
-# Bayu additions to the AlmaLinux kernel config, merged by the kernel spec.
+# Bayu additions to Fedora's kernel config, merged by the kernel spec.
 # Binder, for Android containers such as lapis and Waydroid.
 CONFIG_ANDROID_BINDER_IPC=y
 CONFIG_ANDROID_BINDERFS=y
 CONFIG_ANDROID_BINDER_DEVICES=""
+# CONFIG_ANDROID_BINDER_ALLOC_KUNIT_TEST is not set
 # CONFIG_ANDROID_BINDER_IPC_SELFTEST is not set
 # Pressure stall information on by default: Android's lmkd needs
 # /proc/pressure, and the container reboots without it.
 # CONFIG_PSI_DEFAULT_DISABLED is not set
+# The modprobe the kernel loads modules with (file systems, network
+# protocols, crypto): Fedora's config has /usr/bin/modprobe, EL10 has it in
+# /usr/sbin.
+CONFIG_MODPROBE_PATH="/usr/sbin/modprobe"
 # Wi-Fi that AlmaLinux leaves out though its kernel carries the drivers
 # (issue #73): the common Realtek, MediaTek, Ralink and Atheros USB adapters,
 # and a few Realtek PCIe and SDIO cards. Modules, loaded for their hardware only.
@@ -40,3 +45,50 @@ CONFIG_ATH10K_USB=m
 # The keyboard and touchpad of the MacBooks and MacBook Pros of 2015-2017,
 # on SPI (issue #104): AlmaLinux leaves applespi out.
 CONFIG_KEYBOARD_APPLESPI=m
+
+# What AlmaLinux's 6.12 build had and Fedora's config leaves out (issue
+# #133), and the options they bring, off. Not its server policies (panic on
+# oops, the performance governor, -Werror, kgdb, FIPS self-tests).
+CONFIG_ANDROID_BINDERFS=y
+CONFIG_ANDROID_BINDER_DEVICES=""
+# CONFIG_ANDROID_BINDER_ALLOC_KUNIT_TEST is not set
+CONFIG_ANDROID_BINDER_IPC=y
+CONFIG_ATH9K_WOW=y
+CONFIG_BE2NET_HWMON=y
+CONFIG_CEPH_LIB_USE_DNS_RESOLVER=y
+CONFIG_CIFS_SMB_DIRECT=y
+CONFIG_DP83TC811_PHY=m
+CONFIG_HDLC=m
+CONFIG_HDLC_CISCO=m
+CONFIG_HDLC_FR=m
+CONFIG_HDLC_PPP=m
+CONFIG_HDLC_RAW=m
+CONFIG_HID_SENSOR_CUSTOM_SENSOR=m
+CONFIG_HID_SENSOR_PRESS=m
+CONFIG_HINIC=m
+CONFIG_I40E_DCB=y
+CONFIG_MDIO_THUNDER=m
+CONFIG_MICROCHIP_T1_PHY=m
+CONFIG_NET_VENDOR_HUAWEI=y
+CONFIG_NTB_MSI=y
+CONFIG_RENESAS_PHY=m
+CONFIG_ROCKCHIP_PHY=m
+CONFIG_RTC_DRV_DS3232_HWMON=y
+CONFIG_RTL8192CU=m
+CONFIG_RXPERF=m
+CONFIG_SFC_MCDI_LOGGING=y
+CONFIG_TIPC_MEDIA_IB=y
+CONFIG_USB_SERIAL_MXUPORT=m
+CONFIG_UV_SYSFS=m
+CONFIG_WAN=y
+CONFIG_WLAN_VENDOR_PURELIFI=y
+CONFIG_WLAN_VENDOR_SILABS=y
+# CONFIG_FARSYNC is not set
+# CONFIG_FRAMER is not set
+# CONFIG_NTB_MSI_TEST is not set
+# CONFIG_PC300TOO is not set
+# CONFIG_PCI200SYN is not set
+# CONFIG_SLIC_DS26522 is not set
+# CONFIG_WANXL is not set
+# CONFIG_HDLC_RAW_ETH is not set
+# CONFIG_HINIC3 is not set

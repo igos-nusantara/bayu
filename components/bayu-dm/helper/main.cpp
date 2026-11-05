@@ -14,6 +14,7 @@
 #include <optional>
 #include <pwd.h>
 #include <string>
+#include <sys/ioctl.h>
 #include <sys/prctl.h>
 #include <sys/wait.h>
 #include <unistd.h>
@@ -401,6 +402,12 @@ int main()
     }
 
     const char *sessionId = pam_getenv(pam, "XDG_SESSION_ID");
+    // Xorg.wrap lets only a console user start the X server: an X11 session
+    // gets its VT as its terminal, as sddm and GDM give it. A Wayland one
+    // takes its VT through logind and gets none.
+    const char *sessionType = pam_getenv(pam, "XDG_SESSION_TYPE");
+    const bool x11 = sessionType && std::string(sessionType) == "x11";
+    const std::string ttyPath = "/dev/" + tty;
     char **environment = pam_getenvlist(pam);
 
     std::vector<char *> arguments;
@@ -424,9 +431,15 @@ int main()
     const pid_t child = fork();
     if (child == 0) {
         setsid();
-        const int null = open("/dev/null", O_RDONLY | O_CLOEXEC);
-        if (null >= 0)
-            dup2(null, STDIN_FILENO);
+        const int terminal = x11 ? open(ttyPath.c_str(), O_RDWR | O_NOCTTY | O_CLOEXEC) : -1;
+        if (terminal >= 0) {
+            ioctl(terminal, TIOCSCTTY, 0);
+            dup2(terminal, STDIN_FILENO);
+        } else {
+            const int null = open("/dev/null", O_RDONLY | O_CLOEXEC);
+            if (null >= 0)
+                dup2(null, STDIN_FILENO);
+        }
         dup2(STDERR_FILENO, STDOUT_FILENO);
 
         // Not the session's: fds PAM modules left open, the ignored SIGPIPE, the

@@ -4,6 +4,7 @@
 #pragma once
 
 #include "core/common.h"
+#include "core/standardfolders.h"
 #include "model/foldermodel.h"
 #include "views/folderpage.h"
 
@@ -49,12 +50,6 @@ public:
     // an administrator's password the first time (issue #98).
     virtual void openAsAdministrator(const std::string& path) = 0;
 };
-
-// Where bayu-admin-mount serves the file system as root for this user.
-std::string administratorRoot();
-// `path` there, or `path` itself when it is there already.
-std::string administratorPath(const std::string& path);
-bool isAdministratorPath(const std::string& path);
 
 // The browser window. The sidebar, the header with back, forward,
 // the path bar, search and the options, the tab bar, the search scope and

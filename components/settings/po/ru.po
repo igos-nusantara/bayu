@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bayu-settings\n"
 "Report-Msgid-Bugs-To: https://github.com/bayuos\n"
-"POT-Creation-Date: 2026-10-28 07:51+0000\n"
+"POT-Creation-Date: 2026-11-03 11:52+0000\n"
 "PO-Revision-Date: 2026-10-25 00:00+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -114,6 +114,19 @@ msgstr "Пользователи"
 #: src/pages/accounts/accountspage.cpp
 msgid "Add user"
 msgstr "Добавить пользователя"
+
+#: src/pages/accounts/accountspage.cpp
+msgid "Log in automatically"
+msgstr "Входить автоматически"
+
+#: src/pages/accounts/accountspage.cpp
+msgid "This account starts without a password when the computer turns on. Anyone at the computer can use it, and the login keyring may ask for the password."
+msgstr "Эта учётная запись открывается без пароля при включении компьютера. Её может использовать любой, кто находится за компьютером, а связка ключей входа может запросить пароль."
+
+#: src/pages/accounts/accountspage.cpp
+#, python-brace-format
+msgid "“{name}” logs in automatically now; turning this on logs this account in instead."
+msgstr "Сейчас автоматически входит «{name}»; если включить этот параметр, вместо неё будет входить эта учётная запись."
 
 #: src/pages/accounts/accountspage.cpp src/pages/wallpaper/wallpaperpage.cpp
 #, python-brace-format
@@ -694,7 +707,7 @@ msgstr "Видеоплеер"
 
 #: src/pages/defaultapps/defaultappspage.cpp src/pages/fonts/fontspage.cpp
 #: src/pages/hotcorners/hotcornerspage.cpp src/pages/keyboard/keyboardpage.cpp
-#: src/pages/shortcuts/shortcutspage.cpp
+#: src/pages/shortcuts/shortcutspage.cpp src/pages/tiling/tilingpage.cpp
 msgid "None"
 msgstr "Нет"
 
@@ -886,6 +899,11 @@ msgstr "Темнее"
 msgid "Hot Corners"
 msgstr "Активные углы"
 
+#: src/pages/dock/dockpage.cpp src/pages/shortcuts/shortcutsmodel.cpp
+#: src/pages/tiling/tilingpage.cpp src/window/pagelist.cpp
+msgid "Tiling"
+msgstr "Мозаика"
+
 #: src/pages/dock/dockpage.cpp
 msgid "The panel has no top bar, so applications show their menus in their windows. Applications already open may need to be opened again."
 msgstr "У панели нет верхней строки, поэтому приложения показывают меню в своих окнах. Уже открытые приложения, возможно, придётся открыть заново."
@@ -906,7 +924,7 @@ msgstr "Снизу"
 msgid "Right"
 msgstr "Справа"
 
-#: src/pages/dock/dockpage.cpp
+#: src/pages/dock/dockpage.cpp src/pages/memory/memorypage.cpp
 msgid "Size"
 msgstr "Размер"
 
@@ -980,6 +998,70 @@ msgstr "Полный"
 #: src/pages/fonts/fontspage.cpp
 msgid "Anti-Aliasing"
 msgstr "Сглаживание"
+
+#: src/pages/hardware/hardware.cpp
+#, python-brace-format
+msgid "{driver} driver for {device}"
+msgstr "Драйвер {driver} для {device}"
+
+#: src/pages/hardware/hardware.cpp
+#, python-brace-format
+msgid "Driver for {device}"
+msgstr "Драйвер для {device}"
+
+#: src/pages/hardware/hardware.cpp
+#, python-brace-format
+msgid "Firmware for {device}"
+msgstr "Микропрограмма для {device}"
+
+#: src/pages/hardware/hardwarepage.cpp src/window/pagelist.cpp
+msgid "Drivers & Hardware"
+msgstr "Драйверы и оборудование"
+
+#: src/pages/hardware/hardwarepage.cpp
+msgid "Recommended"
+msgstr "Рекомендуется"
+
+#: src/pages/hardware/hardwarepage.cpp src/window/pagelist.cpp
+msgid "Devices"
+msgstr "Устройства"
+
+#: src/pages/hardware/hardwarepage.cpp
+msgid "Copy Hardware Information"
+msgstr "Скопировать сведения об оборудовании"
+
+#: src/pages/hardware/hardwarepage.cpp
+msgid "Paste it into a bug report, so that others can see this hardware."
+msgstr "Вставьте их в отчёт об ошибке, чтобы другие могли увидеть это оборудование."
+
+#: src/pages/hardware/hardwarepage.cpp
+msgid "No driver"
+msgstr "Нет драйвера"
+
+#: src/pages/hardware/hardwarepage.cpp
+#, python-brace-format
+msgid "Driver: {driver}"
+msgstr "Драйвер: {driver}"
+
+#: src/pages/hardware/hardwarepage.cpp
+msgid "Proprietary"
+msgstr "Проприетарный"
+
+#: src/pages/hardware/hardwarepage.cpp
+msgid "Install"
+msgstr "Установить"
+
+#: src/pages/hardware/hardwarepage.cpp
+msgid "The driver is installed. Restart the computer to use it."
+msgstr "Драйвер установлен. Перезагрузите компьютер, чтобы использовать его."
+
+#: src/pages/hardware/hardwarepage.cpp
+msgid "Drivers and firmware for the devices of this computer that are not installed yet. Without them, the devices may not work, or work only in part."
+msgstr "Драйверы и микропрограммы для устройств этого компьютера, которые ещё не установлены. Без них устройства могут не работать или работать лишь частично."
+
+#: src/pages/hardware/hardwarepage.cpp
+msgid "Secure Boot is on: it keeps proprietary drivers built on this computer from loading. Turn it off in the computer's firmware settings to use them."
+msgstr "Включена безопасная загрузка: она не даёт загружаться проприетарным драйверам, собранным на этом компьютере. Чтобы использовать их, отключите её в настройках микропрограммы компьютера."
 
 #: src/pages/hotcorners/hotcorners.cpp src/pages/shortcuts/shortcutsmodel.cpp
 msgctxt "key"
@@ -1164,6 +1246,54 @@ msgstr "Язык системы"
 #: src/pages/language/preferredlanguagelist.cpp
 msgid "Remove language"
 msgstr "Удалить язык"
+
+#: src/pages/memory/memorypage.cpp src/window/pagelist.cpp
+msgid "Memory"
+msgstr "Память"
+
+#: src/pages/memory/memorypage.cpp
+msgid "Memory compression"
+msgstr "Сжатие памяти"
+
+#: src/pages/memory/memorypage.cpp
+msgid "Compress memory"
+msgstr "Сжимать память"
+
+#: src/pages/memory/memorypage.cpp src/pages/network/vpn/vpneditor.cpp
+msgid "Automatic"
+msgstr "Автоматически"
+
+#: src/pages/memory/memorypage.cpp
+msgid "25% of memory"
+msgstr "25% памяти"
+
+#: src/pages/memory/memorypage.cpp
+msgid "50% of memory"
+msgstr "50% памяти"
+
+#: src/pages/memory/memorypage.cpp
+msgid "Usage"
+msgstr "Использование"
+
+#: src/pages/memory/memorypage.cpp
+msgid "Compressed swap"
+msgstr "Сжатый своп"
+
+#: src/pages/memory/memorypage.cpp
+msgid "Swapped out"
+msgstr "Выгружено в своп"
+
+#: src/pages/memory/memorypage.cpp
+msgid "Memory it takes"
+msgstr "Занимаемая память"
+
+#: src/pages/memory/memorypage.cpp
+msgid "Compression ratio"
+msgstr "Степень сжатия"
+
+#: src/pages/memory/memorypage.cpp
+msgid "Memory that is not in use is kept compressed in memory, so more applications and Android apps fit before the computer slows down, as on phones. Changes apply at once."
+msgstr "Неиспользуемая память хранится в памяти в сжатом виде, поэтому, как на телефонах, до замедления компьютера помещается больше приложений и приложений Android. Изменения применяются сразу."
 
 #: src/pages/mouse/mousepage.cpp
 msgid "Left hand"
@@ -1448,7 +1578,7 @@ msgstr "Показать дополнительные параметры"
 msgid "Asked on connect"
 msgstr "Запрашивается при подключении"
 
-#: src/pages/network/vpn/vpneditor.cpp
+#: src/pages/network/vpn/vpneditor.cpp src/pages/tiling/tilingpage.cpp
 msgid "Choose…"
 msgstr "Выбрать…"
 
@@ -1489,10 +1619,6 @@ msgid "Listen port"
 msgstr "Порт прослушивания"
 
 #: src/pages/network/vpn/vpneditor.cpp
-msgid "Automatic"
-msgstr "Автоматически"
-
-#: src/pages/network/vpn/vpneditor.cpp
 msgid "Firewall mark"
 msgstr "Метка файрвола"
 
@@ -1514,6 +1640,7 @@ msgstr "Пир"
 
 #: src/pages/network/vpn/vpneditor.cpp src/pages/printers/printerspage.cpp
 #: src/pages/privacy/privacypage.cpp src/pages/shortcuts/shortcuteditdialog.cpp
+#: src/pages/tiling/tilingpage.cpp
 msgid "Remove"
 msgstr "Удалить"
 
@@ -1745,6 +1872,10 @@ msgid "Prevent automatic sleeping when the display is off"
 msgstr "Не переходить в спящий режим при выключенном дисплее"
 
 #: src/pages/printers/printers.cpp
+msgid "Raw (the application sends the printer's own commands)"
+msgstr "Raw (приложение само отправляет команды принтера)"
+
+#: src/pages/printers/printers.cpp
 msgid "No driver for this printer was found."
 msgstr "Драйвер для этого принтера не найден."
 
@@ -1816,6 +1947,15 @@ msgstr "Не удалось изменить принтеры: {error}"
 #: src/pages/printers/printerspage.cpp
 msgid "No other printers found"
 msgstr "Другие принтеры не найдены"
+
+#: src/pages/printers/printerspage.cpp
+msgid "Choose a Driver"
+msgstr "Выбор драйвера"
+
+#: src/pages/printers/printerspage.cpp
+#, python-brace-format
+msgid "No driver is known for {printer}. Choose one: that of a model of the same series usually works, such as Epson LQ-850 for an Epson LQ dot-matrix printer. Raw is for applications that send the printer's own commands, such as point of sale ones."
+msgstr "Для {printer} драйвер не известен. Выберите один: обычно подходит драйвер модели той же серии, например Epson LQ-850 для матричного принтера Epson LQ. Raw — для приложений, которые сами отправляют команды принтера, например кассовых."
 
 #: src/pages/printers/printerspage.cpp
 msgid "The printer's host name or IP address, such as 192.168.1.20, or its IPP address. It has to print without a driver (IPP Everywhere or AirPrint), as most printers made since 2012 do."
@@ -1943,12 +2083,60 @@ msgid "Snap the window to the right"
 msgstr "Прикрепить окно справа"
 
 #: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Snap the window up, or maximize it"
+msgstr "Прикрепить окно вверху или развернуть его"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Snap the window down, or minimize it"
+msgstr "Прикрепить окно внизу или свернуть его"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
 msgid "Close the window"
 msgstr "Закрыть окно"
 
 #: src/pages/shortcuts/shortcutsmodel.cpp
 msgid "Move the window to the next display"
 msgstr "Переместить окно на следующий дисплей"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Tile or untile the desk"
+msgstr "Включить или выключить мозаику стола"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Float the window, or tile it again"
+msgstr "Сделать окно плавающим или вернуть в мозаику"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Swap the window with the one on the left, or move it to the display on the left"
+msgstr "Поменять окно местами с левым или переместить на левый экран"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Swap the window with the one on the right, or move it to the display on the right"
+msgstr "Поменять окно местами с правым или переместить на правый экран"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Swap the window with the one above"
+msgstr "Поменять окно местами с верхним"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Swap the window with the one below"
+msgstr "Поменять окно местами с нижним"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Move the edge of the window to the left"
+msgstr "Сдвинуть край окна влево"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Move the edge of the window to the right"
+msgstr "Сдвинуть край окна вправо"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Move the edge of the window up"
+msgstr "Сдвинуть край окна вверх"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Move the edge of the window down"
+msgstr "Сдвинуть край окна вниз"
 
 #: src/pages/shortcuts/shortcutsmodel.cpp
 msgid "Switch to the desk on the left"
@@ -2323,6 +2511,39 @@ msgstr "Нет устройств ввода"
 msgid "No output devices"
 msgstr "Нет устройств вывода"
 
+#: src/pages/tiling/tilingpage.cpp
+msgid "Tiling is managed by the Bayu compositor, which is not running."
+msgstr "Мозаикой управляет композитор Bayu, который не запущен."
+
+#: src/pages/tiling/tilingpage.cpp
+msgid "Tile windows on every desk"
+msgstr "Мозаика окон на каждом столе"
+
+#: src/pages/tiling/tilingpage.cpp
+msgid "Gap between windows"
+msgstr "Промежуток между окнами"
+
+#: src/pages/tiling/tilingpage.cpp
+#, python-brace-format
+msgid "{pixels} px"
+msgstr "{pixels} пкс"
+
+#: src/pages/tiling/tilingpage.cpp
+msgid "Meta+Y tiles or untiles the current desk, as does the tiling button in the status bar. On a tiled desk, Meta+arrow keys move between windows, Meta+Shift+arrow keys swap them, Meta+Alt+arrow keys resize them and Meta+G lets a window float. Drag a window onto another to swap them."
+msgstr "Meta+Y включает или выключает мозаику на текущем столе, как и кнопка мозаики в строке состояния. На столе с мозаикой Meta+стрелки переключают окна, Meta+Shift+стрелки меняют их местами, Meta+Alt+стрелки меняют размер, а Meta+G делает окно плавающим. Перетащите окно на другое, чтобы поменять их местами."
+
+#: src/pages/tiling/tilingpage.cpp
+msgid "Always float"
+msgstr "Всегда плавающие"
+
+#: src/pages/tiling/tilingpage.cpp
+msgid "Add an app"
+msgstr "Добавить приложение"
+
+#: src/pages/tiling/tilingpage.cpp
+msgid "Windows of these apps never tile, nor do dialogs and windows too large for a tile."
+msgstr "Окна этих приложений никогда не встают в мозаику, как и диалоги и окна, слишком большие для плитки."
+
 #: src/pages/touchpad/touchpadpage.cpp src/window/pagelist.cpp
 msgid "Touchpad"
 msgstr "Тачпад"
@@ -2572,6 +2793,10 @@ msgstr "Добавление папки с обоями"
 msgid "Search"
 msgstr "Поиск"
 
+#: src/window/admin.cpp
+msgid "Only an administrator can change this."
+msgstr "Изменить это может только администратор."
+
 #: src/window/page.cpp
 msgid "This page is not ported yet."
 msgstr "Эта страница ещё не портирована."
@@ -2609,10 +2834,6 @@ msgid "do not disturb, banners, alerts"
 msgstr "не беспокоить, баннеры, оповещения, do not disturb, banners, alerts"
 
 #: src/window/pagelist.cpp
-msgid "Devices"
-msgstr "Устройства"
-
-#: src/window/pagelist.cpp
 msgid "monitor, screen, resolution, refresh rate, scaling, brightness, rotation"
 msgstr "монитор, экран, разрешение, частота обновления, масштаб, яркость, поворот, monitor, screen, resolution, refresh rate, scaling, brightness, rotation"
 
@@ -2641,8 +2862,12 @@ msgid "printer, print, printing, scanner, CUPS, USB, network, default printer, t
 msgstr "принтер, печать, печатать, сканер, CUPS, USB, сеть, принтер по умолчанию, пробная страница"
 
 #: src/window/pagelist.cpp
-msgid "accounts, password, login, administrator, avatar"
-msgstr "учётные записи, пароль, вход, администратор, аватар, accounts, password, login, administrator, avatar"
+msgid "driver, firmware, hardware, device, PCI, USB, lspci, lsusb, Wi-Fi, graphics"
+msgstr "драйвер, микропрограмма, оборудование, устройство, PCI, USB, lspci, lsusb, Wi-Fi, графика"
+
+#: src/window/pagelist.cpp
+msgid "accounts, password, login, administrator, avatar, automatic login, autologin"
+msgstr "учётные записи, пароль, вход, администратор, аватар, автоматический вход, autologin"
 
 #: src/window/pagelist.cpp
 msgid "region, locale, system language"
@@ -2667,6 +2892,10 @@ msgstr "заряд, зарядка, предел заряда, состояни�
 #: src/window/pagelist.cpp
 msgid "energy, performance, power saving, sleep, turn off display"
 msgstr "энергия, производительность, энергосбережение, сон, отключение дисплея, energy, performance, power saving, sleep, turn off display"
+
+#: src/window/pagelist.cpp
+msgid "RAM, zram, swap, memory compression, Android"
+msgstr "RAM, zram, своп, сжатие памяти, Android"
 
 #: src/window/pagelist.cpp
 msgid "update, upgrade, dnf, packages, security, download, restart"
@@ -2713,6 +2942,10 @@ msgid "screen corners, show desktop, show all windows"
 msgstr "углы экрана, показать рабочий стол, показать все окна, screen corners, show desktop, show all windows"
 
 #: src/window/pagelist.cpp
+msgid "tile, tiling, split, windows, gaps, float"
+msgstr "мозаика, плитка, разделить, окна, промежуток, плавающее"
+
+#: src/window/pagelist.cpp
 msgid "hotkeys, key bindings"
 msgstr "горячие клавиши, привязки клавиш, hotkeys, key bindings"
 
@@ -2723,3 +2956,39 @@ msgstr "Параметры"
 #: src/window/sidebar.cpp
 msgid "No results"
 msgstr "Нет результатов"
+
+#~ msgid "Intel Wi-Fi"
+#~ msgstr "Wi-Fi Intel"
+
+#~ msgid "Realtek Wi-Fi"
+#~ msgstr "Wi-Fi Realtek"
+
+#~ msgid "Qualcomm Atheros Wi-Fi"
+#~ msgstr "Wi-Fi Qualcomm Atheros"
+
+#~ msgid "MediaTek Wi-Fi"
+#~ msgstr "Wi-Fi MediaTek"
+
+#~ msgid "Broadcom Wi-Fi"
+#~ msgstr "Wi-Fi Broadcom"
+
+#~ msgid "AMD graphics"
+#~ msgstr "Графика AMD"
+
+#~ msgid "Intel graphics"
+#~ msgstr "Графика Intel"
+
+#~ msgid "NVIDIA graphics"
+#~ msgstr "Графика NVIDIA"
+
+#~ msgid "Intel sound"
+#~ msgstr "Звук Intel"
+
+#~ msgid "Realtek USB Wi-Fi or Bluetooth"
+#~ msgstr "USB Wi-Fi или Bluetooth Realtek"
+
+#~ msgid "Qualcomm Atheros USB Wi-Fi or Bluetooth"
+#~ msgstr "USB Wi-Fi или Bluetooth Qualcomm Atheros"
+
+#~ msgid "MediaTek USB Wi-Fi or Bluetooth"
+#~ msgstr "USB Wi-Fi или Bluetooth MediaTek"

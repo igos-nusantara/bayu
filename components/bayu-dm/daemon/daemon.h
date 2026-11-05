@@ -41,6 +41,11 @@ private:
     struct PendingStart {
         std::vector<std::string> command;
         std::vector<std::string> environment;
+        // Switched to as soon as it starts, before it takes its VT: other
+        // compositors, as cosmic-comp, find no output on a seat that is not
+        // active and quit. Bayu's waits for its seat, and the login screen
+        // stays until it draws.
+        bool activateFirst = true;
     };
 
     // Starts the configured user's session without the login screen, the first

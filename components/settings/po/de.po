@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bayu-settings\n"
 "Report-Msgid-Bugs-To: https://github.com/bayuos\n"
-"POT-Creation-Date: 2026-10-28 07:51+0000\n"
+"POT-Creation-Date: 2026-11-03 11:52+0000\n"
 "PO-Revision-Date: 2026-10-25 00:00+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -114,6 +114,19 @@ msgstr "Benutzer"
 #: src/pages/accounts/accountspage.cpp
 msgid "Add user"
 msgstr "Benutzer hinzufügen"
+
+#: src/pages/accounts/accountspage.cpp
+msgid "Log in automatically"
+msgstr "Automatisch anmelden"
+
+#: src/pages/accounts/accountspage.cpp
+msgid "This account starts without a password when the computer turns on. Anyone at the computer can use it, and the login keyring may ask for the password."
+msgstr "Dieses Konto wird beim Einschalten des Computers ohne Passwort geöffnet. Jeder am Computer kann es benutzen, und der Anmeldeschlüsselbund fragt möglicherweise nach dem Passwort."
+
+#: src/pages/accounts/accountspage.cpp
+#, python-brace-format
+msgid "“{name}” logs in automatically now; turning this on logs this account in instead."
+msgstr "„{name}“ meldet sich derzeit automatisch an; wenn Sie dies einschalten, wird stattdessen dieses Konto angemeldet."
 
 #: src/pages/accounts/accountspage.cpp src/pages/wallpaper/wallpaperpage.cpp
 #, python-brace-format
@@ -690,7 +703,7 @@ msgstr "Videoplayer"
 
 #: src/pages/defaultapps/defaultappspage.cpp src/pages/fonts/fontspage.cpp
 #: src/pages/hotcorners/hotcornerspage.cpp src/pages/keyboard/keyboardpage.cpp
-#: src/pages/shortcuts/shortcutspage.cpp
+#: src/pages/shortcuts/shortcutspage.cpp src/pages/tiling/tilingpage.cpp
 msgid "None"
 msgstr "Keine"
 
@@ -881,6 +894,11 @@ msgstr "Stärker getönt"
 msgid "Hot Corners"
 msgstr "Aktive Ecken"
 
+#: src/pages/dock/dockpage.cpp src/pages/shortcuts/shortcutsmodel.cpp
+#: src/pages/tiling/tilingpage.cpp src/window/pagelist.cpp
+msgid "Tiling"
+msgstr "Kacheln"
+
 #: src/pages/dock/dockpage.cpp
 msgid "The panel has no top bar, so applications show their menus in their windows. Applications already open may need to be opened again."
 msgstr "Das Panel hat keine obere Leiste, daher zeigen Anwendungen ihre Menüs in ihren Fenstern. Bereits geöffnete Anwendungen müssen eventuell neu geöffnet werden."
@@ -901,7 +919,7 @@ msgstr "Unten"
 msgid "Right"
 msgstr "Rechts"
 
-#: src/pages/dock/dockpage.cpp
+#: src/pages/dock/dockpage.cpp src/pages/memory/memorypage.cpp
 msgid "Size"
 msgstr "Größe"
 
@@ -975,6 +993,70 @@ msgstr "Voll"
 #: src/pages/fonts/fontspage.cpp
 msgid "Anti-Aliasing"
 msgstr "Kantenglättung"
+
+#: src/pages/hardware/hardware.cpp
+#, python-brace-format
+msgid "{driver} driver for {device}"
+msgstr "{driver}-Treiber für {device}"
+
+#: src/pages/hardware/hardware.cpp
+#, python-brace-format
+msgid "Driver for {device}"
+msgstr "Treiber für {device}"
+
+#: src/pages/hardware/hardware.cpp
+#, python-brace-format
+msgid "Firmware for {device}"
+msgstr "Firmware für {device}"
+
+#: src/pages/hardware/hardwarepage.cpp src/window/pagelist.cpp
+msgid "Drivers & Hardware"
+msgstr "Treiber & Hardware"
+
+#: src/pages/hardware/hardwarepage.cpp
+msgid "Recommended"
+msgstr "Empfohlen"
+
+#: src/pages/hardware/hardwarepage.cpp src/window/pagelist.cpp
+msgid "Devices"
+msgstr "Geräte"
+
+#: src/pages/hardware/hardwarepage.cpp
+msgid "Copy Hardware Information"
+msgstr "Hardware-Informationen kopieren"
+
+#: src/pages/hardware/hardwarepage.cpp
+msgid "Paste it into a bug report, so that others can see this hardware."
+msgstr "Fügen Sie sie in einen Fehlerbericht ein, damit andere diese Hardware sehen können."
+
+#: src/pages/hardware/hardwarepage.cpp
+msgid "No driver"
+msgstr "Kein Treiber"
+
+#: src/pages/hardware/hardwarepage.cpp
+#, python-brace-format
+msgid "Driver: {driver}"
+msgstr "Treiber: {driver}"
+
+#: src/pages/hardware/hardwarepage.cpp
+msgid "Proprietary"
+msgstr "Proprietär"
+
+#: src/pages/hardware/hardwarepage.cpp
+msgid "Install"
+msgstr "Installieren"
+
+#: src/pages/hardware/hardwarepage.cpp
+msgid "The driver is installed. Restart the computer to use it."
+msgstr "Der Treiber ist installiert. Starten Sie den Computer neu, um ihn zu verwenden."
+
+#: src/pages/hardware/hardwarepage.cpp
+msgid "Drivers and firmware for the devices of this computer that are not installed yet. Without them, the devices may not work, or work only in part."
+msgstr "Treiber und Firmware für die Geräte dieses Computers, die noch nicht installiert sind. Ohne sie funktionieren die Geräte möglicherweise nicht oder nur teilweise."
+
+#: src/pages/hardware/hardwarepage.cpp
+msgid "Secure Boot is on: it keeps proprietary drivers built on this computer from loading. Turn it off in the computer's firmware settings to use them."
+msgstr "Secure Boot ist eingeschaltet: Es verhindert, dass auf diesem Computer erstellte proprietäre Treiber geladen werden. Schalten Sie es in den Firmware-Einstellungen des Computers aus, um sie zu verwenden."
 
 #: src/pages/hotcorners/hotcorners.cpp src/pages/shortcuts/shortcutsmodel.cpp
 msgctxt "key"
@@ -1159,6 +1241,54 @@ msgstr "Systemsprache"
 #: src/pages/language/preferredlanguagelist.cpp
 msgid "Remove language"
 msgstr "Sprache entfernen"
+
+#: src/pages/memory/memorypage.cpp src/window/pagelist.cpp
+msgid "Memory"
+msgstr "Speicher"
+
+#: src/pages/memory/memorypage.cpp
+msgid "Memory compression"
+msgstr "Speicherkomprimierung"
+
+#: src/pages/memory/memorypage.cpp
+msgid "Compress memory"
+msgstr "Speicher komprimieren"
+
+#: src/pages/memory/memorypage.cpp src/pages/network/vpn/vpneditor.cpp
+msgid "Automatic"
+msgstr "Automatisch"
+
+#: src/pages/memory/memorypage.cpp
+msgid "25% of memory"
+msgstr "25 % des Speichers"
+
+#: src/pages/memory/memorypage.cpp
+msgid "50% of memory"
+msgstr "50 % des Speichers"
+
+#: src/pages/memory/memorypage.cpp
+msgid "Usage"
+msgstr "Nutzung"
+
+#: src/pages/memory/memorypage.cpp
+msgid "Compressed swap"
+msgstr "Komprimierter Auslagerungsspeicher"
+
+#: src/pages/memory/memorypage.cpp
+msgid "Swapped out"
+msgstr "Ausgelagert"
+
+#: src/pages/memory/memorypage.cpp
+msgid "Memory it takes"
+msgstr "Belegter Speicher"
+
+#: src/pages/memory/memorypage.cpp
+msgid "Compression ratio"
+msgstr "Komprimierungsrate"
+
+#: src/pages/memory/memorypage.cpp
+msgid "Memory that is not in use is kept compressed in memory, so more applications and Android apps fit before the computer slows down, as on phones. Changes apply at once."
+msgstr "Nicht verwendeter Speicher wird komprimiert im Speicher gehalten, sodass mehr Anwendungen und Android-Apps Platz finden, bevor der Computer langsamer wird – wie bei Telefonen. Änderungen gelten sofort."
 
 #: src/pages/mouse/mousepage.cpp
 msgid "Left hand"
@@ -1443,7 +1573,7 @@ msgstr "Erweiterte Optionen anzeigen"
 msgid "Asked on connect"
 msgstr "Wird beim Verbinden abgefragt"
 
-#: src/pages/network/vpn/vpneditor.cpp
+#: src/pages/network/vpn/vpneditor.cpp src/pages/tiling/tilingpage.cpp
 msgid "Choose…"
 msgstr "Auswählen …"
 
@@ -1484,10 +1614,6 @@ msgid "Listen port"
 msgstr "Listen-Port"
 
 #: src/pages/network/vpn/vpneditor.cpp
-msgid "Automatic"
-msgstr "Automatisch"
-
-#: src/pages/network/vpn/vpneditor.cpp
 msgid "Firewall mark"
 msgstr "Firewall-Markierung"
 
@@ -1509,6 +1635,7 @@ msgstr "Peer"
 
 #: src/pages/network/vpn/vpneditor.cpp src/pages/printers/printerspage.cpp
 #: src/pages/privacy/privacypage.cpp src/pages/shortcuts/shortcuteditdialog.cpp
+#: src/pages/tiling/tilingpage.cpp
 msgid "Remove"
 msgstr "Entfernen"
 
@@ -1739,6 +1866,10 @@ msgid "Prevent automatic sleeping when the display is off"
 msgstr "Automatisches Standby verhindern, wenn der Bildschirm aus ist"
 
 #: src/pages/printers/printers.cpp
+msgid "Raw (the application sends the printer's own commands)"
+msgstr "Raw (die Anwendung sendet die eigenen Befehle des Druckers)"
+
+#: src/pages/printers/printers.cpp
 msgid "No driver for this printer was found."
 msgstr "Für diesen Drucker wurde kein Treiber gefunden."
 
@@ -1809,6 +1940,15 @@ msgstr "Die Drucker konnten nicht geändert werden: {error}"
 #: src/pages/printers/printerspage.cpp
 msgid "No other printers found"
 msgstr "Keine weiteren Drucker gefunden"
+
+#: src/pages/printers/printerspage.cpp
+msgid "Choose a Driver"
+msgstr "Treiber wählen"
+
+#: src/pages/printers/printerspage.cpp
+#, python-brace-format
+msgid "No driver is known for {printer}. Choose one: that of a model of the same series usually works, such as Epson LQ-850 for an Epson LQ dot-matrix printer. Raw is for applications that send the printer's own commands, such as point of sale ones."
+msgstr "Für {printer} ist kein Treiber bekannt. Wählen Sie einen: Der eines Modells derselben Serie funktioniert meist, etwa Epson LQ-850 für einen Epson-LQ-Nadeldrucker. Raw ist für Anwendungen, die die eigenen Befehle des Druckers senden, etwa Kassenanwendungen."
 
 #: src/pages/printers/printerspage.cpp
 msgid "The printer's host name or IP address, such as 192.168.1.20, or its IPP address. It has to print without a driver (IPP Everywhere or AirPrint), as most printers made since 2012 do."
@@ -1936,12 +2076,60 @@ msgid "Snap the window to the right"
 msgstr "Fenster rechts einrasten"
 
 #: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Snap the window up, or maximize it"
+msgstr "Fenster oben andocken oder maximieren"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Snap the window down, or minimize it"
+msgstr "Fenster unten andocken oder minimieren"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
 msgid "Close the window"
 msgstr "Fenster schließen"
 
 #: src/pages/shortcuts/shortcutsmodel.cpp
 msgid "Move the window to the next display"
 msgstr "Fenster auf die nächste Anzeige verschieben"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Tile or untile the desk"
+msgstr "Desk kacheln oder Kacheln aufheben"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Float the window, or tile it again"
+msgstr "Fenster schweben lassen oder wieder kacheln"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Swap the window with the one on the left, or move it to the display on the left"
+msgstr "Fenster mit dem linken tauschen oder auf den linken Bildschirm verschieben"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Swap the window with the one on the right, or move it to the display on the right"
+msgstr "Fenster mit dem rechten tauschen oder auf den rechten Bildschirm verschieben"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Swap the window with the one above"
+msgstr "Fenster mit dem oberen tauschen"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Swap the window with the one below"
+msgstr "Fenster mit dem unteren tauschen"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Move the edge of the window to the left"
+msgstr "Fensterrand nach links verschieben"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Move the edge of the window to the right"
+msgstr "Fensterrand nach rechts verschieben"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Move the edge of the window up"
+msgstr "Fensterrand nach oben verschieben"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Move the edge of the window down"
+msgstr "Fensterrand nach unten verschieben"
 
 #: src/pages/shortcuts/shortcutsmodel.cpp
 msgid "Switch to the desk on the left"
@@ -2316,6 +2504,39 @@ msgstr "Keine Eingabegeräte"
 msgid "No output devices"
 msgstr "Keine Ausgabegeräte"
 
+#: src/pages/tiling/tilingpage.cpp
+msgid "Tiling is managed by the Bayu compositor, which is not running."
+msgstr "Das Kacheln wird vom Bayu-Compositor verwaltet, der nicht läuft."
+
+#: src/pages/tiling/tilingpage.cpp
+msgid "Tile windows on every desk"
+msgstr "Fenster auf jedem Desk kacheln"
+
+#: src/pages/tiling/tilingpage.cpp
+msgid "Gap between windows"
+msgstr "Abstand zwischen Fenstern"
+
+#: src/pages/tiling/tilingpage.cpp
+#, python-brace-format
+msgid "{pixels} px"
+msgstr "{pixels} px"
+
+#: src/pages/tiling/tilingpage.cpp
+msgid "Meta+Y tiles or untiles the current desk, as does the tiling button in the status bar. On a tiled desk, Meta+arrow keys move between windows, Meta+Shift+arrow keys swap them, Meta+Alt+arrow keys resize them and Meta+G lets a window float. Drag a window onto another to swap them."
+msgstr "Meta+Y kachelt den aktuellen Desk oder hebt das Kacheln auf, ebenso die Kachel-Schaltfläche in der Statusleiste. Auf einem gekachelten Desk wechseln Meta+Pfeiltasten zwischen Fenstern, Meta+Umschalt+Pfeiltasten tauschen sie, Meta+Alt+Pfeiltasten ändern ihre Größe und Meta+G lässt ein Fenster schweben. Ziehen Sie ein Fenster auf ein anderes, um beide zu tauschen."
+
+#: src/pages/tiling/tilingpage.cpp
+msgid "Always float"
+msgstr "Immer schwebend"
+
+#: src/pages/tiling/tilingpage.cpp
+msgid "Add an app"
+msgstr "App hinzufügen"
+
+#: src/pages/tiling/tilingpage.cpp
+msgid "Windows of these apps never tile, nor do dialogs and windows too large for a tile."
+msgstr "Fenster dieser Apps werden nie gekachelt, ebenso wenig Dialoge und Fenster, die für eine Kachel zu groß sind."
+
 #: src/pages/touchpad/touchpadpage.cpp src/window/pagelist.cpp
 msgid "Touchpad"
 msgstr "Touchpad"
@@ -2561,6 +2782,10 @@ msgstr "Hintergrundbild-Ordner hinzufügen"
 msgid "Search"
 msgstr "Suchen"
 
+#: src/window/admin.cpp
+msgid "Only an administrator can change this."
+msgstr "Nur ein Administrator kann dies ändern."
+
 #: src/window/page.cpp
 msgid "This page is not ported yet."
 msgstr "Diese Seite ist noch nicht portiert."
@@ -2598,10 +2823,6 @@ msgid "do not disturb, banners, alerts"
 msgstr "Nicht stören, Banner, Hinweise, do not disturb"
 
 #: src/window/pagelist.cpp
-msgid "Devices"
-msgstr "Geräte"
-
-#: src/window/pagelist.cpp
 msgid "monitor, screen, resolution, refresh rate, scaling, brightness, rotation"
 msgstr "Monitor, Bildschirm, Auflösung, Bildwiederholrate, Skalierung, Helligkeit, Drehung, display, resolution"
 
@@ -2630,8 +2851,12 @@ msgid "printer, print, printing, scanner, CUPS, USB, network, default printer, t
 msgstr "Drucker, drucken, Druck, Scanner, CUPS, USB, Netzwerk, Standarddrucker, Testseite"
 
 #: src/window/pagelist.cpp
-msgid "accounts, password, login, administrator, avatar"
-msgstr "Konten, Passwort, Anmeldung, Administrator, Avatar, accounts, users"
+msgid "driver, firmware, hardware, device, PCI, USB, lspci, lsusb, Wi-Fi, graphics"
+msgstr "Treiber, Firmware, Hardware, Gerät, PCI, USB, lspci, lsusb, WLAN, Grafik"
+
+#: src/window/pagelist.cpp
+msgid "accounts, password, login, administrator, avatar, automatic login, autologin"
+msgstr "Konten, Passwort, Anmeldung, Administrator, Avatar, automatische Anmeldung, autologin"
 
 #: src/window/pagelist.cpp
 msgid "region, locale, system language"
@@ -2656,6 +2881,10 @@ msgstr "Laden, Ladelimit, Akkuzustand, Kapazität, Verlauf, Prozent, charge, bat
 #: src/window/pagelist.cpp
 msgid "energy, performance, power saving, sleep, turn off display"
 msgstr "Energie, Leistung, Energiesparen, Standby, Bildschirm ausschalten, power, sleep"
+
+#: src/window/pagelist.cpp
+msgid "RAM, zram, swap, memory compression, Android"
+msgstr "RAM, zram, Auslagerung, Speicherkomprimierung, Android"
 
 #: src/window/pagelist.cpp
 msgid "update, upgrade, dnf, packages, security, download, restart"
@@ -2702,6 +2931,10 @@ msgid "screen corners, show desktop, show all windows"
 msgstr "Bildschirmecken, Arbeitsfläche anzeigen, alle Fenster anzeigen, hot corners"
 
 #: src/window/pagelist.cpp
+msgid "tile, tiling, split, windows, gaps, float"
+msgstr "Kachel, Kacheln, teilen, Fenster, Abstand, schwebend"
+
+#: src/window/pagelist.cpp
 msgid "hotkeys, key bindings"
 msgstr "Hotkeys, Tastenbelegungen, shortcuts, key bindings"
 
@@ -2712,3 +2945,39 @@ msgstr "Einstellungen"
 #: src/window/sidebar.cpp
 msgid "No results"
 msgstr "Keine Ergebnisse"
+
+#~ msgid "Intel Wi-Fi"
+#~ msgstr "Intel-WLAN"
+
+#~ msgid "Realtek Wi-Fi"
+#~ msgstr "Realtek-WLAN"
+
+#~ msgid "Qualcomm Atheros Wi-Fi"
+#~ msgstr "Qualcomm-Atheros-WLAN"
+
+#~ msgid "MediaTek Wi-Fi"
+#~ msgstr "MediaTek-WLAN"
+
+#~ msgid "Broadcom Wi-Fi"
+#~ msgstr "Broadcom-WLAN"
+
+#~ msgid "AMD graphics"
+#~ msgstr "AMD-Grafik"
+
+#~ msgid "Intel graphics"
+#~ msgstr "Intel-Grafik"
+
+#~ msgid "NVIDIA graphics"
+#~ msgstr "NVIDIA-Grafik"
+
+#~ msgid "Intel sound"
+#~ msgstr "Intel-Audio"
+
+#~ msgid "Realtek USB Wi-Fi or Bluetooth"
+#~ msgstr "Realtek-USB-WLAN oder -Bluetooth"
+
+#~ msgid "Qualcomm Atheros USB Wi-Fi or Bluetooth"
+#~ msgstr "Qualcomm-Atheros-USB-WLAN oder -Bluetooth"
+
+#~ msgid "MediaTek USB Wi-Fi or Bluetooth"
+#~ msgstr "MediaTek-USB-WLAN oder -Bluetooth"

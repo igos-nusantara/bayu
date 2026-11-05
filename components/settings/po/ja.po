@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bayu-settings\n"
 "Report-Msgid-Bugs-To: https://github.com/bayuos\n"
-"POT-Creation-Date: 2026-10-28 07:51+0000\n"
+"POT-Creation-Date: 2026-11-03 11:52+0000\n"
 "PO-Revision-Date: 2026-10-25 00:00+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -115,6 +115,19 @@ msgstr "ユーザ"
 #: src/pages/accounts/accountspage.cpp
 msgid "Add user"
 msgstr "ユーザを追加"
+
+#: src/pages/accounts/accountspage.cpp
+msgid "Log in automatically"
+msgstr "自動ログイン"
+
+#: src/pages/accounts/accountspage.cpp
+msgid "This account starts without a password when the computer turns on. Anyone at the computer can use it, and the login keyring may ask for the password."
+msgstr "コンピューターの起動時にパスワードなしでこのアカウントが開きます。コンピューターの前にいる誰でも使用でき、ログインキーリングがパスワードを求めることがあります。"
+
+#: src/pages/accounts/accountspage.cpp
+#, python-brace-format
+msgid "“{name}” logs in automatically now; turning this on logs this account in instead."
+msgstr "現在「{name}」が自動ログインします。オンにすると、代わりにこのアカウントが自動ログインします。"
 
 #: src/pages/accounts/accountspage.cpp src/pages/wallpaper/wallpaperpage.cpp
 #, python-brace-format
@@ -687,7 +700,7 @@ msgstr "ビデオプレーヤー"
 
 #: src/pages/defaultapps/defaultappspage.cpp src/pages/fonts/fontspage.cpp
 #: src/pages/hotcorners/hotcornerspage.cpp src/pages/keyboard/keyboardpage.cpp
-#: src/pages/shortcuts/shortcutspage.cpp
+#: src/pages/shortcuts/shortcutspage.cpp src/pages/tiling/tilingpage.cpp
 msgid "None"
 msgstr "なし"
 
@@ -877,6 +890,11 @@ msgstr "より色付き"
 msgid "Hot Corners"
 msgstr "ホットコーナー"
 
+#: src/pages/dock/dockpage.cpp src/pages/shortcuts/shortcutsmodel.cpp
+#: src/pages/tiling/tilingpage.cpp src/window/pagelist.cpp
+msgid "Tiling"
+msgstr "タイル表示"
+
 #: src/pages/dock/dockpage.cpp
 msgid "The panel has no top bar, so applications show their menus in their windows. Applications already open may need to be opened again."
 msgstr "パネルには上部バーがないため、アプリのメニューは各ウインドウ内に表示されます。すでに開いているアプリは開き直す必要がある場合があります。"
@@ -897,7 +915,7 @@ msgstr "下"
 msgid "Right"
 msgstr "右"
 
-#: src/pages/dock/dockpage.cpp
+#: src/pages/dock/dockpage.cpp src/pages/memory/memorypage.cpp
 msgid "Size"
 msgstr "サイズ"
 
@@ -971,6 +989,70 @@ msgstr "強"
 #: src/pages/fonts/fontspage.cpp
 msgid "Anti-Aliasing"
 msgstr "アンチエイリアス"
+
+#: src/pages/hardware/hardware.cpp
+#, python-brace-format
+msgid "{driver} driver for {device}"
+msgstr "{device} 用の {driver} ドライバー"
+
+#: src/pages/hardware/hardware.cpp
+#, python-brace-format
+msgid "Driver for {device}"
+msgstr "{device} 用のドライバー"
+
+#: src/pages/hardware/hardware.cpp
+#, python-brace-format
+msgid "Firmware for {device}"
+msgstr "{device} 用のファームウェア"
+
+#: src/pages/hardware/hardwarepage.cpp src/window/pagelist.cpp
+msgid "Drivers & Hardware"
+msgstr "ドライバーとハードウェア"
+
+#: src/pages/hardware/hardwarepage.cpp
+msgid "Recommended"
+msgstr "推奨"
+
+#: src/pages/hardware/hardwarepage.cpp src/window/pagelist.cpp
+msgid "Devices"
+msgstr "デバイス"
+
+#: src/pages/hardware/hardwarepage.cpp
+msgid "Copy Hardware Information"
+msgstr "ハードウェア情報をコピー"
+
+#: src/pages/hardware/hardwarepage.cpp
+msgid "Paste it into a bug report, so that others can see this hardware."
+msgstr "バグ報告に貼り付けると、他の人がこのハードウェアを確認できます。"
+
+#: src/pages/hardware/hardwarepage.cpp
+msgid "No driver"
+msgstr "ドライバーなし"
+
+#: src/pages/hardware/hardwarepage.cpp
+#, python-brace-format
+msgid "Driver: {driver}"
+msgstr "ドライバー: {driver}"
+
+#: src/pages/hardware/hardwarepage.cpp
+msgid "Proprietary"
+msgstr "プロプライエタリ"
+
+#: src/pages/hardware/hardwarepage.cpp
+msgid "Install"
+msgstr "インストール"
+
+#: src/pages/hardware/hardwarepage.cpp
+msgid "The driver is installed. Restart the computer to use it."
+msgstr "ドライバーがインストールされました。使用するにはコンピューターを再起動してください。"
+
+#: src/pages/hardware/hardwarepage.cpp
+msgid "Drivers and firmware for the devices of this computer that are not installed yet. Without them, the devices may not work, or work only in part."
+msgstr "このコンピューターのデバイス用で、まだインストールされていないドライバーとファームウェアです。これがないと、デバイスが動作しないか、一部しか動作しないことがあります。"
+
+#: src/pages/hardware/hardwarepage.cpp
+msgid "Secure Boot is on: it keeps proprietary drivers built on this computer from loading. Turn it off in the computer's firmware settings to use them."
+msgstr "セキュアブートがオンです。このコンピューターでビルドされたプロプライエタリドライバーは読み込まれません。使用するには、コンピューターのファームウェア設定でオフにしてください。"
 
 #: src/pages/hotcorners/hotcorners.cpp src/pages/shortcuts/shortcutsmodel.cpp
 msgctxt "key"
@@ -1155,6 +1237,54 @@ msgstr "システム言語"
 #: src/pages/language/preferredlanguagelist.cpp
 msgid "Remove language"
 msgstr "言語を削除"
+
+#: src/pages/memory/memorypage.cpp src/window/pagelist.cpp
+msgid "Memory"
+msgstr "メモリ"
+
+#: src/pages/memory/memorypage.cpp
+msgid "Memory compression"
+msgstr "メモリ圧縮"
+
+#: src/pages/memory/memorypage.cpp
+msgid "Compress memory"
+msgstr "メモリを圧縮"
+
+#: src/pages/memory/memorypage.cpp src/pages/network/vpn/vpneditor.cpp
+msgid "Automatic"
+msgstr "自動"
+
+#: src/pages/memory/memorypage.cpp
+msgid "25% of memory"
+msgstr "メモリの 25%"
+
+#: src/pages/memory/memorypage.cpp
+msgid "50% of memory"
+msgstr "メモリの 50%"
+
+#: src/pages/memory/memorypage.cpp
+msgid "Usage"
+msgstr "使用状況"
+
+#: src/pages/memory/memorypage.cpp
+msgid "Compressed swap"
+msgstr "圧縮スワップ"
+
+#: src/pages/memory/memorypage.cpp
+msgid "Swapped out"
+msgstr "スワップアウト済み"
+
+#: src/pages/memory/memorypage.cpp
+msgid "Memory it takes"
+msgstr "使用しているメモリ"
+
+#: src/pages/memory/memorypage.cpp
+msgid "Compression ratio"
+msgstr "圧縮率"
+
+#: src/pages/memory/memorypage.cpp
+msgid "Memory that is not in use is kept compressed in memory, so more applications and Android apps fit before the computer slows down, as on phones. Changes apply at once."
+msgstr "使われていないメモリを圧縮してメモリ内に保持するため、スマートフォンと同様に、動作が遅くなる前により多くのアプリや Android アプリを開けます。変更はすぐに適用されます。"
 
 #: src/pages/mouse/mousepage.cpp
 msgid "Left hand"
@@ -1439,7 +1569,7 @@ msgstr "詳細オプションを表示"
 msgid "Asked on connect"
 msgstr "接続時に確認"
 
-#: src/pages/network/vpn/vpneditor.cpp
+#: src/pages/network/vpn/vpneditor.cpp src/pages/tiling/tilingpage.cpp
 msgid "Choose…"
 msgstr "選択…"
 
@@ -1480,10 +1610,6 @@ msgid "Listen port"
 msgstr "リッスンポート"
 
 #: src/pages/network/vpn/vpneditor.cpp
-msgid "Automatic"
-msgstr "自動"
-
-#: src/pages/network/vpn/vpneditor.cpp
 msgid "Firewall mark"
 msgstr "ファイアウォールマーク"
 
@@ -1505,6 +1631,7 @@ msgstr "ピア"
 
 #: src/pages/network/vpn/vpneditor.cpp src/pages/printers/printerspage.cpp
 #: src/pages/privacy/privacypage.cpp src/pages/shortcuts/shortcuteditdialog.cpp
+#: src/pages/tiling/tilingpage.cpp
 msgid "Remove"
 msgstr "削除"
 
@@ -1734,6 +1861,10 @@ msgid "Prevent automatic sleeping when the display is off"
 msgstr "ディスプレイがオフのときの自動スリープを防止"
 
 #: src/pages/printers/printers.cpp
+msgid "Raw (the application sends the printer's own commands)"
+msgstr "Raw (アプリがプリンター独自のコマンドを送信)"
+
+#: src/pages/printers/printers.cpp
 msgid "No driver for this printer was found."
 msgstr "このプリンターのドライバーが見つかりませんでした。"
 
@@ -1803,6 +1934,15 @@ msgstr "プリンターを変更できませんでした: {error}"
 #: src/pages/printers/printerspage.cpp
 msgid "No other printers found"
 msgstr "ほかのプリンターは見つかりません"
+
+#: src/pages/printers/printerspage.cpp
+msgid "Choose a Driver"
+msgstr "ドライバーを選択"
+
+#: src/pages/printers/printerspage.cpp
+#, python-brace-format
+msgid "No driver is known for {printer}. Choose one: that of a model of the same series usually works, such as Epson LQ-850 for an Epson LQ dot-matrix printer. Raw is for applications that send the printer's own commands, such as point of sale ones."
+msgstr "{printer} に対応するドライバーが見つかりません。ドライバーを選んでください。同じシリーズのモデルのドライバーで通常は動作します。たとえば Epson LQ ドットマトリクスプリンターには Epson LQ-850 です。Raw は、POS アプリなどプリンター独自のコマンドを送るアプリ向けです。"
 
 #: src/pages/printers/printerspage.cpp
 msgid "The printer's host name or IP address, such as 192.168.1.20, or its IPP address. It has to print without a driver (IPP Everywhere or AirPrint), as most printers made since 2012 do."
@@ -1930,12 +2070,60 @@ msgid "Snap the window to the right"
 msgstr "ウィンドウを右にスナップ"
 
 #: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Snap the window up, or maximize it"
+msgstr "ウィンドウを上にスナップ、または最大化"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Snap the window down, or minimize it"
+msgstr "ウィンドウを下にスナップ、または最小化"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
 msgid "Close the window"
 msgstr "ウィンドウを閉じる"
 
 #: src/pages/shortcuts/shortcutsmodel.cpp
 msgid "Move the window to the next display"
 msgstr "ウィンドウを次のディスプレイに移動"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Tile or untile the desk"
+msgstr "デスクのタイル表示を切り替える"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Float the window, or tile it again"
+msgstr "ウィンドウをフローティングにする、またはタイルに戻す"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Swap the window with the one on the left, or move it to the display on the left"
+msgstr "ウインドウを左のウインドウと入れ替えるか、左のディスプレイへ移動"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Swap the window with the one on the right, or move it to the display on the right"
+msgstr "ウインドウを右のウインドウと入れ替えるか、右のディスプレイへ移動"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Swap the window with the one above"
+msgstr "上のウィンドウと入れ替える"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Swap the window with the one below"
+msgstr "下のウィンドウと入れ替える"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Move the edge of the window to the left"
+msgstr "ウィンドウの端を左へ動かす"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Move the edge of the window to the right"
+msgstr "ウィンドウの端を右へ動かす"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Move the edge of the window up"
+msgstr "ウィンドウの端を上へ動かす"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Move the edge of the window down"
+msgstr "ウィンドウの端を下へ動かす"
 
 #: src/pages/shortcuts/shortcutsmodel.cpp
 msgid "Switch to the desk on the left"
@@ -2310,6 +2498,39 @@ msgstr "入力デバイスなし"
 msgid "No output devices"
 msgstr "出力デバイスなし"
 
+#: src/pages/tiling/tilingpage.cpp
+msgid "Tiling is managed by the Bayu compositor, which is not running."
+msgstr "タイル表示は Bayu コンポジタが管理していますが、実行されていません。"
+
+#: src/pages/tiling/tilingpage.cpp
+msgid "Tile windows on every desk"
+msgstr "すべてのデスクでウィンドウをタイル表示"
+
+#: src/pages/tiling/tilingpage.cpp
+msgid "Gap between windows"
+msgstr "ウィンドウの間隔"
+
+#: src/pages/tiling/tilingpage.cpp
+#, python-brace-format
+msgid "{pixels} px"
+msgstr "{pixels} px"
+
+#: src/pages/tiling/tilingpage.cpp
+msgid "Meta+Y tiles or untiles the current desk, as does the tiling button in the status bar. On a tiled desk, Meta+arrow keys move between windows, Meta+Shift+arrow keys swap them, Meta+Alt+arrow keys resize them and Meta+G lets a window float. Drag a window onto another to swap them."
+msgstr "Meta+Y で現在のデスクをタイル表示にしたり解除したりできます（ステータスバーのタイルボタンも同じです）。タイル表示のデスクでは、Meta+矢印キーでウィンドウ間を移動し、Meta+Shift+矢印キーで入れ替え、Meta+Alt+矢印キーでサイズを変更し、Meta+G でウィンドウをフローティングにします。ウィンドウを別のウィンドウにドラッグすると入れ替わります。"
+
+#: src/pages/tiling/tilingpage.cpp
+msgid "Always float"
+msgstr "常にフローティング"
+
+#: src/pages/tiling/tilingpage.cpp
+msgid "Add an app"
+msgstr "アプリを追加"
+
+#: src/pages/tiling/tilingpage.cpp
+msgid "Windows of these apps never tile, nor do dialogs and windows too large for a tile."
+msgstr "これらのアプリのウィンドウはタイル表示されません。ダイアログやタイルに収まらない大きなウィンドウも同様です。"
+
 #: src/pages/touchpad/touchpadpage.cpp src/window/pagelist.cpp
 msgid "Touchpad"
 msgstr "タッチパッド"
@@ -2551,6 +2772,10 @@ msgstr "壁紙フォルダを追加"
 msgid "Search"
 msgstr "検索"
 
+#: src/window/admin.cpp
+msgid "Only an administrator can change this."
+msgstr "これを変更できるのは管理者だけです。"
+
 #: src/window/page.cpp
 msgid "This page is not ported yet."
 msgstr "このページはまだ移植されていません。"
@@ -2588,10 +2813,6 @@ msgid "do not disturb, banners, alerts"
 msgstr "おやすみモード, バナー, アラート, do not disturb, banners, alerts"
 
 #: src/window/pagelist.cpp
-msgid "Devices"
-msgstr "デバイス"
-
-#: src/window/pagelist.cpp
 msgid "monitor, screen, resolution, refresh rate, scaling, brightness, rotation"
 msgstr "モニタ, 画面, 解像度, リフレッシュレート, スケーリング, 明るさ, 回転, monitor, screen, resolution, refresh rate, scaling, brightness, rotation"
 
@@ -2620,8 +2841,12 @@ msgid "printer, print, printing, scanner, CUPS, USB, network, default printer, t
 msgstr "プリンター, 印刷, スキャナー, CUPS, USB, ネットワーク, デフォルトのプリンター, テストページ"
 
 #: src/window/pagelist.cpp
-msgid "accounts, password, login, administrator, avatar"
-msgstr "アカウント, パスワード, ログイン, 管理者, アバター, accounts, password, login, administrator, avatar"
+msgid "driver, firmware, hardware, device, PCI, USB, lspci, lsusb, Wi-Fi, graphics"
+msgstr "ドライバー, ファームウェア, ハードウェア, デバイス, PCI, USB, lspci, lsusb, Wi-Fi, グラフィックス"
+
+#: src/window/pagelist.cpp
+msgid "accounts, password, login, administrator, avatar, automatic login, autologin"
+msgstr "アカウント, パスワード, ログイン, 管理者, アバター, 自動ログイン, autologin"
 
 #: src/window/pagelist.cpp
 msgid "region, locale, system language"
@@ -2646,6 +2871,10 @@ msgstr "充電, 充電制限, バッテリーのヘルス, 容量, 履歴, パ�
 #: src/window/pagelist.cpp
 msgid "energy, performance, power saving, sleep, turn off display"
 msgstr "エネルギー, パフォーマンス, 省電力, スリープ, ディスプレイをオフ, energy, performance, power saving, sleep, turn off display"
+
+#: src/window/pagelist.cpp
+msgid "RAM, zram, swap, memory compression, Android"
+msgstr "RAM, zram, スワップ, メモリ圧縮, Android"
 
 #: src/window/pagelist.cpp
 msgid "update, upgrade, dnf, packages, security, download, restart"
@@ -2692,6 +2921,10 @@ msgid "screen corners, show desktop, show all windows"
 msgstr "画面の隅, デスクトップを表示, すべてのウィンドウを表示, screen corners, show desktop, show all windows"
 
 #: src/window/pagelist.cpp
+msgid "tile, tiling, split, windows, gaps, float"
+msgstr "タイル, タイル表示, 分割, ウィンドウ, 間隔, フローティング"
+
+#: src/window/pagelist.cpp
 msgid "hotkeys, key bindings"
 msgstr "ホットキー, キーバインド, hotkeys, key bindings"
 
@@ -2702,3 +2935,39 @@ msgstr "設定"
 #: src/window/sidebar.cpp
 msgid "No results"
 msgstr "結果なし"
+
+#~ msgid "Intel Wi-Fi"
+#~ msgstr "Intel Wi-Fi"
+
+#~ msgid "Realtek Wi-Fi"
+#~ msgstr "Realtek Wi-Fi"
+
+#~ msgid "Qualcomm Atheros Wi-Fi"
+#~ msgstr "Qualcomm Atheros Wi-Fi"
+
+#~ msgid "MediaTek Wi-Fi"
+#~ msgstr "MediaTek Wi-Fi"
+
+#~ msgid "Broadcom Wi-Fi"
+#~ msgstr "Broadcom Wi-Fi"
+
+#~ msgid "AMD graphics"
+#~ msgstr "AMD グラフィックス"
+
+#~ msgid "Intel graphics"
+#~ msgstr "Intel グラフィックス"
+
+#~ msgid "NVIDIA graphics"
+#~ msgstr "NVIDIA グラフィックス"
+
+#~ msgid "Intel sound"
+#~ msgstr "Intel サウンド"
+
+#~ msgid "Realtek USB Wi-Fi or Bluetooth"
+#~ msgstr "Realtek USB Wi-Fi または Bluetooth"
+
+#~ msgid "Qualcomm Atheros USB Wi-Fi or Bluetooth"
+#~ msgstr "Qualcomm Atheros USB Wi-Fi または Bluetooth"
+
+#~ msgid "MediaTek USB Wi-Fi or Bluetooth"
+#~ msgstr "MediaTek USB Wi-Fi または Bluetooth"

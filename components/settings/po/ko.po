@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bayu-settings\n"
 "Report-Msgid-Bugs-To: https://github.com/bayuos\n"
-"POT-Creation-Date: 2026-10-28 07:51+0000\n"
+"POT-Creation-Date: 2026-11-03 11:52+0000\n"
 "PO-Revision-Date: 2026-10-25 12:00+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -114,6 +114,19 @@ msgstr "사용자"
 #: src/pages/accounts/accountspage.cpp
 msgid "Add user"
 msgstr "사용자 추가"
+
+#: src/pages/accounts/accountspage.cpp
+msgid "Log in automatically"
+msgstr "자동 로그인"
+
+#: src/pages/accounts/accountspage.cpp
+msgid "This account starts without a password when the computer turns on. Anyone at the computer can use it, and the login keyring may ask for the password."
+msgstr "컴퓨터를 켤 때 암호 없이 이 계정이 열립니다. 컴퓨터 앞에 있는 누구나 사용할 수 있으며, 로그인 키링이 암호를 요구할 수 있습니다."
+
+#: src/pages/accounts/accountspage.cpp
+#, python-brace-format
+msgid "“{name}” logs in automatically now; turning this on logs this account in instead."
+msgstr "현재 “{name}” 계정이 자동 로그인합니다. 이 옵션을 켜면 대신 이 계정이 자동 로그인합니다."
 
 #: src/pages/accounts/accountspage.cpp src/pages/wallpaper/wallpaperpage.cpp
 #, python-brace-format
@@ -686,7 +699,7 @@ msgstr "비디오 플레이어"
 
 #: src/pages/defaultapps/defaultappspage.cpp src/pages/fonts/fontspage.cpp
 #: src/pages/hotcorners/hotcornerspage.cpp src/pages/keyboard/keyboardpage.cpp
-#: src/pages/shortcuts/shortcutspage.cpp
+#: src/pages/shortcuts/shortcutspage.cpp src/pages/tiling/tilingpage.cpp
 msgid "None"
 msgstr "없음"
 
@@ -876,6 +889,11 @@ msgstr "더 짙게"
 msgid "Hot Corners"
 msgstr "핫 코너"
 
+#: src/pages/dock/dockpage.cpp src/pages/shortcuts/shortcutsmodel.cpp
+#: src/pages/tiling/tilingpage.cpp src/window/pagelist.cpp
+msgid "Tiling"
+msgstr "타일링"
+
 #: src/pages/dock/dockpage.cpp
 msgid "The panel has no top bar, so applications show their menus in their windows. Applications already open may need to be opened again."
 msgstr "패널 레이아웃에는 상단 바가 없으므로 앱의 메뉴가 각 창 안에 표시됩니다. 이미 열린 앱은 다시 열어야 할 수 있습니다."
@@ -896,7 +914,7 @@ msgstr "아래쪽"
 msgid "Right"
 msgstr "오른쪽"
 
-#: src/pages/dock/dockpage.cpp
+#: src/pages/dock/dockpage.cpp src/pages/memory/memorypage.cpp
 msgid "Size"
 msgstr "크기"
 
@@ -970,6 +988,70 @@ msgstr "강하게"
 #: src/pages/fonts/fontspage.cpp
 msgid "Anti-Aliasing"
 msgstr "안티앨리어싱"
+
+#: src/pages/hardware/hardware.cpp
+#, python-brace-format
+msgid "{driver} driver for {device}"
+msgstr "{device}용 {driver} 드라이버"
+
+#: src/pages/hardware/hardware.cpp
+#, python-brace-format
+msgid "Driver for {device}"
+msgstr "{device}용 드라이버"
+
+#: src/pages/hardware/hardware.cpp
+#, python-brace-format
+msgid "Firmware for {device}"
+msgstr "{device}용 펌웨어"
+
+#: src/pages/hardware/hardwarepage.cpp src/window/pagelist.cpp
+msgid "Drivers & Hardware"
+msgstr "드라이버 및 하드웨어"
+
+#: src/pages/hardware/hardwarepage.cpp
+msgid "Recommended"
+msgstr "권장"
+
+#: src/pages/hardware/hardwarepage.cpp src/window/pagelist.cpp
+msgid "Devices"
+msgstr "기기"
+
+#: src/pages/hardware/hardwarepage.cpp
+msgid "Copy Hardware Information"
+msgstr "하드웨어 정보 복사"
+
+#: src/pages/hardware/hardwarepage.cpp
+msgid "Paste it into a bug report, so that others can see this hardware."
+msgstr "다른 사람이 이 하드웨어를 확인할 수 있도록 버그 보고서에 붙여 넣으십시오."
+
+#: src/pages/hardware/hardwarepage.cpp
+msgid "No driver"
+msgstr "드라이버 없음"
+
+#: src/pages/hardware/hardwarepage.cpp
+#, python-brace-format
+msgid "Driver: {driver}"
+msgstr "드라이버: {driver}"
+
+#: src/pages/hardware/hardwarepage.cpp
+msgid "Proprietary"
+msgstr "독점"
+
+#: src/pages/hardware/hardwarepage.cpp
+msgid "Install"
+msgstr "설치"
+
+#: src/pages/hardware/hardwarepage.cpp
+msgid "The driver is installed. Restart the computer to use it."
+msgstr "드라이버가 설치되었습니다. 사용하려면 컴퓨터를 다시 시작하십시오."
+
+#: src/pages/hardware/hardwarepage.cpp
+msgid "Drivers and firmware for the devices of this computer that are not installed yet. Without them, the devices may not work, or work only in part."
+msgstr "이 컴퓨터의 장치에 필요하지만 아직 설치되지 않은 드라이버와 펌웨어입니다. 없으면 장치가 작동하지 않거나 일부만 작동할 수 있습니다."
+
+#: src/pages/hardware/hardwarepage.cpp
+msgid "Secure Boot is on: it keeps proprietary drivers built on this computer from loading. Turn it off in the computer's firmware settings to use them."
+msgstr "보안 부팅이 켜져 있어 이 컴퓨터에서 빌드한 독점 드라이버를 불러올 수 없습니다. 사용하려면 컴퓨터의 펌웨어 설정에서 끄십시오."
 
 #: src/pages/hotcorners/hotcorners.cpp src/pages/shortcuts/shortcutsmodel.cpp
 msgctxt "key"
@@ -1154,6 +1236,54 @@ msgstr "시스템 언어"
 #: src/pages/language/preferredlanguagelist.cpp
 msgid "Remove language"
 msgstr "언어 제거"
+
+#: src/pages/memory/memorypage.cpp src/window/pagelist.cpp
+msgid "Memory"
+msgstr "메모리"
+
+#: src/pages/memory/memorypage.cpp
+msgid "Memory compression"
+msgstr "메모리 압축"
+
+#: src/pages/memory/memorypage.cpp
+msgid "Compress memory"
+msgstr "메모리 압축 사용"
+
+#: src/pages/memory/memorypage.cpp src/pages/network/vpn/vpneditor.cpp
+msgid "Automatic"
+msgstr "자동"
+
+#: src/pages/memory/memorypage.cpp
+msgid "25% of memory"
+msgstr "메모리의 25%"
+
+#: src/pages/memory/memorypage.cpp
+msgid "50% of memory"
+msgstr "메모리의 50%"
+
+#: src/pages/memory/memorypage.cpp
+msgid "Usage"
+msgstr "사용량"
+
+#: src/pages/memory/memorypage.cpp
+msgid "Compressed swap"
+msgstr "압축 스왑"
+
+#: src/pages/memory/memorypage.cpp
+msgid "Swapped out"
+msgstr "스왑된 양"
+
+#: src/pages/memory/memorypage.cpp
+msgid "Memory it takes"
+msgstr "차지하는 메모리"
+
+#: src/pages/memory/memorypage.cpp
+msgid "Compression ratio"
+msgstr "압축률"
+
+#: src/pages/memory/memorypage.cpp
+msgid "Memory that is not in use is kept compressed in memory, so more applications and Android apps fit before the computer slows down, as on phones. Changes apply at once."
+msgstr "사용하지 않는 메모리를 압축하여 메모리에 보관하므로, 휴대전화처럼 컴퓨터가 느려지기 전에 더 많은 앱과 Android 앱을 열 수 있습니다. 변경 사항은 즉시 적용됩니다."
 
 #: src/pages/mouse/mousepage.cpp
 msgid "Left hand"
@@ -1438,7 +1568,7 @@ msgstr "고급 옵션 표시"
 msgid "Asked on connect"
 msgstr "연결 시 묻기"
 
-#: src/pages/network/vpn/vpneditor.cpp
+#: src/pages/network/vpn/vpneditor.cpp src/pages/tiling/tilingpage.cpp
 msgid "Choose…"
 msgstr "선택…"
 
@@ -1479,10 +1609,6 @@ msgid "Listen port"
 msgstr "수신 포트"
 
 #: src/pages/network/vpn/vpneditor.cpp
-msgid "Automatic"
-msgstr "자동"
-
-#: src/pages/network/vpn/vpneditor.cpp
 msgid "Firewall mark"
 msgstr "방화벽 마크"
 
@@ -1504,6 +1630,7 @@ msgstr "피어"
 
 #: src/pages/network/vpn/vpneditor.cpp src/pages/printers/printerspage.cpp
 #: src/pages/privacy/privacypage.cpp src/pages/shortcuts/shortcuteditdialog.cpp
+#: src/pages/tiling/tilingpage.cpp
 msgid "Remove"
 msgstr "제거"
 
@@ -1733,6 +1860,10 @@ msgid "Prevent automatic sleeping when the display is off"
 msgstr "디스플레이가 꺼져 있어도 자동 절전 방지"
 
 #: src/pages/printers/printers.cpp
+msgid "Raw (the application sends the printer's own commands)"
+msgstr "Raw (앱이 프린터 자체 명령을 보냄)"
+
+#: src/pages/printers/printers.cpp
 msgid "No driver for this printer was found."
 msgstr "이 프린터의 드라이버를 찾을 수 없습니다."
 
@@ -1802,6 +1933,15 @@ msgstr "프린터를 변경할 수 없습니다: {error}"
 #: src/pages/printers/printerspage.cpp
 msgid "No other printers found"
 msgstr "다른 프린터를 찾지 못했습니다"
+
+#: src/pages/printers/printerspage.cpp
+msgid "Choose a Driver"
+msgstr "드라이버 선택"
+
+#: src/pages/printers/printerspage.cpp
+#, python-brace-format
+msgid "No driver is known for {printer}. Choose one: that of a model of the same series usually works, such as Epson LQ-850 for an Epson LQ dot-matrix printer. Raw is for applications that send the printer's own commands, such as point of sale ones."
+msgstr "{printer}에 맞는 드라이버를 찾을 수 없습니다. 하나를 선택하세요. 같은 시리즈 모델의 드라이버가 보통 작동합니다. 예를 들어 Epson LQ 도트 매트릭스 프린터에는 Epson LQ-850입니다. Raw는 POS 앱처럼 프린터 자체 명령을 보내는 앱용입니다."
 
 #: src/pages/printers/printerspage.cpp
 msgid "The printer's host name or IP address, such as 192.168.1.20, or its IPP address. It has to print without a driver (IPP Everywhere or AirPrint), as most printers made since 2012 do."
@@ -1929,12 +2069,60 @@ msgid "Snap the window to the right"
 msgstr "창을 오른쪽에 맞추기"
 
 #: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Snap the window up, or maximize it"
+msgstr "창을 위쪽에 맞추거나 최대화"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Snap the window down, or minimize it"
+msgstr "창을 아래쪽에 맞추거나 최소화"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
 msgid "Close the window"
 msgstr "창 닫기"
 
 #: src/pages/shortcuts/shortcutsmodel.cpp
 msgid "Move the window to the next display"
 msgstr "창을 다음 디스플레이로 이동"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Tile or untile the desk"
+msgstr "데스크 타일링 켜기 또는 끄기"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Float the window, or tile it again"
+msgstr "창을 띄우거나 다시 타일링"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Swap the window with the one on the left, or move it to the display on the left"
+msgstr "창을 왼쪽 창과 바꾸거나 왼쪽 디스플레이로 이동"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Swap the window with the one on the right, or move it to the display on the right"
+msgstr "창을 오른쪽 창과 바꾸거나 오른쪽 디스플레이로 이동"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Swap the window with the one above"
+msgstr "위쪽 창과 바꾸기"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Swap the window with the one below"
+msgstr "아래쪽 창과 바꾸기"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Move the edge of the window to the left"
+msgstr "창 가장자리를 왼쪽으로 이동"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Move the edge of the window to the right"
+msgstr "창 가장자리를 오른쪽으로 이동"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Move the edge of the window up"
+msgstr "창 가장자리를 위로 이동"
+
+#: src/pages/shortcuts/shortcutsmodel.cpp
+msgid "Move the edge of the window down"
+msgstr "창 가장자리를 아래로 이동"
 
 #: src/pages/shortcuts/shortcutsmodel.cpp
 msgid "Switch to the desk on the left"
@@ -2309,6 +2497,39 @@ msgstr "입력 장치 없음"
 msgid "No output devices"
 msgstr "출력 장치 없음"
 
+#: src/pages/tiling/tilingpage.cpp
+msgid "Tiling is managed by the Bayu compositor, which is not running."
+msgstr "타일링은 Bayu 컴포지터가 관리하지만 실행 중이 아닙니다."
+
+#: src/pages/tiling/tilingpage.cpp
+msgid "Tile windows on every desk"
+msgstr "모든 데스크에서 창 타일링"
+
+#: src/pages/tiling/tilingpage.cpp
+msgid "Gap between windows"
+msgstr "창 사이 간격"
+
+#: src/pages/tiling/tilingpage.cpp
+#, python-brace-format
+msgid "{pixels} px"
+msgstr "{pixels}px"
+
+#: src/pages/tiling/tilingpage.cpp
+msgid "Meta+Y tiles or untiles the current desk, as does the tiling button in the status bar. On a tiled desk, Meta+arrow keys move between windows, Meta+Shift+arrow keys swap them, Meta+Alt+arrow keys resize them and Meta+G lets a window float. Drag a window onto another to swap them."
+msgstr "Meta+Y로 현재 데스크의 타일링을 켜거나 끕니다. 상태 표시줄의 타일링 버튼도 같습니다. 타일링된 데스크에서 Meta+화살표 키는 창 사이를 이동하고, Meta+Shift+화살표 키는 창을 바꾸며, Meta+Alt+화살표 키는 크기를 조절하고, Meta+G는 창을 띄웁니다. 창을 다른 창 위로 끌어 놓으면 서로 바뀝니다."
+
+#: src/pages/tiling/tilingpage.cpp
+msgid "Always float"
+msgstr "항상 띄우기"
+
+#: src/pages/tiling/tilingpage.cpp
+msgid "Add an app"
+msgstr "앱 추가"
+
+#: src/pages/tiling/tilingpage.cpp
+msgid "Windows of these apps never tile, nor do dialogs and windows too large for a tile."
+msgstr "이 앱의 창은 타일링되지 않으며, 대화 상자와 타일에 비해 너무 큰 창도 마찬가지입니다."
+
 #: src/pages/touchpad/touchpadpage.cpp src/window/pagelist.cpp
 msgid "Touchpad"
 msgstr "터치패드"
@@ -2550,6 +2771,10 @@ msgstr "배경화면 폴더 추가"
 msgid "Search"
 msgstr "검색"
 
+#: src/window/admin.cpp
+msgid "Only an administrator can change this."
+msgstr "관리자만 이 항목을 변경할 수 있습니다."
+
 #: src/window/page.cpp
 msgid "This page is not ported yet."
 msgstr "이 페이지는 아직 이식되지 않았습니다."
@@ -2587,10 +2812,6 @@ msgid "do not disturb, banners, alerts"
 msgstr "방해 금지, 배너, 알림"
 
 #: src/window/pagelist.cpp
-msgid "Devices"
-msgstr "기기"
-
-#: src/window/pagelist.cpp
 msgid "monitor, screen, resolution, refresh rate, scaling, brightness, rotation"
 msgstr "모니터, 화면, 해상도, 주사율, 배율, 밝기, 회전"
 
@@ -2619,8 +2840,12 @@ msgid "printer, print, printing, scanner, CUPS, USB, network, default printer, t
 msgstr "프린터, 인쇄, 스캐너, CUPS, USB, 네트워크, 기본 프린터, 테스트 페이지"
 
 #: src/window/pagelist.cpp
-msgid "accounts, password, login, administrator, avatar"
-msgstr "계정, 비밀번호, 로그인, 관리자, 아바타"
+msgid "driver, firmware, hardware, device, PCI, USB, lspci, lsusb, Wi-Fi, graphics"
+msgstr "드라이버, 펌웨어, 하드웨어, 장치, PCI, USB, lspci, lsusb, Wi-Fi, 그래픽"
+
+#: src/window/pagelist.cpp
+msgid "accounts, password, login, administrator, avatar, automatic login, autologin"
+msgstr "계정, 암호, 로그인, 관리자, 아바타, 자동 로그인, autologin"
 
 #: src/window/pagelist.cpp
 msgid "region, locale, system language"
@@ -2645,6 +2870,10 @@ msgstr "충전, 충전 제한, 배터리 상태, 용량, 기록, 백분율"
 #: src/window/pagelist.cpp
 msgid "energy, performance, power saving, sleep, turn off display"
 msgstr "에너지, 성능, 절전, 절전 모드, 디스플레이 끄기"
+
+#: src/window/pagelist.cpp
+msgid "RAM, zram, swap, memory compression, Android"
+msgstr "RAM, zram, 스왑, 메모리 압축, Android"
 
 #: src/window/pagelist.cpp
 msgid "update, upgrade, dnf, packages, security, download, restart"
@@ -2691,6 +2920,10 @@ msgid "screen corners, show desktop, show all windows"
 msgstr "화면 모서리, 바탕 화면 보기, 모든 창 보기"
 
 #: src/window/pagelist.cpp
+msgid "tile, tiling, split, windows, gaps, float"
+msgstr "타일, 타일링, 분할, 창, 간격, 띄우기"
+
+#: src/window/pagelist.cpp
 msgid "hotkeys, key bindings"
 msgstr "핫키, 키 바인딩"
 
@@ -2701,3 +2934,39 @@ msgstr "설정"
 #: src/window/sidebar.cpp
 msgid "No results"
 msgstr "결과 없음"
+
+#~ msgid "Intel Wi-Fi"
+#~ msgstr "Intel Wi-Fi"
+
+#~ msgid "Realtek Wi-Fi"
+#~ msgstr "Realtek Wi-Fi"
+
+#~ msgid "Qualcomm Atheros Wi-Fi"
+#~ msgstr "Qualcomm Atheros Wi-Fi"
+
+#~ msgid "MediaTek Wi-Fi"
+#~ msgstr "MediaTek Wi-Fi"
+
+#~ msgid "Broadcom Wi-Fi"
+#~ msgstr "Broadcom Wi-Fi"
+
+#~ msgid "AMD graphics"
+#~ msgstr "AMD 그래픽"
+
+#~ msgid "Intel graphics"
+#~ msgstr "Intel 그래픽"
+
+#~ msgid "NVIDIA graphics"
+#~ msgstr "NVIDIA 그래픽"
+
+#~ msgid "Intel sound"
+#~ msgstr "Intel 사운드"
+
+#~ msgid "Realtek USB Wi-Fi or Bluetooth"
+#~ msgstr "Realtek USB Wi-Fi 또는 블루투스"
+
+#~ msgid "Qualcomm Atheros USB Wi-Fi or Bluetooth"
+#~ msgstr "Qualcomm Atheros USB Wi-Fi 또는 블루투스"
+
+#~ msgid "MediaTek USB Wi-Fi or Bluetooth"
+#~ msgstr "MediaTek USB Wi-Fi 또는 블루투스"
