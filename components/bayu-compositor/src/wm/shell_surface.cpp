@@ -980,6 +980,8 @@ void ShellSurface::mapPopup()
     m_window = m_manager->createWindow(m_surface, init);
     m_window->addObserver(this);
     updatePopupPosition();
+    if (m_hasGrab)
+        m_manager->popupGrabMapped();
 
     CF_DEBUG(cfCompositor) << "xdg popup mapped at" << absoluteOrigin() << "grab" << m_hasGrab;
 }

@@ -63,6 +63,7 @@ protected:
     void layout() override
     {
         ui::RowLayout::layout();
+        m_bar->placeApplets();
         // A theme change lays every window out again; the system's dark
         // mode is the bar's fallback.
         if (ui::Theme::generation() != m_themeGeneration) {
@@ -86,6 +87,22 @@ protected:
 private:
     StatusBarWindow *m_bar;
     uint64_t m_themeGeneration = 0;
+};
+
+// Empty room for the applets' windows, which lie on it.
+class StatusBarWindow::AppletStrip final : public ui::View
+{
+public:
+    std::vector<int> widths;
+
+    double preferredWidth() const
+    {
+        double width = 0;
+        for (int each : widths)
+            width += each;
+        // Spaced as the bar's own items; nothing when there is none.
+        return widths.empty() ? 0 : width + BarContext::kItemGap * (widths.size() - 1) + BarContext::kItemGap;
+    }
 };
 
 // The menu bar's slot: what it holds fills it.
@@ -170,6 +187,9 @@ StatusBarWindow::StatusBarWindow(Shell *shell, std::unique_ptr<StatusBar> status
         const base::Point origin = m_window->geometry().topLeft();
         return ui::PointF {double(origin.x()), double(origin.y())};
     };
+    m_applets = m_root->addChild<AppletStrip>();
+    m_applets->setName("applets");
+    m_applets->setVisible(false);
     m_tray = m_root->addChild<SystemTrayView>(this, &m_statusBar->systemTray(), std::move(trayHost));
     m_tray->setName("tray");
     m_tray->onCountChanged = [this] { layoutRow(); };
@@ -284,10 +304,12 @@ void StatusBarWindow::updateGeometry()
         // window is open then.
         m_window->setExclusiveZone(wm::ScreenEdge::Bottom, m_floating ? 0 : kPanelHeight);
         updatePanelGlass();
+        placeApplets();
         return;
     }
     m_window->setGeometry(base::Rect(output->bounds.x(), output->bounds.y(), output->bounds.width(), kHeight));
     m_window->setExclusiveZone(wm::ScreenEdge::Top, kHeight);
+    placeApplets();
 }
 
 void StatusBarWindow::setUpdates(UpdateMonitor *updates)
@@ -568,6 +590,8 @@ void StatusBarWindow::updateLook()
     m_agentControl->updateLook();
     // The panel's glass follows the theme's mode.
     updatePanelGlass();
+    if (onLookChanged)
+        onLookChanged();
 }
 
 void StatusBarWindow::platePainted()
@@ -701,6 +725,8 @@ void StatusBarWindow::layoutRow()
         if (view->layoutHints().preferredWidth != width || !view->layoutHints().fillHeight)
             view->setLayoutHints(hints);
     };
+    m_applets->setVisible(!m_applets->widths.empty());
+    preferred(m_applets, m_applets->preferredWidth());
     preferred(m_recording, m_recording->preferredWidth());
     preferred(m_agentControl, m_agentControl->preferredWidth());
     m_tray->setVisible(m_tray->count() > 0);
@@ -710,6 +736,33 @@ void StatusBarWindow::layoutRow()
         preferred(icon, icon->preferredWidth());
     preferred(m_clock, m_clock->preferredWidth());
     m_root->requestLayout();
+}
+
+void StatusBarWindow::setAppletWidths(const std::vector<int> &widths)
+{
+    if (m_applets->widths == widths)
+        return;
+    m_applets->widths = widths;
+    layoutRow();
+}
+
+int StatusBarWindow::barHeight() const
+{
+    return m_window->geometry().height();
+}
+
+void StatusBarWindow::placeApplets()
+{
+    if (!onAppletsPlaced || !m_applets)
+        return;
+    std::vector<base::Rect> slots;
+    const base::Rect bar = m_window->geometry();
+    double x = m_applets->mapToWindow({0, 0}).x;
+    for (int width : m_applets->widths) {
+        slots.emplace_back(bar.x() + int(std::lround(x)), bar.y(), width, bar.height());
+        x += width + BarContext::kItemGap;
+    }
+    onAppletsPlaced(slots);
 }
 
 void StatusBarWindow::updateClock()

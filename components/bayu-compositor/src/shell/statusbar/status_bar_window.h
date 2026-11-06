@@ -110,6 +110,20 @@ public:
     void setAgentControl(bool active);
     std::function<void()> onStopAgentControl;
 
+    // --- Applets (#167) ---
+    // Room in the row, before the tray, for applets that programs of their
+    // own draw: a slot of each width, in order. The programs' windows lie on
+    // the slots; see BarApplets.
+    void setAppletWidths(const std::vector<int> &widths);
+    // The slots on the screen, the bar's full height, after every layout of
+    // the row and every move of the bar.
+    std::function<void(const std::vector<base::Rect> &)> onAppletsPlaced;
+    // The bar's contents turned light or dark (lightContents()), or the
+    // layout changed between the bar and the panel.
+    std::function<void()> onLookChanged;
+    // The bar's height on the screen now.
+    int barHeight() const;
+
     // --- The panel layout ---
     // The dock's pinned applications, the launcher's toggle and the dock's
     // glass for a tint: the panel's, from the components that own them.
@@ -141,6 +155,7 @@ public:
 private:
     class Root;
     class PanelSlot;
+    class AppletStrip;
 
     void updateLayoutMode();
     void updateFloating(bool animate);
@@ -155,6 +170,7 @@ private:
     void updateIndicators();
     void updateBattery();
     void layoutRow();
+    void placeApplets();
     void armClock();
     StatusBarPanels *panelsFor(StatusBarPanels::Panel panel) const;
     BarItem *itemFor(StatusBarPanels::Panel panel) const;
@@ -175,6 +191,7 @@ private:
     StatusBarMenuBar *m_menuBar = nullptr;
     StopItem *m_recording = nullptr;
     StopItem *m_agentControl = nullptr;
+    AppletStrip *m_applets = nullptr;
     SystemTrayView *m_tray = nullptr;
     StatusIcon *m_tiling = nullptr;
     StatusIcon *m_volume = nullptr;

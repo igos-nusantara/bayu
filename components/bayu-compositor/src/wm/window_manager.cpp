@@ -492,6 +492,7 @@ void WindowManager::setShellMetadata(compositor::Surface *surface,
             window->setFocusPolicy(metadata.focusPolicy);
             window->setPanelBehavior(metadata.panelBehavior);
             window->setProtectedFromControl(metadata.protectedFromControl);
+            window->setPopupsTakeKeyboard(metadata.popupsTakeKeyboard);
             if (metadata.role == WindowRole::Sheet)
                 attachSheet(window, metadata.parentWindow);
             else if (metadata.hasPosition)
@@ -550,6 +551,7 @@ Window *WindowManager::createWindow(compositor::Surface *rootSurface, const Wind
         window->setFocusPolicy(metadata->focusPolicy);
         window->setPanelBehavior(metadata->panelBehavior);
         window->setProtectedFromControl(metadata->protectedFromControl);
+        window->setPopupsTakeKeyboard(metadata->popupsTakeKeyboard);
         if (metadata->role == WindowRole::Sheet)
             attachSheet(window, metadata->parentWindow);
     }
@@ -1040,7 +1042,13 @@ void WindowManager::activateForPress(Window *window)
     Window *root = window;
     while (root && root->transientParent())
         root = root->transientParent();
-    const bool released = m_keyboardGrab && root != m_keyboardGrab;
+    // A popup lent the keyboard keeps it for presses in its own chain.
+    Window *grabRoot = m_keyboardGrab;
+    if (grabRoot && grabRoot == m_popupKeyboardRoot) {
+        while (grabRoot->transientParent())
+            grabRoot = grabRoot->transientParent();
+    }
+    const bool released = m_keyboardGrab && root != grabRoot;
     if (released)
         m_keyboardGrab = nullptr;
     m_activation.activate(window);
@@ -1286,6 +1294,15 @@ void WindowManager::updatePopupKeyboard()
     Window *root = popupGrabRoot();
     if (root && root->focusPolicy() != FocusPolicy::NoFocus)
         root = nullptr;
+    // The innermost grabbing popup that is mapped takes it instead.
+    if (root && root->popupsTakeKeyboard()) {
+        for (auto it = m_popupGrabs.rbegin(); it != m_popupGrabs.rend(); ++it) {
+            if ((*it)->window()) {
+                root = (*it)->window();
+                break;
+            }
+        }
+    }
     if (root == m_popupKeyboardRoot)
         return;
 
