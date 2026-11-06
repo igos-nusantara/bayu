@@ -44,7 +44,7 @@ public:
     // The window height at `scale`: the layout's, on whole device pixels.
     double windowHeight(double scale) const;
 
-    CardItem *wirelessCard() const { return m_wireless; }
+    CardItem *networkCard() const { return m_network; }
     CardItem *bluetoothCard() const { return m_bluetooth; }
     CardItem *darkModeCard() const { return m_darkMode; }
     CardItem *doNotDisturbCard() const { return m_doNotDisturb; }
@@ -55,6 +55,8 @@ public:
 
     // Press-and-hold on a card hides the control centre for Settings.
     std::function<void()> onHideRequested;
+    // The Network card opens the network panel from the bar.
+    std::function<void()> onNetworkRequested;
     // The layout's height may have changed.
     std::function<void()> onHeightChanged;
 
@@ -68,7 +70,7 @@ private:
     ControlCenterServices &m_services;
     ui::Label *m_title;
     DeviceUsersTile *m_users;
-    CardItem *m_wireless;
+    CardItem *m_network;
     CardItem *m_bluetooth;
     CardItem *m_darkMode;
     CardItem *m_doNotDisturb;

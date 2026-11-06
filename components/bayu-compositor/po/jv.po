@@ -780,3 +780,35 @@ msgstr "gambar layar;rekaman layar;jupuk;rekam;screenshot;"
 
 #~ msgid "Start"
 #~ msgstr "Wiwit"
+
+#: src/shell/controlcenter/status_panel.cpp
+msgid "Network"
+msgstr "Jaringan"
+
+#: src/shell/controlcenter/status_panel.cpp
+msgid "Network Settings"
+msgstr "Setelan Jaringan"
+
+#: src/shell/controlcenter/status_panel.cpp
+msgid "Connected"
+msgstr "Kasambung"
+
+#: src/shell/controlcenter/status_panel.cpp
+msgid "VPN"
+msgstr "VPN"
+
+#: src/shell/controlcenter/status_panel.cpp
+msgid "Interface"
+msgstr "Antarmuka"
+
+#: src/shell/controlcenter/status_panel.cpp
+msgid "IP address"
+msgstr "Alamat IP"
+
+#: src/shell/controlcenter/status_panel.cpp
+msgid "Type"
+msgstr "Jinis"
+
+#: src/shell/controlcenter/status_panel.cpp
+msgid "Address"
+msgstr "Alamat"

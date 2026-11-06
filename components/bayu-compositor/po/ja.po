@@ -781,3 +781,35 @@ msgstr "スクリーンショット;画面収録;撮影;収録;screenshot;screen
 
 #~ msgid "Start"
 #~ msgstr "スタート"
+
+#: src/shell/controlcenter/status_panel.cpp
+msgid "Network"
+msgstr "ネットワーク"
+
+#: src/shell/controlcenter/status_panel.cpp
+msgid "Network Settings"
+msgstr "ネットワーク設定"
+
+#: src/shell/controlcenter/status_panel.cpp
+msgid "Connected"
+msgstr "接続済み"
+
+#: src/shell/controlcenter/status_panel.cpp
+msgid "VPN"
+msgstr "VPN"
+
+#: src/shell/controlcenter/status_panel.cpp
+msgid "Interface"
+msgstr "インターフェース"
+
+#: src/shell/controlcenter/status_panel.cpp
+msgid "IP address"
+msgstr "IP アドレス"
+
+#: src/shell/controlcenter/status_panel.cpp
+msgid "Type"
+msgstr "種類"
+
+#: src/shell/controlcenter/status_panel.cpp
+msgid "Address"
+msgstr "アドレス"

@@ -780,3 +780,35 @@ msgstr "tangkapan skrin;rakaman skrin;tangkap;rakam;"
 
 #~ msgid "Start"
 #~ msgstr "Mula"
+
+#: src/shell/controlcenter/status_panel.cpp
+msgid "Network"
+msgstr "Rangkaian"
+
+#: src/shell/controlcenter/status_panel.cpp
+msgid "Network Settings"
+msgstr "Tetapan Rangkaian"
+
+#: src/shell/controlcenter/status_panel.cpp
+msgid "Connected"
+msgstr "Disambungkan"
+
+#: src/shell/controlcenter/status_panel.cpp
+msgid "VPN"
+msgstr "VPN"
+
+#: src/shell/controlcenter/status_panel.cpp
+msgid "Interface"
+msgstr "Antara muka"
+
+#: src/shell/controlcenter/status_panel.cpp
+msgid "IP address"
+msgstr "Alamat IP"
+
+#: src/shell/controlcenter/status_panel.cpp
+msgid "Type"
+msgstr "Jenis"
+
+#: src/shell/controlcenter/status_panel.cpp
+msgid "Address"
+msgstr "Alamat"

@@ -791,3 +791,35 @@ msgstr "capture d’écran;enregistrement d’écran;capture;enregistrer;screens
 
 #~ msgid "Start"
 #~ msgstr "Démarrer"
+
+#: src/shell/controlcenter/status_panel.cpp
+msgid "Network"
+msgstr "Réseau"
+
+#: src/shell/controlcenter/status_panel.cpp
+msgid "Network Settings"
+msgstr "Paramètres réseau"
+
+#: src/shell/controlcenter/status_panel.cpp
+msgid "Connected"
+msgstr "Connecté"
+
+#: src/shell/controlcenter/status_panel.cpp
+msgid "VPN"
+msgstr "VPN"
+
+#: src/shell/controlcenter/status_panel.cpp
+msgid "Interface"
+msgstr "Interface"
+
+#: src/shell/controlcenter/status_panel.cpp
+msgid "IP address"
+msgstr "Adresse IP"
+
+#: src/shell/controlcenter/status_panel.cpp
+msgid "Type"
+msgstr "Type"
+
+#: src/shell/controlcenter/status_panel.cpp
+msgid "Address"
+msgstr "Adresse"

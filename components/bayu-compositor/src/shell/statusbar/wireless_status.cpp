@@ -48,30 +48,66 @@ StatusBarIndicators::Network WirelessStatus::network() const
     network.hotspotActive = m_handler->hotspotActive();
     network.wirelessName = m_wirelessName;
     network.wirelessIcon = m_wirelessIcon;
+    network.wiredHwEnabled = m_wiredHwEnabled;
+    network.wiredConnected = m_wiredConnected;
+    network.wiredPrimary = m_wiredPrimary;
+    network.wiredName = m_wiredName;
+    network.wiredIcon = m_wiredConnected ? "network-wired"
+            : m_wiredHwEnabled        ? "network-wired-unavailable"
+                                      : std::string();
     return network;
 }
 
-// NM.ActiveConnection: the Wi-Fi connection that is up, the primary one if
-// there are several; a hotspot is not a network this machine is on.
+// NM.ActiveConnection: the wired connection that is up, and the Wi-Fi network
+// this machine is on, the primary one if there are several; a hotspot is not
+// a network this machine is on.
 void WirelessStatus::updateActiveConnection()
 {
     std::string name;
     std::string icon;
+    bool wiredHwEnabled = false;
+    bool wiredConnected = false;
+    bool wiredPrimary = false;
+    std::string wiredName;
     if (ready()) {
+        for (const std::string &device : m_client->devices()) {
+            if (m_client->deviceType(device) == nm::DeviceEthernet) {
+                wiredHwEnabled = true;
+                break;
+            }
+        }
+
         const auto primary = m_client->manager("PrimaryConnection").get<dbus::ObjectPath>();
         std::string chosen;
         std::string device;
         for (const std::string &active : m_client->activeConnections()) {
             const auto devices = m_client->property(active, nm::activeInterface, "Devices")
                                          .value<std::vector<dbus::ObjectPath>>();
-            if (m_client->property(active, nm::activeInterface, "Type").value<std::string>() != "802-11-wireless"
-                || m_client->property(active, nm::activeInterface, "State").value<uint32_t>()
+            const std::string type =
+                    m_client->property(active, nm::activeInterface, "Type").value<std::string>();
+            if (m_client->property(active, nm::activeInterface, "State").value<uint32_t>()
                         != nm::ActiveActivated
-                || devices.empty()
+                || devices.empty())
+                continue;
+            const bool isPrimary = primary && active == primary->path;
+
+            if (type == "802-3-ethernet") {
+                wiredConnected = true;
+                if (wiredName.empty() || isPrimary) {
+                    wiredPrimary = isPrimary;
+                    wiredName = m_client->property(active, nm::activeInterface, "Id").value<std::string>();
+                    if (wiredName.empty())
+                        wiredName = m_client->property(devices.front().path, nm::deviceInterface, "Interface")
+                                            .value<std::string>();
+                }
+                continue;
+            }
+
+            if (type != "802-11-wireless"
                 || m_client->property(devices.front().path, nm::wirelessInterface, "Mode").value<uint32_t>()
                         == nm::ModeAp)
                 continue;
-            if (chosen.empty() || (primary && active == primary->path)) {
+            if (chosen.empty() || isPrimary) {
                 chosen = active;
                 device = devices.front().path;
             }
@@ -93,6 +129,10 @@ void WirelessStatus::updateActiveConnection()
     }
     m_wirelessName = name;
     m_wirelessIcon = icon;
+    m_wiredHwEnabled = wiredHwEnabled;
+    m_wiredConnected = wiredConnected;
+    m_wiredPrimary = wiredPrimary;
+    m_wiredName = wiredName;
 }
 
 } // namespace bayu::shell

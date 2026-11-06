@@ -68,6 +68,13 @@ public:
     std::string hotspotName() const override { return "Laptop"; }
     std::string wirelessName() const override { return wireless ? "Office 5G" : ""; }
     std::string wirelessIcon() const override { return "network-wireless-connected-100"; }
+    bool wiredHardwareEnabled() const override { return wiredHardware; }
+    bool wiredConnected() const override { return wired; }
+    bool wiredPrimary() const override { return wired; }
+    std::string wiredName() const override { return wired ? "Sambungan kabel 1" : ""; }
+    std::string wiredIcon() const override { return wired ? "network-wired" : "network-wired-unavailable"; }
+    std::vector<shell::NetworkConnection> networkConnections() const override { return connections; }
+    void toggleConnection(const shell::NetworkConnection &connection) override { toggled.push_back(connection.name); }
     std::vector<shell::WirelessNetwork> wirelessNetworks() const override { return wireless ? networks : decltype(networks)(); }
     void enableWireless(bool enable) override { wireless = enable; changed(); }
     void requestScan() override { ++scans; }
@@ -113,6 +120,8 @@ public:
 
     bool hardware = true;
     bool wireless = true;
+    bool wiredHardware = false;
+    bool wired = false;
     bool hotspot = false;
     bool bluetooth = true;
     bool dnd = false;
@@ -129,6 +138,8 @@ public:
     std::string profile = "balanced";
     std::vector<std::string> profiles {"power-saver", "balanced"};
     std::vector<shell::WirelessNetwork> networks;
+    std::vector<shell::NetworkConnection> connections;
+    std::vector<std::string> toggled;
     std::vector<std::string> activated;
     std::vector<shell::DeviceUser> users;
     shell::MediaState mediaState;
@@ -299,7 +310,7 @@ TEST_F(ControlCenterTest, CardsToggleTheirServicesAndHoldingOpensSettings)
     frame();
     shell::ControlCenterView *view = center->controlCenterView();
     ASSERT_NE(nullptr, view);
-    EXPECT_TRUE(view->wirelessCard()->isChecked());
+    EXPECT_TRUE(view->networkCard()->isChecked());
     EXPECT_TRUE(view->bluetoothCard()->isChecked());
     EXPECT_FALSE(view->doNotDisturbCard()->isChecked());
 
@@ -323,7 +334,7 @@ TEST_F(ControlCenterTest, CardsToggleTheirServicesAndHoldingOpensSettings)
     services->changed();
     test::runFor(std::chrono::milliseconds(5));
     frame();
-    EXPECT_FALSE(view->wirelessCard()->isVisible());
+    EXPECT_FALSE(view->networkCard()->isVisible());
     EXPECT_EQ(before, center->popupWindow(Panel::ControlCenter)->drawnBounds().height());
     services->hardware = true;
     services->changed();
@@ -331,13 +342,13 @@ TEST_F(ControlCenterTest, CardsToggleTheirServicesAndHoldingOpensSettings)
     frame();
 
     // Held 800 ms: the control centre goes and Settings opens on Wi-Fi.
-    const base::PointF point = centre(Panel::ControlCenter, view->wirelessCard());
+    const base::PointF point = centre(Panel::ControlCenter, view->networkCard());
     press(point.x(), point.y());
     test::runFor(std::chrono::milliseconds(900));
     release();
     test::runFor(std::chrono::milliseconds(20));
     ASSERT_EQ(1u, services->settings.size());
-    EXPECT_EQ((std::vector<std::string> {"-m", "wlan"}), services->settings.front());
+    EXPECT_EQ((std::vector<std::string> {"-m", "network"}), services->settings.front());
     EXPECT_FALSE(center->isOpen(Panel::ControlCenter));
     EXPECT_TRUE(services->wireless);
 }
@@ -458,7 +469,65 @@ TEST_F(ControlCenterTest, TheWifiPanelListsNetworksAndJoinsThem)
     clickView(Panel::Network, panel->settingsLink());
     test::runFor(std::chrono::milliseconds(20));
     EXPECT_FALSE(center->isOpen(Panel::Network));
-    EXPECT_EQ((std::vector<std::string> {"-m", "wlan"}), services->settings.back());
+    EXPECT_EQ((std::vector<std::string> {"-m", "network"}), services->settings.back());
+}
+
+TEST_F(ControlCenterTest, TheNetworkPanelShowsWiredAndVpnConnections)
+{
+    shell::NetworkConnection wired;
+    wired.key = "wired";
+    wired.type = shell::NetworkConnection::Type::Wired;
+    wired.name = "Sambungan kabel 1";
+    wired.detail = "enp0s31f6";
+    wired.address = "192.168.1.20";
+    wired.icon = "network-wired";
+    wired.state = shell::NetworkConnection::State::Activated;
+    wired.primary = true;
+
+    shell::NetworkConnection vpn;
+    vpn.key = "vpn";
+    vpn.type = shell::NetworkConnection::Type::Vpn;
+    vpn.name = "Office VPN";
+    vpn.detail = "WireGuard";
+    vpn.icon = "network-vpn";
+    vpn.state = shell::NetworkConnection::State::Deactivated;
+    vpn.connectionPath = "/vpn/1";
+
+    services->connections = {wired, vpn};
+    services->changed();
+    test::runFor(std::chrono::milliseconds(5));
+    center->openPanel(Panel::Network, bar.get(), item(293));
+    frame();
+
+    auto *panel = static_cast<shell::NetworkPanel *>(center->statusPanel(Panel::Network));
+    ASSERT_NE(nullptr, panel);
+    ASSERT_EQ(1u, panel->connectedRows().size());
+    ASSERT_EQ(1u, panel->vpnRows().size());
+    EXPECT_TRUE(panel->connectedRows()[0]->isActive());
+    EXPECT_EQ("Interface", panel->connectedRows()[0]->detailText());
+    EXPECT_EQ("enp0s31f6", panel->connectedRows()[0]->trailingText());
+    EXPECT_EQ("IP address", panel->connectedRows()[0]->detail2Label());
+    EXPECT_EQ("192.168.1.20", panel->connectedRows()[0]->detail2Value());
+    EXPECT_FALSE(panel->vpnRows()[0]->isActive());
+
+    clickView(Panel::Network, panel->vpnRows()[0]);
+    ASSERT_EQ(1u, services->toggled.size());
+    EXPECT_EQ("Office VPN", services->toggled.front());
+
+    clickView(Panel::Network, panel->connectedRows()[0]);
+    test::runFor(std::chrono::milliseconds(20));
+    EXPECT_EQ((std::vector<std::string> {"-m", "ethernet"}), services->settings.back());
+    EXPECT_FALSE(center->isOpen(Panel::Network));
+
+    // The Control Center's Network card opens the panel, not the Wi-Fi switch.
+    center->openPanel(Panel::ControlCenter, bar.get(), item(178));
+    frame();
+    auto *view = center->controlCenterView();
+    ASSERT_NE(nullptr, view);
+    clickView(Panel::ControlCenter, view->networkCard());
+    test::runFor(std::chrono::milliseconds(20));
+    EXPECT_TRUE(center->isOpen(Panel::Network));
+    EXPECT_FALSE(center->isOpen(Panel::ControlCenter));
 }
 
 TEST_F(ControlCenterTest, TheSoundAndBatteryPanelsPickOutputsAndModes)
@@ -503,7 +572,7 @@ TEST_F(ControlCenterTest, LanguageChangeKeepsTheOpenPanels)
     EXPECT_TRUE(center->isOpen(Panel::ControlCenter));
     EXPECT_EQ(view, center->controlCenterView());
     EXPECT_EQ(height, center->popupWindow(Panel::ControlCenter)->drawnBounds().height());
-    EXPECT_TRUE(view->wirelessCard()->isChecked());
+    EXPECT_TRUE(view->networkCard()->isChecked());
     center->closePanels();
     test::runFor(std::chrono::milliseconds(5));
 
@@ -528,6 +597,7 @@ TEST_F(ControlCenterTest, TheBarIndicatorsFollowTheServices)
     EXPECT_TRUE(center->audio().hasSink);
     EXPECT_NEAR(0.36, center->audio().volume, 1e-9);
     EXPECT_EQ("Office 5G", center->network().wirelessName);
+    EXPECT_FALSE(center->network().wiredConnected);
     services->wireless = false;
     services->changed();
     test::runFor(std::chrono::milliseconds(5));
@@ -536,6 +606,16 @@ TEST_F(ControlCenterTest, TheBarIndicatorsFollowTheServices)
     services->changed();
     test::runFor(std::chrono::milliseconds(5));
     EXPECT_EQ(1, changes);
+
+    services->wiredHardware = true;
+    services->wired = true;
+    services->changed();
+    test::runFor(std::chrono::milliseconds(5));
+    EXPECT_EQ(2, changes);
+    EXPECT_TRUE(center->network().wiredConnected);
+    EXPECT_TRUE(center->network().wiredPrimary);
+    EXPECT_EQ("Sambungan kabel 1", center->network().wiredName);
+    EXPECT_EQ("network-wired", center->network().wiredIcon);
 }
 
 TEST_F(ControlCenterTest, ThePowerDialogConfirmsWithReturnAndCancelsWithEscape)
@@ -575,7 +655,7 @@ TEST_F(ControlCenterTest, TheDeviceUsersTileShowsWhoUsesTheCamera)
     frame();
     shell::ControlCenterView *view = center->controlCenterView();
     const int before = center->popupWindow(Panel::ControlCenter)->drawnBounds().height();
-    const ui::RectF cards = view->wirelessCard()->geometry();
+    const ui::RectF cards = view->networkCard()->geometry();
     services->users = {{"Camera", "org.example.Camera", true, true, false}};
     services->changed();
     test::runFor(std::chrono::milliseconds(5));
@@ -583,7 +663,7 @@ TEST_F(ControlCenterTest, TheDeviceUsersTileShowsWhoUsesTheCamera)
     // One row of 20 with 16 round it, and the gap below.
     const int after = center->popupWindow(Panel::ControlCenter)->drawnBounds().height();
     EXPECT_NEAR(before + 20 + 32 + 10, after, 1);
-    EXPECT_NEAR(cards.y + 62, view->wirelessCard()->geometry().y, 0.01);
+    EXPECT_NEAR(cards.y + 62, view->networkCard()->geometry().y, 0.01);
     EXPECT_EQ("is using the camera and microphone", shell::deviceUsageText(services->users.front()));
 }
 

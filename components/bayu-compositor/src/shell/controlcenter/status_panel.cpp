@@ -94,6 +94,14 @@ PanelRow::PanelRow()
     m_label->setElide(ui::Label::Elide::Right);
     m_detail = addChild<ui::Label>();
     m_detail->setVisible(false);
+    m_trailing = addChild<ui::Label>();
+    m_trailing->setVisible(false);
+    m_trailing->setElide(ui::Label::Elide::Right);
+    m_detail2 = addChild<ui::Label>();
+    m_detail2->setVisible(false);
+    m_trailing2 = addChild<ui::Label>();
+    m_trailing2->setVisible(false);
+    m_trailing2->setElide(ui::Label::Elide::Right);
     m_busy = addChild<ui::BusyIndicator>();
     m_busy->setRunning(false);
     m_busy->setVisible(false);
@@ -131,6 +139,43 @@ void PanelRow::setDetail(std::string detail)
     m_detail->setVisible(!detail.empty());
     m_detail->setText(std::move(detail));
     requestLayout();
+}
+
+std::string PanelRow::detailText() const
+{
+    return m_detail->text();
+}
+
+void PanelRow::setTrailing(std::string text)
+{
+    m_trailing->setVisible(!text.empty());
+    m_trailing->setText(std::move(text));
+    requestLayout();
+}
+
+std::string PanelRow::trailingText() const
+{
+    return m_trailing->text();
+}
+
+void PanelRow::setDetail2(std::string label, std::string value)
+{
+    m_detail2->setText(std::move(label));
+    m_trailing2->setText(std::move(value));
+    const bool visible = !m_detail2->text().empty() || !m_trailing2->text().empty();
+    m_detail2->setVisible(visible);
+    m_trailing2->setVisible(!m_trailing2->text().empty());
+    requestLayout();
+}
+
+std::string PanelRow::detail2Label() const
+{
+    return m_detail2->text();
+}
+
+std::string PanelRow::detail2Value() const
+{
+    return m_trailing2->text();
 }
 
 void PanelRow::setActive(bool active)
@@ -172,6 +217,8 @@ void PanelRow::setRowEnabled(bool enabled)
     if (!enabled)
         m_pressed = false;
     m_label->setOpacity(enabled ? 1 : 0.6);
+    m_trailing->setOpacity(enabled ? 1 : 0.6);
+    m_trailing2->setOpacity(enabled ? 1 : 0.6);
     requestPaint();
 }
 
@@ -180,6 +227,8 @@ double PanelRow::contentHeight() const
     double text = m_label->sizeHint().height;
     if (m_detail->isVisible())
         text += 3 + m_detail->sizeHint().height;
+    if (m_detail2->isVisible())
+        text += 3 + m_detail2->sizeHint().height;
     return std::max(kBadgeSize, text);
 }
 
@@ -196,6 +245,9 @@ void PanelRow::layout()
     m_artwork->setTint(white ? kWhite : kLightArtwork);
     m_lock->setColor(panel::secondaryTextColor());
     m_detail->setColor(panel::secondaryTextColor());
+    m_trailing->setColor(panel::secondaryTextColor());
+    m_detail2->setColor(panel::secondaryTextColor());
+    m_trailing2->setColor(panel::secondaryTextColor());
 
     // The background reaches past the row's padding to kBackgroundMargin.
     const double inset = kRowMargin - kBackgroundMargin + kRowInset;
@@ -216,16 +268,33 @@ void PanelRow::layout()
         right -= 18 + kRowSpacing;
     }
     const double x = badge.x + kBadgeSize + kRowSpacing;
-    const double width = std::max(0.0, right - x);
     const double labelHeight = m_label->sizeHint().height;
-    if (m_detail->isVisible()) {
-        const double detailHeight = m_detail->sizeHint().height;
-        const double top = (height - labelHeight - 3 - detailHeight) / 2;
-        m_label->setGeometry({x, top, width, labelHeight});
-        m_detail->setGeometry({x, top + labelHeight + 3, width, detailHeight});
-    } else {
-        m_label->setGeometry({x, (height - labelHeight) / 2, width, labelHeight});
-    }
+    const double detailHeight = m_detail->isVisible() ? m_detail->sizeHint().height : 0;
+    const double detail2Height = m_detail2->isVisible() ? m_detail2->sizeHint().height : 0;
+    const double textHeight = labelHeight + (m_detail->isVisible() ? 3 + detailHeight : 0)
+            + (m_detail2->isVisible() ? 3 + detail2Height : 0);
+    const double top = (height - textHeight) / 2;
+    double y = top;
+
+    m_label->setGeometry({x, y, std::max(0.0, right - x), labelHeight});
+    y += labelHeight;
+
+    const auto line = [&](ui::Label *label, ui::Label *value, double lineHeight) {
+        y += 3;
+        double lineRight = right;
+        if (value->isVisible()) {
+            const double width = std::min(value->sizeHint().width, std::max(0.0, right - x - kRowSpacing));
+            value->setGeometry({right - width, y, width, value->sizeHint().height});
+            lineRight -= width + kRowSpacing;
+        }
+        label->setGeometry({x, y, std::max(0.0, lineRight - x), lineHeight});
+        y += lineHeight;
+    };
+
+    if (m_detail->isVisible())
+        line(m_detail, m_trailing, detailHeight);
+    if (m_detail2->isVisible())
+        line(m_detail2, m_trailing2, detail2Height);
 }
 
 void PanelRow::paint(ui::Painter &painter)
@@ -556,8 +625,24 @@ protected:
     void paint(ui::Painter &painter) override { painter.fillRect(localRect(), panel::textColor(0.08)); }
 };
 
+// A gap between the network panel's sections.
+class SectionSpacer final : public ui::View
+{
+public:
+    explicit SectionSpacer(double height)
+        : m_height(height)
+    {
+    }
+
+    ui::SizeF sizeHint() const override { return {0, m_height}; }
+
+private:
+    double m_height;
+};
+
 // The networks, laid out in the scroll view edge to edge so its bar sits on
-// the panel's edge.
+// the panel's edge. Headings take the panel's text inset; rows reach the
+// background margin.
 class NetworkPanel::List final : public ui::View
 {
 public:
@@ -582,14 +667,20 @@ protected:
             if (!child->isVisible())
                 continue;
             const double height = child->heightForWidth(kWidth);
-            child->setGeometry({kBackgroundMargin, y, geometry().width - 2 * kBackgroundMargin, height});
+            const bool heading = child->name() == "heading";
+            const bool spacer = child->name() == "spacer";
+            const double x = heading ? kHorizontalPadding : spacer ? 0 : kBackgroundMargin;
+            const double width = heading ? kWidth - 2 * kHorizontalPadding
+                    : spacer             ? kWidth
+                                         : geometry().width - 2 * kBackgroundMargin;
+            child->setGeometry({x, y, width, height});
             y += height + kListSpacing;
         }
     }
 };
 
 NetworkPanel::NetworkPanel(ControlCenterServices &services)
-    : StatusPanelView(tr("Wi-Fi"), tr("Wi-Fi Settings"), "wlan", services)
+    : StatusPanelView(tr("Network"), tr("Network Settings"), "network", services)
 {
     m_switch = header()->addChild<ui::Switch>();
     m_switch->setPadding({0, 0, 0, 0});
@@ -604,12 +695,6 @@ NetworkPanel::NetworkPanel(ControlCenterServices &services)
     m_scroll = body()->addChild<ui::ScrollView>();
     m_scroll->setScrollDirections(false, true);
     m_list = m_scroll->setContent<List>();
-    m_hotspot = m_list->addChild<PanelRow>();
-    m_hotspot->setGlyph("network-wireless-hotspot");
-    m_hotspot->setActive(true);
-    m_hotspot->setBold(true);
-    m_hotspot->setDetail(tr("Hotspot"));
-    m_hotspot->onClicked = [this] { this->services().stopHotspot(); };
 
     m_scanTimer.setInterval(kScanInterval);
     m_scanTimer.onTimeout = [this] { this->services().requestScan(); };
@@ -627,9 +712,9 @@ void NetworkPanel::opened()
 
 void NetworkPanel::retranslate()
 {
-    setTitles(tr("Wi-Fi"), tr("Wi-Fi Settings"));
-    m_hotspot->setDetail(tr("Hotspot"));
-    refresh();
+    setTitles(tr("Network"), tr("Network Settings"));
+    rebuild();
+    contentChanged();
 }
 
 void NetworkPanel::setShownForScans(bool shown)
@@ -640,6 +725,129 @@ void NetworkPanel::setShownForScans(bool shown)
         m_scanTimer.stop();
 }
 
+void NetworkPanel::rebuild()
+{
+    while (!m_list->children().empty())
+        m_list->takeChild(m_list->children().front().get());
+    m_connectedHeading = nullptr;
+    m_wifiHeading = nullptr;
+    m_vpnHeading = nullptr;
+    m_hotspot = nullptr;
+    m_connectedRows.clear();
+    m_vpnRows.clear();
+    m_rows.clear();
+
+    const auto addHeading = [this](std::string text) {
+        ui::Label *heading = m_list->addChild<ui::Label>(std::move(text));
+        heading->setName("heading");
+        heading->setWeight(kDemiBold);
+        heading->setColor(panel::secondaryTextColor());
+        return heading;
+    };
+    const auto addSpacer = [this] {
+        SectionSpacer *spacer = m_list->addChild<SectionSpacer>(kSectionSpacing);
+        spacer->setName("spacer");
+        return spacer;
+    };
+
+    m_connectedHeading = addHeading(tr("Connected"));
+    for (const NetworkConnection &connection : m_connected) {
+        PanelRow *row = m_list->addChild<PanelRow>();
+        row->setGlyph("network-wired");
+        row->setText(connection.name);
+        if (!connection.detail.empty()) {
+            row->setDetail(tr("Interface"));
+            row->setTrailing(connection.detail);
+        }
+        if (!connection.address.empty())
+            row->setDetail2(tr("IP address"), connection.address);
+        row->setActive(connection.primary);
+        row->setBold(connection.state == NetworkConnection::State::Activated);
+        row->setBusy(connection.state == NetworkConnection::State::Activating);
+        row->onClicked = [this] {
+            this->services().openSettings({"-m", "ethernet"});
+            if (onCloseRequested)
+                onCloseRequested();
+        };
+        m_connectedRows.push_back(row);
+    }
+    const bool connected = !m_connected.empty();
+    m_connectedHeading->setVisible(connected);
+
+    SectionSpacer *wifiSpacer = addSpacer();
+    m_wifiHeading = addHeading(tr("Wi-Fi"));
+
+    m_hotspot = m_list->addChild<PanelRow>();
+    m_hotspot->setGlyph("network-wireless-hotspot");
+    m_hotspot->setActive(true);
+    m_hotspot->setBold(true);
+    m_hotspot->setDetail(tr("Hotspot"));
+    m_hotspot->setText(services().hotspotName());
+    m_hotspot->onClicked = [this] { this->services().stopHotspot(); };
+
+    for (size_t i = 0; i < m_networks.size(); ++i) {
+        const WirelessNetwork &network = m_networks[i];
+        PanelRow *row = m_list->addChild<PanelRow>();
+        const bool active = network.state == WirelessNetwork::State::Activated;
+        row->setGlyph(network.icon);
+        row->setText(network.name);
+        // The connected network is marked by its accent badge alone.
+        row->setActive(active);
+        row->setBold(active);
+        row->setBusy(network.state == WirelessNetwork::State::Activating);
+        row->setLocked(network.security != WirelessNetwork::Security::None
+                       && network.security != WirelessNetwork::Security::Unknown);
+        row->setRowEnabled(active || network.state == WirelessNetwork::State::Deactivated);
+        row->onClicked = [this, i] {
+            if (i >= m_networks.size())
+                return;
+            if (this->services().activateNetwork(m_networks[i]) && onCloseRequested)
+                onCloseRequested();
+        };
+        m_rows.push_back(row);
+    }
+
+    SectionSpacer *vpnSpacer = addSpacer();
+    m_vpnHeading = addHeading(tr("VPN"));
+    for (size_t i = 0; i < m_vpns.size(); ++i) {
+        const NetworkConnection &vpn = m_vpns[i];
+        PanelRow *row = m_list->addChild<PanelRow>();
+        const bool active = vpn.state == NetworkConnection::State::Activated;
+        row->setGlyph(vpn.icon.empty() ? "network-vpn" : vpn.icon);
+        row->setText(vpn.name);
+        if (!vpn.statusMessage.empty()) {
+            row->setDetail(vpn.statusMessage);
+        } else if (!vpn.detail.empty()) {
+            row->setDetail(tr("Type"));
+            row->setTrailing(vpn.detail);
+        }
+        if (!vpn.address.empty())
+            row->setDetail2(tr("Address"), vpn.address);
+        row->setActive(active);
+        row->setBold(active);
+        row->setBusy(vpn.state == NetworkConnection::State::Activating);
+        row->setRowEnabled(vpn.canActivate || active);
+        row->onClicked = [this, i] {
+            if (i < m_vpns.size())
+                this->services().toggleConnection(m_vpns[i]);
+        };
+        m_vpnRows.push_back(row);
+    }
+
+    const bool wifi = m_wirelessEnabled && (!m_networks.empty() || m_hotspotActive);
+    const bool vpns = !m_vpns.empty();
+    m_wifiHeading->setVisible(wifi);
+    m_hotspot->setVisible(m_hotspotActive);
+    for (PanelRow *row : m_rows)
+        row->setVisible(wifi);
+    m_vpnHeading->setVisible(vpns);
+    wifiSpacer->setVisible(connected && wifi);
+    vpnSpacer->setVisible(vpns && (connected || wifi));
+
+    setBodyVisible(connected || wifi || vpns);
+    m_list->requestLayout();
+}
+
 void NetworkPanel::refresh()
 {
     ControlCenterServices &services = this->services();
@@ -647,45 +855,29 @@ void NetworkPanel::refresh()
     m_switch->setChecked(services.wirelessEnabled());
     setShownForScans(isShown());
 
-    m_hotspot->setVisible(services.hotspotActive());
-    m_hotspot->setText(services.hotspotName());
-
-    std::vector<WirelessNetwork> networks = services.wirelessNetworks();
-    if (networks != m_networks) {
-        while (m_rows.size() > networks.size()) {
-            m_list->takeChild(m_rows.back());
-            m_rows.pop_back();
-        }
-        while (m_rows.size() < networks.size()) {
-            PanelRow *row = m_list->addChild<PanelRow>();
-            const size_t index = m_rows.size();
-            row->onClicked = [this, index] {
-                if (index >= m_networks.size())
-                    return;
-                if (this->services().activateNetwork(m_networks[index]) && onCloseRequested)
-                    onCloseRequested();
-            };
-            m_rows.push_back(row);
-        }
-        for (size_t i = 0; i < networks.size(); ++i) {
-            const WirelessNetwork &network = networks[i];
-            PanelRow *row = m_rows[i];
-            const bool connected = network.state == WirelessNetwork::State::Activated;
-            row->setGlyph(network.icon);
-            row->setText(network.name);
-            // The connected network is marked by its accent badge alone.
-            row->setActive(connected);
-            row->setBold(connected);
-            row->setBusy(network.state == WirelessNetwork::State::Activating);
-            row->setLocked(network.security != WirelessNetwork::Security::None
-                           && network.security != WirelessNetwork::Security::Unknown);
-            row->setRowEnabled(connected || network.state == WirelessNetwork::State::Deactivated);
-        }
-        m_networks = std::move(networks);
-        m_list->requestLayout();
+    std::vector<NetworkConnection> connections = services.networkConnections();
+    std::vector<NetworkConnection> connected;
+    std::vector<NetworkConnection> vpns;
+    for (NetworkConnection &connection : connections) {
+        if (connection.type == NetworkConnection::Type::Vpn)
+            vpns.push_back(std::move(connection));
+        else if (connection.type == NetworkConnection::Type::Wired
+                 && connection.state == NetworkConnection::State::Activated)
+            connected.push_back(std::move(connection));
     }
-    // The title's switch already shows that Wi-Fi is off; an empty list shows nothing either.
-    setBodyVisible(services.wirelessEnabled() && (!m_networks.empty() || services.hotspotActive()));
+
+    const std::vector<WirelessNetwork> networks = services.wirelessNetworks();
+    const bool hotspot = services.hotspotActive();
+    const bool wireless = services.wirelessEnabled();
+    const bool changed = networks != m_networks || connected != m_connected || vpns != m_vpns
+            || hotspot != m_hotspotActive || wireless != m_wirelessEnabled;
+    m_networks = networks;
+    m_connected = std::move(connected);
+    m_vpns = std::move(vpns);
+    m_hotspotActive = hotspot;
+    m_wirelessEnabled = wireless;
+    if (changed)
+        rebuild();
     contentChanged();
 }
 
@@ -696,13 +888,15 @@ double NetworkPanel::listHeight() const
 
 double NetworkPanel::bodyHeight() const
 {
-    const bool listed = !m_networks.empty() || services().hotspotActive();
+    const bool listed = !m_connected.empty() || !m_vpns.empty()
+            || (m_wirelessEnabled && (!m_networks.empty() || m_hotspotActive));
     return listed ? std::min(listHeight(), std::max(0.0, bodyMaximumHeight())) : 0;
 }
 
 void NetworkPanel::layoutBody(double top)
 {
-    const bool listed = !m_networks.empty() || services().hotspotActive();
+    const bool listed = !m_connected.empty() || !m_vpns.empty()
+            || (m_wirelessEnabled && (!m_networks.empty() || m_hotspotActive));
     m_scroll->setVisible(listed);
     // The list keeps its final height while the panel moves, so no scroll bar
     // shows on the way.

@@ -780,3 +780,35 @@ msgstr "screenshot;screen recording;capture;record;截屏;截图;屏幕录制;�
 
 #~ msgid "Start"
 #~ msgstr "开始"
+
+#: src/shell/controlcenter/status_panel.cpp
+msgid "Network"
+msgstr "网络"
+
+#: src/shell/controlcenter/status_panel.cpp
+msgid "Network Settings"
+msgstr "网络设置"
+
+#: src/shell/controlcenter/status_panel.cpp
+msgid "Connected"
+msgstr "已连接"
+
+#: src/shell/controlcenter/status_panel.cpp
+msgid "VPN"
+msgstr "VPN"
+
+#: src/shell/controlcenter/status_panel.cpp
+msgid "Interface"
+msgstr "接口"
+
+#: src/shell/controlcenter/status_panel.cpp
+msgid "IP address"
+msgstr "IP 地址"
+
+#: src/shell/controlcenter/status_panel.cpp
+msgid "Type"
+msgstr "类型"
+
+#: src/shell/controlcenter/status_panel.cpp
+msgid "Address"
+msgstr "地址"

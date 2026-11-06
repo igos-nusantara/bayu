@@ -780,3 +780,35 @@ msgstr "스크린샷;화면 녹화;캡처;녹화;screenshot;screen recording;cap
 
 #~ msgid "Start"
 #~ msgstr "시작"
+
+#: src/shell/controlcenter/status_panel.cpp
+msgid "Network"
+msgstr "네트워크"
+
+#: src/shell/controlcenter/status_panel.cpp
+msgid "Network Settings"
+msgstr "네트워크 설정"
+
+#: src/shell/controlcenter/status_panel.cpp
+msgid "Connected"
+msgstr "연결됨"
+
+#: src/shell/controlcenter/status_panel.cpp
+msgid "VPN"
+msgstr "VPN"
+
+#: src/shell/controlcenter/status_panel.cpp
+msgid "Interface"
+msgstr "인터페이스"
+
+#: src/shell/controlcenter/status_panel.cpp
+msgid "IP address"
+msgstr "IP 주소"
+
+#: src/shell/controlcenter/status_panel.cpp
+msgid "Type"
+msgstr "유형"
+
+#: src/shell/controlcenter/status_panel.cpp
+msgid "Address"
+msgstr "주소"

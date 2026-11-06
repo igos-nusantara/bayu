@@ -66,6 +66,16 @@ public:
     void setText(std::string text);
     // A second line (the hotspot's "Hotspot"), 3 below the first.
     void setDetail(std::string detail);
+    std::string detailText() const;
+    // A trailing value on the detail line, such as the address of a wired
+    // connection. Empty hides it.
+    void setTrailing(std::string text);
+    std::string trailingText() const;
+    // A second label/value pair below the first, such as "IP address" and the
+    // address itself. Empty values hide the line.
+    void setDetail2(std::string label, std::string value);
+    std::string detail2Label() const;
+    std::string detail2Value() const;
     void setActive(bool active);
     bool isActive() const { return m_active; }
     void setBold(bool bold);
@@ -92,6 +102,9 @@ private:
     SvgIcon *m_artwork;
     ui::Label *m_label;
     ui::Label *m_detail;
+    ui::Label *m_trailing;
+    ui::Label *m_detail2;
+    ui::Label *m_trailing2;
     ui::BusyIndicator *m_busy;
     ui::Icon *m_lock;
     bool m_active = false;
@@ -189,7 +202,8 @@ private:
     std::unique_ptr<ui::Animation> m_tween;
 };
 
-// The Wi-Fi panel: the Wi-Fi switch, the hotspot and the networks in range.
+// The network panel: the connections in use, the Wi-Fi switch and networks,
+// and the VPN profiles.
 class NetworkPanel : public StatusPanelView
 {
 public:
@@ -203,6 +217,8 @@ public:
 
     ui::Switch *wirelessSwitch() const { return m_switch; }
     const std::vector<PanelRow *> &rows() const { return m_rows; }
+    const std::vector<PanelRow *> &connectedRows() const { return m_connectedRows; }
+    const std::vector<PanelRow *> &vpnRows() const { return m_vpnRows; }
 
 protected:
     double bodyHeight() const override;
@@ -212,13 +228,23 @@ private:
     class List;
 
     double listHeight() const;
+    void rebuild();
 
     ui::Switch *m_switch;
     ui::ScrollView *m_scroll;
     List *m_list;
-    PanelRow *m_hotspot;
+    ui::Label *m_connectedHeading = nullptr;
+    ui::Label *m_wifiHeading = nullptr;
+    ui::Label *m_vpnHeading = nullptr;
+    PanelRow *m_hotspot = nullptr;
+    std::vector<PanelRow *> m_connectedRows;
+    std::vector<PanelRow *> m_vpnRows;
     std::vector<PanelRow *> m_rows;
+    std::vector<NetworkConnection> m_connected;
+    std::vector<NetworkConnection> m_vpns;
     std::vector<WirelessNetwork> m_networks;
+    bool m_hotspotActive = false;
+    bool m_wirelessEnabled = false;
     base::Timer m_scanTimer;
 };
 
