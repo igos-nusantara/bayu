@@ -52,8 +52,9 @@ bool Dock::registerService()
     object->addMethod("setVisibility",
                       [this](int32_t visibility) { m_settings.setVisibility(DockSettings::Visibility(visibility)); },
                       dbus::ArgumentNames{{"visibility"}, {}});
-    object->addMethod("setGlassTint", [this](double tint) { m_settings.setGlassTint(tint); },
-                      dbus::ArgumentNames{{"tint"}, {}});
+    object->addMethod("setTheme",
+                      [this](int32_t theme) { m_settings.setTheme(barThemeFromInt(theme)); },
+                      dbus::ArgumentNames{{"theme"}, {}});
     object->addMethod("setMinimizedArea", [this](bool enabled) { m_settings.setMinimizedArea(enabled); },
                       dbus::ArgumentNames{{"enabled"}, {}});
     if (!object->publish() || !m_bus->requestName("org.bayu.Dock", dbus::Connection::DoNotQueue)) {

@@ -25,6 +25,7 @@
 #include "loop_test_util.h"
 #include "scene/node.h"
 #include "scene/scene.h"
+#include "shell/bar_theme.h"
 #include "shell/shell.h"
 #include "shell/shell_data.h"
 #include "shell/shell_window.h"
@@ -44,6 +45,7 @@
 #include "ui/bitmap.h"
 #include "ui/embedded_window.h"
 #include "ui/menu.h"
+#include "ui/theme.h"
 #include "wm/window.h"
 #include "wm/window_manager.h"
 #include "wm/window_visual_controller.h"
@@ -328,6 +330,23 @@ TEST_F(StatusBarViewTest, IndicatorsPickTheIcons)
     bar->setIndicators(nullptr);
 }
 
+TEST_F(StatusBarViewTest, TheTopbarUsesTheDockTheme)
+{
+    using shell::BarTheme;
+    bar->statusBar().setTheme(BarTheme::Default);
+
+    EXPECT_EQ(BarTheme::Default, bar->statusBar().theme());
+    EXPECT_EQ(ui::Theme::current().darkMode, bar->lightContents());
+    EXPECT_FALSE(bar->window()->surface()->backgroundBlurRect().isEmpty());
+    EXPECT_EQ(shell::barGlass(shell::barTheme(BarTheme::Default).glassTint),
+              bar->window()->surface()->glass());
+
+    bar->statusBar().setTheme(BarTheme::Clear);
+    EXPECT_EQ(BarTheme::Clear, bar->statusBar().theme());
+    EXPECT_EQ(shell::barGlass(shell::barTheme(BarTheme::Clear).glassTint),
+              bar->window()->surface()->glass());
+}
+
 TEST_F(StatusBarViewTest, AnIconTogglesItsPanelUnderItsPlate)
 {
     FakePanels panels;
@@ -342,18 +361,12 @@ TEST_F(StatusBarViewTest, AnIconTogglesItsPanelUnderItsPlate)
     EXPECT_TRUE(bar->controlIcon()->isChecked());
     EXPECT_TRUE(bar->panelOpen());
 
-    // The plate shown is blurred behind, with no outline; it keeps its own colour.
+    // The bar keeps its shared glass while the plate shows, and the plate has
+    // no outline.
     const compositor::Surface *surface = bar->window()->surface();
-    const auto blurBehind = [&](const shell::BarItem *item) {
-        const ui::RectF plate = item->plateRect();
-        const ui::PointF origin = item->mapToWindow({plate.x, plate.y});
-        const int left = int(std::floor(origin.x));
-        return base::Rect(left, 4, int(std::ceil(origin.x + plate.width)) - left, 24);
-    };
-    EXPECT_EQ(blurBehind(bar->controlIcon()), surface->backgroundBlurRect());
-    EXPECT_EQ(8, surface->backgroundBlurRadius());
-    EXPECT_FALSE(surface->glass().enabled);
-    EXPECT_FALSE(surface->backgroundBlurShape().isEmpty());
+    EXPECT_EQ(base::Rect(0, 0, 1440, 32), surface->backgroundBlurRect());
+    EXPECT_TRUE(surface->glass().enabled);
+    EXPECT_TRUE(surface->backgroundBlurShape().isEmpty());
     EXPECT_FALSE(wm::WindowVisualController::evaluate(*bar->window()->wmWindow()).drawOutline);
 
     const ui::RectF clock = onScreen(bar->clock());
@@ -364,12 +377,13 @@ TEST_F(StatusBarViewTest, AnIconTogglesItsPanelUnderItsPlate)
     EXPECT_FALSE(bar->controlIcon()->isChecked());
     EXPECT_FALSE(bar->panelOpen());
 
-    // The plate and its blur go with the panel; hovering brings neither back.
+    // The plate goes with the panel; hovering brings none back.
     EXPECT_FALSE(bar->controlIcon()->isPlateShown());
-    EXPECT_TRUE(surface->backgroundBlurRect().isEmpty());
+    EXPECT_EQ(base::Rect(0, 0, 1440, 32), surface->backgroundBlurRect());
+    EXPECT_TRUE(surface->glass().enabled);
     move(clock.x + 20, 16);
     EXPECT_FALSE(bar->clock()->isPlateShown());
-    EXPECT_TRUE(surface->backgroundBlurRect().isEmpty());
+    EXPECT_EQ(base::Rect(0, 0, 1440, 32), surface->backgroundBlurRect());
 
     // The clock's panel is nobody's here.
     click(clock.x + 20, 16);

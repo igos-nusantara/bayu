@@ -11,6 +11,7 @@
 #include "base/dbus.h"
 #include "base/signal.h"
 #include "base/thread_pool.h"
+#include "shell/bar_theme.h"
 #include "shell/statusbar/app_menu_registrar.h"
 #include "shell/statusbar/battery.h"
 #include "shell/statusbar/brightness.h"
@@ -88,8 +89,13 @@ public:
     bool panelWindowTitles() const { return m_panelWindowTitles; }
     void setPanelWindowTitles(bool titles);
 
+    // Shell/Theme: the material the dock and the top bar share.
+    BarTheme theme() const { return m_theme; }
+    void setTheme(BarTheme theme);
+
     base::Signal<> layoutChanged;
     base::Signal<> panelChanged;
+    base::Signal<> themeChanged;
 
 private:
     void reloadLanguage();
@@ -120,6 +126,7 @@ private:
     int m_panelIconSize = kMediumPanelIcons;
     double m_panelGlassTint = 0.5;
     bool m_panelWindowTitles = false;
+    BarTheme m_theme = BarTheme::Default;
 };
 
 } // namespace bayu::shell

@@ -250,9 +250,9 @@ TEST_F(DockTest, ServesOrgBayuDock)
 
     test::DBusTestClient settings;
     settings.call("org.bayu.Dock", "/Dock", "org.bayu.Dock", "setDirection", int32_t(0));
-    settings.call("org.bayu.Dock", "/Dock", "org.bayu.Dock", "setGlassTint", 3.0);
+    settings.call("org.bayu.Dock", "/Dock", "org.bayu.Dock", "setTheme", int32_t(2));
     EXPECT_EQ(dock->settings().direction(), shell::DockSettings::Left);
-    EXPECT_EQ(dock->settings().glassTint(), 1.0);
+    EXPECT_EQ(dock->settings().theme(), shell::BarTheme::Tinted);
 
     const std::string xml = settings.introspect("org.bayu.Dock", "/Dock");
     EXPECT_NE(xml.find("name=\"direction\""), std::string::npos);
@@ -260,7 +260,7 @@ TEST_F(DockTest, ServesOrgBayuDock)
     shell::waitForFileThread();
     base::Settings saved(directory.filePath("shell.conf"));
     EXPECT_EQ(saved.intValue("Dock/Direction", -1), 0);
-    EXPECT_EQ(saved.doubleValue("Dock/GlassTint"), 1.0);
+    EXPECT_EQ(saved.intValue("Shell/Theme", -1), int(shell::BarTheme::Tinted));
 }
 
 TEST_F(DockTest, KeepsMinimizedWindowsBesideTheTrash)

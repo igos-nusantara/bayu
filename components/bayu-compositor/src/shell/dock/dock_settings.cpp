@@ -4,9 +4,8 @@
 
 #include "shell/dock/dock_settings.h"
 
-#include <algorithm>
 #include <chrono>
-#include <cmath>
+#include <utility>
 
 #include "base/settings.h"
 #include "shell/common/file_thread.h"
@@ -26,13 +25,13 @@ DockSettings::DockSettings(std::string path)
                                  const bool iconSize = values.iconSize != m_iconSize;
                                  const bool direction = values.direction != m_direction;
                                  const bool visibility = values.visibility != m_visibility;
-                                 const bool tint = values.glassTint != m_glassTint;
+                                 const bool theme = values.theme != m_theme;
                                  const bool area = values.minimizedArea != m_minimizedArea;
                                  m_iconSize = values.iconSize;
                                  m_direction = values.direction;
                                  m_visibility = values.visibility;
                                  m_edgeMargins = values.edgeMargins;
-                                 m_glassTint = values.glassTint;
+                                 m_theme = values.theme;
                                  m_minimizedArea = values.minimizedArea;
                                  m_ready = true;
                                  ready();
@@ -42,8 +41,8 @@ DockSettings::DockSettings(std::string path)
                                      directionChanged();
                                  if (visibility)
                                      visibilityChanged();
-                                 if (tint)
-                                     glassTintChanged();
+                                 if (theme)
+                                     themeChanged();
                                  if (area)
                                      minimizedAreaChanged();
                              });
@@ -61,8 +60,8 @@ DockSettings::Values DockSettings::load(const std::string &path)
         settings.setValue("Dock/Visibility", int(kDefaultVisibility));
     if (!settings.contains("Dock/EdgeMargins"))
         settings.setValue("Dock/EdgeMargins", 10);
-    if (!settings.contains("Dock/GlassTint"))
-        settings.setValue("Dock/GlassTint", 0.5);
+    if (!settings.contains("Shell/Theme"))
+        settings.setValue("Shell/Theme", int(BarTheme::Default));
     if (!settings.contains("Dock/MinimizedArea"))
         settings.setValue("Dock/MinimizedArea", true);
     settings.sync();
@@ -72,19 +71,16 @@ DockSettings::Values DockSettings::load(const std::string &path)
     values.direction = Direction(settings.intValue("Dock/Direction", Bottom));
     values.visibility = Visibility(settings.intValue("Dock/Visibility", kDefaultVisibility));
     values.edgeMargins = int(settings.intValue("Dock/EdgeMargins", 10));
-    values.glassTint = std::clamp(settings.doubleValue("Dock/GlassTint", 0.5), 0.0, 1.0);
+    values.theme = barThemeFromInt(settings.intValue("Shell/Theme", int(BarTheme::Default)));
     values.minimizedArea = settings.boolValue("Dock/MinimizedArea", true);
     return values;
 }
 
-void DockSettings::write(const char *key, double value)
+void DockSettings::write(const char *key, int value)
 {
     const std::string name = key;
     writeSettings(m_path, [name, value](base::Settings &settings) {
-        if (name == "Dock/GlassTint")
-            settings.setValue(name, value);
-        else
-            settings.setValue(name, int64_t(value));
+        settings.setValue(name, value);
     });
 }
 
@@ -115,14 +111,13 @@ void DockSettings::setVisibility(Visibility visibility)
     visibilityChanged();
 }
 
-void DockSettings::setGlassTint(double tint)
+void DockSettings::setTheme(BarTheme theme)
 {
-    tint = std::isfinite(tint) ? std::clamp(tint, 0.0, 1.0) : 0.5;
-    if (std::abs(m_glassTint - tint) < 1e-12)
+    if (m_theme == theme)
         return;
-    m_glassTint = tint;
-    write("Dock/GlassTint", tint);
-    glassTintChanged();
+    m_theme = theme;
+    write("Shell/Theme", int(theme));
+    themeChanged();
 }
 
 void DockSettings::setMinimizedArea(bool enabled)
