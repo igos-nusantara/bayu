@@ -21,7 +21,9 @@ DockSettings::DockSettings()
     m_iconSize = int(shell.intValue("Dock/IconSize"));
     m_direction = int(shell.intValue("Dock/Direction"));
     m_visibility = int(shell.intValue("Dock/Visibility"));
-    m_glassTint = std::clamp(shell.doubleValue("Dock/GlassTint", 0.5), 0.0, 1.0);
+    m_theme = int(shell.intValue("Shell/Theme", 0));
+    if (m_theme < 0 || m_theme > 2)
+        m_theme = 0;
     m_minimizedArea = shell.boolValue("Dock/MinimizedArea", true);
     m_layout = shell.intValue("Shell/Layout", 0) == 1 ? 1 : 0;
     m_panelFloating = shell.boolValue("Panel/Floating", true);
@@ -55,13 +57,14 @@ void DockSettings::setVisibility(int visibility)
     m_visibility = visibility;
 }
 
-void DockSettings::setGlassTint(double tint)
+void DockSettings::setTheme(int theme)
 {
-    tint = std::clamp(tint, 0.0, 1.0);
-    if (tint == m_glassTint)
+    theme = std::clamp(theme, 0, 2);
+    if (theme == m_theme)
         return;
-    m_dock.send("setGlassTint", tint);
-    m_glassTint = tint;
+    m_dock.send("setTheme", int32_t(theme));
+    m_statusbar.send("setTheme", int32_t(theme));
+    m_theme = theme;
 }
 
 void DockSettings::setMinimizedArea(bool enabled)

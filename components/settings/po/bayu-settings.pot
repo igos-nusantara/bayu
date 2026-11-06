@@ -2946,3 +2946,11 @@ msgstr ""
 #: src/window/sidebar.cpp
 msgid "No results"
 msgstr ""
+
+#: src/pages/dock/dockpage.cpp
+msgid "Clear"
+msgstr ""
+
+#: src/pages/dock/dockpage.cpp
+msgid "Tinted"
+msgstr ""

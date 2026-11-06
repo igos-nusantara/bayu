@@ -2970,3 +2970,11 @@ msgstr "Euweuh hasil"
 
 #~ msgid "MediaTek USB Wi-Fi or Bluetooth"
 #~ msgstr "Wi-Fi atanapi Bluetooth USB MediaTek"
+
+#: src/pages/dock/dockpage.cpp
+msgid "Clear"
+msgstr "Bening"
+
+#: src/pages/dock/dockpage.cpp
+msgid "Tinted"
+msgstr "Pekat"

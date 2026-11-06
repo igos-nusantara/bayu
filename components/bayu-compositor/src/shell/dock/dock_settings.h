@@ -10,6 +10,7 @@
 #include "base/signal.h"
 #include "base/thread_pool.h"
 #include "base/timer.h"
+#include "shell/bar_theme.h"
 
 namespace bayu::shell {
 
@@ -52,9 +53,9 @@ public:
     Visibility visibility() const { return m_visibility; }
     void setVisibility(Visibility visibility);
     int edgeMargins() const { return m_edgeMargins; }
-    double glassTint() const { return m_glassTint; }
-    // Clamped to 0..1; not a number is the default.
-    void setGlassTint(double tint);
+    // Shell/Theme: the material the dock and the top bar share.
+    BarTheme theme() const { return m_theme; }
+    void setTheme(BarTheme theme);
     bool minimizedArea() const { return m_minimizedArea; }
     void setMinimizedArea(bool enabled);
 
@@ -62,7 +63,7 @@ public:
     base::Signal<> iconSizeChanged;
     base::Signal<> directionChanged;
     base::Signal<> visibilityChanged;
-    base::Signal<> glassTintChanged;
+    base::Signal<> themeChanged;
     base::Signal<> minimizedAreaChanged;
 
 private:
@@ -71,12 +72,12 @@ private:
         Direction direction = Bottom;
         Visibility visibility = kDefaultVisibility;
         int edgeMargins = 10;
-        double glassTint = 0.5;
+        BarTheme theme = BarTheme::Default;
         bool minimizedArea = true;
     };
 
     static Values load(const std::string &path);
-    void write(const char *key, double value);
+    void write(const char *key, int value);
 
     std::string m_path;
     bool m_ready = false;
@@ -84,7 +85,7 @@ private:
     Direction m_direction = Bottom;
     Visibility m_visibility = kDefaultVisibility;
     int m_edgeMargins = 10;
-    double m_glassTint = 0.5;
+    BarTheme m_theme = BarTheme::Default;
     bool m_minimizedArea = true;
     base::Timer m_iconSizeSave;
     base::Job m_load;

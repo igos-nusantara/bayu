@@ -25,8 +25,9 @@ public:
     int visibility() const { return m_visibility; }
     void setVisibility(int visibility);
 
-    double glassTint() const { return m_glassTint; }
-    void setGlassTint(double tint);
+    // Shell/Theme: the material the dock and the top bar share.
+    int theme() const { return m_theme; }
+    void setTheme(int theme);
 
     bool minimizedArea() const { return m_minimizedArea; }
     void setMinimizedArea(bool enabled);
@@ -57,7 +58,7 @@ private:
     int m_iconSize = 0;
     int m_direction = 0;
     int m_visibility = 0;
-    double m_glassTint = 0.5;
+    int m_theme = 0;
     bool m_minimizedArea = true;
 };
 

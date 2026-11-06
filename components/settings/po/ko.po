@@ -2970,3 +2970,11 @@ msgstr "결과 없음"
 
 #~ msgid "MediaTek USB Wi-Fi or Bluetooth"
 #~ msgstr "MediaTek USB Wi-Fi 또는 블루투스"
+
+#: src/pages/dock/dockpage.cpp
+msgid "Clear"
+msgstr "투명"
+
+#: src/pages/dock/dockpage.cpp
+msgid "Tinted"
+msgstr "색상"

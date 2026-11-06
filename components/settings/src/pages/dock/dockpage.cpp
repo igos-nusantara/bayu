@@ -3,6 +3,7 @@
 
 #include <algorithm>
 #include <cmath>
+#include <string>
 #include <vector>
 
 #include "base/i18n.h"
@@ -51,6 +52,16 @@ public:
             m_layouts.push_back(tile);
         }
         content()->addChild<Footnote>(tr("Takes effect right away."));
+
+        // The dock's and the top bar's shared material.
+        Section* theme = content()->addChild<Section>(tr("Theme"));
+        m_dockViews.push_back(theme);
+        auto* themes = theme->addChild<SegmentedControl>(
+                std::vector<std::string>{tr("Default"), tr("Clear"), tr("Tinted")});
+        themes->setName("bar:theme");
+        themes->setLayoutHints({.fillWidth = true});
+        themes->setCurrentIndex(m_settings.theme());
+        themes->onCurrentChanged = [this](int index) { m_settings.setTheme(index); };
 
         // The panel's.
         Section* panel = content()->addChild<Section>(tr("Panel"));
@@ -134,16 +145,6 @@ public:
             m_settings.setIconSize(int(std::round(value)));
             size->setValue(m_settings.iconSize());
         };
-        SliderRow* glass = sliders->addChild<SliderRow>(tr("Glass effect"));
-        glass->setName("dock:glass");
-        glass->setCaptions(tr("More clear"), tr("More tinted"));
-        glass->setRange(0, 1);
-        glass->setValue(m_settings.glassTint());
-        glass->onMoved = [this, glass](double value) {
-            m_settings.setGlassTint(value);
-            glass->setValue(m_settings.glassTint());
-        };
-
         Section* mode = content()->addChild<Section>(tr("Display mode"));
         m_dockViews.push_back(mode);
         auto* visibility = mode->addChild<SegmentedControl>(

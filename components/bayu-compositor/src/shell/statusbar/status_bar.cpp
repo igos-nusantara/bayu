@@ -51,6 +51,7 @@ StatusBar::StatusBar(dbus::Connection *sessionBus, dbus::Connection *systemBus, 
                 : kMediumPanelIcons;
         m_panelGlassTint = std::clamp(settings.doubleValue("Panel/GlassTint", 0.5), 0.0, 1.0);
         m_panelWindowTitles = settings.boolValue("Panel/WindowTitles", false);
+        m_theme = barThemeFromInt(settings.intValue("Shell/Theme", int(BarTheme::Default)));
     }
 
     m_load = runOnFileThread(
@@ -117,6 +118,10 @@ bool StatusBar::registerServices()
                           dbus::ArgumentNames{{"tint"}, {}});
         object->addMethod("setPanelWindowTitles", [this](bool titles) { setPanelWindowTitles(titles); },
                           dbus::ArgumentNames{{"titles"}, {}});
+        object->addMethod("setTheme",
+                          [this](int32_t theme) { setTheme(barThemeFromInt(theme)); },
+                          dbus::ArgumentNames{{"theme"}, {}});
+        object->addSignal("ThemeChanged", "i", {"theme"});
         // The same as the menu's: the user is asked first. The session's
         // own methods act at once.
         object->addMethod("requestLogout", [this] { m_powerActions.request(PowerActions::Logout); });
@@ -216,6 +221,19 @@ void StatusBar::setPanelWindowTitles(bool titles)
         settings.setValue("Panel/WindowTitles", titles);
     });
     panelChanged();
+}
+
+void StatusBar::setTheme(BarTheme theme)
+{
+    if (m_theme == theme)
+        return;
+    m_theme = theme;
+    writeSettings(m_settingsPath, [theme](base::Settings &settings) {
+        settings.setValue("Shell/Theme", int(theme));
+    });
+    themeChanged();
+    if (m_object)
+        m_object->emitSignal("ThemeChanged", int32_t(theme));
 }
 
 void StatusBar::reloadLanguage()

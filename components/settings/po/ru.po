@@ -2992,3 +2992,11 @@ msgstr "Нет результатов"
 
 #~ msgid "MediaTek USB Wi-Fi or Bluetooth"
 #~ msgstr "USB Wi-Fi или Bluetooth MediaTek"
+
+#: src/pages/dock/dockpage.cpp
+msgid "Clear"
+msgstr "Прозрачный"
+
+#: src/pages/dock/dockpage.cpp
+msgid "Tinted"
+msgstr "Тонированный"

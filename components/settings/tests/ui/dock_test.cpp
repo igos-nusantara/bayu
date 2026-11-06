@@ -8,6 +8,7 @@
 
 #include "input_test_support.h"
 #include "pagetest.h"
+#include "ui/segmented_control.h"
 #include "ui/slider.h"
 #include "ui/test_input.h"
 #include "widgets/sliderrow.h"
@@ -51,9 +52,9 @@ void expectDragHolds(PageFixture& page, const std::string& name, double fraction
 TEST(DockPage, HasEveryControl)
 {
     PageFixture page("dock");
-    EXPECT_EQ(page.count("settings::ImageSelectionItem"), 3);
-    EXPECT_EQ(page.count("settings::SliderRow"), 2);
-    EXPECT_EQ(page.count("SegmentedControl"), 1);
+    EXPECT_EQ(page.count("settings::ImageSelectionItem"), 5);
+    EXPECT_EQ(page.count("settings::SliderRow"), 1);
+    EXPECT_EQ(page.count("SegmentedControl"), 2);
     // Hot Corners and Tiling (#149).
     EXPECT_EQ(page.count("settings::NavigationItem"), 2);
     EXPECT_EQ(page.count("settings::SwitchRow"), 1);
@@ -65,8 +66,9 @@ TEST(DockPage, SizeStaysWhereItIsDragged)
     expectDragHolds(page, "dock:size", 0.8);
 }
 
-TEST(DockPage, GlassEffectStaysWhereItIsDragged)
+TEST(DockPage, HasSharedThemeControl)
 {
     PageFixture page("dock");
-    expectDragHolds(page, "dock:glass", 0.3);
+    Window& window = page.window->window();
+    EXPECT_NE(findView<SegmentedControl>(window.contentView(), "bar:theme"), nullptr);
 }

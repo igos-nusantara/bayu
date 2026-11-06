@@ -18,6 +18,7 @@
 #include "base/locale.h"
 #include "core/main_loop.h"
 #include "shell/common/task_windows.h"
+#include "shell/shell_data.h"
 #include "shell/shell_window.h"
 #include "shell/statusbar/panel_tasks.h"
 #include "shell/statusbar/pitaloka.h"
@@ -75,7 +76,7 @@ protected:
     }
 
     // The plate moves with its item, wherever in the row it sits.
-    void childrenLaidOut() override { m_bar->updatePlateBlur(); }
+    void childrenLaidOut() override { m_bar->updateTopbarGlass(); }
 
     void paint(ui::Painter &painter) override
     {
@@ -221,6 +222,7 @@ StatusBarWindow::StatusBarWindow(Shell *shell, std::unique_ptr<StatusBar> status
         });
     }
     m_subscriptions.push_back(m_statusBar->timeFormatChanged.connect([this] { updateClock(); }));
+    m_subscriptions.push_back(m_statusBar->themeChanged.connect([this] { updateLook(); }));
     m_subscriptions.push_back(m_statusBar->layoutChanged.connect([this] { updateLayoutMode(); }));
     m_subscriptions.push_back(m_statusBar->panelChanged.connect([this] {
         if (!isPanel())
@@ -288,6 +290,7 @@ void StatusBarWindow::updateGeometry()
     }
     m_window->setGeometry(base::Rect(output->bounds.x(), output->bounds.y(), output->bounds.width(), kHeight));
     m_window->setExclusiveZone(wm::ScreenEdge::Top, kHeight);
+    updateTopbarGlass();
 }
 
 void StatusBarWindow::setUpdates(UpdateMonitor *updates)
@@ -409,7 +412,8 @@ void StatusBarWindow::updateLayoutMode()
     // The other edge's reservation goes with the other layout.
     m_window->clearExclusiveZone();
     m_sentTargets.clear();
-    m_blurPlate = {};
+    m_topbarGlassSet = false;
+    m_topbarGlassRect = {};
     m_window->setBackgroundBlur(base::Rect(), 0);
     if (panel) {
         m_floating = m_statusBar->panelFloating() && !anyWindowOpen();
@@ -554,7 +558,6 @@ void StatusBarWindow::updateLook()
 {
     // What is behind the bar decides; the system's dark mode while nothing
     // has been judged.
-    // The panel is on its own glass, which the theme's mode tints.
     const bool light = !isPanel() && m_backdrop->isValid() ? m_backdrop->useLightForeground()
                                                           : ui::Theme::current().darkMode;
     m_lightContents = light;
@@ -568,58 +571,27 @@ void StatusBarWindow::updateLook()
     m_agentControl->updateLook();
     // The panel's glass follows the theme's mode.
     updatePanelGlass();
-}
-
-void StatusBarWindow::platePainted()
-{
-    updatePlateBlur();
-}
-
-static const BarItem *findPlate(const ui::View *view)
-{
-    if (!view->isVisible())
-        return nullptr;
-    if (const auto *item = dynamic_cast<const BarItem *>(view); item && item->isPlateShown())
-        return item;
-    for (const auto &child : view->children()) {
-        if (const BarItem *item = findPlate(child.get()))
-            return item;
+    if (!isPanel()) {
+        m_root->requestPaint();
+        updateTopbarGlass();
     }
-    return nullptr;
 }
 
-void StatusBarWindow::updatePlateBlur()
+void StatusBarWindow::updateTopbarGlass()
 {
     // The panel's glass is the window's one blur.
     if (!m_window || !m_root || isPanel())
         return;
-    // A surface has one blur, and one plate shows at a time: opening a panel
-    // or a menu closes the others.
-    const BarItem *item = findPlate(m_root);
-    ui::RectF plate = item ? item->plateRect() : ui::RectF();
-    if (plate.width > 0 && plate.height > 0) {
-        const ui::PointF origin = item->mapToWindow({plate.x, plate.y});
-        plate = {origin.x, origin.y, plate.width, plate.height};
-    } else {
-        plate = {};
-    }
-    if (plate == m_blurPlate)
+
+    // The bar wears the dock's glass from edge to edge.
+    const base::Rect geometry = m_window->geometry();
+    const render::GlassParams glass = barGlass(barTheme(m_statusBar->theme()).glassTint);
+    if (m_topbarGlassSet && m_topbarGlass == glass && m_topbarGlassRect == geometry)
         return;
-    m_blurPlate = plate;
-    if (plate.width <= 0) {
-        m_window->setBackgroundBlur(base::Rect(), 0);
-        return;
-    }
-    // The rectangle in whole logical pixels; the shape clips the blur to the
-    // plate as drawn, which sits on fractional ones at most scales.
-    const double radius = ui::Theme::current().smallRadius;
-    const int left = int(std::floor(plate.x));
-    const int top = int(std::floor(plate.y));
-    const base::Rect rect(left, top, int(std::ceil(plate.x + plate.width)) - left,
-                          int(std::ceil(plate.y + plate.height)) - top);
-    ui::Path shape;
-    shape.addRoundedRect(plate, radius, radius);
-    m_window->setBackgroundBlur(rect, int(std::lround(radius)), {}, shape);
+    m_window->setBackgroundBlur(base::Rect(0, 0, geometry.width(), geometry.height()), 0, glass);
+    m_topbarGlass = glass;
+    m_topbarGlassSet = true;
+    m_topbarGlassRect = geometry;
 }
 
 void StatusBarWindow::updateBattery()

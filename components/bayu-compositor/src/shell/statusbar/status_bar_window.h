@@ -134,7 +134,6 @@ public:
     bool lightContents() const override;
     // One of the panels is open.
     bool panelOpen() const;
-    void platePainted() override;
     // Reads the clock now.
     void updateClock();
 
@@ -159,7 +158,7 @@ private:
     StatusBarPanels *panelsFor(StatusBarPanels::Panel panel) const;
     BarItem *itemFor(StatusBarPanels::Panel panel) const;
     void updateChecked();
-    void updatePlateBlur();
+    void updateTopbarGlass();
     ui::RectF availableGeometry() const;
 
     Shell *m_shell;
@@ -191,8 +190,10 @@ private:
     int m_clockFd = -1;
     int m_clockWatch = 0;
     bool m_lightContents = false;
-    // The plate the blur is behind, in window coordinates; empty for none.
-    ui::RectF m_blurPlate;
+    // The top bar's dock-theme glass.
+    render::GlassParams m_topbarGlass;
+    bool m_topbarGlassSet = false;
+    base::Rect m_topbarGlassRect;
     // The panel layout's.
     ui::View *m_panelSlot = nullptr;
     PanelTasks *m_panelTasks = nullptr;

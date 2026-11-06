@@ -29,6 +29,10 @@ render::GlassParams fishuiGlass();
 // rgba components rounded to 16 bits each.
 render::GlassParams popupGlass(double red, double green, double blue, double alpha);
 
+// The dock's and the top bar's shared glass, by BarThemeSpec::glassTint:
+// 0 is More Clear, 1 More Tinted, 0.5 the default.
+render::GlassParams barGlass(double tint);
+
 } // namespace bayu::shell
 
 #endif // BAYU_SHELL_SHELL_DATA_H_
