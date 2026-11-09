@@ -18,7 +18,7 @@
 #   KERNEL_CACHE=~/.cache/bayu-kernel
 set -Eeuo pipefail
 ROOT=$(realpath "$(dirname "$0")/../..")
-KERNEL=${KERNEL:-7.3.1-200.fc44}
+KERNEL=${KERNEL:-7.3.3-200.fc44}
 BUILD=${BUILD:-3}
 SRPM_URL=${SRPM_URL:-https://kojipkgs.fedoraproject.org/packages/kernel/${KERNEL%-*}/${KERNEL##*-}/src/kernel-$KERNEL.src.rpm}
 CACHE=${KERNEL_CACHE:-$HOME/.cache/bayu-kernel}/$KERNEL.$BUILD
